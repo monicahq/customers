@@ -24,6 +24,7 @@ class CreateInstanceKeyTest extends TestCase
     public function it_creates_an_instance_key(): void
     {
         Carbon::setTestNow(Carbon::create(2018, 1, 1));
+        config(['customers.private_key_to_encrypt_instance_keys' => '123']);
 
         $user = User::factory()->create();
         $plan = Plan::factory()->create();
@@ -45,6 +46,7 @@ class CreateInstanceKeyTest extends TestCase
         $this->assertArrayHasKey('company', $array[0]);
         $this->assertArrayHasKey('valid_until_at', $array[0]);
         $this->assertArrayHasKey('max_number_of_employees', $array[0]);
+        $this->assertArrayHasKey('private_instance_key', $array[0]);
 
         $this->assertEquals(
             $user->email,
@@ -61,6 +63,10 @@ class CreateInstanceKeyTest extends TestCase
         $this->assertEquals(
             10,
             $array[0]['max_number_of_employees']
+        );
+        $this->assertEquals(
+            123,
+            $array[0]['private_instance_key']
         );
 
         $this->assertDatabaseHas('instance_keys', [

@@ -69,6 +69,7 @@ class CreateInstanceKey extends BaseService
             'company' => $this->user->company_name,
             'valid_until_at' => Carbon::now()->addYear(),
             'max_number_of_employees' => $this->data['max_number_of_employees'],
+            'private_instance_key' => config('customers.private_key_to_encrypt_instance_keys'),
         ]);
     }
 
