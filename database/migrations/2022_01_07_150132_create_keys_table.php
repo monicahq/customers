@@ -25,7 +25,7 @@ class CreateKeysTable extends Migration
             $table->id();
             $table->unsignedBigInteger('plan_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('key');
+            $table->text('key');
             $table->datetime('valid_until_at');
             $table->timestamps();
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
