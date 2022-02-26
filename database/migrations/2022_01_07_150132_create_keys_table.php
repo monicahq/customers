@@ -15,13 +15,14 @@ class CreateKeysTable extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
+            $table->string('product');
             $table->string('friendly_name');
-            $table->string('name_in_stripe');
+            $table->string('plan_name');
             $table->integer('price');
             $table->timestamps();
         });
 
-        Schema::create('instance_keys', function (Blueprint $table) {
+        Schema::create('licence_keys', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('plan_id');
             $table->unsignedBigInteger('user_id');
@@ -41,6 +42,6 @@ class CreateKeysTable extends Migration
     public function down()
     {
         Schema::dropIfExists('plans');
-        Schema::dropIfExists('instance_keys');
+        Schema::dropIfExists('licence_keys');
     }
 }
