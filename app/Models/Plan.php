@@ -12,14 +12,22 @@ class Plan extends Model
     use HasFactory;
 
     /**
+     * Possible type.
+     */
+    const TYPE_MONTHLY = 'monthly';
+    const TYPE_YEARLY = 'yearly';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'product',
         'friendly_name',
-        'name_in_stripe',
+        'plan_name',
         'price',
+        'frequency',
     ];
 
     /**
@@ -27,8 +35,8 @@ class Plan extends Model
      *
      * @return HasMany
      */
-    public function instanceKeys()
+    public function licenceKeys()
     {
-        return $this->hasMany(InstanceKey::class);
+        return $this->hasMany(LicenceKey::class);
     }
 }

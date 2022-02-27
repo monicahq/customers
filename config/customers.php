@@ -12,5 +12,5 @@ return [
     |
     */
 
-    'private_key_to_encrypt_instance_keys' => env('PRIVATE_KEY_TO_ENCRYPT_INSTANCE_KEYS', ''),
+    'private_key_to_encrypt_licence_keys' => env('private_key_to_encrypt_licence_keys', ''),
 ];

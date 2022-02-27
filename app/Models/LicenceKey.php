@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class InstanceKey extends Model
+class LicenceKey extends Model
 {
     use HasFactory;
+
+    protected $table = 'licence_keys';
 
     /**
      * The attributes that are mass assignable.

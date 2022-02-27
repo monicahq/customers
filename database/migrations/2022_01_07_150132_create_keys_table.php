@@ -19,6 +19,7 @@ class CreateKeysTable extends Migration
             $table->string('friendly_name');
             $table->string('plan_name');
             $table->integer('price');
+            $table->string('frequency');
             $table->timestamps();
         });
 

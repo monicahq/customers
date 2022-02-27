@@ -7,16 +7,20 @@ use App\Jobs\CreateAuditLog;
 use App\Services\BaseService;
 use App\Interfaces\ServiceInterface;
 use App\Models\InstanceKey;
+use App\Models\LicenceKey;
+use App\Models\Plan;
 use App\Models\RelationshipGroupType;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
-class CreateInstanceKey extends BaseService
+class CreateLicenceKeyForMonica extends BaseService
 {
-    private InstanceKey $instanceKey;
+    private LicenceKey $licenceKey;
     private Collection $key;
     private User $user;
+    private Plan $plan;
     private array $data;
+    private Carbon $nextDate;
 
     /**
      * Get the validation rules that apply to the service.
@@ -28,7 +32,6 @@ class CreateInstanceKey extends BaseService
         return [
             'user_id' => 'required|integer|exists:users,id',
             'plan_id' => 'required|integer|exists:plans,id',
-            'max_number_of_employees' => 'required|integer',
         ];
     }
 
@@ -36,53 +39,62 @@ class CreateInstanceKey extends BaseService
      * Create an instance key.
      *
      * @param  array  $data
-     * @return InstanceKey
+     * @return LicenceKey
      */
-    public function execute(array $data): InstanceKey
+    public function execute(array $data): LicenceKey
     {
         $this->validateRules($data);
         $this->data = $data;
 
         $this->user = User::findOrFail($data['user_id']);
+        $this->plan = Plan::findOrFail($data['plan_id']);
 
+        $this->calculateNextDate();
         $this->generateKey();
-
         $this->encodeKey();
 
-        return $this->instanceKey;
+        return $this->licenceKey;
+    }
+
+    private function calculateNextDate(): void
+    {
+        if ($this->plan->frequency == Plan::TYPE_MONTHLY) {
+            $this->nextDate = Carbon::now()->addMonth();
+        } else {
+            $this->nextDate = Carbon::now()->addYear();
+        }
     }
 
     /**
      * The key is a json that contains:
-     * - the validate until date
-     * - the number of employees in the license,
-     * - the company name,
-     * - the email address of the user who purchased the license,
+     * - frequency: monthly|yearly
+     * - number of max users,
+     * - the date the next check should occured,
+     * - the email address of the user who purchased the license.
      *
      * @return void
      */
     private function generateKey(): void
     {
         $this->key = collect();
+
         $this->key->push([
-            'user_email' => $this->user->email,
-            'company' => $this->user->company_name,
-            'valid_until_at' => Carbon::now()->addYear(),
-            'max_number_of_employees' => $this->data['max_number_of_employees'],
-            'private_instance_key' => config('customers.private_key_to_encrypt_instance_keys'),
+            'frequency' => $this->plan->frequency,
+            'purchaser_email' => $this->user->email,
+            'next_check_at' => $this->nextDate,
         ]);
     }
 
     private function encodeKey(): void
     {
         $key = $this->key->toJson();
-        $key = base64_encode($key);
+        $key = base64_encode($key.config('customers.private_key_to_encrypt_licence_keys'));
 
-        $this->instanceKey = InstanceKey::create([
+        $this->licenceKey = LicenceKey::create([
             'plan_id' => $this->data['plan_id'],
             'user_id' => $this->user->id,
             'key' => $key,
-            'valid_until_at' => Carbon::now()->addYear(),
+            'valid_until_at' => $this->nextDate,
         ]);
     }
 }

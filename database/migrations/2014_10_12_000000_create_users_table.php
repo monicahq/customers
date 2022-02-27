@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('postal_code');
             $table->string('country');
             $table->string('state')->nullable();
+            $table->string('invoice_comment')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
