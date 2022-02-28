@@ -2,11 +2,7 @@
 
 namespace App\Services;
 
-use Carbon\Carbon;
-use App\Models\Plan;
-use App\Models\User;
 use App\Models\LicenceKey;
-use Illuminate\Support\Collection;
 
 class ValidateLicenceKey extends BaseService
 {
