@@ -2,22 +2,14 @@
 
 namespace Tests\Unit\Services;
 
-use Tests\TestCase;
-use Illuminate\Support\Str;
-use App\Models\User;
-use App\Models\Account;
-use App\Models\InstanceKey;
-use App\Models\LicenceKey;
-use App\Models\Plan;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Validation\ValidationException;
-use App\Services\User\StoreNameOrderPreference;
-use App\Services\Account\ManageLabels\CreateLabel;
-use App\Services\CreateInstanceKey;
-use App\Services\CreateLicenceKeyForMonica;
 use Carbon\Carbon;
+use Tests\TestCase;
+use App\Models\Plan;
+use App\Models\User;
+use App\Models\LicenceKey;
+use Illuminate\Support\Str;
+use App\Services\CreateLicenceKeyForMonica;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CreateLicenceKeyForMonicaTest extends TestCase
 {

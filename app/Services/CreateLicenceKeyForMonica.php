@@ -2,15 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\User;
-use App\Jobs\CreateAuditLog;
-use App\Services\BaseService;
-use App\Interfaces\ServiceInterface;
-use App\Models\InstanceKey;
-use App\Models\LicenceKey;
-use App\Models\Plan;
-use App\Models\RelationshipGroupType;
 use Carbon\Carbon;
+use App\Models\Plan;
+use App\Models\User;
+use App\Models\LicenceKey;
 use Illuminate\Support\Collection;
 
 class CreateLicenceKeyForMonica extends BaseService
