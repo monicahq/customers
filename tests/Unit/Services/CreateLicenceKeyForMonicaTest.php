@@ -3,6 +3,7 @@
 namespace Tests\Unit\Services;
 
 use Tests\TestCase;
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Account;
 use App\Models\InstanceKey;
@@ -43,11 +44,13 @@ class CreateLicenceKeyForMonicaTest extends TestCase
         $this->assertInstanceOf(LicenceKey::class, $licenceKey);
         $this->assertIsString($licenceKey->key);
 
-        $licenceKey = $licenceKey.'123';
-        $array = json_decode(base64_decode($licenceKey), true);
+        $licenceKey = $licenceKey->key;
+        $licenceKey = base64_decode($licenceKey);
+        $licenceKey = Str::replace('123', '', $licenceKey);
+        $array = json_decode($licenceKey, true);
 
-        $this->assertArrayHasKey('purchaser_email', $array[0]);
         $this->assertArrayHasKey('frequency', $array[0]);
+        $this->assertArrayHasKey('purchaser_email', $array[0]);
         $this->assertArrayHasKey('next_check_at', $array[0]);
 
         $this->assertEquals(
@@ -66,7 +69,7 @@ class CreateLicenceKeyForMonicaTest extends TestCase
         $this->assertDatabaseHas('licence_keys', [
             'user_id' => $user->id,
             'plan_id' => $plan->id,
-            'key' => $licenceKey['key'],
+            'key' => base64_encode($licenceKey.'123'),
             'valid_until_at' => '2018-02-01T00:00:00.000000Z',
         ]);
     }
