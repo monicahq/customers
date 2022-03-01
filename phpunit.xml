@@ -16,10 +16,8 @@
     </coverage>
     <php>
         <server name="APP_ENV" value="testing"/>
-        <env name="APP_KEY" value="base64:NTrXToqFZJlv48dgPc+kNpc3SBt333TfDnF1mDShsBg="/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>
-        <env name="DB_CONNECTION" value="testing"/>
         <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
         <!-- <server name="DB_DATABASE" value=":memory:"/> -->
         <server name="MAIL_MAILER" value="array"/>
