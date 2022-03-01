@@ -89,7 +89,7 @@ class CreateLicenceKeyForMonica extends BaseService
             'plan_id' => $this->data['plan_id'],
             'user_id' => $this->user->id,
             'key' => $key,
-            'valid_until_at' => $this->nextDate,
+            'valid_until_at' => $this->nextDate->format('Y-m-d'),
         ]);
     }
 }

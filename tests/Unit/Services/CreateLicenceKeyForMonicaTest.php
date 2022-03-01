@@ -62,7 +62,7 @@ class CreateLicenceKeyForMonicaTest extends TestCase
             'user_id' => $user->id,
             'plan_id' => $plan->id,
             'key' => base64_encode($licenceKey.'123'),
-            'valid_until_at' => '2018-02-01T00:00:00.000000Z',
+            'valid_until_at' => '2018-02-01 00:00:00',
         ]);
     }
 }
