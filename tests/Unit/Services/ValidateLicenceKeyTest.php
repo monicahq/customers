@@ -4,11 +4,7 @@ namespace Tests\Unit\Services;
 
 use Carbon\Carbon;
 use Tests\TestCase;
-use App\Models\Plan;
-use App\Models\User;
 use App\Models\LicenceKey;
-use Illuminate\Support\Str;
-use App\Services\CreateLicenceKeyForMonica;
 use App\Services\ValidateLicenceKey;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
