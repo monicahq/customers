@@ -25,16 +25,16 @@ class LicenceKey extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $casts = [
-        'valid_until_at' => 'datetime',
+    protected $dates = [
+        'valid_until_at',
     ];
 
     /**
-     * Get the user associated with the instance key.
+     * Get the user associated with the licence key.
      *
      * @return BelongsTo
      */
@@ -44,7 +44,7 @@ class LicenceKey extends Model
     }
 
     /**
-     * Get the plan associated with the instance key.
+     * Get the plan associated with the licence key.
      *
      * @return BelongsTo
      */
