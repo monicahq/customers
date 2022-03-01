@@ -2,12 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\User;
-use App\Models\Vault;
-use App\Models\Account;
-use App\Models\Contact;
 use Illuminate\Support\Facades\Validator;
-use App\Exceptions\NotEnoughPermissionException;
 
 abstract class BaseService
 {

@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Plan;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class PlanFactory extends Factory
 {
@@ -23,9 +22,11 @@ class PlanFactory extends Factory
     public function definition()
     {
         return [
+            'product' => $this->faker->name(),
             'friendly_name' => $this->faker->name(),
-            'name_in_stripe' => $this->faker->name(),
+            'plan_name' => $this->faker->name(),
             'price' => $this->faker->randomNumber(),
+            'frequency' => Plan::TYPE_MONTHLY,
         ];
     }
 }

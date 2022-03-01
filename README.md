@@ -14,7 +14,7 @@ Moreover, even if this portal doesn't store any credit card information, data in
 
 Yes. Of course, by publishing this code, it's easier to crack the key that we require to use an account on OfficeLife. But companies who want to screw will do it anyway. So, we trust that people will play the game and pay for the product so we can continue to improve it and make it a sustainable company.
 
-# Anatomy of the key
+# Anatomy of a key
 
 Each account of OfficeLife needs a valid key to work. The key contains the following information:
 
