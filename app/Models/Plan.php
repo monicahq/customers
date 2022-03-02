@@ -24,7 +24,9 @@ class Plan extends Model
     protected $fillable = [
         'product',
         'friendly_name',
+        'description',
         'plan_name',
+        'plan_id_on_paddle',
         'price',
         'frequency',
     ];

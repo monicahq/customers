@@ -17,7 +17,9 @@ class CreateKeysTable extends Migration
             $table->id();
             $table->string('product');
             $table->string('friendly_name');
+            $table->string('description');
             $table->string('plan_name');
+            $table->string('plan_id_on_paddle');
             $table->integer('price');
             $table->string('frequency');
             $table->timestamps();
@@ -28,7 +30,10 @@ class CreateKeysTable extends Migration
             $table->unsignedBigInteger('plan_id');
             $table->unsignedBigInteger('user_id');
             $table->text('key');
+            $table->string('subscription_state');
             $table->datetime('valid_until_at');
+            $table->string('paddle_cancel_url')->nullable();
+            $table->string('paddle_update_url')->nullable();
             $table->timestamps();
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

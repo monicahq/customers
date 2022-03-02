@@ -28,6 +28,7 @@ class LicenceKeyFactory extends Factory
             'user_id' => User::factory(),
             'key' => $this->faker->sentence(),
             'valid_until_at' => $this->faker->dateTimeThisCentury(),
+            'subscription_state' => 'subscribed',
         ];
     }
 }
