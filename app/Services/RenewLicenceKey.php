@@ -2,12 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Plan;
 use App\Models\User;
 use App\Models\LicenceKey;
-use App\Models\Plan;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Log;
-use Laravel\Paddle\Events\WebhookReceived;
 
 class RenewLicenceKey
 {

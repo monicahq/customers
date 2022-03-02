@@ -2,14 +2,12 @@
 
 namespace Tests\Unit\Services;
 
-use Carbon\Carbon;
 use Tests\TestCase;
-use App\Models\LicenceKey;
 use App\Models\Plan;
-use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\LicenceKey;
+use Illuminate\Support\Str;
 use App\Services\RenewLicenceKey;
-use App\Services\ValidateLicenceKey;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RenewLicenceKeyTest extends TestCase

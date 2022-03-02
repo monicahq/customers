@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Services;
 
-use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Plan;
 use App\Models\User;
@@ -30,7 +29,7 @@ class CreateLicenceKeyTest extends TestCase
 
         // it's a bit dirty, but we need to set the user id on the payload to make
         // sure our tests pass
-        $payload = Str::replace('"billable_id":1', '"billable_id":' . $user->id, $payload['data']);
+        $payload = Str::replace('"billable_id":1', '"billable_id":'.$user->id, $payload['data']);
 
         $licenceKey = (new CreateLicenceKey)->execute($payload);
 

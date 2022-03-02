@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LicenceKey;
-use App\Models\Plan;
 use Carbon\Carbon;
+use App\Models\Plan;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MonicaController extends Controller
@@ -27,7 +25,7 @@ class MonicaController extends Controller
                     'pay_link' => $request->user()->newSubscription($plan->plan_name, $premium = $plan->plan_id_on_paddle)
                         ->returnTo(route('monica.index'))
                         ->create(),
-                ]
+                ],
             ];
         });
 

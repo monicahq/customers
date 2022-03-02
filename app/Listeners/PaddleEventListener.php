@@ -2,12 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Models\Plan;
-use App\Models\LicenceKey;
+use App\Services\RenewLicenceKey;
 use App\Services\CreateLicenceKey;
 use App\Services\DestroyLicenceKey;
-use App\Services\RenewLicenceKey;
-use Illuminate\Support\Facades\Log;
 use Laravel\Paddle\Events\WebhookReceived;
 
 class PaddleEventListener
