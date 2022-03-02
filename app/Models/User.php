@@ -6,6 +6,7 @@ use Laravel\Paddle\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -52,6 +53,16 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the licence key associated with the user.
+     *
+     * @return HasMany
+     */
+    public function licenceKeys()
+    {
+        return $this->hasMany(LicenceKey::class);
+    }
 
     /**
      * Get the customer's email address to associate with Paddle.

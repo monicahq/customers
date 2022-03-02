@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 use Laravel\Paddle\Events\WebhookReceived;
 
-class RenewLicenceKey
+class DestroyLicenceKey
 {
     /**
-     * Renew a licence key based on the payload received by Paddle.
-     * We react to the webhook `subscription_payment_succeeded`.
+     * Destroy a licence key based on the payload received by Paddle.
+     * We react to the webhook `subscription_cancelled`.
      * We need to pass the payload as an array.
      *
      * @param  mixed  $payload
@@ -40,8 +40,8 @@ class RenewLicenceKey
             return null;
         }
 
-        $licenceKey->subscription_state = 'subscription_payment_succeeded';
-        $licenceKey->valid_until_at = $payload['next_bill_date'];
+        $licenceKey->subscription_state = 'subscription_cancelled';
+        $licenceKey->valid_until_at = $payload['cancellation_effective_date'];
         $licenceKey->save();
 
         return true;

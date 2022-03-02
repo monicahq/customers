@@ -22,6 +22,7 @@ class Plan extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'product',
         'friendly_name',
         'description',

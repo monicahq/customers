@@ -6,58 +6,50 @@ use Carbon\Carbon;
 use App\Models\Plan;
 use App\Models\User;
 use App\Models\LicenceKey;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
-class CreateLicenceKeyForMonica extends BaseService
+class CreateLicenceKey
 {
-    private LicenceKey $licenceKey;
-    private Collection $key;
     private User $user;
-    private Plan $plan;
-    private array $data;
     private Carbon $nextDate;
-
-    /**
-     * Get the validation rules that apply to the service.
-     *
-     * @return array
-     */
-    public function rules(): array
-    {
-        return [
-            'user_id' => 'required|integer|exists:users,id',
-            'plan_id' => 'required|integer|exists:plans,id',
-        ];
-    }
+    private string $updateUrl;
+    private string $cancelUrl;
 
     /**
      * Create an instance key.
+     * We react to the webhook `subscription_created`.
      *
-     * @param  array  $data
+     * @param  mixed  $payload
      * @return LicenceKey
      */
-    public function execute(array $data): LicenceKey
+    public function execute(mixed $payload): LicenceKey
     {
-        $this->validateRules($data);
-        $this->data = $data;
+        try {
+            $this->plan = Plan::where('plan_id_on_paddle', $payload['subscription_plan_id'])
+            ->firstOrFail();
+        } catch (ModelNotFoundException) {
+            return null;
+        }
 
-        $this->user = User::findOrFail($data['user_id']);
-        $this->plan = Plan::findOrFail($data['plan_id']);
+        // grab the user id that is stored on the passthrough array
+        $userId = json_decode($payload['passthrough'], true);
+        $userId = $userId['billable_id'];
 
-        $this->calculateNextDate();
+        try {
+            $this->user = User::findOrFail($userId);
+        } catch (ModelNotFoundException) {
+            return null;
+        }
+
+        $this->nextDate = Carbon::parse($payload['next_bill_date']);
+        $this->cancelUrl = $payload['cancel_url'];
+        $this->updateUrl = $payload['update_url'];
+
         $this->generateKey();
         $this->encodeKey();
 
         return $this->licenceKey;
-    }
-
-    private function calculateNextDate(): void
-    {
-        if ($this->plan->frequency == Plan::TYPE_MONTHLY) {
-            $this->nextDate = Carbon::now()->addMonth();
-        } else {
-            $this->nextDate = Carbon::now()->addYear();
-        }
     }
 
     /**
@@ -86,10 +78,13 @@ class CreateLicenceKeyForMonica extends BaseService
         $key = base64_encode($key.config('customers.private_key_to_encrypt_licence_keys'));
 
         $this->licenceKey = LicenceKey::create([
-            'plan_id' => $this->data['plan_id'],
+            'plan_id' => $this->plan->id,
             'user_id' => $this->user->id,
             'key' => $key,
-            'valid_until_at' => $this->nextDate->format('Y-m-d'),
+            'valid_until_at' => $this->nextDate,
+            'subscription_state' => 'subscription_created',
+            'update_url' => $this->updateUrl,
+            'cancel_url' => $this->cancelUrl,
         ]);
     }
 }
