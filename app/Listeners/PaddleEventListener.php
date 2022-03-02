@@ -2,9 +2,9 @@
 
 namespace App\Listeners;
 
-use Illuminate\Support\Facades\Log;
 use App\Models\Plan;
 use App\Models\LicenceKey;
+use Illuminate\Support\Facades\Log;
 use Laravel\Paddle\Events\WebhookReceived;
 
 class PaddleEventListener
