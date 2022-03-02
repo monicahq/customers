@@ -2,10 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Models\LicenceKey;
 use App\Models\Plan;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Models\LicenceKey;
 use Laravel\Paddle\Events\WebhookReceived;
 
 class PaddleEventListener

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\LicenceKey;
 use App\Models\User;
+use App\Models\LicenceKey;
 
 class RenewLicenceKey extends BaseService
 {
