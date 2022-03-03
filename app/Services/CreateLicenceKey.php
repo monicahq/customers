@@ -82,8 +82,8 @@ class CreateLicenceKey
             'key' => $key,
             'valid_until_at' => $this->nextDate,
             'subscription_state' => 'subscription_created',
-            'update_url' => $this->updateUrl,
-            'cancel_url' => $this->cancelUrl,
+            'paddle_update_url' => $this->updateUrl,
+            'paddle_cancel_url' => $this->cancelUrl,
         ]);
     }
 }

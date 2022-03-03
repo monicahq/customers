@@ -33,6 +33,7 @@ class DestroyLicenceKey
         try {
             $licenceKey = LicenceKey::where('user_id', $userId)
                 ->where('plan_id', $plan->id)
+                ->orderBy('created_at', 'desc')
                 ->firstOrFail();
         } catch (ModelNotFoundException) {
             return null;

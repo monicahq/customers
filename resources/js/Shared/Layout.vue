@@ -11,13 +11,16 @@ main {
 
 <template>
   <main class="bg-gray-50">
-    <div class="min-h-full">
-      <div class="fixed top-0 z-10 w-full">
-        <!-- main nav -->
-        <nav class="max-w-8xl mx-auto flex h-10 items-center justify-between border-b bg-gray-50 px-3 sm:px-6">
-          sdfal
-        </nav>
-      </div>
+    <div class="">
+      <nav class="max-w-4xl mx-auto flex h-10 items-center justify-between border-b bg-gray-50 px-3 sm:px-6">
+        <div>
+          <span class="inline mr-6"><inertia-link :href="'dashboard'" class="underline">Home</inertia-link></span>
+          <span class="inline mr-6"><inertia-link :href="'monica'" class="underline">Monica's subscription</inertia-link></span>
+          <span class="inline mr-36"><inertia-link class="underline">OfficeLife's subscription</inertia-link></span>
+        </div>
+
+        <span class="inline"><inertia-link :href="'logout'" class="underline">Logout</inertia-link></span>
+      </nav>
       <main class="relative mt-10">
         <slot />
       </main>

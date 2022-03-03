@@ -24,11 +24,13 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/monica', [MonicaController::class, 'index'])->name('monica.index');
+
+    Route::delete('', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
 });
