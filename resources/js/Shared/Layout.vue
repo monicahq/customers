@@ -10,7 +10,7 @@ main {
 </style>
 
 <template>
-  <main class="bg-gray-50">
+  <main>
     <div class="">
       <nav class="max-w-4xl mx-auto flex h-10 items-center justify-between border-b bg-gray-50 px-3 sm:px-6">
         <div>

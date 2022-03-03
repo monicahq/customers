@@ -93,10 +93,6 @@
 
         <!-- no licence yet -->
         <div v-else>
-          <h2 class="mb-4">
-            Which plan is right for you?
-          </h2>
-
           <div v-for="plan in data.plans" :key="plan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
             <div>
               <h3 class="text-lg">{{ plan.friendly_name }} - <span class="text-sm text-gray-500">USD ${{ plan.price }} / {{ plan.frequency }}</span></h3>
@@ -116,6 +112,8 @@
           Refresh this page once you've subscribed to see your licence key.
           If you experience issues after purchase, please contact us at support@monicahq.com.
         </p>
+
+
       </div>
     </main>
   </layout>
