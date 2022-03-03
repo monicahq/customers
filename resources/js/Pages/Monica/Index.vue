@@ -6,11 +6,11 @@
     <main class="sm:mt-18 relative h-screen">
       <div class="mx-auto max-w-3xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
 
-        <div class="text-center mb-6">
+        <div class="text-center mb-12">
           <img loading="lazy" src="/img/monica-logo.svg" alt="officelife logo" class="mb-3 mx-auto" height="150"
                 width="150"
           />
-          <h3 class="text-xl">Licence management for Monica</h3>
+          <p class="text-sm">Monica is a great open source personal CRM. Monica allows people to keep track of everything that’s important about their friends and family. <a href="https://monicahq.com" class="underline">https://monicahq.com</a></p>
         </div>
 
         <!-- current licence, if defined -->
@@ -111,7 +111,7 @@
           <div>You will be able to upgrade storage later.</div>
         </div>
 
-        <p class="text-gray-6 mt-8">
+        <p class="text-gray-6 mt-8 mb-10">
           It might take a few seconds for your subscription to be processed.
           Refresh this page once you've subscribed to see your licence key.
           If you experience issues after purchase, please contact us at support@monicahq.com.
