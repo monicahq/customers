@@ -1,4 +1,4 @@
-# ❓ About
+## ❓ About
 
 This is the customer portal for both [Monica](https://monicahq.com) and [OfficeLife](https://officelife.io), both open source web applications.
 
@@ -6,17 +6,17 @@ It allows customers to purchase a license that will let them use Monica and/or O
 
 But first, let's answer some questions.
 
-## Why is this not part of the main Monica/OfficeLife codebase?
+### Why is this not part of the main Monica/OfficeLife codebase?
 
 Monica and OfficeLife are open source and can be freely used by anyone who is crazy enough to setup, store and maintain a custom instance. For those who take this approach, it doesn't make sense to have any information about subscriptions, purchasing information,… in the same codebase as the main application.
 
 Moreover, even if this customer portal doesn't store any credit card information, data in this portal are not stored in the same databases used by Monica and OfficeLife, reducing the risk in case of data breaches.
 
-## Why publish this code? People will be able to easily pirate this.
+### Why publish this code? People will be able to easily pirate this.
 
 Yes. Of course, by publishing this code, it's easier to crack the key that we require to use an account. But users and companies who want to screw us will do it anyway. So, we trust that people will play the game and pay for the product so we can continue to improve it and make it a sustainable company.
 
-## How does that work?
+### How does that work?
 
 Each account of Monica and OfficeLife needs a valid key to work. The key is an encrypted array that contains the following information:
 
@@ -28,7 +28,7 @@ The key is a JSON that is encrypted with a key that we, and only we, possess. On
 
 Every day, on either Monica or OfficeLife, we will check if we need to revalidate a key, depending on the frequency of the subscription - they can be either monthly or annual. This check is a ping that the instance will do on the customer portal. Obviously, no private information is ever exchanged during this check.
 
-# 📦 Installation
+## 📦 Installation
 
 Honestly, there shouldn't be any reason why you would want to host this portal yourself. That being said, the project requires PHP 8.0 or higher, and [everything that Laravel requires](https://laravel.com/docs/9.x/deployment#server-requirements):
 
@@ -55,15 +55,15 @@ Finally, you have to populate your database by running migrations.
 php artisan migrate
 ```
 
-# 🏷️ Versioning
+## 🏷️ Versioning
 
 We follow [SemVer](http://semver.org/) closely. Minor and patch releases should not introduce breaking changes to the codebase.
 
-# 🛠️ Support
+## 🛠️ Support
 
 We don't support this codebase other than for our own needs. Again, you should not need this repository at all.
 
-# 👷‍♀️ Contributing
+## 👷‍♀️ Contributing
 
 Thanks for considering contributing to this project.
 
@@ -75,7 +75,7 @@ Contributions to this software are welcome, especially ones that:
 
 We do not welcome pull requests that will change the nature of this portal.
 
-# 🧪 Testing
+## 🧪 Testing
 
 Most of our codebase is unit tested. Every pull request should be tested. To run the tests:
 
@@ -83,7 +83,7 @@ Most of our codebase is unit tested. Every pull request should be tested. To run
 vendor/bin/phpunit
 ```
 
-# 👥 Credits & acknowledgements
+## 👥 Credits & acknowledgements
 
 * [Regis Freyd (djaiss)](https://github.com/djaiss)
 * [Alexis Saettler (asbiin)](https://github.com/asbiin)
