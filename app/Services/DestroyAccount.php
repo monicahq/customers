@@ -2,9 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Module;
-use App\Services\BaseService;
-use App\Interfaces\ServiceInterface;
 use App\Models\User;
 
 class DestroyAccount extends BaseService
