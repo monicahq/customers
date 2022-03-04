@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
-use App\Services\DestroyAccount;
-use App\Services\ValidateLicenceKey;
 use Exception;
+use Illuminate\Http\Request;
+use App\Services\ValidateLicenceKey;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Auth;
 
 class ValidationController extends Controller
 {

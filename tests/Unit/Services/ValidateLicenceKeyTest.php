@@ -2,13 +2,13 @@
 
 namespace Tests\Unit\Services;
 
+use Exception;
 use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\LicenceKey;
 use App\Services\ValidateLicenceKey;
-use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ValidateLicenceKeyTest extends TestCase
 {
