@@ -22,9 +22,12 @@ class Plan extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'product',
         'friendly_name',
+        'description',
         'plan_name',
+        'plan_id_on_paddle',
         'price',
         'frequency',
     ];

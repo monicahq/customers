@@ -22,6 +22,9 @@ class LicenceKey extends Model
         'user_id',
         'key',
         'valid_until_at',
+        'subscription_state',
+        'paddle_cancel_url',
+        'paddle_update_url',
     ];
 
     /**

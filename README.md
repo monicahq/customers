@@ -1,26 +1,89 @@
-# About
+## ❓ About
 
-This is the customer portal for OfficeLife. It allows customers to purchase a license that will let them use OfficeLife in production. This license is a product key that users must add to their OfficeLife account in order to use the product.
+This is the customer portal for both [Monica](https://monicahq.com) and [OfficeLife](https://officelife.io), both open source web applications.
+
+It allows customers to purchase a license that will let them use Monica and/or OfficeLife in production on the instance that we, the Monica organization, operates. This license is a product key that users must add to their accounts in order to use the product.
 
 But first, let's answer some questions.
 
-## Why is this not part of the main OfficeLife codebase?
+### Why is this not part of the main Monica/OfficeLife codebase?
 
-OfficeLife is open source and can be freely used by anyone who is crazy enough to setup, store and maintain a custom instance. For those who take this approach, it doesn't make sense to have any information about subscriptions, purchasing information,… in the same codebase as the main application.
+Monica and OfficeLife are open source and can be freely used by anyone who is crazy enough to setup, store and maintain a custom instance. For those who take this approach, it doesn't make sense to have any information about subscriptions, purchasing information,… in the same codebase as the main application.
 
-Moreover, even if this portal doesn't store any credit card information, data in this portal are not stored in the main OfficeLife database, reducing the risk of data breaches.
+Moreover, even if this customer portal doesn't store any credit card information, data in this portal are not stored in the same databases used by Monica and OfficeLife, reducing the risk in case of data breaches.
 
-## Why publish this code? People will be able to easily pirate this.
+### Why publish this code? People will be able to easily pirate this.
 
-Yes. Of course, by publishing this code, it's easier to crack the key that we require to use an account on OfficeLife. But companies who want to screw will do it anyway. So, we trust that people will play the game and pay for the product so we can continue to improve it and make it a sustainable company.
+Yes. Of course, by publishing this code, it's easier to crack the key that we require to use an account. But users and companies who want to screw us will do it anyway. So, we trust that people will play the game and pay for the product so we can continue to improve it and make it a sustainable company.
 
-# Anatomy of a key
+### How does that work?
 
-Each account of OfficeLife needs a valid key to work. The key contains the following information:
+Each account of Monica and OfficeLife needs a valid key to work. The key is an encrypted array that contains the following information:
 
 * `validated until date`: the date the key remains valid until,
-* the number of max allowed employees for a given key,
-* the company name,
+* the purchased plan,
 * the email address of the person who made the purchase.
 
-The key is a JSON that is encrypted with a key that we, and only we, possess. Customers simply have to copy and paste the encrypted key to their accounts to validate it.
+The key is a JSON that is encrypted with a key that we, and only we, possess. Once the key is created, customers simply have to copy and paste the encrypted key to their accounts to validate it.
+
+Every day, on either Monica or OfficeLife, we will check if we need to revalidate a key, depending on the frequency of the subscription - they can be either monthly or annual. This check is a ping that the instance will do on the customer portal. Obviously, no private information is ever exchanged during this check.
+
+## 📦 Installation
+
+Honestly, there shouldn't be any reason why you would want to host this portal yourself. That being said, the project requires PHP 8.0 or higher, and [everything that Laravel requires](https://laravel.com/docs/9.x/deployment#server-requirements):
+
+* HTTP server with PHP support (eg: Apache, Nginx, Caddy)
+* Composer
+* MySQL
+
+You should clone this repository and run a few commands to get started:
+
+```bash
+composer install
+yarn
+```
+
+Then you have to populate the .env file with your own setup. This file contains all the variables needed to run the software.
+
+```bash
+cp .env.example .env
+```
+
+Finally, you have to populate your database by running migrations.
+
+```bash
+php artisan migrate
+```
+
+## 🏷️ Versioning
+
+We follow [SemVer](http://semver.org/) closely. Minor and patch releases should not introduce breaking changes to the codebase.
+
+## 🛠️ Support
+
+We don't support this codebase other than for our own needs. Again, you should not need this repository at all.
+
+## 👷‍♀️ Contributing
+
+Thanks for considering contributing to this project.
+
+Contributions to this software are welcome, especially ones that:
+
+* improve security,
+* improve performance,
+* improve wording.
+
+We do not welcome pull requests that will change the nature of this portal.
+
+## 🧪 Testing
+
+Most of our codebase is unit tested. Every pull request should be tested. To run the tests:
+
+```bash
+vendor/bin/phpunit
+```
+
+## 👥 Credits & acknowledgements
+
+* [Regis Freyd (djaiss)](https://github.com/djaiss)
+* [Alexis Saettler (asbiin)](https://github.com/asbiin)
