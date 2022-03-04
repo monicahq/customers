@@ -7,6 +7,8 @@
 
   <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+  <link rel="shortcut icon" href="https://www.monicahq.com/img/favicon.png">
+
   <!-- Styles -->
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
