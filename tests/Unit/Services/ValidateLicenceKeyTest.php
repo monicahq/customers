@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\LicenceKey;
 use App\Services\ValidateLicenceKey;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ValidateLicenceKeyTest extends TestCase
@@ -28,5 +30,35 @@ class ValidateLicenceKeyTest extends TestCase
         $response = (new ValidateLicenceKey)->execute($request);
 
         $this->assertTrue($response);
+    }
+
+    /** @test */
+    public function it_fails_if_the_key_doesnt_exist(): void
+    {
+        $this->expectException(ModelNotFoundException::class);
+
+        $request = [
+            'licence_key' => '123',
+        ];
+
+        (new ValidateLicenceKey)->execute($request);
+    }
+
+    /** @test */
+    public function it_fails_if_the_key_is_not_valid_anymore(): void
+    {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
+
+        $this->expectException(Exception::class);
+
+        $licenceKey = LicenceKey::factory()->create([
+            'valid_until_at' => '2017-01-01',
+        ]);
+
+        $request = [
+            'licence_key' => $licenceKey->key,
+        ];
+
+        (new ValidateLicenceKey)->execute($request);
     }
 }
