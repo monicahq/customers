@@ -26,7 +26,9 @@ Each account of Monica and OfficeLife needs a valid key to work. The key is an e
 
 The key is a JSON that is encrypted with a key that we, and only we, possess. Once the key is created, customers simply have to copy and paste the encrypted key to their accounts to validate it.
 
-Every day, on either Monica or OfficeLife, we will check if we need to revalidate a key, depending on the frequency of the subscription - they can be either monthly or annual. This check is a ping that the instance will do on the customer portal. Obviously, no private information is ever exchanged during this check.
+Every day, on either Monica or OfficeLife, we will check if we need to revalidate a key, depending on the frequency of the subscription - they can be either monthly or annual.
+
+This check is a ping that originates from an OfficeLife or Monica instance, which will reach this customer portal. Obviously, no private information is ever exchanged during this check. This ping either replies with a HTTP 200 or HTTP 500, depending on the validity of the key.
 
 ## 📦 Installation
 

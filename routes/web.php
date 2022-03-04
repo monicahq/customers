@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ValidationController;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,7 @@ use App\Http\Controllers\ValidationController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'year' => Carbon::now()->year,
     ]);
 })->name('home');
 
