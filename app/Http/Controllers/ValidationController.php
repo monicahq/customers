@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LicenceKey;
-use App\Services\DestroyAccount;
 use Exception;
 use Illuminate\Http\Request;
 use App\Services\ValidateLicenceKey;
