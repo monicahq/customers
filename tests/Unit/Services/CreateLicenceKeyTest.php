@@ -19,7 +19,9 @@ class CreateLicenceKeyTest extends TestCase
     {
         config(['customers.private_key_to_encrypt_licence_keys' => '123']);
 
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email' => 'regis@monicahq.com',
+        ]);
         $plan = Plan::factory()->create([
             'frequency' => Plan::TYPE_MONTHLY,
             'plan_id_on_paddle' => 1,
@@ -46,7 +48,7 @@ class CreateLicenceKeyTest extends TestCase
         $this->assertArrayHasKey('next_check_at', $array[0]);
 
         $this->assertEquals(
-            $user->email,
+            'regis@monicahq.com',
             $array[0]['purchaser_email']
         );
         $this->assertEquals(

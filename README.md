@@ -57,6 +57,21 @@ Finally, you have to populate your database by running migrations.
 php artisan migrate
 ```
 
+## 📦 Local installation
+
+If you want to test the portal locally, you need to create an account on https://sandbox-vendors.paddle.com/.
+
+Then, update the following .env variables that you will find in your account:
+
+- `PADDLE_VENDOR_ID`
+- `PADDLE_VENDOR_AUTH_CODE`
+- `PADDLE_PUBLIC_KEY`
+
+Now, to test the different webhooks, you need to listen to them. However, you are on local, so by default Paddle won't know how to reach you. Therefore, you need to create a tunnel between your local computer and Paddle. You can use https://expose.dev/ for this. They provide a free account.
+
+Once you have your Expose account, go to https://sandbox-vendors.paddle.com/alerts-webhooks to configure your tunnel, and now your local application will be able to receive webhooks from Paddle.
+
+
 ## 🏷️ Versioning
 
 We follow [SemVer](http://semver.org/) closely. Minor and patch releases should not introduce breaking changes to the codebase.
