@@ -26,7 +26,9 @@ Each account of Monica and OfficeLife needs a valid key to work. The key is an e
 
 The key is a JSON that is encrypted with a key that we, and only we, possess. Once the key is created, customers simply have to copy and paste the encrypted key to their accounts to validate it.
 
-Every day, on either Monica or OfficeLife, we will check if we need to revalidate a key, depending on the frequency of the subscription - they can be either monthly or annual. This check is a ping that the instance will do on the customer portal. Obviously, no private information is ever exchanged during this check.
+Every day, on either Monica or OfficeLife, we will check if we need to revalidate a key, depending on the frequency of the subscription - they can be either monthly or annual.
+
+This check is a ping that originates from an OfficeLife or Monica instance, which will reach this customer portal. Obviously, no private information is ever exchanged during this check. This ping either replies with a HTTP 200 or HTTP 500, depending on the validity of the key.
 
 ## 📦 Installation
 
@@ -54,6 +56,21 @@ Finally, you have to populate your database by running migrations.
 ```bash
 php artisan migrate
 ```
+
+## 📦 Local installation
+
+If you want to test the portal locally, you need to create an account on https://sandbox-vendors.paddle.com/.
+
+Then, update the following .env variables that you will find in your account:
+
+- `PADDLE_VENDOR_ID`
+- `PADDLE_VENDOR_AUTH_CODE`
+- `PADDLE_PUBLIC_KEY`
+
+Now, to test the different webhooks, you need to listen to them. However, you are on local, so by default Paddle won't know how to reach you. Therefore, you need to create a tunnel between your local computer and Paddle. You can use https://expose.dev/ for this. They provide a free account.
+
+Once you have your Expose account, go to https://sandbox-vendors.paddle.com/alerts-webhooks to configure your tunnel, and now your local application will be able to receive webhooks from Paddle.
+
 
 ## 🏷️ Versioning
 

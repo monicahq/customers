@@ -29,7 +29,7 @@ class CreateKeysTable extends Migration
             $table->id();
             $table->unsignedBigInteger('plan_id');
             $table->unsignedBigInteger('user_id');
-            $table->text('key');
+            $table->string('key');
             $table->string('subscription_state');
             $table->datetime('valid_until_at');
             $table->string('paddle_cancel_url')->nullable();

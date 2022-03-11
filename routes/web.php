@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -20,16 +21,13 @@ use App\Http\Controllers\ValidationController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'year' => Carbon::now()->year,
     ]);
 })->name('home');
 
 require __DIR__.'/auth.php';
 
-Route::get('validate/key/{key}', [ValidationController::class, 'index'])->name('validation.index');
+Route::get('{secretKey}/validate/{key}', [ValidationController::class, 'index'])->name('validation.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
