@@ -1,3 +1,10 @@
+<div align="center">
+    <img
+        width="500"
+        alt="logo"
+        src="public/img/customer-portal.png">
+</div>
+
 ## ❓ About
 
 This is the customer portal for both [Monica](https://monicahq.com) and [OfficeLife](https://officelife.io), both open source web applications.
