@@ -1,6 +1,6 @@
 <h1 align="center">
     <img
-        width="300"
+        width="600"
         alt="logo"
         src="public/img/customer-portal.png">
 </h1>
