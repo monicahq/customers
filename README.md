@@ -69,8 +69,9 @@ Then, update the following .env variables that you will find in your account:
 
 Now, to test the different webhooks, you need to listen to them. However, you are on local, so by default Paddle won't know how to reach you. Therefore, you need to create a tunnel between your local computer and Paddle. You can use https://expose.dev/ for this. They provide a free account.
 
-Once you have your Expose account, go to https://sandbox-vendors.paddle.com/alerts-webhooks to configure your tunnel, and now your local application will be able to receive webhooks from Paddle.
+Once you have your Expose account, go to https://sandbox-vendors.paddle.com/alerts-webhooks to configure your tunnel.
 
+Launch `expose share https://customers.test` from your terminal, and now your local application will be able to receive webhooks from Paddle.
 
 ## 🏷️ Versioning
 

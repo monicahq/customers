@@ -7,10 +7,10 @@
       <div class="mx-auto max-w-3xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
 
         <div class="text-center mb-12">
-          <img loading="lazy" src="/img/monica-logo.svg" alt="officelife logo" class="mb-3 mx-auto" height="150"
+          <img loading="lazy" src="/img/officelife-logo.svg" alt="officelife logo" class="mb-3 mx-auto" height="150"
                 width="150"
           />
-          <p class="text-sm">Monica is a great open source personal CRM. Monica allows people to keep track of everything that’s important about their friends and family. <a href="https://monicahq.com" class="underline">https://monicahq.com</a></p>
+          <p class="text-sm">OfficeLife is an Employee Operation plateform. It manages everything employees do in a company. From projects to holidays to 1:1s to teams. <a href="https://officelife.io" class="underline">https://officelife.io</a></p>
         </div>
 
         <!-- current licence, if defined -->
@@ -46,7 +46,6 @@
             </p>
 
             <p>
-
               <a :href="data.current_licence.paddle_update_url" class="mr-2 cursor-pointer focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -96,26 +95,41 @@
 
         <!-- no licence yet -->
         <div v-else>
-          <div v-for="plan in data.plans" :key="plan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
+          <div v-for="plan in localPlans" :key="plan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
             <div>
-              <h3 class="text-lg">{{ plan.friendly_name }} - <span class="text-sm text-gray-500">USD ${{ plan.price }} / {{ plan.frequency }}</span></h3>
+              <h3 class="text-lg">{{ plan.friendly_name }} - <span class="text-sm text-gray-500">USD ${{ plan.single_price }} / {{ plan.frequency }}</span></h3>
               <p class="text-gray-600 text-sm">{{ plan.description }}</p>
             </div>
 
-            <div class="text-center">
-              <a :href="plan.url.pay_link" class="mb-1 cursor-pointer focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
-                Choose
-              </a>
-              <p class="flex items-center text-xs">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                Secure payment by <a href="https://paddle.com" class="ml-1">Paddle</a>
-              </p>
+            <div class="flex">
+
+              <div class="flex items-center mr-6">
+                <input
+                  v-model="plan.quantity"
+                  class="rounded-md border-gray-300 border text-center mr-2 w-20 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  type="number"
+                  min="0"
+                  max="10000"
+                  @keyup="checkPrice(plan)"
+                />
+
+                <span>seats</span>
+              </div>
+
+              <div class="text-center">
+                <a :href="plan.url.pay_link" class="mb-1 cursor-pointer focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
+                  Subscribe for ${{ plan.price }}
+                </a>
+
+                <p class="flex items-center text-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                  Secure payment by <a href="https://paddle.com" class="ml-1">Paddle</a>
+                </p>
+              </div>
             </div>
           </div>
-
-          <div>You will be able to upgrade storage later.</div>
         </div>
 
         <p class="text-gray-6 mt-8 mb-10">
@@ -145,6 +159,32 @@ export default {
   },
 
   mounted() {
-  }
+    this.localPlans = this.data.plans;
+  },
+
+  data() {
+    return {
+      localPlans: [],
+      form: {
+        quantity: 0,
+      },
+    };
+  },
+
+  methods: {
+    checkPrice(plan) {
+      this.form.quantity = plan.quantity;
+
+      axios
+        .post(plan.url.price, this.form)
+        .then((response) => {
+          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['price'] = response.data.price;
+          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['url']['pay_link'] = response.data.pay_link;
+        })
+        .catch((error) => {
+          this.form.errors = error.response.data;
+        });
+    },
+  },
 };
 </script>

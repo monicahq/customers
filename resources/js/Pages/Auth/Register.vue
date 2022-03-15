@@ -27,6 +27,10 @@ const submit = () => {
 
         <BreezeValidationErrors class="mb-4" />
 
+        <p class="bg-gray-100 p-6 rounded-md mt-4 break-inside-avoid-column">
+          Please keep in mind that you need to create an account even if you have an account on <a href="https://officelife.io" class="underline text-sm text-gray-600 hover:text-gray-900">OfficeLife</a> or <a href="https://monicahq.com" class="underline text-sm text-gray-600 hover:text-gray-900">Monica</a>.
+        </p>
+
         <form @submit.prevent="submit">
             <div class="mt-4">
                 <BreezeLabel for="email" value="Email" />

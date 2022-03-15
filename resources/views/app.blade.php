@@ -22,6 +22,11 @@
 <body class="font-sans antialiased bg-gray-50">
   @inertia
 
+  <footer class="text-xs text-center mb-8">
+    <div class="mb-2">Monica. All rights reserved. 2017 - {{ Carbon\Carbon::now()->year }}. Made from all over the world. We ❤️ you.</div>
+    <div>This site is open source. You can read <a href="https://github.com/monicahq/customers" class="underline">the code here</a>.</div>
+  </footer>
+
   @env ('local')
   <script src="http://localhost:8080/js/bundle.js"></script>
   @endenv
