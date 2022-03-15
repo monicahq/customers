@@ -30,7 +30,7 @@
                  width="150"
             />
 
-            <inertia-link class="mb-4 focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
+            <inertia-link :href="'officelife'" class="mb-4 focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
               Manage your subscription
             </inertia-link>
 
@@ -70,7 +70,7 @@
           </ul>
         </div>
 
-        <div class="rounded-lg border border-red-600 bg-red-200 p-5">
+        <div class="rounded-lg border border-red-600 bg-red-50 p-5">
           <p class="text-center text-xl mb-4 font-semibold text-red-500">⚠️ Danger zone</p>
           <p class="mb-6">
             <span v-if="state != 'loading'" @click="destroy()" class="focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900 cursor-pointer">Delete your billing account</span>
@@ -82,7 +82,7 @@
             <li>- Delete your account on https://customers.monicahq.com.</li>
           </ul>
 
-          <p class="font-semibold text-red-500">You WILL still have to delete your account on either Monica or OfficeLife.</p>
+          <p class="font-semibold text-red-500">You WILL still have to delete your account on Monica or OfficeLife.</p>
         </div>
       </div>
     </main>

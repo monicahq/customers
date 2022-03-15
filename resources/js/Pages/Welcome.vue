@@ -71,11 +71,6 @@
       </div>
     </div>
   </main>
-
-  <footer class="text-xs text-center mb-8">
-    <div class="mb-2">Monica. All rights reserved. 2017 - {{ year }}. Made from all over the world. We ❤️ you.</div>
-    <div>This site is open source. You can read <a href="https://github.com/monicahq/customers" class="underline">the code here</a>.</div>
-  </footer>
 </template>
 
 <script>
