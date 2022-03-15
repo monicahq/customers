@@ -38,6 +38,8 @@ Honestly, there shouldn't be any reason why you would want to host this portal y
 * Composer
 * MySQL
 
+We do not support Postgre or SQLite.
+
 You should clone this repository and run a few commands to get started:
 
 ```bash
