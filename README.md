@@ -1,9 +1,9 @@
-<h1 align="center">
+<div align="center">
     <img
-        width="600"
+        width="500"
         alt="logo"
         src="public/img/customer-portal.png">
-</h1>
+</div>
 
 ## ❓ About
 
