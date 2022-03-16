@@ -2,7 +2,7 @@
     <img
         width="500"
         alt="logo"
-        src="public/img/customer-portal.png">
+        src="public/img/customer-portal.svg">
 </div>
 
 ## ❓ About
