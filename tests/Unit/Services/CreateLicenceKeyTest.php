@@ -8,12 +8,9 @@ use App\Models\User;
 use App\Models\LicenceKey;
 use Illuminate\Support\Str;
 use App\Services\CreateLicenceKey;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CreateLicenceKeyTest extends TestCase
 {
-    use DatabaseTransactions;
-
     /** @test */
     public function it_creates_an_instance_key(): void
     {
@@ -27,13 +24,9 @@ class CreateLicenceKeyTest extends TestCase
             'plan_id_on_paddle' => 1,
         ]);
 
-        $payload = json_decode(file_get_contents(base_path('tests/Fixtures/Paddle/subscription_created.json')), true);
+        $payload = $this->get_payload($user->id);
 
-        // it's a bit dirty, but we need to set the user id on the payload to make
-        // sure our tests pass
-        $payload = Str::replace('"billable_id":1', '"billable_id":'.$user->id, $payload['data']);
-
-        $licenceKey = (new CreateLicenceKey)->execute($payload);
+        $licenceKey = (new CreateLicenceKey)->execute($payload['data']);
 
         $this->assertInstanceOf(LicenceKey::class, $licenceKey);
         $this->assertIsString($licenceKey->key);
@@ -66,5 +59,13 @@ class CreateLicenceKeyTest extends TestCase
             'key' => base64_encode($licenceKey.'123'),
             'valid_until_at' => '2022-04-02 00:00:00',
         ]);
+    }
+
+    private function get_payload(int $userId): array
+    {
+        $file = file_get_contents(base_path('tests/Fixtures/Paddle/subscription_created.json'));
+        $file = Str::of($file)->replace('%USER_ID%', $userId);
+
+        return json_decode($file, true);
     }
 }

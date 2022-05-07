@@ -7,13 +7,10 @@ use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\LicenceKey;
 use App\Services\ValidateLicenceKey;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ValidateLicenceKeyTest extends TestCase
 {
-    use DatabaseTransactions;
-
     /** @test */
     public function it_validates_an_existing_key(): void
     {
