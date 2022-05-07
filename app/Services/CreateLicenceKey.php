@@ -7,6 +7,7 @@ use App\Models\Plan;
 use App\Models\User;
 use App\Models\LicenceKey;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use function Safe\json_decode;
 
 class CreateLicenceKey
 {
@@ -20,13 +21,13 @@ class CreateLicenceKey
      * We react to the webhook `subscription_created`.
      *
      * @param  mixed  $payload
-     * @return LicenceKey
+     * @return LicenceKey|null
      */
-    public function execute(mixed $payload): LicenceKey
+    public function execute(mixed $payload): ?LicenceKey
     {
         try {
             $this->plan = Plan::where('plan_id_on_paddle', $payload['subscription_plan_id'])
-            ->firstOrFail();
+                ->firstOrFail();
         } catch (ModelNotFoundException) {
             return null;
         }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use function Safe\json_decode;
 
 class DestroyAccount extends BaseService
 {

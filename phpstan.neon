@@ -1,0 +1,11 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+    - ./vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+
+parameters:
+    paths:
+        - app
+    inferPrivatePropertyTypeFromConstructor: true
+    level: 5
+    ignoreErrors:
+        - '#Parameter \#1 \$view of function view expects view-string|null, string given\.#'
