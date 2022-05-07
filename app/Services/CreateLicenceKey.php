@@ -6,8 +6,8 @@ use Carbon\Carbon;
 use App\Models\Plan;
 use App\Models\User;
 use App\Models\LicenceKey;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use function Safe\json_decode;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CreateLicenceKey
 {
