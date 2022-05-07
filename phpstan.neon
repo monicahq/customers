@@ -9,3 +9,6 @@ parameters:
     level: 5
     ignoreErrors:
         - '#Parameter \#1 \$view of function view expects view-string|null, string given\.#'
+
+        - message: '#Access to an undefined property Laravel\\Paddle\\Receipt::.*\.#'
+          path: *\Http\Controllers\DashboardController.php

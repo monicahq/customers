@@ -7,11 +7,15 @@ use App\Models\Plan;
 use App\Models\User;
 use App\Models\LicenceKey;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 use function Safe\json_decode;
 
 class CreateLicenceKey
 {
     private User $user;
+    private Plan $plan;
+    private LicenceKey $licenceKey;
+    private Collection $key;
     private Carbon $nextDate;
     private string $updateUrl;
     private string $cancelUrl;
@@ -63,9 +67,7 @@ class CreateLicenceKey
      */
     private function generateKey(): void
     {
-        $this->key = collect();
-
-        $this->key->push([
+        $this->key = collect([
             'frequency' => $this->plan->frequency,
             'purchaser_email' => $this->user->email,
             'next_check_at' => $this->nextDate,

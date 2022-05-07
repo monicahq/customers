@@ -6,12 +6,15 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Services\DestroyAccount;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Paddle\Receipt;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $receipts = Auth::user()->receipts->map(function ($receipt) {
+        /** @var \Illuminate\Database\Eloquent\Collection<int, \Laravel\Paddle\Receipt> */
+        $receipts = Auth::user()->receipts;
+        $receiptss = $receipts->map(function (Receipt $receipt): array {
             return [
                 'id' => $receipt->id,
                 'amount' => $receipt->amount,
@@ -22,7 +25,7 @@ class DashboardController extends Controller
         });
 
         return Inertia::render('Dashboard', [
-            'receipts' =>  $receipts,
+            'receipts' => $receiptss,
             'destroy_account' => route('dashboard.destroy'),
         ]);
     }
@@ -30,7 +33,7 @@ class DashboardController extends Controller
     public function destroy(Request $request)
     {
         $data = [
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::id(),
         ];
 
         (new DestroyAccount)->execute($data);
