@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Event;
 use App\Listeners\PaddleEventListener;
 use Illuminate\Auth\Events\Registered;
-use Laravel\Paddle\Events\WebhookReceived;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Event;
+use Laravel\Paddle\Events\WebhookReceived;
 
 class EventServiceProvider extends ServiceProvider
 {
