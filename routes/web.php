@@ -3,11 +3,12 @@
 use Carbon\Carbon;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
-use App\Http\Controllers\MonicaController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\OfficeLifeController;
-use App\Http\Controllers\ValidationController;
+use App\Http\Controllers\{
+    MonicaController,
+    DashboardController,
+    OfficeLifeController,
+    ValidationController
+};
 
 /*
 |--------------------------------------------------------------------------
