@@ -9,30 +9,18 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ValidationController extends Controller
 {
-    public function index(Request $request, string $secretKey, string $licenceKey)
+    public function index(Request $request, string $licenceKey)
     {
-        if ($secretKey !== config('customers.customer_portal_secret_key')) {
-            return response()->json([
-                'data' => '404',
-            ], 404);
-        }
-
         try {
             (new ValidateLicenceKey)->execute([
                 'licence_key' => $licenceKey,
             ]);
         } catch (ModelNotFoundException) {
-            return response()->json([
-                'data' => '404',
-            ], 404);
+            return response()->json(status: 404);
         } catch (Exception) {
-            return response()->json([
-                'data' => '900',
-            ], 900);
+            return response()->json(status: 900);
         }
 
-        return response()->json([
-            'data' => 200,
-        ], 200);
+        return response()->json();
     }
 }

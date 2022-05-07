@@ -11,6 +11,7 @@
         "inertiajs/inertia-laravel": "^0.5.4",
         "laravel/cashier-paddle": "^1.5",
         "laravel/framework": "^9.0",
+        "laravel/passport": "^10.4",
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.5",
         "tightenco/ziggy": "^1.0"
