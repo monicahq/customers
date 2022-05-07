@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use Laravel\Paddle\Receipt;
 use Illuminate\Http\Request;
 use App\Services\DestroyAccount;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Paddle\Receipt;
 
 class DashboardController extends Controller
 {
