@@ -8,12 +8,9 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class EmailVerificationTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_email_verification_screen_can_be_rendered()
     {
         $user = User::factory()->create([
