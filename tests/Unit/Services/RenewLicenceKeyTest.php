@@ -2,13 +2,13 @@
 
 namespace Tests\Unit\Services;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Plan;
 use App\Models\User;
 use App\Models\LicenceKey;
 use Illuminate\Support\Str;
 use App\Services\RenewLicenceKey;
-use Carbon\Carbon;
 
 class RenewLicenceKeyTest extends TestCase
 {
@@ -41,7 +41,7 @@ class RenewLicenceKeyTest extends TestCase
     private function get_payload(int $userId): array
     {
         $file = file_get_contents(base_path('tests/Fixtures/Paddle/subscription_payment_succeeded.json'));
-        $file = Str::of($file)->replace("%USER_ID%", $userId);
+        $file = Str::of($file)->replace('%USER_ID%', $userId);
 
         return json_decode($file, true);
     }

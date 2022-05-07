@@ -64,7 +64,7 @@ class CreateLicenceKeyTest extends TestCase
     private function get_payload(int $userId): array
     {
         $file = file_get_contents(base_path('tests/Fixtures/Paddle/subscription_created.json'));
-        $file = Str::of($file)->replace("%USER_ID%", $userId);
+        $file = Str::of($file)->replace('%USER_ID%', $userId);
 
         return json_decode($file, true);
     }
