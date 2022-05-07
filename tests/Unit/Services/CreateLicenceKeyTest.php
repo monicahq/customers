@@ -58,7 +58,7 @@ class CreateLicenceKeyTest extends TestCase
         $this->assertDatabaseHas('licence_keys', [
             'user_id' => $user->id,
             'plan_id' => $plan->id,
-            'key' => base64_encode($licenceKey . static::PRIVATE_KEY),
+            'key' => base64_encode($licenceKey.static::PRIVATE_KEY),
             'valid_until_at' => '2022-04-02 00:00:00',
         ]);
     }
