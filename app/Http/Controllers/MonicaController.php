@@ -22,7 +22,7 @@ class MonicaController extends Controller
                 'price' => $plan->price,
                 'frequency' => $plan->frequency,
                 'url' => [
-                    'pay_link' => $request->user()->newSubscription($plan->plan_name, $premium = $plan->plan_id_on_paddle)
+                    'pay_link' => $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
                         ->returnTo(route('monica.index'))
                         ->create(),
                 ],
