@@ -14,7 +14,7 @@ class DashboardController extends Controller
     {
         /** @var \Illuminate\Database\Eloquent\Collection<int, \Laravel\Paddle\Receipt> */
         $receipts = Auth::user()->receipts;
-        $receiptss = $receipts->map(function (Receipt $receipt): array {
+        $receiptsCollection = $receipts->map(function (Receipt $receipt): array {
             return [
                 'id' => $receipt->id,
                 'amount' => $receipt->amount,
@@ -25,7 +25,7 @@ class DashboardController extends Controller
         });
 
         return Inertia::render('Dashboard', [
-            'receipts' => $receiptss,
+            'receipts' => $receiptsCollection,
             'destroy_account' => route('dashboard.destroy'),
         ]);
     }
