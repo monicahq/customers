@@ -76,13 +76,13 @@ class CreateLicenceKey
 
     private function encodeKey(): void
     {
-        $key = $this->key->toJson();
-        $key = base64_encode($key.config('customers.private_key_to_encrypt_licence_keys'));
+        $encodedKey = $this->key->toJson();
+        $encodedKey = base64_encode($encodedKey.config('customers.private_key_to_encrypt_licence_keys'));
 
         $this->licenceKey = LicenceKey::create([
             'plan_id' => $this->plan->id,
             'user_id' => $this->user->id,
-            'key' => $key,
+            'key' => $encodedKey,
             'valid_until_at' => $this->nextDate,
             'subscription_state' => 'subscription_created',
             'paddle_update_url' => $this->updateUrl,
