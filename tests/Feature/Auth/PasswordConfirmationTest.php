@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Auth;
 
-use Tests\TestCase;
 use App\Models\User;
+use Tests\TestCase;
 
 class PasswordConfirmationTest extends TestCase
 {

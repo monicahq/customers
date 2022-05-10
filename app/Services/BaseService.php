@@ -24,7 +24,7 @@ abstract class BaseService
      */
     public function validateRules(array $data): bool
     {
-        $validator = Validator::make($data, $this->rules())->validate();
+        Validator::make($data, $this->rules())->validate();
 
         return true;
     }
@@ -55,9 +55,9 @@ abstract class BaseService
     public function valueOrNull($data, $index)
     {
         if (empty($data[$index])) {
-            return;
+            return null;
         }
 
-        return $data[$index] == '' ? null : $data[$index];
+        return $data[$index] === '' ? null : $data[$index];
     }
 }

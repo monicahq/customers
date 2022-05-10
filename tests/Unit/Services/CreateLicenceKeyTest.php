@@ -2,12 +2,12 @@
 
 namespace Tests\Unit\Services;
 
-use Tests\TestCase;
+use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\User;
-use App\Models\LicenceKey;
-use Illuminate\Support\Str;
 use App\Services\CreateLicenceKey;
+use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class CreateLicenceKeyTest extends TestCase
 {

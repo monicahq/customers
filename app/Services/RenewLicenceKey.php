@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\LicenceKey;
 use function Safe\json_decode;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RenewLicenceKey
