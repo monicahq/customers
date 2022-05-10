@@ -15,7 +15,7 @@ class LicenceKey extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<string>
      */
     protected $fillable = [
         'plan_id',
@@ -30,7 +30,7 @@ class LicenceKey extends Model
     /**
      * The attributes that should be mutated to dates.
      *
-     * @var array
+     * @var array<string>
      */
     protected $dates = [
         'valid_until_at',

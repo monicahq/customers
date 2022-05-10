@@ -7,6 +7,7 @@ use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
+    /** @test */
     public function test_registration_screen_can_be_rendered()
     {
         $response = $this->get('/register');
@@ -14,6 +15,7 @@ class RegistrationTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /** @test */
     public function test_new_users_can_register()
     {
         $response = $this->post('/register', [

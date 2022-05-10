@@ -12,7 +12,7 @@ class OfficeLifeController extends Controller
 {
     public function index(Request $request)
     {
-        $plansCollection = Plan::where('product', 'OfficeLife')->get()->map(function ($plan) use ($request) {
+        $plansCollection = Plan::where('product', 'OfficeLife')->get()->map(function (Plan $plan) use ($request): array {
             return [
                 'id' => $plan->id,
                 'friendly_name' => $plan->friendly_name,

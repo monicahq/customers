@@ -6,6 +6,7 @@ use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use function Safe\json_decode;
 
 class RenewLicenceKey
 {

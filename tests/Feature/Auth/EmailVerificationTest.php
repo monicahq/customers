@@ -11,6 +11,7 @@ use Tests\TestCase;
 
 class EmailVerificationTest extends TestCase
 {
+    /** @test */
     public function test_email_verification_screen_can_be_rendered()
     {
         $user = User::factory()->create([
@@ -22,6 +23,7 @@ class EmailVerificationTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /** @test */
     public function test_email_can_be_verified()
     {
         $user = User::factory()->create([
@@ -43,6 +45,7 @@ class EmailVerificationTest extends TestCase
         $response->assertRedirect(RouteServiceProvider::HOME.'?verified=1');
     }
 
+    /** @test */
     public function test_email_is_not_verified_with_invalid_hash()
     {
         $user = User::factory()->create([
