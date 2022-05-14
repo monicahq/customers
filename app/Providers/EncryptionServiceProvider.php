@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use function Safe\base64_decode;
 use App\Exceptions\MissingPrivateKeyException;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\ServiceProvider;
