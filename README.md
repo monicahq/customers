@@ -51,13 +51,15 @@ You should clone this repository and run a few commands to get started:
 
 ```bash
 composer install
-yarn
+yarn install
+yarn prod
 ```
 
 Then you have to populate the .env file with your own setup. This file contains all the variables needed to run the software.
 
 ```bash
 cp .env.example .env
+php artisan key:generate
 ```
 
 Finally, you have to populate your database by running migrations.
@@ -67,6 +69,8 @@ php artisan migrate
 ```
 
 ## 📦 Local installation
+
+### Paddle
 
 If you want to test the portal locally, you need to create an account on https://sandbox-vendors.paddle.com/.
 
@@ -81,6 +85,20 @@ Now, to test the different webhooks, you need to listen to them. However, you ar
 Once you have your Expose account, go to https://sandbox-vendors.paddle.com/alerts-webhooks to configure your tunnel.
 
 Launch `expose share https://customers.test` from your terminal, and now your local application will be able to receive webhooks from Paddle.
+
+### Monica and OfficeLife integration
+
+To connect the API with Monica and/or OfficeLife, you need to generate API keys.
+
+This is done with Laravel Passport. Just generate the client keys with:
+
+```bash
+php artisan passport:keys
+php artisan passport:client --client
+```
+
+Note the client ID and secret, they will be required to setup Monica or OfficeLife.
+
 
 ## 🏷️ Versioning
 
