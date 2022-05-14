@@ -18,7 +18,7 @@ class ValidationController extends Controller
         } catch (ModelNotFoundException) {
             return response()->json(status: 404);
         } catch (Exception) {
-            return response()->json(status: 900);
+            return response()->json(status: 410);
         }
 
         return response()->json();
