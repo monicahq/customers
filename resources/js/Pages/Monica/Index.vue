@@ -142,9 +142,6 @@ export default {
       type: Object,
       default: null,
     },
-  },
-
-  mounted() {
   }
 };
 </script>

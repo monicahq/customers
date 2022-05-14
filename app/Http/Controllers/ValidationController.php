@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use Illuminate\Http\Request;
 use App\Services\ValidateLicenceKey;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class ValidationController extends Controller
 {

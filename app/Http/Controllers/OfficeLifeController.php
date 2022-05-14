@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\Plan;
-use Inertia\Inertia;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class OfficeLifeController extends Controller
 {
     public function index(Request $request)
     {
-        $plansCollection = Plan::where('product', 'OfficeLife')->get()->map(function ($plan) use ($request) {
+        $plansCollection = Plan::where('product', 'OfficeLife')->get()->map(function (Plan $plan) use ($request): array {
             return [
                 'id' => $plan->id,
                 'friendly_name' => $plan->friendly_name,
@@ -24,7 +24,7 @@ class OfficeLifeController extends Controller
                 'frequency' => $plan->frequency,
                 'quantity' => 0,
                 'url' => [
-                    'pay_link' => $request->user()->newSubscription($plan->plan_name, $premium = $plan->plan_id_on_paddle)
+                    'pay_link' => $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
                         ->returnTo(route('officelife.index'))
                         ->create(),
                     'price' => route('officelife.price', [
@@ -69,7 +69,7 @@ class OfficeLifeController extends Controller
 
         return response()->json([
             'price' => $quotedPrice,
-            'pay_link' => $request->user()->newSubscription($plan->plan_name, $premium = $plan->plan_id_on_paddle)
+            'pay_link' => $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
                 ->returnTo(route('officelife.index'))
                 ->quantity($request->input('quantity'))
                 ->create(),

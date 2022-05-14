@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Providers\RouteServiceProvider;
-use App\Http\Requests\Auth\LoginRequest;
+use Inertia\Inertia;
 
 class AuthenticatedSessionController extends Controller
 {

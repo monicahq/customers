@@ -2,13 +2,13 @@
 
 namespace Tests\Unit\Services;
 
-use Carbon\Carbon;
-use Tests\TestCase;
+use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\User;
-use App\Models\LicenceKey;
-use Illuminate\Support\Str;
 use App\Services\DestroyLicenceKey;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class DestroyLicenceKeyTest extends TestCase
 {
