@@ -27,6 +27,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::hashClientSecrets();
 
+        Passport::tokensCan([
+            'manage-key' => 'Manage license keys',
+        ]);
+
         if (! $this->app->routesAreCached()) {
             Passport::routes();
         }

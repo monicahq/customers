@@ -14,6 +14,6 @@ use App\Http\Controllers\ValidationController;
 |
 */
 
-Route::middleware(['client'])->group(function () {
-    Route::get('validate/{key}', [ValidationController::class, 'index'])->name('validation.index');
-});
+Route::get('validate/{key}', [ValidationController::class, 'index'])
+    ->middleware(['client:manage-key'])
+    ->name('validation.index');
