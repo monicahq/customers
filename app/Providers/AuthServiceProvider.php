@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Passport::hashClientSecrets();
+
+        Passport::tokensCan([
+            'manage-key' => 'Manage license keys',
+        ]);
+
+        if (! $this->app->routesAreCached()) {
+            Passport::routes();
+        }
     }
 }
