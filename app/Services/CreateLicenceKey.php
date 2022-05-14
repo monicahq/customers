@@ -2,12 +2,15 @@
 
 namespace App\Services;
 
+use App\Exceptions\MissingPrivateKeyException;
 use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use function Safe\json_decode;
 
 class CreateLicenceKey
@@ -15,7 +18,6 @@ class CreateLicenceKey
     private User $user;
     private Plan $plan;
     private LicenceKey $licenceKey;
-    private Collection $key;
     private Carbon $nextDate;
     private string $updateUrl;
     private string $cancelUrl;
@@ -50,7 +52,6 @@ class CreateLicenceKey
         $this->cancelUrl = $payload['cancel_url'];
         $this->updateUrl = $payload['update_url'];
 
-        $this->generateKey();
         $this->encodeKey();
 
         return $this->licenceKey;
@@ -63,11 +64,11 @@ class CreateLicenceKey
      * - the date the next check should occured,
      * - the email address of the user who purchased the license.
      *
-     * @return void
+     * @return \Illuminate\Support\Collection
      */
-    private function generateKey(): void
+    private function generateKey(): Collection
     {
-        $this->key = collect([
+        return collect([
             'frequency' => $this->plan->frequency,
             'purchaser_email' => $this->user->email,
             'next_check_at' => $this->nextDate,
@@ -76,8 +77,10 @@ class CreateLicenceKey
 
     private function encodeKey(): void
     {
-        $encodedKey = $this->key->toJson();
-        $encodedKey = base64_encode($encodedKey.config('customers.private_key_to_encrypt_licence_keys'));
+        $key = $this->generateKey();
+        $encrypter = app('license.encrypter');
+
+        $encodedKey = $encrypter->encrypt($key);
 
         $this->licenceKey = LicenceKey::create([
             'plan_id' => $this->plan->id,

@@ -12,7 +12,9 @@ return [
     |
     */
 
-    'private_key_to_encrypt_licence_keys' => env('private_key_to_encrypt_licence_keys', ''),
+    'key' => env('PRIVATE_KEY'),
+
+    'cipher' => 'AES-256-CBC',
 
     /*
     |--------------------------------------------------------------------------

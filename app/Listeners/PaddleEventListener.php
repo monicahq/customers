@@ -10,16 +10,6 @@ use Laravel\Paddle\Events\WebhookReceived;
 class PaddleEventListener
 {
     /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Handle received Paddle webhooks.
      *
      * @param  WebhookReceived  $event
@@ -27,16 +17,22 @@ class PaddleEventListener
      */
     public function handle(WebhookReceived $event)
     {
-        if ($event->payload['alert_name'] === 'subscription_created') {
-            (new CreateLicenceKey)->execute($event->payload);
-        }
+        switch ($event->payload['alert_name']) {
+            case 'subscription_created':
+                (new CreateLicenceKey)->execute($event->payload);
+                break;
 
-        if ($event->payload['alert_name'] === 'subscription_payment_succeeded') {
-            (new RenewLicenceKey)->execute($event->payload);
-        }
+            case 'subscription_payment_succeeded':
+                (new RenewLicenceKey)->execute($event->payload);
+                break;
 
-        if ($event->payload['alert_name'] === 'subscription_cancelled') {
-            (new DestroyLicenceKey)->execute($event->payload);
+            case 'subscription_cancelled':
+                (new DestroyLicenceKey)->execute($event->payload);
+                break;
+
+            default:
+                // Do nothing
+                break;
         }
     }
 }
