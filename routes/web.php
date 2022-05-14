@@ -3,9 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\OfficeLifeController;
-use App\Http\Controllers\ValidationController;
 use Carbon\Carbon;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,8 +25,6 @@ Route::get('/', function () {
 })->name('home');
 
 require __DIR__.'/auth.php';
-
-Route::get('{secretKey}/validate/{key}', [ValidationController::class, 'index'])->name('validation.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
