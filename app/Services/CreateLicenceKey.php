@@ -2,15 +2,12 @@
 
 namespace App\Services;
 
-use App\Exceptions\MissingPrivateKeyException;
 use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use function Safe\json_decode;
 
 class CreateLicenceKey

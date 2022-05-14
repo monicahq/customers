@@ -23,7 +23,6 @@ class EncryptionServiceProvider extends ServiceProvider
         });
     }
 
-
     /**
      * Parse the encryption key.
      *
