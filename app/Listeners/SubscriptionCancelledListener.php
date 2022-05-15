@@ -17,7 +17,7 @@ class SubscriptionCancelledListener
     public function handle(SubscriptionCancelled $event)
     {
         if (! $event->subscription instanceof Subscription) {
-            return;
+            return; // @codeCoverageIgnore
         }
         app(DestroyLicenceKey::class)->execute($event->subscription, $event->payload);
     }

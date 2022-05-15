@@ -18,10 +18,10 @@ class SubscriptionPaymentSucceededListener
     public function handle(SubscriptionPaymentSucceeded $event)
     {
         if (! $event->billable instanceof User) {
-            return;
+            return; // @codeCoverageIgnore
         }
         if (! $event->receipt instanceof Receipt) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         app(RenewLicenceKey::class)->execute($event->billable, $event->receipt, $event->payload);

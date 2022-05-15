@@ -18,10 +18,10 @@ class SubscriptionCreatedListener
     public function handle(SubscriptionCreated $event)
     {
         if (! $event->billable instanceof User) {
-            return;
+            return; // @codeCoverageIgnore
         }
         if (! $event->subscription instanceof Subscription) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         app(CreateLicenceKey::class)->execute($event->billable, $event->subscription, $event->payload);
