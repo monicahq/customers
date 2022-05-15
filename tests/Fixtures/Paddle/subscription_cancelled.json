@@ -14,7 +14,7 @@
         "passthrough": "{\"subscription_name\":\"personal_one_user\",\"billable_id\":%USER_ID%,\"billable_type\":\"App\\\\Models\\\\User\"}",
         "quantity": "1",
         "status": "deleted",
-        "subscription_id": "217681",
+        "subscription_id": "%SUBSCRIPTION_ID%",
         "subscription_plan_id": "1",
         "unit_price": "11.68",
         "user_id": "1234",

@@ -4,11 +4,11 @@ namespace App\Services;
 
 use App\Models\LicenceKey;
 use App\Models\Plan;
+use App\Models\Subscription;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
-use function Safe\json_decode;
 
 class CreateLicenceKey
 {
@@ -24,27 +24,17 @@ class CreateLicenceKey
      * Create an instance key.
      * We react to the webhook `subscription_created`.
      *
-     * @param  mixed  $payload
+     * @param  array  $payload
      * @return LicenceKey|null
      */
-    public function execute(mixed $payload): ?LicenceKey
+    public function execute(User $user, Subscription $subscription, array $payload): ?LicenceKey
     {
-        try {
-            $this->plan = Plan::where('plan_id_on_paddle', $payload['subscription_plan_id'])
-                ->firstOrFail();
-        } catch (ModelNotFoundException) {
-            return null;
+        if ($subscription->billable_id !== $user->id) {
+            throw new ModelNotFoundException;
         }
 
-        // grab the user id that is stored on the passthrough array
-        $userId = json_decode($payload['passthrough'], true);
-        $userId = $userId['billable_id'];
-
-        try {
-            $this->user = User::findOrFail($userId);
-        } catch (ModelNotFoundException) {
-            return null;
-        }
+        $this->plan = $subscription->plan;
+        $this->user = $user;
 
         $this->nextDate = Carbon::parse($payload['next_bill_date']);
         $this->cancelUrl = $payload['cancel_url'];

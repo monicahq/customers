@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
-use App\Listeners\PaddleEventListener;
+use App\Listeners\SubscriptionCancelledListener;
+use App\Listeners\SubscriptionCreatedListener;
+use App\Listeners\SubscriptionPaymentSucceededListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
-use Laravel\Paddle\Events\WebhookReceived;
+use Laravel\Paddle\Events\SubscriptionCancelled;
+use Laravel\Paddle\Events\SubscriptionCreated;
+use Laravel\Paddle\Events\SubscriptionPaymentSucceeded;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,8 +23,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        WebhookReceived::class => [
-            PaddleEventListener::class,
+        SubscriptionCancelled::class => [
+            SubscriptionCancelledListener::class,
+        ],
+        SubscriptionCreated::class => [
+            SubscriptionCreatedListener::class,
+        ],
+        SubscriptionPaymentSucceeded::class => [
+            SubscriptionPaymentSucceededListener::class,
         ],
     ];
 
