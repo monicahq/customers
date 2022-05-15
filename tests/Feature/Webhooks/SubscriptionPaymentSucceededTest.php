@@ -37,12 +37,13 @@ class SubscriptionPaymentSucceededTest extends TestCase
 
         $payload = $this->get_payload($user->id, $subscription->paddle_id);
 
-        $this->mock(RenewLicenceKey::class, function (MockInterface $mock) use ($user, $plan) {
+        $this->mock(RenewLicenceKey::class, function (MockInterface $mock) use ($user) {
             $mock->shouldReceive('execute')
                 ->once()
-                ->withArgs(function (User $billable, Receipt $receipt, array $payload) use ($user, $plan) {
+                ->withArgs(function (User $billable, Receipt $receipt, array $payload) use ($user) {
                     $this->assertEquals($user->id, $billable->id);
                     $this->assertEquals($user->id, $receipt->billable_id);
+
                     return true;
                 });
         });

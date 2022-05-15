@@ -34,6 +34,7 @@ class SubscriptionCancelledTest extends TestCase
                 ->withArgs(function (Subscription $subscription, array $payload) use ($user, $plan) {
                     $this->assertEquals($user->id, $subscription->billable_id);
                     $this->assertEquals($plan->plan_id_on_paddle, $subscription->paddle_plan);
+
                     return true;
                 });
         });

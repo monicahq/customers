@@ -32,6 +32,7 @@ class SubscriptionCreatedTest extends TestCase
                     $this->assertEquals($user->id, $billable->id);
                     $this->assertEquals($user->id, $subscription->billable_id);
                     $this->assertEquals($plan->plan_id_on_paddle, $subscription->paddle_plan);
+
                     return true;
                 });
         });
