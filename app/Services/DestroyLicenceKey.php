@@ -19,8 +19,11 @@ class DestroyLicenceKey
     {
         $plan = $subscription->plan;
 
+        /** @var \App\Models\User */
+        $user = $subscription->billable;
+
         try {
-            $licenceKey = $subscription->billable->licenceKeys()
+            $licenceKey = $user->licenceKeys()
                 ->where('plan_id', $plan->id)
                 ->orderBy('created_at', 'desc')
                 ->firstOrFail();
