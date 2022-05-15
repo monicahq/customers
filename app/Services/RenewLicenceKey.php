@@ -21,6 +21,7 @@ class RenewLicenceKey
         if ($receipt->billable_id !== $user->id) {
             throw new ModelNotFoundException;
         }
+
         /** @var \App\Models\Subscription */
         $subscription = $receipt->subscription;
 

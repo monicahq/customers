@@ -7,18 +7,13 @@ use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Services\CreateLicenceKey;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CreateLicenceKeyTest extends TestCase
 {
-    private const PRIVATE_KEY = 'PRIVATE_KEY';
-
     /** @test */
     public function it_creates_an_instance_key(): void
     {
-        config(['customers.private_key_to_encrypt_licence_keys' => static::PRIVATE_KEY]);
-
         $user = User::factory()->create([
             'email' => 'regis@monicahq.com',
         ]);
@@ -40,10 +35,10 @@ class CreateLicenceKeyTest extends TestCase
         $this->assertInstanceOf(LicenceKey::class, $licenceKey);
         $this->assertIsString($licenceKey->key);
 
-        $licenceKey = Str::of($licenceKey->key);
-        $licenceKey = base64_decode($licenceKey);
-        $licenceKey = Str::replace(static::PRIVATE_KEY, '', $licenceKey);
-        $array = json_decode($licenceKey, true);
+        $licenceKey = $licenceKey->key;
+
+        $encrypter = app('license.encrypter');
+        $array = $encrypter->decrypt($licenceKey);
 
         $this->assertArrayHasKey('frequency', $array);
         $this->assertArrayHasKey('purchaser_email', $array);
@@ -54,7 +49,7 @@ class CreateLicenceKeyTest extends TestCase
             $array['purchaser_email']
         );
         $this->assertEquals(
-            '2022-04-02T00:00:00.000000Z',
+            '2022-04-02',
             $array['next_check_at']
         );
         $this->assertEquals(
@@ -65,7 +60,7 @@ class CreateLicenceKeyTest extends TestCase
         $this->assertDatabaseHas('licence_keys', [
             'user_id' => $user->id,
             'plan_id' => $plan->id,
-            'key' => base64_encode($licenceKey.static::PRIVATE_KEY),
+            'key' => $licenceKey,
             'valid_until_at' => '2022-04-02 00:00:00',
         ]);
     }
