@@ -2,11 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\LicenceKey;
-use App\Models\Plan;
-use App\Models\User;
+use App\Models\Subscription;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use function Safe\json_decode;
 
 class DestroyLicenceKey
 {
@@ -15,24 +12,18 @@ class DestroyLicenceKey
      * We react to the webhook `subscription_cancelled`.
      * We need to pass the payload as an array.
      *
-     * @param  mixed  $payload
+     * @param  array  $payload
      * @return bool|null
      */
-    public function execute(mixed $payload): ?bool
+    public function execute(Subscription $subscription, array $payload): ?bool
     {
-        try {
-            $plan = Plan::where('plan_id_on_paddle', $payload['subscription_plan_id'])
-                ->firstOrFail();
-        } catch (ModelNotFoundException) {
-            return null;
-        }
+        $plan = $subscription->plan;
 
-        // grab the user id that is stored on the passthrough array
-        $userId = json_decode($payload['passthrough'], true);
-        $userId = $userId['billable_id'];
+        /** @var \App\Models\User */
+        $user = $subscription->billable;
 
         try {
-            $licenceKey = LicenceKey::where('user_id', $userId)
+            $licenceKey = $user->licenceKeys()
                 ->where('plan_id', $plan->id)
                 ->orderBy('created_at', 'desc')
                 ->firstOrFail();
