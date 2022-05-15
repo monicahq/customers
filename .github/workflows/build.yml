@@ -41,7 +41,7 @@ jobs:
       matrix:
         php-version: ['8.1']
         connection: [sqlite, mysql, pgsql]
-        testsuite: [Unit]
+        testsuite: [Unit, Feature]
         coverage: [true] # run test with coverage, if 'coverage-with' match with the connection
 
     steps:
