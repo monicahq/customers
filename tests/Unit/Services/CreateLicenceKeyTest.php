@@ -4,6 +4,7 @@ namespace Tests\Unit\Services;
 
 use App\Models\LicenceKey;
 use App\Models\Plan;
+use App\Models\Subscription;
 use App\Models\User;
 use App\Services\CreateLicenceKey;
 use Illuminate\Support\Str;
@@ -25,10 +26,16 @@ class CreateLicenceKeyTest extends TestCase
             'frequency' => Plan::TYPE_MONTHLY,
             'plan_id_on_paddle' => 1,
         ]);
+        $subscription = Subscription::factory()->create([
+            'billable_id' => $user->id,
+            'paddle_plan' => $plan->plan_id_on_paddle,
+        ]);
 
-        $payload = $this->get_payload($user->id);
-
-        $licenceKey = (new CreateLicenceKey)->execute($payload['data']);
+        $licenceKey = (new CreateLicenceKey)->execute($user, $subscription, [
+            'next_bill_date' => '2022-04-02',
+            'cancel_url' => 'fake',
+            'update_url' => 'fake',
+        ]);
 
         $this->assertInstanceOf(LicenceKey::class, $licenceKey);
         $this->assertIsString($licenceKey->key);
@@ -61,13 +68,5 @@ class CreateLicenceKeyTest extends TestCase
             'key' => base64_encode($licenceKey.static::PRIVATE_KEY),
             'valid_until_at' => '2022-04-02 00:00:00',
         ]);
-    }
-
-    private function get_payload(int $userId): array
-    {
-        $file = file_get_contents(base_path('tests/Fixtures/Paddle/subscription_created.json'));
-        $file = Str::of($file)->replace('%USER_ID%', $userId);
-
-        return json_decode($file, true);
     }
 }
