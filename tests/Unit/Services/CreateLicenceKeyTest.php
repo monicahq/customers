@@ -7,7 +7,6 @@ use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Services\CreateLicenceKey;
-use Carbon\Carbon;
 use Tests\TestCase;
 
 class CreateLicenceKeyTest extends TestCase
@@ -50,7 +49,7 @@ class CreateLicenceKeyTest extends TestCase
             $array['purchaser_email']
         );
         $this->assertEquals(
-            Carbon::parse('2022-04-02'),
+            '2022-04-02',
             $array['next_check_at']
         );
         $this->assertEquals(
