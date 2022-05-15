@@ -8,7 +8,6 @@ use App\Models\Subscription;
 use App\Models\User;
 use App\Services\CreateLicenceKey;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CreateLicenceKeyTest extends TestCase
