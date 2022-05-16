@@ -1,27 +1,24 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class UpdatePasswordTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_password_can_be_updated()
     {
         $this->actingAs($user = User::factory()->create());
 
         $response = $this->put('/user/password', [
             'current_password' => 'password',
-            'password' => 'new-password',
-            'password_confirmation' => 'new-password',
+            'password' => 'Password$123',
+            'password_confirmation' => 'Password$123',
         ]);
 
-        $this->assertTrue(Hash::check('new-password', $user->fresh()->password));
+        $this->assertTrue(Hash::check('Password$123', $user->fresh()->password));
     }
 
     public function test_current_password_must_be_correct()
