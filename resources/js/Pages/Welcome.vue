@@ -34,7 +34,7 @@ defineProps({
             <div class="mx-auto max-w-4xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-10">
                   <!-- left -->
-                  <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden px-6 py-6 sm:max-w-md">
+                  <div class="text-center p-3 sm:p-3 mt-6 w-full dark:bg-white overflow-hidden px-6 py-6 sm:max-w-md">
 
                     <h2 class="text-2xl mb-4">Welcome to the Monica and OfficeLife customer portal!</h2>
 
@@ -79,7 +79,7 @@ defineProps({
                   </div>
 
                   <!-- right -->
-                  <div class="text-center p-3 sm:p-3 mt-6 w-full flex items-center justify-center overflow-hidden bg-white px-6 py-6 shadow-md sm:max-w-md sm:rounded-lg">
+                  <div class="text-center p-3 sm:p-3 mt-6 w-full flex items-center justify-center overflow-hidden bg-white dark:bg-white px-6 py-6 shadow-md sm:max-w-md sm:rounded-lg">
 
                     <div>
                       <p v-if="canRegister" class="text-lg font-bold mb-3">New on this site?</p>
