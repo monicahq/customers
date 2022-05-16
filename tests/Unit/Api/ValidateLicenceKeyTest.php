@@ -35,7 +35,7 @@ class ValidateLicenceKeyTest extends TestCase
         ]);
 
         $response = $this->post('/api/validate', [
-            'licence_key' => $licenceKey->key
+            'licence_key' => $licenceKey->key,
         ]);
 
         $response->assertStatus(200);
@@ -45,7 +45,7 @@ class ValidateLicenceKeyTest extends TestCase
     public function it_fails_if_the_key_doesnt_exist(): void
     {
         $response = $this->post('/api/validate', [
-            'licence_key' => '123'
+            'licence_key' => '123',
         ]);
 
         $response->assertStatus(404);
@@ -61,7 +61,7 @@ class ValidateLicenceKeyTest extends TestCase
         ]);
 
         $response = $this->post('/api/validate', [
-            'licence_key' => $licenceKey->key
+            'licence_key' => $licenceKey->key,
         ]);
 
         $response->assertStatus(410);
