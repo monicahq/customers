@@ -9,12 +9,11 @@ use Illuminate\Http\Request;
 
 class ValidationController extends Controller
 {
-    public function index(Request $request, string $licenceKey)
+    public function index(Request $request)
     {
         try {
-            (new ValidateLicenceKey)->execute([
-                'licence_key' => $licenceKey,
-            ]);
+            app(ValidateLicenceKey::class)
+                ->execute($request->only('licence_key'));
         } catch (ModelNotFoundException) {
             return response()->json(status: 404);
         } catch (Exception) {

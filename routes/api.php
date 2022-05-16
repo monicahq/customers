@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('validate/{key}', [ValidationController::class, 'index'])
+Route::post('validate', [ValidationController::class, 'index'])
     ->middleware(['client:manage-key'])
     ->name('validation.index');

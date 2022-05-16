@@ -34,7 +34,9 @@ class ValidateLicenceKeyTest extends TestCase
             'valid_until_at' => '2019-01-01',
         ]);
 
-        $response = $this->get("/api/validate/{$licenceKey->key}");
+        $response = $this->post('/api/validate', [
+            'licence_key' => $licenceKey->key
+        ]);
 
         $response->assertStatus(200);
     }
@@ -42,7 +44,9 @@ class ValidateLicenceKeyTest extends TestCase
     /** @test */
     public function it_fails_if_the_key_doesnt_exist(): void
     {
-        $response = $this->get('/api/validate/123');
+        $response = $this->post('/api/validate', [
+            'licence_key' => '123'
+        ]);
 
         $response->assertStatus(404);
     }
@@ -56,7 +60,9 @@ class ValidateLicenceKeyTest extends TestCase
             'valid_until_at' => '2017-01-01',
         ]);
 
-        $response = $this->get("/api/validate/{$licenceKey->key}");
+        $response = $this->post('/api/validate', [
+            'licence_key' => $licenceKey->key
+        ]);
 
         $response->assertStatus(410);
     }
