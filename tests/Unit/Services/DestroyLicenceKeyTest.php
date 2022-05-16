@@ -2,13 +2,13 @@
 
 namespace Tests\Unit\Services;
 
+use App\Models\LicenceKey;
+use App\Models\Plan;
+use App\Models\Subscription;
+use App\Models\User;
+use App\Services\DestroyLicenceKey;
 use Carbon\Carbon;
 use Tests\TestCase;
-use App\Models\Plan;
-use App\Models\User;
-use App\Models\LicenceKey;
-use Illuminate\Support\Str;
-use App\Services\DestroyLicenceKey;
 
 class DestroyLicenceKeyTest extends TestCase
 {
@@ -23,10 +23,14 @@ class DestroyLicenceKeyTest extends TestCase
             'user_id' => $user->id,
             'plan_id' => $plan->id,
         ]);
+        $subscription = Subscription::factory()->create([
+            'billable_id' => $user->id,
+            'paddle_plan' => $plan->plan_id_on_paddle,
+        ]);
 
-        $payload = $this->get_payload($user->id);
-
-        $response = (new DestroyLicenceKey)->execute($payload['data']);
+        $response = (new DestroyLicenceKey)->execute($subscription, [
+            'cancellation_effective_date' => '2022-04-02',
+        ]);
 
         $this->assertTrue($response);
         $this->assertDatabaseHas('licence_keys', [
@@ -36,13 +40,5 @@ class DestroyLicenceKeyTest extends TestCase
             'subscription_state' => 'subscription_cancelled',
             'valid_until_at' => Carbon::create('2022-04-02'),
         ]);
-    }
-
-    private function get_payload(int $userId): array
-    {
-        $file = file_get_contents(base_path('tests/Fixtures/Paddle/subscription_cancelled.json'));
-        $file = Str::of($file)->replace('%USER_ID%', $userId);
-
-        return json_decode($file, true);
     }
 }

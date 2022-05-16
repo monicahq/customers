@@ -2,37 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use Illuminate\Http\Request;
 use App\Services\ValidateLicenceKey;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class ValidationController extends Controller
 {
-    public function index(Request $request, string $secretKey, string $licenceKey)
+    public function index(Request $request)
     {
-        if ($secretKey !== config('customers.customer_portal_secret_key')) {
-            return response()->json([
-                'data' => '404',
-            ], 404);
-        }
-
         try {
-            (new ValidateLicenceKey)->execute([
-                'licence_key' => $licenceKey,
-            ]);
+            app(ValidateLicenceKey::class)
+                ->execute($request->only('licence_key'));
         } catch (ModelNotFoundException) {
-            return response()->json([
-                'data' => '404',
-            ], 404);
+            return response()->json(status: 404);
         } catch (Exception) {
-            return response()->json([
-                'data' => '900',
-            ], 900);
+            return response()->json(status: 410);
         }
 
-        return response()->json([
-            'data' => 200,
-        ], 200);
+        return response()->json();
     }
 }

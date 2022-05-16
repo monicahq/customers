@@ -32,7 +32,7 @@
         "receipt_url": "http://sandbox-my.paddle.com/receipt/277352-1509155/542753-chref4bb4069818-b9b7ca5067",
         "sale_gross": "9",
         "status": "active",
-        "subscription_id": "217693",
+        "subscription_id": "%SUBSCRIPTION_ID%",
         "subscription_payment_id": "1509155",
         "subscription_plan_id": "1",
         "unit_price": "9.00",

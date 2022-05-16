@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateKeysTable extends Migration
 {
@@ -15,13 +15,13 @@ class CreateKeysTable extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->string('product');
-            $table->string('friendly_name');
-            $table->string('description');
-            $table->string('plan_name');
-            $table->string('plan_id_on_paddle');
+            $table->string('product', 512);
+            $table->string('friendly_name', 512);
+            $table->string('description', 1024);
+            $table->string('plan_name', 128);
+            $table->string('plan_id_on_paddle', 64);
             $table->integer('price');
-            $table->string('frequency');
+            $table->string('frequency', 512);
             $table->timestamps();
         });
 
@@ -29,11 +29,11 @@ class CreateKeysTable extends Migration
             $table->id();
             $table->unsignedBigInteger('plan_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('key');
-            $table->string('subscription_state');
+            $table->string('key', 4096);
+            $table->string('subscription_state', 64);
             $table->datetime('valid_until_at');
-            $table->string('paddle_cancel_url')->nullable();
-            $table->string('paddle_update_url')->nullable();
+            $table->string('paddle_cancel_url', 512)->nullable();
+            $table->string('paddle_update_url', 512)->nullable();
             $table->timestamps();
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

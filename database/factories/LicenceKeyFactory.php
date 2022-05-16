@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\User;
-use App\Models\LicenceKey;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LicenceKeyFactory extends Factory
@@ -26,7 +26,7 @@ class LicenceKeyFactory extends Factory
         return [
             'plan_id' => Plan::factory(),
             'user_id' => User::factory(),
-            'key' => $this->faker->sentence(),
+            'key' => app('license.encrypter')->encryptString($this->faker->sentence()),
             'valid_until_at' => $this->faker->dateTimeThisCentury(),
             'subscription_state' => 'subscribed',
         ];

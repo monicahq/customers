@@ -1,0 +1,16 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+    - ./vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+
+parameters:
+    paths:
+        - app
+    inferPrivatePropertyTypeFromConstructor: true
+    level: 5
+    ignoreErrors:
+        - '#Parameter \#1 \$view of function view expects view-string|null, string given\.#'
+        - '#Access to an undefined property App\\Models\\Receipt::\$billable_id\.#'
+        - '#Access to an undefined property App\\Models\\Subscription::\$billable_id\.#'
+
+        - message: '#Access to an undefined property Laravel\\Paddle\\Receipt::.*\.#'
+          path: *\Http\Controllers\DashboardController.php

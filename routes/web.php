@@ -2,12 +2,13 @@
 
 use Carbon\Carbon;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
-use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\OfficeLifeController;
-use App\Http\Controllers\ValidationController;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +30,6 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 })->name('home');
-
-Route::get('{secretKey}/validate/{key}', [ValidationController::class, 'index'])->name('validation.index');
 
 Route::middleware([
     'auth:sanctum',

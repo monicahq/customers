@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\Plan;
-use Inertia\Inertia;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class MonicaController extends Controller
 {
     public function index(Request $request)
     {
-        $plansCollection = Plan::where('product', 'Monica')->get()->map(function ($plan) use ($request) {
+        $plansCollection = Plan::where('product', 'Monica')->get()->map(function (Plan $plan) use ($request): array {
             return [
                 'id' => $plan->id,
                 'friendly_name' => $plan->friendly_name,

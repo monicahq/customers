@@ -1,31 +1,37 @@
 {
-    "name": "laravel/laravel",
+    "name": "monicahq/customers",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Customer portal.",
+    "keywords": ["framework", "laravel", "monica", "officelife"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
-        "inertiajs/inertia-laravel": "^0.5.2",
+        "guzzlehttp/guzzle": "^7.0",
+        "inertiajs/inertia-laravel": "^0.5",
         "laravel/cashier-paddle": "^1.5",
         "laravel/fortify": "^1.12",
         "laravel/framework": "^9.0",
         "laravel/jetstream": "^2.7",
+        "laravel/passport": "^10.4",
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.5",
+        "thecodingmachine/safe": "^2.0",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
-        "spatie/laravel-ignition": "^1.0",
-        "fakerphp/faker": "^1.9.1",
+        "fakerphp/faker": "^1.9",
         "laravel/breeze": "^1.6",
-        "laravel/sail": "^1.0.1",
-        "mockery/mockery": "^1.4.4",
+        "laravel/sail": "^1.0",
+        "mockery/mockery": "^1.4",
         "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.5.10"
+        "nunomaduro/larastan": "2.0",
+        "phpunit/phpunit": "^9.0",
+        "psalm/plugin-laravel": "^2.0",
+        "roave/security-advisories": "dev-master",
+        "spatie/laravel-ignition": "^1.0",
+        "thecodingmachine/phpstan-safe-rule": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -62,7 +68,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true
