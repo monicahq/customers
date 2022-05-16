@@ -1,12 +1,10 @@
 <?php
 
-use Carbon\Carbon;
-use Inertia\Inertia;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\OfficeLifeController;
 use Carbon\Carbon;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 

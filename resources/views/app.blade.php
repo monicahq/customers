@@ -27,5 +27,9 @@
           <div class="mb-2">Monica. All rights reserved. 2017 - {{ Carbon\Carbon::now()->year }}. Made from all over the world. We ❤️ you.</div>
           <div>This site is open source. You can read <a href="https://github.com/monicahq/customers" class="underline">the code here</a>.</div>
         </footer>
+
+        @env ('local')
+            <script src="http://localhost:3000/browser-sync/browser-sync-client.js"></script>
+        @endenv
     </body>
 </html>

@@ -19,7 +19,11 @@ main {
           <span class="inline mr-36"><inertia-link :href="'monica'" class="underline">Monica's subscription</inertia-link></span>
         </div>
 
-        <span class="inline"><inertia-link :href="'logout'" class="underline">Logout</inertia-link></span>
+        <span class="inline">
+          <form @submit.prevent="logout">
+            <button type="submit" class="underline">Logout</button>
+          </form>
+        </span>
       </nav>
       <main class="relative mt-10">
         <slot />
@@ -32,6 +36,7 @@ main {
 
 <script>
 import Toaster from '@/Shared/Toaster';
+import { Inertia } from '@inertiajs/inertia';
 
 export default {
   components: {
@@ -43,6 +48,12 @@ export default {
       this.flash(localStorage.success, 'success');
       localStorage.removeItem('success');
     }
+  },
+
+  methods: {
+    logout() {
+      Inertia.post(route('logout'));
+    },
   },
 };
 </script>
