@@ -42,6 +42,4 @@ Route::middleware([
 
     // monica
     Route::get('/monica', [MonicaController::class, 'index'])->name('monica.index');
-
-    Route::delete('', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
 });

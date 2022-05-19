@@ -26,20 +26,7 @@ class DashboardController extends Controller
 
         return Inertia::render('Dashboard', [
             'receipts' => $receiptsCollection,
-            'destroy_account' => route('dashboard.destroy'),
+            'destroy_account' => route('current-user.destroy'),
         ]);
-    }
-
-    public function destroy(Request $request)
-    {
-        $data = [
-            'user_id' => Auth::id(),
-        ];
-
-        (new DestroyAccount)->execute($data);
-
-        return response()->json([
-            'data' => route('home'),
-        ], 200);
     }
 }

@@ -29,7 +29,28 @@ class DestroyAccount extends BaseService
         $this->validateRules($data);
 
         $user = User::findOrFail($data['user_id']);
+
+        $this->deleteProfilePhoto($user);
+        $this->deleteTokens($user);
+        $this->cancelSubscriptions($user);
+
+        $user->delete();
+    }
+
+    private function deleteProfilePhoto($user)
+    {
+        $user->deleteProfilePhoto();
+    }
+
+    private function deleteTokens($user)
+    {
+        $user->tokens->each->delete();
+    }
+
+    private function cancelSubscriptions($user)
+    {
         $licences = $user->licenceKeys()
+            ->with('plan')
             ->where('subscription_state', '!=', 'subscription_cancelled')
             ->get();
 
@@ -38,7 +59,5 @@ class DestroyAccount extends BaseService
 
             $user->subscription($plan)->cancel();
         }
-
-        $user->delete();
     }
 }

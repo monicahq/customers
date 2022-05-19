@@ -2,6 +2,7 @@
 
 namespace App\Actions\Jetstream;
 
+use App\Services\DestroyAccount;
 use Laravel\Jetstream\Contracts\DeletesUsers;
 
 class DeleteUser implements DeletesUsers
@@ -14,8 +15,8 @@ class DeleteUser implements DeletesUsers
      */
     public function delete($user)
     {
-        $user->deleteProfilePhoto();
-        $user->tokens->each->delete();
-        $user->delete();
+        app(DestroyAccount::class)->execute([
+            'user_id' => $user->id,
+        ]);
     }
 }
