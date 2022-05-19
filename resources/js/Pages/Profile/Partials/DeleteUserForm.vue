@@ -38,7 +38,7 @@ const closeModal = () => {
 </script>
 
 <template>
-    <JetActionSection>
+    <JetActionSection :danger="true">
         <template #title>
             Delete Account
         </template>
@@ -49,7 +49,17 @@ const closeModal = () => {
 
         <template #content>
             <div class="max-w-xl text-sm text-gray-600">
-                Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
+                <p class="text-center text-xl mb-4 font-semibold text-red-500">⚠️ Danger zone</p>
+
+                <p>Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.</p>
+
+                <p class="pt-5">This will immediately:</p>
+                <ul class="ml-5 mb-2">
+                  <li>- Cancel all your active subscriptions,</li>
+                  <li>- Delete your account on https://customers.monicahq.com.</li>
+                </ul>
+
+                <p class="font-semibold text-red-500">You WILL still have to delete your account on Monica or OfficeLife.</p>
             </div>
 
             <div class="mt-5">
