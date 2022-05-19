@@ -19,8 +19,7 @@ trait PasswordValidationRules
             'confirmed',
             (new Password)->length(8)
                 ->requireUppercase()
-                ->requireNumeric()
-                ->requireSpecialCharacter(),
+                ->requireNumeric(),
         ];
     }
 }
