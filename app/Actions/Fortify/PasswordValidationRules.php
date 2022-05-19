@@ -26,7 +26,7 @@ trait PasswordValidationRules
             'required',
             'string',
             'confirmed',
-            $rules
+            $rules,
         ];
     }
 }
