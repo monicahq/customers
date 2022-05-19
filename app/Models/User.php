@@ -33,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'postal_code',
         'country',
         'state',
+        'instance_administrator',
     ];
 
     /**
@@ -52,6 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'instance_administrator' => 'boolean',
     ];
 
     /**

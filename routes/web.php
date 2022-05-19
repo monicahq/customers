@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\OfficeLifeController;
@@ -37,4 +38,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/monica', [MonicaController::class, 'index'])->name('monica.index');
 
     Route::delete('', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
+
+    Route::middleware(['administration'])->prefix('administration')->group(function () {
+        Route::get('', [AdministrationController::class, 'index'])->name('administration.index');
+        Route::get('{user}', [AdministrationController::class, 'index'])->name('administration.user.show');
+    });
 });

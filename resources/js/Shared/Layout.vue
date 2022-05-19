@@ -19,7 +19,10 @@ main {
           <span class="inline mr-36"><inertia-link :href="'monica'" class="underline">Monica's subscription</inertia-link></span>
         </div>
 
-        <span class="inline"><inertia-link :href="'logout'" class="underline">Logout</inertia-link></span>
+        <div>
+          <span v-if="$page.props.user.instance_administrator" class="inline mr-6"><inertia-link :href="'administration'" class="underline">Administration</inertia-link></span>
+          <span class="inline"><inertia-link :href="'logout'" class="underline">Logout</inertia-link></span>
+        </div>
       </nav>
       <main class="relative mt-10">
         <slot />
