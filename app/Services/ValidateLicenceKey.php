@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Exceptions\PastDueLicence;
+use App\Exceptions\PastDueLicenceException;
 use App\Models\LicenceKey;
 use Carbon\Carbon;
 
@@ -29,7 +29,7 @@ class ValidateLicenceKey extends BaseService
      * @param  array  $data
      * @return Carbon
      *
-     * @throws \App\Exceptions\PastDueLicence
+     * @throws \App\Exceptions\PastDueLicenceException
      */
     public function execute(array $data): Carbon
     {
@@ -43,7 +43,7 @@ class ValidateLicenceKey extends BaseService
 
         if ($this->licenceKey->valid_until_at->isPast() ||
             $this->licenceKey->subscription_state === 'subscription_canceled') {
-            throw new PastDueLicence;
+            throw new PastDueLicenceException;
         }
 
         return $this->licenceKey->valid_until_at;

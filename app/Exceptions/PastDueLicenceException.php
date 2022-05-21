@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use RuntimeException;
 
-class PastDueLicence extends RuntimeException
+class PastDueLicenceException extends RuntimeException
 {
     /**
      * Create a new exception instance.

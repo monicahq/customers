@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services;
 
-use App\Exceptions\PastDueLicence;
+use App\Exceptions\PastDueLicenceException;
 use App\Models\LicenceKey;
 use App\Services\ValidateLicenceKey;
 use Carbon\Carbon;
@@ -58,7 +58,7 @@ class ValidateLicenceKeyTest extends TestCase
     {
         Carbon::setTestNow(Carbon::create(2018, 1, 1));
 
-        $this->expectException(PastDueLicence::class);
+        $this->expectException(PastDueLicenceException::class);
 
         $licenceKey = LicenceKey::factory()->create([
             'valid_until_at' => '2017-01-01',
@@ -76,7 +76,7 @@ class ValidateLicenceKeyTest extends TestCase
     {
         Carbon::setTestNow(Carbon::create(2018, 1, 1));
 
-        $this->expectException(PastDueLicence::class);
+        $this->expectException(PastDueLicenceException::class);
 
         $licenceKey = LicenceKey::factory()->create([
             'valid_until_at' => '2019-01-01',
