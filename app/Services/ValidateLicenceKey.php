@@ -48,7 +48,6 @@ class ValidateLicenceKey extends BaseService
         switch ($this->licenceKey->subscription_state) {
             case 'subscription_canceled':
                 throw new PastDueLicence;
-                break;
         }
 
         return $this->licenceKey->valid_until_at;
