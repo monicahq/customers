@@ -8,7 +8,7 @@ use Inertia\Inertia;
 
 class MonicaController extends Controller
 {
-    private const PRODUCT = 'Monica';
+    public const PRODUCT = 'Monica';
 
     public function index(Request $request)
     {

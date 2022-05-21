@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 class OfficeLifeController extends Controller
 {
-    private const PRODUCT = 'OfficeLife';
+    public const PRODUCT = 'OfficeLife';
 
     public function index(Request $request)
     {
