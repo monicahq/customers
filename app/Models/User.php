@@ -79,14 +79,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(LicenceKey::class);
     }
-
-    /**
-     * Get the customer's email address to associate with Paddle.
-     *
-     * @return string|null
-     */
-    public function paddleEmail(): ?string
-    {
-        return $this->email;
-    }
 }

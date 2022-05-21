@@ -39,7 +39,7 @@ class PlanFactory extends Factory
      */
     public function monica()
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function () {
             return [
                 'product' => 'Monica',
             ];
@@ -53,7 +53,7 @@ class PlanFactory extends Factory
      */
     public function officelife()
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function () {
             return [
                 'product' => 'OfficeLife',
             ];
