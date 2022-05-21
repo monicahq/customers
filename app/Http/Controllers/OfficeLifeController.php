@@ -12,13 +12,14 @@ class OfficeLifeController extends Controller
 {
     public function index(Request $request)
     {
-        $plansCollection = Plan::where('product', 'OfficeLife')->get()->map(function (Plan $plan) use ($request): array {
+        $plans = Plan::where('product', 'OfficeLife')->get();
+
+        $plansCollection = $plans->map(function (Plan $plan) use ($request): array {
             return [
                 'id' => $plan->id,
                 'friendly_name' => $plan->friendly_name,
                 'description' => $plan->description,
                 'plan_name' => $plan->plan_name,
-                'plan_id_on_paddle' => $plan->plan_id_on_paddle,
                 'single_price' => $plan->price,
                 'price' => $plan->price,
                 'frequency' => $plan->frequency,
@@ -34,36 +35,24 @@ class OfficeLifeController extends Controller
             ];
         });
 
-        $licence = DB::table('licence_keys')
-            ->join('plans', 'plans.id', '=', 'licence_keys.plan_id')
-            ->select('licence_keys.id', 'licence_keys.paddle_cancel_url', 'licence_keys.key', 'licence_keys.paddle_update_url', 'licence_keys.subscription_state', 'plans.id', 'licence_keys.valid_until_at', 'plans.friendly_name', 'plans.description')
-            ->where('plans.product', 'OfficeLife')
-            ->orderBy('licence_keys.created_at', 'desc')
+        $licence = $request->user()->licenceKeys()
+            ->whereIn('plan_id', $plans->pluck('id'))
+            ->orderBy('created_at', 'desc')
             ->first();
-
-        $currentLicence = null;
-        if ($licence) {
-            $currentLicence = [
-                'id' => $licence->id,
-                'key' => $licence->key,
-                'paddle_cancel_url' => $licence->paddle_cancel_url,
-                'paddle_update_url' => $licence->paddle_update_url,
-                'subscription_state' => $licence->subscription_state,
-                'valid_until_at' => Carbon::parse($licence->valid_until_at)->format('Y-m-d'),
-            ];
-        }
 
         return Inertia::render('OfficeLife/Index', [
             'data' => [
                 'plans' => $plansCollection,
-                'current_licence' => $currentLicence,
+                'current_licence' => $licence,
             ],
         ]);
     }
 
-    public function price(Request $request, int $planId)
+    public function price(Request $request, Plan $plan)
     {
-        $plan = Plan::findOrFail($planId);
+        if ($plan->product !== 'OfficeLife') {
+            abort(404);
+        }
 
         $quotedPrice = $plan->price * $request->input('quantity');
 

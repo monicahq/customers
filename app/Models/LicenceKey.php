@@ -37,6 +37,29 @@ class LicenceKey extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'valid_until_at' => 'date:Y-m-d',
+    ];
+
+    /**
+     * The attributes that should be visible in serialization.
+     *
+     * @var array
+     */
+    protected $visible = [
+        'id',
+        'key',
+        'paddle_cancel_url',
+        'paddle_update_url',
+        'subscription_state',
+        'valid_until_at'
+    ];
+
+    /**
      * Get the user associated with the licence key.
      *
      * @return BelongsTo
