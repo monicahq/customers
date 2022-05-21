@@ -12,7 +12,7 @@ defineProps({
 <template>
     <Head title="Welcome" />
 
-    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+    <div class="relative flex items-top justify-center min-h-full sm:mt-24 mb-10 bg-gray-100 sm:items-center sm:pt-0">
         <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
             <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm text-gray-700 underline">
                 Dashboard
@@ -34,7 +34,7 @@ defineProps({
             <div class="mx-auto max-w-4xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-10">
                   <!-- left -->
-                  <div class="text-center p-3 sm:p-3 mt-6 w-full dark:bg-white overflow-hidden px-6 py-6 sm:max-w-md">
+                  <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden px-6 py-6 sm:max-w-md">
 
                     <h2 class="text-2xl mb-4">Welcome to the Monica and OfficeLife customer portal!</h2>
 
@@ -99,9 +99,9 @@ defineProps({
                   </div>
                 </div>
 
-                <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
+                <!-- <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                     Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
