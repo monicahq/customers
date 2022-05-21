@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OfficeLifePriceRequest;
 use App\Models\Plan;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class OfficeLifeController extends Controller
 {
+    public const PRODUCT = 'OfficeLife';
+
     public function index(Request $request)
     {
-        $plansCollection = Plan::where('product', 'OfficeLife')->get()->map(function (Plan $plan) use ($request): array {
+        $plans = Plan::where('product', static::PRODUCT)->get();
+
+        $plansCollection = $plans->map(function (Plan $plan) use ($request): array {
             return [
                 'id' => $plan->id,
                 'friendly_name' => $plan->friendly_name,
                 'description' => $plan->description,
                 'plan_name' => $plan->plan_name,
-                'plan_id_on_paddle' => $plan->plan_id_on_paddle,
                 'single_price' => $plan->price,
                 'price' => $plan->price,
                 'frequency' => $plan->frequency,
-                'quantity' => 0,
+                'quantity' => 1,
                 'url' => [
-                    'pay_link' => $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
-                        ->returnTo(route('officelife.index'))
-                        ->create(),
+                    'pay_link' => $this->getPayLink($request, $plan),
                     'price' => route('officelife.price', [
                         'plan' => $plan->id,
                     ]),
@@ -34,45 +34,44 @@ class OfficeLifeController extends Controller
             ];
         });
 
-        $licence = DB::table('licence_keys')
-            ->join('plans', 'plans.id', '=', 'licence_keys.plan_id')
-            ->select('licence_keys.id', 'licence_keys.paddle_cancel_url', 'licence_keys.key', 'licence_keys.paddle_update_url', 'licence_keys.subscription_state', 'plans.id', 'licence_keys.valid_until_at', 'plans.friendly_name', 'plans.description')
-            ->where('plans.product', 'OfficeLife')
-            ->orderBy('licence_keys.created_at', 'desc')
+        $licence = $request->user()->licenceKeys()
+            ->whereIn('plan_id', $plans->pluck('id'))
+            ->orderBy('created_at', 'desc')
             ->first();
-
-        $currentLicence = null;
-        if ($licence) {
-            $currentLicence = [
-                'id' => $licence->id,
-                'key' => $licence->key,
-                'paddle_cancel_url' => $licence->paddle_cancel_url,
-                'paddle_update_url' => $licence->paddle_update_url,
-                'subscription_state' => $licence->subscription_state,
-                'valid_until_at' => Carbon::parse($licence->valid_until_at)->format('Y-m-d'),
-            ];
-        }
 
         return Inertia::render('OfficeLife/Index', [
             'data' => [
                 'plans' => $plansCollection,
-                'current_licence' => $currentLicence,
+                'current_licence' => $licence,
             ],
         ]);
     }
 
-    public function price(Request $request, int $planId)
+    public function price(OfficeLifePriceRequest $request, Plan $plan)
     {
-        $plan = Plan::findOrFail($planId);
+        if ($plan->product !== static::PRODUCT) {
+            abort(401);
+        }
 
         $quotedPrice = $plan->price * $request->input('quantity');
 
         return response()->json([
             'price' => $quotedPrice,
-            'pay_link' => $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
-                ->returnTo(route('officelife.index'))
-                ->quantity($request->input('quantity'))
-                ->create(),
+            'pay_link' => $this->getPayLink($request, $plan, $request->input('quantity')),
         ]);
+    }
+
+    private function getPayLink(Request $request, Plan $plan, int $quantity = 1)
+    {
+        if (! config('cashier.vendor_id') || ! config('cashier.vendor_auth_code')) {
+            return null;
+        }
+
+        // @codeCoverageIgnoreStart
+        return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
+            ->returnTo(route('officelife.index'))
+            ->quantity($quantity)
+            ->create();
+        // @codeCoverageIgnoreEnd
     }
 }
