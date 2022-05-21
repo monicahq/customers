@@ -61,7 +61,6 @@ class OfficeLifeController extends Controller
         ]);
     }
 
-
     private function getPayLink(Request $request, Plan $plan, int $quantity = 1)
     {
         if (! config('cashier.vendor_id') || ! config('cashier.vendor_auth_code')) {
