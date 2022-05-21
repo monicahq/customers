@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Services;
 
+use App\Exceptions\PastDueLicence;
 use App\Models\LicenceKey;
 use App\Services\ValidateLicenceKey;
 use Carbon\Carbon;
@@ -58,10 +59,29 @@ class ValidateLicenceKeyTest extends TestCase
     {
         Carbon::setTestNow(Carbon::create(2018, 1, 1));
 
-        $this->expectException(Exception::class);
+        $this->expectException(PastDueLicence::class);
 
         $licenceKey = LicenceKey::factory()->create([
             'valid_until_at' => '2017-01-01',
+        ]);
+
+        $request = [
+            'licence_key' => $licenceKey->key,
+        ];
+
+        (new ValidateLicenceKey)->execute($request);
+    }
+
+    /** @test */
+    public function it_fails_if_the_subscription_has_been_canceled(): void
+    {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
+
+        $this->expectException(PastDueLicence::class);
+
+        $licenceKey = LicenceKey::factory()->create([
+            'valid_until_at' => '2019-01-01',
+            'subscription_state' => 'subscription_canceled',
         ]);
 
         $request = [

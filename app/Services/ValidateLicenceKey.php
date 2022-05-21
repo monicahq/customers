@@ -41,13 +41,9 @@ class ValidateLicenceKey extends BaseService
         $this->licenceKey = LicenceKey::where('key', $this->data['licence_key'])
             ->firstOrFail();
 
-        if ($this->licenceKey->valid_until_at->isPast()) {
+        if ($this->licenceKey->valid_until_at->isPast() ||
+            $this->licenceKey->subscription_state === 'subscription_canceled') {
             throw new PastDueLicence;
-        }
-
-        switch ($this->licenceKey->subscription_state) {
-            case 'subscription_canceled':
-                throw new PastDueLicence;
         }
 
         return $this->licenceKey->valid_until_at;
