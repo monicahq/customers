@@ -23,9 +23,7 @@ class MonicaController extends Controller
                 'price' => $plan->price,
                 'frequency' => $plan->frequency,
                 'url' => [
-                    'pay_link' => $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
-                        ->returnTo(route('monica.index'))
-                        ->create(),
+                    'pay_link' => $this->getPayLink($request, $plan),
                 ],
             ];
         });
@@ -41,5 +39,16 @@ class MonicaController extends Controller
                 'current_licence' => $licence,
             ],
         ]);
+    }
+
+    private function getPayLink(Request $request, Plan $plan)
+    {
+        if (! config('cashier.vendor_id') || ! config('cashier.vendor_auth_code')) {
+            return null;
+        }
+
+        return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
+            ->returnTo(route('monica.index'))
+            ->create();
     }
 }

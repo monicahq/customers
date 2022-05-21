@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services;
+namespace Tests\Feature\Webhooks;
 
 use App\Models\LicenceKey;
 use App\Models\Plan;

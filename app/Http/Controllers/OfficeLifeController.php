@@ -24,11 +24,9 @@ class OfficeLifeController extends Controller
                 'single_price' => $plan->price,
                 'price' => $plan->price,
                 'frequency' => $plan->frequency,
-                'quantity' => 0,
+                'quantity' => 1,
                 'url' => [
-                    'pay_link' => $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
-                        ->returnTo(route('officelife.index'))
-                        ->create(),
+                    'pay_link' => $this->getPayLink($request, $plan),
                     'price' => route('officelife.price', [
                         'plan' => $plan->id,
                     ]),
@@ -59,10 +57,20 @@ class OfficeLifeController extends Controller
 
         return response()->json([
             'price' => $quotedPrice,
-            'pay_link' => $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
-                ->returnTo(route('officelife.index'))
-                ->quantity($request->input('quantity'))
-                ->create(),
+            'pay_link' => $this->getPayLink($request, $plan, $request->input('quantity')),
         ]);
+    }
+
+
+    private function getPayLink(Request $request, Plan $plan, int $quantity = 1)
+    {
+        if (! config('cashier.vendor_id') || ! config('cashier.vendor_auth_code')) {
+            return null;
+        }
+
+        return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
+            ->returnTo(route('officelife.index'))
+            ->quantity($quantity)
+            ->create();
     }
 }
