@@ -56,7 +56,7 @@ class LicenceKey extends Model
         'paddle_cancel_url',
         'paddle_update_url',
         'subscription_state',
-        'valid_until_at'
+        'valid_until_at',
     ];
 
     /**
