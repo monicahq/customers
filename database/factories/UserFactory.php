@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'postal_code' => $this->faker->postcode(),
             'country' => $this->faker->country(),
             'state' => $this->faker->state(),
+            'instance_administrator' => false,
         ];
     }
 
