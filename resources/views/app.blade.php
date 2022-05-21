@@ -19,7 +19,7 @@
   @paddleJS
 </head>
 
-<body class="font-sans antialiased bg-gray-50">
+<body class="font-sans antialiased bg-slate-50">
   @inertia
 
   <footer class="text-xs text-center mb-8">

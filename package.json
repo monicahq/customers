@@ -30,5 +30,8 @@
         "tiny-emitter": "^2.1.0",
         "vue": "^3.2.30",
         "vue-loader": "^16.1.2"
+    },
+    "dependencies": {
+        "vue-clipboard3": "^2.0.0"
     }
 }

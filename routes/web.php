@@ -41,6 +41,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware(['administration'])->prefix('administration')->group(function () {
         Route::get('', [AdministrationController::class, 'index'])->name('administration.index');
-        Route::get('{user}', [AdministrationController::class, 'index'])->name('administration.user.show');
+        Route::get('{user}', [AdministrationController::class, 'show'])->name('administration.user.show');
     });
 });

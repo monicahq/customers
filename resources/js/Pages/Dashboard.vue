@@ -39,7 +39,7 @@
           <!-- right -->
           <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:max-w-md sm:rounded-lg">
 
-            <img loading="lazy" src="/img/monica-logo.svg" alt="officelife logo" class="mb-3 mx-auto" height="150"
+            <img loading="lazy" src="/img/monica-logo.svg" alt="monica logo" class="mb-3 mx-auto" height="150"
                  width="150"
             />
 

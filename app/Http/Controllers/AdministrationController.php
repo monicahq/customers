@@ -33,4 +33,9 @@ class AdministrationController extends Controller
             ],
         ]);
     }
+
+    public function show(Request $request, int $userId)
+    {
+        return Inertia::render('Administration/Show');
+    }
 }
