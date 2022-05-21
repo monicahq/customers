@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class MonicaController extends Controller
 {
+    private const PRODUCT = 'Monica';
+
     public function index(Request $request)
     {
-        $plans = Plan::where('product', 'Monica')->get();
+        $plans = Plan::where('product', static::PRODUCT)->get();
 
         $plansCollection = $plans->map(function (Plan $plan) use ($request): array {
             return [

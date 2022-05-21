@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OfficeLifePriceRequest;
 use App\Models\Plan;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class OfficeLifeController extends Controller
 {
+    private const PRODUCT = 'OfficeLife';
+
     public function index(Request $request)
     {
-        $plans = Plan::where('product', 'OfficeLife')->get();
+        $plans = Plan::where('product', static::PRODUCT)->get();
 
         $plansCollection = $plans->map(function (Plan $plan) use ($request): array {
             return [
@@ -48,9 +49,9 @@ class OfficeLifeController extends Controller
         ]);
     }
 
-    public function price(Request $request, Plan $plan)
+    public function price(OfficeLifePriceRequest $request, Plan $plan)
     {
-        if ($plan->product !== 'OfficeLife') {
+        if ($plan->product !== static::PRODUCT) {
             abort(404);
         }
 
