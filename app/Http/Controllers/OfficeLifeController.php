@@ -68,9 +68,11 @@ class OfficeLifeController extends Controller
             return null;
         }
 
+        // @codeCoverageIgnoreStart
         return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
             ->returnTo(route('officelife.index'))
             ->quantity($quantity)
             ->create();
+        // @codeCoverageIgnoreEnd
     }
 }
