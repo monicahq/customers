@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Exceptions\PastDueLicenceException;
 use App\Models\LicenceKey;
+use Carbon\Carbon;
 
 class ValidateLicenceKey extends BaseService
 {
@@ -25,20 +27,32 @@ class ValidateLicenceKey extends BaseService
      * Validate a licence key.
      *
      * @param  array  $data
-     * @return bool
+     * @return Carbon
+     *
+     * @throws \App\Exceptions\PastDueLicenceException
      */
-    public function execute(array $data): bool
+    public function execute(array $data): Carbon
     {
         $this->validateRules($data);
         $this->data = $data;
 
+        $this->decodeKey();
+
         $this->licenceKey = LicenceKey::where('key', $this->data['licence_key'])
             ->firstOrFail();
 
-        if ($this->licenceKey->valid_until_at->isPast()) {
-            throw new \Exception('Licence key has expired.');
+        if ($this->licenceKey->valid_until_at->isPast() ||
+            $this->licenceKey->subscription_state === 'subscription_canceled') {
+            throw new PastDueLicenceException;
         }
 
-        return true;
+        return $this->licenceKey->valid_until_at;
+    }
+
+    private function decodeKey(): array
+    {
+        $encrypter = app('license.encrypter');
+
+        return $encrypter->decrypt($this->data['licence_key']);
     }
 }
