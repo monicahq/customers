@@ -17,9 +17,11 @@ trait PasswordValidationRules
         $rules = new Password;
 
         if (App::environment('production')) {
+            // @codeCoverageIgnoreStart
             $rules->length(8)
                 ->requireUppercase()
                 ->requireNumeric();
+            // @codeCoverageIgnoreEnd
         }
 
         return [
