@@ -26,7 +26,19 @@ class ValidateLicenceKeyTest extends TestCase
 
         $response = (new ValidateLicenceKey)->execute($request);
 
-        $this->assertTrue($response);
+        $this->assertEquals(Carbon::parse('2019-01-01'), $response);
+    }
+
+    /** @test */
+    public function it_fails_if_the_key_is_not_valid(): void
+    {
+        $this->expectException(\Illuminate\Contracts\Encryption\DecryptException::class);
+
+        $request = [
+            'licence_key' => '123',
+        ];
+
+        (new ValidateLicenceKey)->execute($request);
     }
 
     /** @test */
@@ -35,7 +47,7 @@ class ValidateLicenceKeyTest extends TestCase
         $this->expectException(ModelNotFoundException::class);
 
         $request = [
-            'licence_key' => '123',
+            'licence_key' => app('license.encrypter')->encrypt(['test']),
         ];
 
         (new ValidateLicenceKey)->execute($request);

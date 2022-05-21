@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Receipt;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Carbon;
 
 class RenewLicenceKey
 {
@@ -29,18 +30,16 @@ class RenewLicenceKey
             throw new ModelNotFoundException;
         }
 
-        $plan = $subscription->plan;
-
         try {
             $licenceKey = $user->licenceKeys()
-                ->where('plan_id', $plan->id)
+                ->where('plan_id', $subscription->plan->id)
                 ->firstOrFail();
         } catch (ModelNotFoundException) {
             return null;
         }
 
         $licenceKey->subscription_state = 'subscription_payment_succeeded';
-        $licenceKey->valid_until_at = $payload['next_bill_date'];
+        $licenceKey->valid_until_at = Carbon::parse($payload['next_bill_date']);
         $licenceKey->save();
 
         return true;
