@@ -26,7 +26,7 @@ class LicenceKeyFactory extends Factory
         return [
             'plan_id' => Plan::factory(),
             'user_id' => User::factory(),
-            'key' => app('license.encrypter')->encryptString($this->faker->sentence()),
+            'key' => app('license.encrypter')->encrypt([$this->faker->sentence()]),
             'valid_until_at' => $this->faker->dateTimeThisCentury(),
             'subscription_state' => 'subscribed',
         ];
