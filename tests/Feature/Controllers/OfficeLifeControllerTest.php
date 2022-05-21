@@ -87,4 +87,36 @@ class OfficeLifeControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertDontSee('abc123');
     }
+
+    /** @test */
+    public function it_gets_new_price(): void
+    {
+        $user = User::factory()->create();
+        $plan = Plan::factory()->officelife()->create([
+            'price' => 10,
+        ]);
+
+        $response = $this->actingAs($user)->post("/officelife/{$plan->id}/price", [
+            'quantity' => 2,
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'price' => 20,
+            'pay_link' => null,
+        ]);
+    }
+
+    /** @test */
+    public function it_refuses_getting_price_for_monica_plan(): void
+    {
+        $user = User::factory()->create();
+        $plan = Plan::factory()->monica()->create();
+
+        $response = $this->actingAs($user)->post("/officelife/{$plan->id}/price", [
+            'quantity' => 2,
+        ]);
+
+        $response->assertStatus(401);
+    }
 }

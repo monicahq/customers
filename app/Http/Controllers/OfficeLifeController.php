@@ -50,7 +50,7 @@ class OfficeLifeController extends Controller
     public function price(OfficeLifePriceRequest $request, Plan $plan)
     {
         if ($plan->product !== static::PRODUCT) {
-            abort(404);
+            abort(401);
         }
 
         $quotedPrice = $plan->price * $request->input('quantity');
