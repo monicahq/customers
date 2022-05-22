@@ -13,8 +13,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Laravel\Paddle\Events\SubscriptionCancelled;
 use Laravel\Paddle\Events\SubscriptionCreated;
 use Laravel\Paddle\Events\SubscriptionPaymentSucceeded;
-use SocialiteProviders\Manager\SocialiteWasCalled;
 use SocialiteProviders\GitHub\GitHubExtendSocialite;
+use SocialiteProviders\Manager\SocialiteWasCalled;
 
 class EventServiceProvider extends ServiceProvider
 {
