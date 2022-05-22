@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Profile;
 
 use Illuminate\Http\Request;
 use Laravel\Fortify\Features;
-use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\Http\Controllers\Inertia\UserProfileController as BaseController;
+use Laravel\Jetstream\Jetstream;
 
 class UserProfileController extends BaseController
 {
