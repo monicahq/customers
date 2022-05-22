@@ -2,14 +2,14 @@
 
 namespace Tests\Unit\Controllers\Auth;
 
-use Tests\TestCase;
 use App\Models\User;
-use Tests\Helpers\GuzzleMock;
 use App\Models\UserToken;
-use Laravel\Socialite\Facades\Socialite;
-use Laravel\Socialite\Two\GithubProvider;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Socialite\Contracts\Factory as SocialiteFactory;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\GithubProvider;
+use Tests\Helpers\GuzzleMock;
+use Tests\TestCase;
 
 class SocialiteCallbackControllerTest extends TestCase
 {
