@@ -10,7 +10,9 @@
         "guzzlehttp/guzzle": "^7.0",
         "inertiajs/inertia-laravel": "^0.5",
         "laravel/cashier-paddle": "^1.5",
+        "laravel/fortify": "^1.12",
         "laravel/framework": "^9.0",
+        "laravel/jetstream": "^2.7",
         "laravel/passport": "^10.4",
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.5",
@@ -20,7 +22,6 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
         "fakerphp/faker": "^1.9",
-        "laravel/breeze": "^1.6",
         "laravel/sail": "^1.0",
         "mockery/mockery": "^1.4",
         "nunomaduro/collision": "^6.1",

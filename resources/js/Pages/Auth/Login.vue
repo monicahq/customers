@@ -1,11 +1,12 @@
 <script setup>
-import BreezeButton from '@/Components/Button.vue';
-import BreezeCheckbox from '@/Components/Checkbox.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import BreezeInput from '@/Components/Input.vue';
-import BreezeLabel from '@/Components/Label.vue';
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
+import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
+import JetButton from '@/Jetstream/Button.vue';
+import JetInput from '@/Jetstream/Input.vue';
+import JetCheckbox from '@/Jetstream/Checkbox.vue';
+import JetLabel from '@/Jetstream/Label.vue';
+import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 defineProps({
     canResetPassword: Boolean,
@@ -15,21 +16,28 @@ defineProps({
 const form = useForm({
     email: '',
     password: '',
-    remember: false
+    remember: false,
 });
 
 const submit = () => {
-    form.post(route('login'), {
+    form.transform(data => ({
+        ...data,
+        remember: form.remember ? 'on' : '',
+    })).post(route('login'), {
         onFinish: () => form.reset('password'),
     });
 };
 </script>
 
 <template>
-    <BreezeGuestLayout>
-        <Head title="Log in" />
+    <Head title="Log in" />
 
-        <BreezeValidationErrors class="mb-4" />
+    <JetAuthenticationCard>
+        <template #logo>
+            <JetAuthenticationCardLogo />
+        </template>
+
+        <JetValidationErrors class="mb-4" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
@@ -37,18 +45,32 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <BreezeLabel for="email" value="Email" />
-                <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
+                <JetLabel for="email" value="Email" />
+                <JetInput
+                    id="email"
+                    v-model="form.email"
+                    type="email"
+                    class="mt-1 block w-full"
+                    required
+                    autofocus
+                />
             </div>
 
             <div class="mt-4">
-                <BreezeLabel for="password" value="Password" />
-                <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
+                <JetLabel for="password" value="Password" />
+                <JetInput
+                    id="password"
+                    v-model="form.password"
+                    type="password"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="current-password"
+                />
             </div>
 
             <div class="block mt-4">
                 <label class="flex items-center">
-                    <BreezeCheckbox name="remember" v-model:checked="form.remember" />
+                    <JetCheckbox v-model:checked="form.remember" name="remember" />
                     <span class="ml-2 text-sm text-gray-600">Remember me</span>
                 </label>
             </div>
@@ -58,10 +80,10 @@ const submit = () => {
                     Forgot your password?
                 </Link>
 
-                <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
-                </BreezeButton>
+                </JetButton>
             </div>
         </form>
-    </BreezeGuestLayout>
+    </JetAuthenticationCard>
 </template>

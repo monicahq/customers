@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\OfficeLifeController;
 use Carbon\Carbon;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -21,13 +22,19 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'year' => Carbon::now()->year,
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
     ]);
 })->name('home');
 
-require __DIR__.'/auth.php';
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // officelife
     Route::get('/officelife', [OfficeLifeController::class, 'index'])->name('officelife.index');
@@ -35,6 +42,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // monica
     Route::get('/monica', [MonicaController::class, 'index'])->name('monica.index');
-
-    Route::delete('', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
 });

@@ -99,6 +99,27 @@ php artisan passport:client --client
 
 Note the client ID and secret, they will be required to setup Monica or OfficeLife.
 
+### Feeding seed data to test
+
+You need to populate the database with products that are defined on Paddle.
+
+1. Create a product on Paddle (in the sandbox), and copy the plan id.
+2. Look up for the `plans` table in your own database.
+3. Populate the fields:
+   1. `product`: it's gonna be either `Monica` or `OfficeLife`.
+   2. `friendly_name`: the marketing name of the plan, like `Yearly plan`
+   3. `description`: a nice marketing description to add more information
+   4. `plan_name`: the name of the plan
+   5. `plan_id_on_paddle`: here, paste your plan id from Paddle
+   6. `price`: price. For 10$, write 10.
+   7. `frequency`: either `Annual` or `Monthly`.
+
+SQL query to autopopulate the table:
+
+```sql
+INSERT INTO `plans` (`id`, `product`, `friendly_name`, `description`, `plan_name`, `plan_id_on_paddle`, `price`, `frequency`, `created_at`, `updated_at`) VALUES
+(1, 'Monica', 'Monthly plan', 'Unlimited contacts', 'Personal plan - One user ', '24749', 9, 'Monthly', NULL, NULL);
+```
 
 ## 🏷️ Versioning
 
