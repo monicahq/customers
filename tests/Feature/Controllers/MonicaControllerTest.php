@@ -34,7 +34,8 @@ class MonicaControllerTest extends TestCase
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertStringContainsString('"product_id":"1"', $request->body());
-            $this->assertStringContainsString('\"billable_id\":'. $user->id, $request->body());
+            $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
+
             return true;
         });
 
@@ -71,7 +72,8 @@ class MonicaControllerTest extends TestCase
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertStringContainsString('"product_id":"1"', $request->body());
-            $this->assertStringContainsString('\"billable_id\":'. $user->id, $request->body());
+            $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
+
             return true;
         });
 

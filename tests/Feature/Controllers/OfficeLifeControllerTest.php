@@ -34,7 +34,8 @@ class OfficeLifeControllerTest extends TestCase
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertStringContainsString('"product_id":"1"', $request->body());
-            $this->assertStringContainsString('\"billable_id\":'. $user->id, $request->body());
+            $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
+
             return true;
         });
 
@@ -71,7 +72,8 @@ class OfficeLifeControllerTest extends TestCase
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertStringContainsString('"product_id":"1"', $request->body());
-            $this->assertStringContainsString('\"billable_id\":'. $user->id, $request->body());
+            $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
+
             return true;
         });
 
@@ -170,7 +172,8 @@ class OfficeLifeControllerTest extends TestCase
             $this->assertEquals('POST', $request->method());
             $this->assertStringContainsString('"product_id":"'.$plan->plan_id_on_paddle.'"', $request->body());
             $this->assertStringContainsString('"quantity":2', $request->body());
-            $this->assertStringContainsString('\"billable_id\":'. $user->id, $request->body());
+            $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
+
             return true;
         });
 

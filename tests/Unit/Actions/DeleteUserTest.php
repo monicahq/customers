@@ -40,6 +40,7 @@ class DeleteUserTest extends TestCase
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/subscription/users_cancel', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertEquals('{"vendor_id":0,"vendor_auth_code":"","subscription_id":'.$subscription->paddle_id.'}', $request->body());
+
             return true;
         });
 
