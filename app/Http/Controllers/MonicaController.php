@@ -43,14 +43,8 @@ class MonicaController extends Controller
 
     private function getPayLink(Request $request, Plan $plan)
     {
-        if (! config('cashier.vendor_id') || ! config('cashier.vendor_auth_code')) {
-            return null;
-        }
-
-        // @codeCoverageIgnoreStart
         return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
             ->returnTo(route('monica.index'))
             ->create();
-        // @codeCoverageIgnoreEnd
     }
 }

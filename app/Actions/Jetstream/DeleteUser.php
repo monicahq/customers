@@ -2,7 +2,7 @@
 
 namespace App\Actions\Jetstream;
 
-use App\Services\DestroyAccount;
+use Illuminate\Support\Facades\DB;
 use Laravel\Jetstream\Contracts\DeletesUsers;
 
 class DeleteUser implements DeletesUsers
@@ -15,8 +15,30 @@ class DeleteUser implements DeletesUsers
      */
     public function delete($user)
     {
-        app(DestroyAccount::class)->execute([
-            'user_id' => $user->id,
-        ]);
+        DB::transaction(function () use ($user) {
+            $user->tokens->each->delete();
+            $this->cancelSubscriptions($user);
+            $user->delete();
+        });
+    }
+
+    protected function cancelSubscriptions($user)
+    {
+        $subscriptions = $user->subscriptions()->active()->get();
+
+        foreach ($subscriptions as $subscription) {
+            $subscription->cancelNow();
+        }
+
+        // $licences = $user->licenceKeys()
+        //     ->with('plan')
+        //     ->where('subscription_state', '!=', 'subscription_cancelled')
+        //     ->get();
+
+        // foreach ($licences as $licence) {
+        //     $plan = $licence->plan->plan_name;
+
+        //     $user->subscription($plan)->cancelNow();
+        // }
     }
 }
