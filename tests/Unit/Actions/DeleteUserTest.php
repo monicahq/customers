@@ -7,6 +7,7 @@ use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
@@ -45,7 +46,13 @@ class DeleteUserTest extends TestCase
         });
 
         $this->assertNull($user->fresh());
-        //$this->assertNull($licenceKey->fresh());
         $this->assertEquals('deleted', $subscription->fresh()->paddle_status);
+
+        /** @var \Illuminate\Database\Connection */
+        $connection = DB::connection();
+
+        if ($connection->getDriverName() !== 'sqlite') {
+            $this->assertNull($licenceKey->fresh());
+        }
     }
 }

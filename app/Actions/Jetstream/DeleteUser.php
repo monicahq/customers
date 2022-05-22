@@ -29,16 +29,5 @@ class DeleteUser implements DeletesUsers
         foreach ($subscriptions as $subscription) {
             $subscription->cancelNow();
         }
-
-        // $licences = $user->licenceKeys()
-        //     ->with('plan')
-        //     ->where('subscription_state', '!=', 'subscription_cancelled')
-        //     ->get();
-
-        // foreach ($licences as $licence) {
-        //     $plan = $licence->plan->plan_name;
-
-        //     $user->subscription($plan)->cancelNow();
-        // }
     }
 }
