@@ -12,7 +12,7 @@ class UserTokenController extends BaseController
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $driver
-     * @return \Inertia\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, string $driver)
     {

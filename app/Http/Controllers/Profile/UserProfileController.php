@@ -19,7 +19,7 @@ class UserProfileController extends BaseController
     {
         $this->validateTwoFactorAuthenticationState($request);
 
-        /** @var Collection $providers */
+        /** @var \Illuminate\Support\Collection $providers */
         $providers = config('auth.login_providers');
         $providersName = [];
         foreach ($providers as $provider) {

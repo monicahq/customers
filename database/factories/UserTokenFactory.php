@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\User;
+namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\UserToken;

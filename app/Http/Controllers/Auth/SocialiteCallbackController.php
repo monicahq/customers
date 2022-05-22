@@ -124,7 +124,7 @@ class SocialiteCallbackController extends Controller
         // User doesn't exist
         $data = [
             'email' => $socialite->getEmail(),
-            'name' => $socialite->getName() ?? $socialite->getEmail(),
+            'name' => empty($socialite->getName()) ? $socialite->getEmail() : $socialite->getName(),
             'terms' => true,
         ];
 
