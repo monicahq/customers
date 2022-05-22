@@ -68,4 +68,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(LicenceKey::class);
     }
+
+    /**
+     * Get the user tokens for external login providers.
+     *
+     * @return HasMany
+     */
+    public function userTokens()
+    {
+        return $this->hasMany(UserToken::class);
+    }
 }

@@ -3,6 +3,7 @@ import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
 import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
 import JetButton from '@/Jetstream/Button.vue';
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetInput from '@/Jetstream/Input.vue';
 import JetCheckbox from '@/Jetstream/Checkbox.vue';
 import JetLabel from '@/Jetstream/Label.vue';
@@ -11,6 +12,8 @@ import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 defineProps({
     canResetPassword: Boolean,
     status: String,
+    providers: Array,
+    providersName: Object,
 });
 
 const form = useForm({
@@ -27,7 +30,24 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+
+const open = (provider) => {
+    const url = route('login.provider', { driver: provider });
+    location.href = `${url}?redirect=${location.href}`;
+};
 </script>
+
+<style scoped>
+.auth-provider {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+  top: 2px;
+}
+.w-43 {
+  width: 43%;
+}
+</style>
 
 <template>
     <Head title="Log in" />
@@ -83,6 +103,18 @@ const submit = () => {
                 <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
                 </JetButton>
+            </div>
+
+            <div class="block mt-4">
+                <p v-if="providers.length > 0" class="block font-medium text-sm text-gray-700">
+                    Login with:
+                </p>
+                <div v-for="provider in providers" :key="provider" class="inline">
+                  <JetSecondaryButton class="mr-2" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
+                      <img :src="`/img/auth/${provider}.svg`" alt="" class="auth-provider relative" />
+                      {{ providersName[provider] }}
+                  </JetSecondaryButton>
+                </div>
             </div>
         </form>
     </JetAuthenticationCard>

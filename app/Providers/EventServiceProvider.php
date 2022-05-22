@@ -5,12 +5,16 @@ namespace App\Providers;
 use App\Listeners\SubscriptionCancelledListener;
 use App\Listeners\SubscriptionCreatedListener;
 use App\Listeners\SubscriptionPaymentSucceededListener;
+use App\Providers\Auth\MonicaExtendSocialite;
+use App\Providers\Auth\OfficeLifeExtendSocialite;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Laravel\Paddle\Events\SubscriptionCancelled;
 use Laravel\Paddle\Events\SubscriptionCreated;
 use Laravel\Paddle\Events\SubscriptionPaymentSucceeded;
+use SocialiteProviders\Manager\SocialiteWasCalled;
+use SocialiteProviders\GitHub\GitHubExtendSocialite;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +26,11 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        SocialiteWasCalled::class => [
+            GitHubExtendSocialite::class,
+            MonicaExtendSocialite::class,
+            OfficeLifeExtendSocialite::class,
         ],
         SubscriptionCancelled::class => [
             SubscriptionCancelledListener::class,

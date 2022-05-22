@@ -30,4 +30,32 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /*
+     * Socialite providers
+     */
+
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => env('GITHUB_REDIRECT_URI', '/auth/github/callback'),
+    ],
+
+    'monica' => [
+        'host' =>  env('MONICA_HOST', 'https://app.monicahq.com'),
+        'client_id' => env('MONICA_CLIENT_ID'),
+        'client_secret' => env('MONICA_CLIENT_SECRET'),
+        'redirect' => env('MONICA_REDIRECT_URI', '/auth/monica/callback'),
+        'userinfo_key' => 'data',
+        'userinfo_uri' => 'api/me',
+    ],
+
+    'officelife' => [
+        'host' =>  env('OFFICELIFE_HOST', 'https://app.officelife.io'),
+        'client_id' => env('OFFICELIFE_CLIENT_ID'),
+        'client_secret' => env('OFFICELIFE_CLIENT_SECRET'),
+        'redirect' => env('OFFICELIFE_REDIRECT_URI', '/auth/officelife/callback'),
+        'userinfo_key' => 'data',
+        'userinfo_uri' => 'api/me',
+    ],
+
 ];

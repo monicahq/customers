@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialiteCallbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\OfficeLifeController;
+use App\Http\Controllers\Profile\UserProfileController;
+use App\Http\Controllers\Profile\UserTokenController;
 use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,11 +32,19 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('auth/{driver}', [SocialiteCallbackController::class, 'login'])->name('login.provider');
+Route::get('auth/{driver}/callback', [SocialiteCallbackController::class, 'callback']);
+Route::post('auth/{driver}/callback', [SocialiteCallbackController::class, 'callback']);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    // User & Profile...
+    Route::get('/user/profile2', [UserProfileController::class, 'show'])->name('profile2.show');
+    Route::delete('auth/{driver}', [UserTokenController::class, 'destroy'])->name('provider.delete');
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // officelife
