@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import Footer from '@/Layouts/Footer.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -12,8 +13,8 @@ defineProps({
 <template>
     <Head title="Welcome" />
 
-    <div class="relative flex items-top justify-center min-h-full sm:mt-24 mb-10 bg-gray-100 sm:items-center sm:pt-0">
-        <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+    <div class="flex flex-col justify-center min-h-screen bg-gray-100 sm:items-center sm:pt-0">
+        <nav v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
             <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm text-gray-700 underline">
                 Dashboard
             </Link>
@@ -27,9 +28,9 @@ defineProps({
                     Register
                 </Link>
             </template>
-        </div>
+        </nav>
 
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+        <main class="max-w-6xl mx-auto sm:mt-24 mb-10 sm:px-6 lg:px-8 flex-grow">
 
             <div class="mx-auto max-w-4xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-10">
@@ -99,7 +100,9 @@ defineProps({
                   </div>
                 </div>
             </div>
-        </div>
+        </main>
+
+        <Footer />
     </div>
 </template>
 

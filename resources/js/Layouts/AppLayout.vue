@@ -7,6 +7,7 @@ import JetDropdown from '@/Jetstream/Dropdown.vue';
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
 import JetNavLink from '@/Jetstream/NavLink.vue';
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
+import Footer from '@/Layouts/Footer.vue';
 
 defineProps({
     title: String,
@@ -33,7 +34,7 @@ const logout = () => {
 
         <JetBanner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100 flex flex-col">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -198,9 +199,11 @@ const logout = () => {
             </header>
 
             <!-- Page Content -->
-            <main>
+            <main class="flex-grow">
                 <slot />
             </main>
+
+            <Footer />
         </div>
     </div>
 </template>
