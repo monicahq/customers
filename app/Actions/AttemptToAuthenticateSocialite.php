@@ -2,22 +2,22 @@
 
 namespace App\Actions;
 
-use Illuminate\Auth\Events\Failed;
-use Illuminate\Contracts\Auth\StatefulGuard;
-use Illuminate\Support\Facades\App;
-use Illuminate\Validation\ValidationException;
-use Laravel\Socialite\Facades\Socialite;
-use Laravel\Socialite\Two\AbstractProvider;
 use App\Actions\Fortify\CreateNewUser;
 use App\Models\User;
 use App\Models\UserToken;
+use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\LoginRateLimiter;
 use Laravel\Socialite\Contracts\Provider;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
+use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\One\User as OAuth1User;
+use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\User as OAuth2User;
 
 class AttemptToAuthenticateSocialite
@@ -75,7 +75,7 @@ class AttemptToAuthenticateSocialite
     }
 
     /**
-     * Get the provider
+     * Get the provider.
      *
      * @param  string  $driver
      * @return \Laravel\Socialite\Contracts\Provider
@@ -90,7 +90,6 @@ class AttemptToAuthenticateSocialite
 
         return $provider;
     }
-
 
     /**
      * Authenticate the user.

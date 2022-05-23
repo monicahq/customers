@@ -57,7 +57,7 @@ class SocialiteCallbackController extends Controller
         }
     }
 
-        /**
+    /**
      * Get the authentication pipeline instance.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -96,7 +96,7 @@ class SocialiteCallbackController extends Controller
     {
         if (! collect(config('auth.login_providers'))->contains($driver)) {
             throw ValidationException::withMessages([
-                $driver => ['This provider does not exist.']
+                $driver => ['This provider does not exist.'],
             ]);
         }
     }
