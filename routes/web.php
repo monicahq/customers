@@ -4,7 +4,6 @@ use App\Http\Controllers\Auth\SocialiteCallbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\OfficeLifeController;
-use App\Http\Controllers\Profile\UserProfileController;
 use App\Http\Controllers\Profile\UserTokenController;
 use Carbon\Carbon;
 use Illuminate\Foundation\Application;
