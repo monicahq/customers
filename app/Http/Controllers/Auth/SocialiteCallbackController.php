@@ -2,35 +2,29 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Actions\Fortify\CreateNewUser;
+use App\Actions\AttemptToAuthenticateSocialite;
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\UserToken;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use Laravel\Socialite\Contracts\User as SocialiteUser;
+use Inertia\Inertia;
+use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Socialite\Facades\Socialite;
-use Laravel\Socialite\One\User as OAuth1User;
-use Laravel\Socialite\Two\AbstractProvider;
-use Laravel\Socialite\Two\User as OAuth2User;
-use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse;
 
 class SocialiteCallbackController extends Controller
 {
     /**
      * Handle socalite login.
      *
-     * @param  Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  string  $driver
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
-    public function login(Request $request, string $driver): SymfonyRedirectResponse
+    public function login(Request $request, string $driver): Response
     {
         $this->checkProvider($driver);
 
@@ -39,130 +33,58 @@ class SocialiteCallbackController extends Controller
             Redirect::setIntendedUrl($redirect);
         }
 
-        return Socialite::driver($driver)->redirect();
+        return Inertia::location(Socialite::driver($driver)->redirect()->getTargetUrl());
     }
 
     /**
      * Handle socalite callback.
      *
-     * @param  Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  string  $driver
      * @return \Illuminate\Http\RedirectResponse
      */
     public function callback(Request $request, string $driver): RedirectResponse
     {
         try {
-            if ($request->input('error') != '') {
-                throw ValidationException::withMessages([
-                    $request->input('error_description'),
-                ]);
-            }
-
             $this->checkProvider($driver);
+            $this->checkForErrors($request, $driver);
 
-            $provider = Socialite::driver($driver);
-            if (App::environment('local') && $provider instanceof AbstractProvider) {
-                $provider->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
-            }
-
-            $user = $this->authenticateUser($driver, $provider->user());
-
-            Auth::login($user, true);
-
-            return Redirect::intended(route('dashboard'));
+            return $this->loginPipeline($request)->then(function ($request) {
+                return Redirect::intended(route('dashboard'));
+            });
         } catch (ValidationException $e) {
             throw $e->redirectTo(Redirect::intended(route('home'))->getTargetUrl());
         }
     }
 
-    /**
-     * Authenticate the user.
+        /**
+     * Get the authentication pipeline instance.
      *
-     * @param  string  $driver
-     * @param  \Laravel\Socialite\Contracts\User  $socialite
-     * @return User
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Pipeline\Pipeline
      */
-    private function authenticateUser(string $driver, SocialiteUser $socialite): User
+    protected function loginPipeline(Request $request)
     {
-        if ($userToken = UserToken::where([
-            'driver_id' => $driverId = $socialite->getId(),
-            'driver' => $driver,
-        ])->first()) {
-            // Association already exist
-
-            $user = $userToken->user;
-
-            if (($userId = Auth::id()) && $userId !== $user->id) {
-                throw ValidationException::withMessages([
-                    trans('auth.provider_already_used'),
-                ]);
-            }
-        } else {
-            // New association: create user or add token to existing user
-            $user = tap($this->getUser($socialite), function ($user) use ($driver, $driverId, $socialite) {
-                $this->createUserToken($user, $driver, $driverId, $socialite);
-            });
-        }
-
-        return $user;
+        return (new Pipeline(app()))->send($request)->through([
+            AttemptToAuthenticateSocialite::class,
+            PrepareAuthenticatedSession::class,
+        ]);
     }
 
     /**
-     * Get authenticated user.
+     * Check for errors.
      *
-     * @param  SocialiteUser  $socialite
-     * @return User
-     */
-    private function getUser(SocialiteUser $socialite): User
-    {
-        if ($user = Auth::user()) {
-            return $user;
-        }
-
-        // User doesn't exist
-        $data = [
-            'email' => $socialite->getEmail(),
-            'name' => empty($socialite->getName()) ? $socialite->getEmail() : $socialite->getName(),
-            'terms' => true,
-        ];
-
-        event(new Registered($user = app(CreateNewUser::class)->create($data)));
-
-        return $user;
-    }
-
-    /**
-     * Create the user token register.
-     *
-     * @param  User  $user
+     * @param  \Illuminate\Http\Request  $request
      * @param  string  $driver
-     * @param  string  $driverId
-     * @param  SocialiteUser  $socialite
-     * @return UserToken
+     * @return void
      */
-    private function createUserToken(User $user, string $driver, string $driverId, SocialiteUser $socialite): UserToken
+    private function checkForErrors(Request $request, string $driver): void
     {
-        $token = [
-            'driver' => $driver,
-            'driver_id' => $driverId,
-            'user_id' => $user->id,
-            'email' => $socialite->getEmail(),
-        ];
-
-        if ($socialite instanceof OAuth1User) {
-            $token['token'] = $socialite->token;
-            $token['token_secret'] = $socialite->tokenSecret;
-            $token['format'] = 'oauth1';
-        } elseif ($socialite instanceof OAuth2User) {
-            $token['token'] = $socialite->token;
-            $token['refresh_token'] = $socialite->refreshToken;
-            $token['expires_in'] = $socialite->expiresIn;
-            $token['format'] = 'oauth2';
-        } else {
-            throw new \Exception('authentication format not supported');
+        if ($request->filled('error')) {
+            throw ValidationException::withMessages([
+                $driver => [$request->input('error_description')],
+            ]);
         }
-
-        return UserToken::create($token);
     }
 
     /**
@@ -173,7 +95,9 @@ class SocialiteCallbackController extends Controller
     private function checkProvider(string $driver): void
     {
         if (! collect(config('auth.login_providers'))->contains($driver)) {
-            throw ValidationException::withMessages(['This provider does not exist.']);
+            throw ValidationException::withMessages([
+                $driver => ['This provider does not exist.']
+            ]);
         }
     }
 }

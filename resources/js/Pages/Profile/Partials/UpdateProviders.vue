@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { useForm } from '@inertiajs/inertia-vue3';
+import { ref, computed } from 'vue';
+import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 import JetButton from '@/Jetstream/Button.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
@@ -12,8 +12,9 @@ import JetLabel from '@/Jetstream/Label.vue';
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
 
-const form = useForm({
-});
+const form = useForm();
+const providerForm = useForm();
+const errors = computed(() => usePage().props.value.errors);
 
 const deleteProvider = (provider) => {
     form.delete(route('provider.delete', {driver: provider}), {
@@ -25,7 +26,13 @@ const deleteProvider = (provider) => {
 
 const open = (provider) => {
     const url = route('login.provider', { driver: provider });
-    location.href = `${url}?redirect=${location.href}`;
+    let href = location.href.split('#')[0];
+    providerForm.get(`${url}?redirect=${href}#socialite`, {
+        preserveScroll: true,
+        onFinish: () => {
+            providerForm.reset();
+        },
+    });
 };
 
 defineProps({
@@ -45,7 +52,7 @@ defineProps({
 </style>
 
 <template>
-    <JetActionSection @submitted="updatePassword">
+    <JetActionSection id="socialite" @submitted="updatePassword">
         <template #title>
             OAuth connections
         </template>
@@ -67,19 +74,21 @@ defineProps({
                 {{ providersName[provider] }}
                 </span>
 
-                <JetSecondaryButton class="mr-3"
-                  @click.prevent="deleteProvider(provider)"
-                  v-if="userTokens.findIndex(driver => driver.driver === provider) > -1"
-                >
-                  Disconnect
-                </JetSecondaryButton>
+                <template v-if="userTokens.findIndex(driver => driver.driver === provider) > -1">
+                    <JetSecondaryButton class="mr-3" @click.prevent="deleteProvider(provider)">
+                      Disconnect
+                    </JetSecondaryButton>
 
-                <JetButton class="mr-3"
-                  :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)"
-                  v-else
-                >
-                  Connect
-                </JetButton>
+                    <JetInputError :message="form.errors[provider]" class="mt-4" />
+                </template>
+
+                <template v-else>
+                    <JetButton class="mr-3" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
+                      Connect
+                    </JetButton>
+
+                    <JetInputError v-if="errors[provider]" :message="errors[provider]" class="mt-4" />
+                </template>
             </div>
             </div>
 

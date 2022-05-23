@@ -21,6 +21,7 @@ const form = useForm({
     password: '',
     remember: false,
 });
+const providerForm = useForm();
 
 const submit = () => {
     form.transform(data => ({
@@ -33,7 +34,11 @@ const submit = () => {
 
 const open = (provider) => {
     const url = route('login.provider', { driver: provider });
-    location.href = `${url}?redirect=${location.href}`;
+    providerForm.get(`${url}?redirect=${location.href}`, {
+        onFinish: () => {
+            providerForm.reset();
+        },
+    });
 };
 </script>
 
