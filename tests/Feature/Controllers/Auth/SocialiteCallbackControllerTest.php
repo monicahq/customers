@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Controllers\Auth;
+namespace Tests\Feature\Controllers\Auth;
 
 use App\Models\User;
 use App\Models\UserToken;

@@ -17,6 +17,7 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\One\User as OAuth1User;
+use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\User as OAuth2User;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse;
 
@@ -60,7 +61,7 @@ class SocialiteCallbackController extends Controller
             $this->checkProvider($driver);
 
             $provider = Socialite::driver($driver);
-            if (App::environment('local')) {
+            if (App::environment('local') && $provider instanceof AbstractProvider) {
                 $provider->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
             }
 
@@ -81,7 +82,7 @@ class SocialiteCallbackController extends Controller
      * @param  \Laravel\Socialite\Contracts\User  $socialite
      * @return User
      */
-    private function authenticateUser(string $driver, $socialite): User
+    private function authenticateUser(string $driver, SocialiteUser $socialite): User
     {
         if ($userToken = UserToken::where([
             'driver_id' => $driverId = $socialite->getId(),

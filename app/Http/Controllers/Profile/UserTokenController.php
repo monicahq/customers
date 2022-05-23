@@ -20,6 +20,6 @@ class UserTokenController extends BaseController
             ->where('driver', $driver)
             ->delete();
 
-        return redirect()->route('profile2.show');
+        return redirect()->route('profile.show');
     }
 }

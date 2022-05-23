@@ -87,7 +87,7 @@ const logout = () => {
                                             Manage Account
                                         </div>
 
-                                        <JetDropdownLink :href="route('profile2.show')">
+                                        <JetDropdownLink :href="route('profile.show')">
                                             Profile
                                         </JetDropdownLink>
 
