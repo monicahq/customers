@@ -21,7 +21,7 @@ class SocialiteCallbackController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $driver
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function login(Request $request, string $driver)
     {
@@ -48,7 +48,7 @@ class SocialiteCallbackController extends Controller
             $this->checkProvider($driver);
             $this->checkForErrors($request, $driver);
 
-            return $this->loginPipeline($request)->then(function ($request) {
+            return $this->loginPipeline($request)->then(function (/*$request*/) {
                 return Redirect::intended(route('dashboard'));
             });
         } catch (ValidationException $e) {

@@ -19,6 +19,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\One\User as OAuth1User;
 use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\User as OAuth2User;
+use RuntimeException;
 
 class AttemptToAuthenticateSocialite
 {
@@ -62,12 +63,6 @@ class AttemptToAuthenticateSocialite
 
         $provider = $this->getSocialiteProvider($driver);
         $user = $this->authenticateUser($request, $driver, $provider->user());
-
-        if (! $user) {
-            $this->fireFailedEvent($request);
-
-            return $this->throwFailedAuthenticationException($request, $driver);
-        }
 
         $this->guard->login($user, true /* $request->boolean('remember') */);
 
@@ -131,11 +126,7 @@ class AttemptToAuthenticateSocialite
     private function checkUserAssociation(Request $request, User $user, string $driver)
     {
         if (($userId = Auth::id()) && $userId !== $user->id) {
-            $this->fireFailedEvent($request, Auth::user());
-
-            throw ValidationException::withMessages([
-                $driver => [trans('auth.provider_already_used')],
-            ]);
+            $this->throwFailedAuthenticationException($request, $driver, trans('auth.provider_already_used'));
         }
     }
 
@@ -200,7 +191,7 @@ class AttemptToAuthenticateSocialite
             $token['expires_in'] = $socialite->expiresIn;
             $token['format'] = 'oauth2';
         } else {
-            throw new \Exception('authentication format not supported');
+            throw new \UnexpectedValueException('authentication format not supported');
         }
 
         return UserToken::create($token);
@@ -211,16 +202,19 @@ class AttemptToAuthenticateSocialite
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $driver
+     * @param  string  $message
      * @return void
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function throwFailedAuthenticationException(Request $request, string $driver)
+    protected function throwFailedAuthenticationException(Request $request, string $driver, string $message = null)
     {
+        $this->fireFailedEvent($request, Auth::user());
+
         $this->limiter->increment($request);
 
         throw ValidationException::withMessages([
-            $driver => [trans('auth.failed')],
+            $driver => [empty($message) ? trans('auth.failed') : $message],
         ]);
     }
 

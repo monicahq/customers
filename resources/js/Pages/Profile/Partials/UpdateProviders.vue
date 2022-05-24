@@ -1,13 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useForm, usePage } from '@inertiajs/inertia-vue3';
-import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 import JetButton from '@/Jetstream/Button.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetActionSection from '@/Jetstream/ActionSection.vue';
-import JetInput from '@/Jetstream/Input.vue';
 import JetInputError from '@/Jetstream/InputError.vue';
-import JetLabel from '@/Jetstream/Label.vue';
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
@@ -26,7 +23,7 @@ const deleteProvider = (provider) => {
 
 const open = (provider) => {
     const url = route('login.provider', { driver: provider });
-    let href = location.href.split('#')[0];
+    const href = location.href.split('#')[0];
     providerForm.get(`${url}?redirect=${href}#socialite`, {
         preserveScroll: true,
         onFinish: () => {
