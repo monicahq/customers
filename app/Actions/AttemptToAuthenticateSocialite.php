@@ -19,7 +19,6 @@ use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\One\User as OAuth1User;
 use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\User as OAuth2User;
-use RuntimeException;
 
 class AttemptToAuthenticateSocialite
 {
