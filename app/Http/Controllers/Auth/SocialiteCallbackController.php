@@ -6,7 +6,6 @@ use App\Actions\AttemptToAuthenticateSocialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
@@ -22,9 +21,9 @@ class SocialiteCallbackController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $driver
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function login(Request $request, string $driver): Response
+    public function login(Request $request, string $driver)
     {
         $this->checkProvider($driver);
 
@@ -33,7 +32,7 @@ class SocialiteCallbackController extends Controller
             Redirect::setIntendedUrl($redirect);
         }
 
-        return Inertia::location(Socialite::driver($driver)->redirect()->getTargetUrl());
+        return Inertia::location(Socialite::driver($driver)->redirect());
     }
 
     /**

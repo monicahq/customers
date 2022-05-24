@@ -5,6 +5,7 @@ namespace Tests\Feature\Controllers\Auth;
 use App\Models\User;
 use App\Models\UserToken;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Inertia\Inertia;
 use Laravel\Socialite\Contracts\Factory as SocialiteFactory;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\GithubProvider;
@@ -64,6 +65,21 @@ class SocialiteCallbackControllerTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertRedirect('https://github.com/login/oauth/authorize?client_id=client_id&redirect_uri=redirect_url&scope=user%3Aemail&response_type=code');
+    }
+
+    /** @test */
+    public function it_get_redirect_url_inertia(): void
+    {
+        $this->mockSocialite();
+        Socialite::driver('test')->stateless();
+
+        $response = $this->get('/auth/test', [
+            'X-Inertia' => true,
+            'X-Inertia-Version' => md5_file(public_path('mix-manifest.json')),
+        ]);
+
+        $response->assertStatus(409);
+        $response->assertHeader('X-Inertia-Location', 'https://github.com/login/oauth/authorize?client_id=client_id&redirect_uri=redirect_url&scope=user%3Aemail&response_type=code');
     }
 
     /** @test */
