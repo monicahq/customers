@@ -39,13 +39,27 @@ class ValidateLicenceKeyTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+        $response->assertJson([
+            'next_check_at' => '2019-01-01',
+        ]);
+    }
+
+    /** @test */
+    public function it_fails_if_the_key_is_not_valid(): void
+    {
+        $response = $this->post('/api/validate', [
+            'licence_key' => '123',
+        ]);
+
+        $response->assertStatus(500);
     }
 
     /** @test */
     public function it_fails_if_the_key_doesnt_exist(): void
     {
         $response = $this->post('/api/validate', [
-            'licence_key' => '123',
+            'licence_key' => app('license.encrypter')->encrypt(['test']),
+
         ]);
 
         $response->assertStatus(404);

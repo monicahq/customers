@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Paddle\Billable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, Billable;
+    use Billable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,10 +25,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
-        'email_verified_at',
         'password',
         'company_name',
         'total_number_of_employees',
@@ -44,6 +47,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
     /**
@@ -64,15 +69,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function licenceKeys()
     {
         return $this->hasMany(LicenceKey::class);
-    }
-
-    /**
-     * Get the customer's email address to associate with Paddle.
-     *
-     * @return string|null
-     */
-    public function paddleEmail(): ?string
-    {
-        return $this->email;
     }
 }

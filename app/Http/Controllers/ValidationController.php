@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\PastDueLicenceException;
 use App\Services\ValidateLicenceKey;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -12,14 +13,18 @@ class ValidationController extends Controller
     public function index(Request $request)
     {
         try {
-            app(ValidateLicenceKey::class)
+            $validation = app(ValidateLicenceKey::class)
                 ->execute($request->only('licence_key'));
+
+            return response()->json([
+                'next_check_at' => $validation->format('Y-m-d'),
+            ]);
         } catch (ModelNotFoundException) {
             return response()->json(status: 404);
-        } catch (Exception) {
+        } catch (PastDueLicenceException) {
             return response()->json(status: 410);
+        } catch (Exception) {
+            return response()->json(status: 500);
         }
-
-        return response()->json();
     }
 }

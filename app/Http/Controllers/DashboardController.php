@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\DestroyAccount;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Laravel\Paddle\Receipt;
@@ -26,20 +24,7 @@ class DashboardController extends Controller
 
         return Inertia::render('Dashboard', [
             'receipts' => $receiptsCollection,
-            'destroy_account' => route('dashboard.destroy'),
+            'destroy_account' => route('current-user.destroy'),
         ]);
-    }
-
-    public function destroy(Request $request)
-    {
-        $data = [
-            'user_id' => Auth::id(),
-        ];
-
-        (new DestroyAccount)->execute($data);
-
-        return response()->json([
-            'data' => route('home'),
-        ], 200);
     }
 }

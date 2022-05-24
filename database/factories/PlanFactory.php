@@ -31,4 +31,32 @@ class PlanFactory extends Factory
             'frequency' => Plan::TYPE_MONTHLY,
         ];
     }
+
+    /**
+     * Monica's plan.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function monica()
+    {
+        return $this->state(function () {
+            return [
+                'product' => 'Monica',
+            ];
+        });
+    }
+
+    /**
+     * OfficeLife's plan.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function officelife()
+    {
+        return $this->state(function () {
+            return [
+                'product' => 'OfficeLife',
+            ];
+        });
+    }
 }

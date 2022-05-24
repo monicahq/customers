@@ -25,6 +25,9 @@
         <env name="MAIL_MAILER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
+        <env name="PADDLE_SANDBOX" value="true"/>
+        <env name="PADDLE_VENDOR_ID" value=""/>
+        <env name="PADDLE_VENDOR_AUTH_CODE" value=""/>
         <env name="PADDLE_PUBLIC_KEY" value=""/>
     </php>
 </phpunit>

@@ -8,7 +8,6 @@ use App\Models\Receipt;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Services\RenewLicenceKey;
-use Carbon\Carbon;
 use Tests\TestCase;
 
 class RenewLicenceKeyTest extends TestCase
@@ -43,7 +42,7 @@ class RenewLicenceKeyTest extends TestCase
             'user_id' => $user->id,
             'plan_id' => $plan->id,
             'subscription_state' => 'subscription_payment_succeeded',
-            'valid_until_at' => Carbon::create('2022-04-02'),
+            'valid_until_at' => '2022-04-02 00:00:00',
         ]);
     }
 }
