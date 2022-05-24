@@ -2,7 +2,7 @@ Index.vue<style lang="scss" scoped>
 </style>
 
 <template>
-  <layout>
+  <AppLayout title="Administration">
     <main class="sm:mt-18 relative">
       <div class="mx-auto max-w-4xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
 
@@ -121,15 +121,15 @@ Index.vue<style lang="scss" scoped>
 
       </div>
     </main>
-  </layout>
+  </AppLayout>
 </template>
 
 <script>
-import Layout from '@/Shared/Layout';
+import AppLayout from '@/Layouts/AppLayout.vue';
 
 export default {
   components: {
-    Layout,
+    AppLayout,
   },
 
   props: {

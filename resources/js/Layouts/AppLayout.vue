@@ -91,6 +91,8 @@ const logout = () => {
                                             Profile
                                         </JetDropdownLink>
 
+                                        <JetDropdownLink v-if="$page.props.user.instance_administrator" :href="route('administration.index')">Administration</JetDropdownLink>
+
                                         <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
                                             API Tokens
                                         </JetDropdownLink>

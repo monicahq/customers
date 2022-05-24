@@ -2,7 +2,7 @@ Index.vue<style lang="scss" scoped>
 </style>
 
 <template>
-  <layout>
+  <AppLayout title="Administration">
     <main class="sm:mt-18 relative">
       <div class="mx-auto max-w-4xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
         <nav class="flex mb-6">
@@ -102,7 +102,7 @@ Index.vue<style lang="scss" scoped>
                   2022-04-01
                 </td>
                 <td class="px-6 py-4">
-                  <inertia-link :href="user.url.show">View</inertia-link>
+                  <Link :href="user.url.show" class="text-indigo-600 hover:text-indigo-500">View</Link>
                 </td>
               </tr>
             </tbody>
@@ -110,15 +110,17 @@ Index.vue<style lang="scss" scoped>
         </div>
       </div>
     </main>
-  </layout>
+  </AppLayout>
 </template>
 
 <script>
-import Layout from '@/Shared/Layout';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
   components: {
-    Layout,
+    AppLayout,
+    Link,
   },
 
   props: {
