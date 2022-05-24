@@ -5,7 +5,6 @@ namespace Tests\Feature\Controllers\Auth;
 use App\Models\User;
 use App\Models\UserToken;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Inertia\Inertia;
 use Laravel\Socialite\Contracts\Factory as SocialiteFactory;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\GithubProvider;
