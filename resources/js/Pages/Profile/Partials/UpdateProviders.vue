@@ -22,9 +22,9 @@ const deleteProvider = (provider) => {
 };
 
 const open = (provider) => {
-    const url = route('login.provider', { driver: provider });
-    const href = location.href.split('#')[0];
-    providerForm.get(`${url}?redirect=${href}#socialite`, {
+    providerForm.transform(() => ({
+        redirect: location.href,
+    })).get(route('login.provider', { driver: provider }), {
         preserveScroll: true,
         onFinish: () => {
             providerForm.reset();

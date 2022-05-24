@@ -32,6 +32,10 @@ class SocialiteCallbackController extends Controller
             Redirect::setIntendedUrl($redirect);
         }
 
+        if ($request->boolean('remember')) {
+            $request->session()->put('remember', true);
+        }
+
         return Inertia::location(Socialite::driver($driver)->redirect());
     }
 

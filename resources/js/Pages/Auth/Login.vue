@@ -33,8 +33,11 @@ const submit = () => {
 };
 
 const open = (provider) => {
-    const url = route('login.provider', { driver: provider });
-    providerForm.get(`${url}?redirect=${location.href}`, {
+    providerForm.transform(() => ({
+        redirect: location.href,
+        remember: form.remember ? 'on' : '',
+    })).get(route('login.provider', { driver: provider }), {
+        preserveScroll: true,
         onFinish: () => {
             providerForm.reset();
         },

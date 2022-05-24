@@ -63,7 +63,7 @@ class AttemptToAuthenticateSocialite
         $provider = $this->getSocialiteProvider($driver);
         $user = $this->authenticateUser($request, $driver, $provider->user());
 
-        $this->guard->login($user, true /* $request->boolean('remember') */);
+        $this->guard->login($user, $request->session()->pull('remember', false));
 
         return $next($request);
     }
