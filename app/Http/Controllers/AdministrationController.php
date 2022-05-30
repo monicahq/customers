@@ -13,8 +13,7 @@ class AdministrationController extends Controller
         $usersCollection = User::get()->map(function (User $user): array {
             return [
                 'id' => $user->id,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
+                'name' => $user->name,
                 'email' => $user->email,
                 'url' => [
                     'show' => route('administration.user.show', [
