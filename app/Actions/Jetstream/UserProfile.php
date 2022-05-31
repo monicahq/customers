@@ -17,14 +17,9 @@ class UserProfile
     {
         /** @var \Illuminate\Support\Collection $providers */
         $providers = config('auth.login_providers');
-        $providersName = [];
-        foreach ($providers as $provider) {
-            if ($name = config("services.$provider.name")) {
-                $providersName[$provider] = $name;
-            } else {
-                $providersName[$provider] = __("auth.login_provider_{$provider}");
-            }
-        }
+        $providersName = $providers->mapWithKeys(function ($provider) {
+            return [$provider => config("services.$provider.name") ?? __("auth.login_provider_{$provider}")];
+        });
 
         $data['providers'] = $providers;
         $data['providersName'] = $providersName;
