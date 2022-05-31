@@ -15,7 +15,10 @@
         "laravel/jetstream": "^2.7",
         "laravel/passport": "^10.4",
         "laravel/sanctum": "^2.8",
+        "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
+        "socialiteproviders/github": "^4.1",
+        "socialiteproviders/laravelpassport": "^4.1",
         "thecodingmachine/safe": "^2.0",
         "tightenco/ziggy": "^1.0"
     },

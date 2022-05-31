@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialiteCallbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\OfficeLifeController;
+use App\Http\Controllers\Profile\UserTokenController;
 use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,12 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::middleware(['throttle:oauth2-socialite'])->group(function () {
+    Route::get('auth/{driver}', [SocialiteCallbackController::class, 'login'])->name('login.provider');
+    Route::get('auth/{driver}/callback', [SocialiteCallbackController::class, 'callback']);
+    Route::post('auth/{driver}/callback', [SocialiteCallbackController::class, 'callback']);
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -42,4 +50,7 @@ Route::middleware([
 
     // monica
     Route::get('/monica', [MonicaController::class, 'index'])->name('monica.index');
+
+    // User & Profile...
+    Route::delete('auth/{driver}', [UserTokenController::class, 'destroy'])->name('provider.delete');
 });
