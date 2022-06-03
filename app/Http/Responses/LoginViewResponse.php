@@ -20,7 +20,7 @@ class LoginViewResponse extends LoginViewResponseBase
     {
         return $request->wantsJson()
             ? Response::json([
-                'publicKey' => $this->publicKey
+                'publicKey' => $this->publicKey,
             ])
             : $this->inertiaResponse($request)
                 ->toResponse($request);

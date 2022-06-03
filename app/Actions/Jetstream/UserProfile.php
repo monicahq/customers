@@ -2,7 +2,6 @@
 
 namespace App\Actions\Jetstream;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use LaravelWebauthn\Models\WebauthnKey;
 

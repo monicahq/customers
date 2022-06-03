@@ -40,7 +40,6 @@ class AttemptToAuthenticateWebauthn
         $this->limiter = $limiter;
     }
 
-
     /**
      * Handle the incoming request.
      *

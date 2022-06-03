@@ -36,7 +36,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Fortify::authenticateThrough(fn() => [
+        Fortify::authenticateThrough(fn () => [
             RedirectIfTwoFactorAuthenticatable::class,
             AttemptToAuthenticate::class,
             PrepareAuthenticatedSession::class,

@@ -21,11 +21,11 @@ class RegisterViewResponse extends RegisterViewResponseBase
 
         return $request->wantsJson()
             ? Response::json([
-                'publicKey' => $this->publicKey
+                'publicKey' => $this->publicKey,
             ])
             : Inertia::render('Profile/Show', [
                 'webauthnKeys' => $webauthnKeys,
-                'publicKey' => $this->publicKey
+                'publicKey' => $this->publicKey,
             ])->toResponse($request);
     }
 }

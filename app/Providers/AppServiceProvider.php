@@ -2,17 +2,15 @@
 
 namespace App\Providers;
 
-use App\Actions\AttemptToAuthenticateWebauthn;
-use App\Models\Receipt;
-use App\Models\Subscription;
 use App\Http\Responses\LoginViewResponse;
 use App\Http\Responses\RegisterViewResponse;
+use App\Models\Receipt;
+use App\Models\Subscription;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Paddle\Cashier;
-use LaravelWebauthn\Actions\PrepareAuthenticatedSession;
 use LaravelWebauthn\Services\Webauthn;
 
 class AppServiceProvider extends ServiceProvider
