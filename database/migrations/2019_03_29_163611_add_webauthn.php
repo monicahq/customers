@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddWebauthn extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -18,7 +18,7 @@ class AddWebauthn extends Migration
             $table->bigInteger('user_id')->unsigned();
 
             $table->string('name')->default('key');
-            $table->mediumText('credentialId');
+            $table->string('credentialId', 1024);
             $table->string('type', 255);
             $table->text('transports');
             $table->string('attestationType', 255);
@@ -29,7 +29,7 @@ class AddWebauthn extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->index('credentialId');
+            $table->fullText('credentialId');
         });
     }
 
@@ -42,4 +42,4 @@ class AddWebauthn extends Migration
     {
         Schema::dropIfExists('webauthn_keys');
     }
-}
+};

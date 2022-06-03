@@ -26,9 +26,9 @@ class LoginController extends Controller
             return [$provider => config("services.$provider.name") ?? __("auth.login_provider_{$provider}")];
         });
 
-        $webauthnRemember = $request->cookie('webauthn_remember', false);
+        $webauthnRemember = $request->cookie('webauthn_remember');
         $data = [];
-        if ($webauthnRemember !== false) {
+        if ($webauthnRemember) {
             $user = User::find($webauthnRemember);
 
             $data['publicKey'] = Webauthn::prepareAssertion($user);

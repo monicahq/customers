@@ -17,7 +17,7 @@ class LoginListener
     public function handle(Login $event)
     {
         if (Webauthn::enabled($event->user) && $event->remember) {
-            Cookie::queue('webauthn_remember', $event->user->id, 60 * 24 * 30);
+            Cookie::queue('webauthn_remember', $event->user->getAuthIdentifier(), 60 * 24 * 30);
         }
     }
 }

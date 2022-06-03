@@ -2,11 +2,11 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
-use Laravel\Fortify\Fortify;
 use Laravel\Fortify\LoginRateLimiter;
 use LaravelWebauthn\Facades\Webauthn;
 
@@ -66,9 +66,7 @@ class RedirectIfTwoFactorAuthenticatable
      */
     protected function validateCredentials($request)
     {
-        $model = $this->guard->getProvider()->getModel();
-
-        return tap($model::where(Fortify::username(), $request->{Fortify::username()})->first(), function ($user) use ($request) {
+        return tap(User::where('email', $request->email)->first(), function ($user) use ($request) {
             if (! $user || ! $this->guard->getProvider()->validateCredentials($user, ['password' => $request->password])) {
                 $this->fireFailedEvent($request, $user);
 
@@ -90,7 +88,7 @@ class RedirectIfTwoFactorAuthenticatable
         $this->limiter->increment($request);
 
         throw ValidationException::withMessages([
-            Fortify::username() => [trans('auth.failed')],
+            'email' => [trans('auth.failed')],
         ]);
     }
 
@@ -104,7 +102,7 @@ class RedirectIfTwoFactorAuthenticatable
     protected function fireFailedEvent($request, $user = null)
     {
         event(new Failed(config('fortify.guard'), $user, [
-            Fortify::username() => $request->{Fortify::username()},
+            'email' => $request->email,
             'password' => $request->password,
         ]));
     }
