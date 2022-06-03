@@ -33,7 +33,7 @@ class SocialiteCallbackController extends Controller
         }
 
         if ($request->boolean('remember')) {
-            $request->session()->put('remember', true);
+            $request->session()->put('login.remember', true);
         }
 
         return Inertia::location(Socialite::driver($driver)->redirect());

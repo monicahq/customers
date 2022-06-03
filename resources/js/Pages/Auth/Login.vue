@@ -1,4 +1,5 @@
 <script setup>
+import { nextTick, ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
 import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
@@ -8,13 +9,18 @@ import JetInput from '@/Jetstream/Input.vue';
 import JetCheckbox from '@/Jetstream/Checkbox.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
+import WebauthnLogin from '@/Pages/Webauthn/WebauthnLogin.vue';
+import { Inertia } from '@inertiajs/inertia'
 
 defineProps({
     canResetPassword: Boolean,
     status: String,
     providers: Array,
     providersName: Object,
+    publicKey: Object,
+    userName: String,
 });
+const webauthn = ref(true);
 
 const form = useForm({
     email: '',
@@ -71,7 +77,22 @@ const open = (provider) => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
+        <div v-if="publicKey && webauthn">
+            <div class="mb-4 text-lg text-gray-900 text-center">
+                {{ userName }}
+            </div>
+            <div class="mb-4 text-sm text-gray-600">
+                Connect with your security key
+            </div>
+
+            <WebauthnLogin :remember="true" :publicKey="publicKey" />
+
+            <JetSecondaryButton class="mr-2 mt-4" @click.prevent="webauthn = false">
+                Connect with your password
+            </JetSecondaryButton>
+        </div>
+
+        <form v-else @submit.prevent="submit">
             <div>
                 <JetLabel for="email" value="Email" />
                 <JetInput
@@ -124,6 +145,13 @@ const open = (provider) => {
                   </JetSecondaryButton>
                 </div>
             </div>
+
+            <div v-if="publicKey" class="block mt-4">
+                <JetSecondaryButton class="mr-2" href="" @click.prevent="webauthn = true; Inertia.Reload({only: ['publicKey']});">
+                    Use your security key
+                </JetSecondaryButton>
+            </div>
+
         </form>
     </JetAuthenticationCard>
 </template>

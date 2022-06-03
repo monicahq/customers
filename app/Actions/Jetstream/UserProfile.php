@@ -2,7 +2,9 @@
 
 namespace App\Actions\Jetstream;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use LaravelWebauthn\Models\WebauthnKey;
 
 class UserProfile
 {
@@ -21,9 +23,20 @@ class UserProfile
             return [$provider => config("services.$provider.name") ?? __("auth.login_provider_{$provider}")];
         });
 
+        $webauthnKeys = WebauthnKey::where('user_id', $request->user()->id)->get()
+            ->map(function ($key) {
+                return [
+                    'id' => $key->id,
+                    'name' => $key->name,
+                    'type' => $key->type,
+                    'last_active' => $key->updated_at->diffForHumans(),
+                ];
+            });
+
         $data['providers'] = $providers;
         $data['providersName'] = $providersName;
         $data['userTokens'] = $request->user()->usertokens()->get();
+        $data['webauthnKeys'] = $webauthnKeys;
 
         return $data;
     }
