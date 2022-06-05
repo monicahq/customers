@@ -1,0 +1,43 @@
+<?php
+
+namespace Tests\Unit\Actions;
+
+use App\Actions\AttemptToAuthenticateWebauthn;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use LaravelWebauthn\Facades\Webauthn;
+use Tests\TestCase;
+
+class AttemptToAuthenticateWebauthnTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function it_get_user_request()
+    {
+        $user = $this->user();
+        $request = $this->app->make(Request::class)
+            ->setUserResolver(fn () => $user);
+
+        Webauthn::shouldReceive('validateAssertion')->andReturn(true);
+
+        $result = app(AttemptToAuthenticateWebauthn::class)->handle($request, fn () => 1);
+
+        $this->assertEquals(1, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_fails_with_request()
+    {
+        $user = $this->user();
+        $request = $this->app->make(Request::class)
+            ->setUserResolver(fn () => $user);
+
+        Webauthn::shouldReceive('validateAssertion')->andReturn(false);
+
+        $this->expectException(ValidationException::class);
+        app(AttemptToAuthenticateWebauthn::class)->handle($request, fn () => 1);
+    }
+}

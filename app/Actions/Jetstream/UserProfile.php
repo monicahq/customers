@@ -30,7 +30,8 @@ class UserProfile
                     'type' => $key->type,
                     'last_active' => $key->updated_at->diffForHumans(),
                 ];
-            });
+            })
+            ->toArray();
 
         $data['providers'] = $providers;
         $data['providersName'] = $providersName;

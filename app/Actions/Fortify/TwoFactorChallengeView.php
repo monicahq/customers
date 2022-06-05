@@ -20,12 +20,14 @@ class TwoFactorChallengeView implements TwoFactorChallengeViewContract
         $userId = $request->session()->get('login.id');
         $user = User::find($userId);
 
-        $publicKey = Webauthn::prepareAssertion($user);
+        $data = [];
+        if ($user !== null) {
+            $data['publicKey'] = Webauthn::prepareAssertion($user);
+        }
 
-        return Inertia::render('Auth/TwoFactorChallenge', [
+        return Inertia::render('Auth/TwoFactorChallenge', $data + [
             'two_factor' => optional($user)->two_factor_secret && ! is_null(optional($user)->two_factor_confirmed_at),
             'remember' => $request->session()->get('login.remember'),
-            'publicKey' => $publicKey,
         ])->toResponse($request);
     }
 }
