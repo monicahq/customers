@@ -4,7 +4,6 @@ import { useForm } from '@inertiajs/inertia-vue3';
 import JetLabel from '@/Jetstream/Label.vue'
 import JetInput from '@/Jetstream/Input.vue'
 import JetInputError from '@/Jetstream/InputError.vue'
-import JetFormSection from '@/Jetstream/FormSection.vue'
 import JetButton from '@/Jetstream/Button.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 

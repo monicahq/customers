@@ -3,7 +3,6 @@
 namespace App\Actions\Jetstream;
 
 use Illuminate\Http\Request;
-use LaravelWebauthn\Models\WebauthnKey;
 
 class UserProfile
 {
@@ -22,7 +21,8 @@ class UserProfile
             return [$provider => config("services.$provider.name") ?? __("auth.login_provider_{$provider}")];
         });
 
-        $webauthnKeys = WebauthnKey::where('user_id', $request->user()->id)->get()
+        $webauthnKeys = $request->user()->webauthnKeys()
+            ->get()
             ->map(function ($key) {
                 return [
                     'id' => $key->id,

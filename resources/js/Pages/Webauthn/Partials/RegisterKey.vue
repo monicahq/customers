@@ -1,7 +1,6 @@
 
 <script setup>
 import { ref, watch, nextTick, computed, onMounted } from 'vue';
-import JetDialogModal from '@/Jetstream/DialogModal.vue'
 import JetLabel from '@/Jetstream/Label.vue'
 import JetInput from '@/Jetstream/Input.vue'
 import JetInputError from '@/Jetstream/InputError.vue'
@@ -45,9 +44,9 @@ const begin = () => {
                 nextTick().then(() => registerWaitForKey(response.props.publicKey));
             }
         })
-        .catch(error => {
+        .catch(e => {
             stop();
-            error.value = error.response.data.errors[0];
+            error.value = e.response.data.errors[0];
         });
 };
 

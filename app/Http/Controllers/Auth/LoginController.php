@@ -30,7 +30,7 @@ class LoginController extends Controller
         $webauthnRemember = $request->cookie('webauthn_remember');
         $data = [];
         if ($webauthnRemember) {
-            if ($user = User::find($webauthnRemember)) {
+            if (($user = User::find($webauthnRemember)) && $user->webauthnKeys()->count() > 0) {
                 $data['publicKey'] = Webauthn::prepareAssertion($user);
                 $data['userName'] = $user->name;
             } else {

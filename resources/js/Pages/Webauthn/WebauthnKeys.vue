@@ -2,19 +2,14 @@
 <script setup>
 import { ref, nextTick, computed, onMounted } from 'vue';
 import { useForm } from '@inertiajs/inertia-vue3'
-import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
 import JetActionSection from '@/Jetstream/ActionSection.vue';
-import JetDialogModal from '@/Jetstream/DialogModal.vue'
-import JetLabel from '@/Jetstream/Label.vue'
-import JetInput from '@/Jetstream/Input.vue'
-import JetDangerButton from '@/Jetstream/DangerButton.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetConfirmsPassword from '@/Jetstream/ConfirmsPassword.vue'
 import JetButton from '@/Jetstream/Button.vue'
 import RegisterKey from './Partials/RegisterKey.vue'
 import DeleteKeyModal from './Partials/DeleteKeyModal.vue'
 import UpdateKey from './Partials/UpdateKey.vue'
-import * as WebAuthn from '../../../../vendor/asbiin/laravel-webauthn/resources/js/webauthn.js';
+import * as WebAuthn from '../../../../vendor/asbiin/laravel-webauthn/resources/js/webauthn.js'
 
 const props = defineProps({
     webauthnKeys: Array,
