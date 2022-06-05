@@ -132,7 +132,7 @@
                     onSuccess: (response) => {
                         this.stop();
                         if (response.data.callback !== undefined) {
-                            this.$nextTick(() => { window.location = response.data.callback; });
+                            this.$nextTick(() => window.location = response.data.callback);
                         }
                     },
                     onError: (error) => {
