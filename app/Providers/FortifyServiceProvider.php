@@ -45,6 +45,12 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(function ($request) {
             return app()->call(LoginController::class, ['request' => $request]);
         });
+        Fortify::confirmPasswordsUsing(function($user, ?string $password = null) {
+            return $user->password ? app('guard')->validate([
+                'email' => $user->email,
+                'password' => $password,
+            ]) : true;
+        });
 
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);

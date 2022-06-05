@@ -32,9 +32,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Webauthn::loginViewResponseUsing(LoginViewResponse::class);
-        Webauthn::registerViewResponseUsing(RegisterViewResponse::class);
-
         Cashier::useSubscriptionModel(Subscription::class);
         Cashier::useReceiptModel(Receipt::class);
 

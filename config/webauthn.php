@@ -127,8 +127,8 @@ return [
     */
 
     'views' => [
-        'authenticate' => 'webauthn::authenticate',
-        'register' => 'webauthn::register',
+        'authenticate' => null,
+        'register' => null,
     ],
 
     /*

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -29,10 +30,12 @@ class LoginController extends Controller
         $webauthnRemember = $request->cookie('webauthn_remember');
         $data = [];
         if ($webauthnRemember) {
-            $user = User::find($webauthnRemember);
-
-            $data['publicKey'] = Webauthn::prepareAssertion($user);
-            $data['userName'] = $user->name;
+            if ($user = User::find($webauthnRemember)) {
+                $data['publicKey'] = Webauthn::prepareAssertion($user);
+                $data['userName'] = $user->name;
+            } else {
+                Cookie::expire('webauthn_remember');
+            }
         }
 
         return Inertia::render('Auth/Login', $data + [
