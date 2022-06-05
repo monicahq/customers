@@ -1,5 +1,5 @@
 <script setup>
-import { ref, nextTick, watch, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
@@ -31,14 +31,11 @@ const form = useForm({
 const providerForm = useForm();
 
 watch(() => props.publicKey, (value) => {
-    webauthn.value = true;
-    publicKeyRef.value = props.publicKey;
+    publicKeyRef.value = value;
 });
 
 onMounted(() => {
-    if (props.publicKey) {
-        publicKeyRef.value = props.publicKey;
-    }
+    publicKeyRef.value = props.publicKey;
 });
 
 const submit = () => {
@@ -63,6 +60,8 @@ const open = (provider) => {
 };
 
 const reload = () => {
+    publicKeyRef.value = null;
+    webauthn.value = true;
     Inertia.reload({only: ['publicKey']});
 };
 </script>
@@ -154,15 +153,15 @@ const reload = () => {
                 <div v-if="providers.length > 0" class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                     <p class="text-center font-semibold mx-4 mb-0">Or login with</p>
                 </div>
-                <div v-for="provider in providers" :key="provider" class="inline">
-                  <JetSecondaryButton class="mr-2" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
-                      <img :src="`/img/auth/${provider}.svg`" alt="" class="auth-provider relative" />
-                      {{ providersName[provider] }}
-                  </JetSecondaryButton>
+                <div class="flex flex-wrap">
+                    <JetSecondaryButton v-for="provider in providers" :key="provider" class="mr-2" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
+                        <img :src="`/img/auth/${provider}.svg`" alt="" class="auth-provider relative" />
+                        {{ providersName[provider] }}
+                    </JetSecondaryButton>
                 </div>
             </div>
 
-            <div v-if="publicKey" class="block mt-4">
+            <div v-if="publicKeyRef" class="block mt-4">
                 <JetSecondaryButton class="mr-2" @click.prevent="reload">
                     Use your security key
                 </JetSecondaryButton>
