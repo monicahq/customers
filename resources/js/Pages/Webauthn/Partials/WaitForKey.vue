@@ -1,3 +1,15 @@
+<script setup>
+import JetButton from '@/Jetstream/Button.vue'
+
+defineProps({
+    errorMessage: String,
+    form: Object,
+});
+
+defineEmits(['retry']);
+
+</script>
+
 <template>
     <div>
         <div v-if="errorMessage !== ''" class="form-error-message mb3">
@@ -5,9 +17,9 @@
                 <p class="font-bold text-red-700">
                     {{ errorMessage }}
                 </p>
-                <jet-button class="mt-4" @click="$emit('retry')">
+                <JetButton class="mt-4" @click="$emit('retry')">
                     Retry
-                </jet-button>
+                </JetButton>
             </div>
         </div>
         <template v-else>
@@ -61,29 +73,3 @@
         </template>
     </div>
 </template>
-
-<script>
-    import { defineComponent } from 'vue'
-    import JetButton from '@/Jetstream/Button.vue'
-
-    export default defineComponent({
-        components: {
-            JetButton,
-        },
-
-        props: {
-            errorMessage: {
-                type: String,
-                default: '',
-            },
-            form: {
-                type: Object,
-                default: null,
-            }
-        },
-
-        emits: [
-            'retry'
-        ],
-    })
-</script>
