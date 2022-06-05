@@ -52,6 +52,14 @@ defineProps({
             <JetAuthenticationCardLogo />
         </template>
 
+        <div v-if="publicKey">
+            <h1 class="mb-4 max-w-xl text-gray-600">
+                Please confirm access to your account by validating your security key.
+            </h1>
+
+            <WebauthnLogin :remember="remember" :publicKey="publicKey" />
+        </div>
+
         <div v-if="two_factor">
             <div class="mb-4 text-sm text-gray-600">
                 <template v-if="! recovery">
@@ -109,8 +117,6 @@ defineProps({
                 </div>
             </form>
         </div>
-
-        <WebauthnLogin :remember="remember" :publicKey="publicKey" />
 
     </JetAuthenticationCard>
 </template>

@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, nextTick, watch, onMounted } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
 import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
@@ -10,9 +11,8 @@ import JetCheckbox from '@/Jetstream/Checkbox.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 import WebauthnLogin from '@/Pages/Webauthn/WebauthnLogin.vue';
-import { Inertia } from '@inertiajs/inertia'
 
-defineProps({
+const props = defineProps({
     canResetPassword: Boolean,
     status: String,
     providers: Array,
@@ -21,6 +21,7 @@ defineProps({
     userName: String,
 });
 const webauthn = ref(true);
+const publicKeyRef = ref(null);
 
 const form = useForm({
     email: '',
@@ -28,6 +29,17 @@ const form = useForm({
     remember: false,
 });
 const providerForm = useForm();
+
+watch(() => props.publicKey, (value) => {
+    webauthn.value = true;
+    publicKeyRef.value = props.publicKey;
+});
+
+onMounted(() => {
+    if (props.publicKey) {
+        publicKeyRef.value = props.publicKey;
+    }
+});
 
 const submit = () => {
     form.transform(data => ({
@@ -48,6 +60,10 @@ const open = (provider) => {
             providerForm.reset();
         },
     });
+};
+
+const reload = () => {
+    Inertia.reload({only: ['publicKey']});
 };
 </script>
 
@@ -81,14 +97,14 @@ const open = (provider) => {
             <div class="mb-4 text-lg text-gray-900 text-center">
                 {{ userName }}
             </div>
-            <div class="mb-4 text-sm text-gray-600">
+            <div class="mb-4 max-w-xl text-gray-600">
                 Connect with your security key
             </div>
 
-            <WebauthnLogin :remember="true" :publicKey="publicKey" />
+            <WebauthnLogin :remember="true" :public-key="publicKeyRef" />
 
             <JetSecondaryButton class="mr-2 mt-4" @click.prevent="webauthn = false">
-                Connect with your password
+                Use your password
             </JetSecondaryButton>
         </div>
 
@@ -135,9 +151,9 @@ const open = (provider) => {
             </div>
 
             <div class="block mt-4">
-                <p v-if="providers.length > 0" class="block font-medium text-sm text-gray-700">
-                    Login with:
-                </p>
+                <div v-if="providers.length > 0" class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+                    <p class="text-center font-semibold mx-4 mb-0">Or login with</p>
+                </div>
                 <div v-for="provider in providers" :key="provider" class="inline">
                   <JetSecondaryButton class="mr-2" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
                       <img :src="`/img/auth/${provider}.svg`" alt="" class="auth-provider relative" />
@@ -147,7 +163,7 @@ const open = (provider) => {
             </div>
 
             <div v-if="publicKey" class="block mt-4">
-                <JetSecondaryButton class="mr-2" href="" @click.prevent="webauthn = true; Inertia.Reload({only: ['publicKey']});">
+                <JetSecondaryButton class="mr-2" @click.prevent="reload">
                     Use your security key
                 </JetSecondaryButton>
             </div>

@@ -20,7 +20,8 @@ const processing = ref(false);
 const authForm = useForm();
 
 watch(() => props.publicKey, (value) => {
-    loginWaitForKey(value);
+    errorMessage.value = '';
+    nextTick().then(() => loginWaitForKey(value));
 });
 
 onMounted(() => {

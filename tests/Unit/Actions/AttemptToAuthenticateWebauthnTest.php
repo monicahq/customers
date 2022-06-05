@@ -29,6 +29,20 @@ class AttemptToAuthenticateWebauthnTest extends TestCase
     /**
      * @test
      */
+    public function it_throw_failed_login_exception()
+    {
+        $request = $this->app->make(Request::class);
+
+        Webauthn::shouldReceive('validateAssertion')->andReturn(false);
+
+        $this->expectException(ValidationException::class);
+
+        app(AttemptToAuthenticateWebauthn::class)->handle($request, fn () => 1);
+    }
+
+    /**
+     * @test
+     */
     public function it_fails_with_request()
     {
         $user = $this->user();
