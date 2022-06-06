@@ -20,7 +20,8 @@
         "socialiteproviders/github": "^4.1",
         "socialiteproviders/laravelpassport": "^4.1",
         "thecodingmachine/safe": "^2.0",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+        "vluzrmos/language-detector": "^2.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
