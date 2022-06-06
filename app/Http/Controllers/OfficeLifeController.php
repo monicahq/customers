@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\ManageProduct;
 use App\Http\Requests\OfficeLifePriceRequest;
 use App\Models\Plan;
 use Illuminate\Http\Request;
@@ -9,11 +10,21 @@ use Inertia\Inertia;
 
 class OfficeLifeController extends Controller
 {
-    public const PRODUCT = 'OfficeLife';
+    use ManageProduct;
+
+    public function productName(): string
+    {
+        return 'OfficeLife';
+    }
+
+    public function redirectTo(): string
+    {
+        return route('officelife.index');
+    }
 
     public function index(Request $request)
     {
-        $plans = Plan::where('product', static::PRODUCT)->get();
+        $plans = Plan::where('product', $this->productName())->get();
 
         $plansCollection = $plans->map(function (Plan $plan) use ($request): array {
             return [
@@ -49,7 +60,7 @@ class OfficeLifeController extends Controller
 
     public function price(OfficeLifePriceRequest $request, Plan $plan)
     {
-        if ($plan->product !== static::PRODUCT) {
+        if ($plan->product !== $this->productName()) {
             abort(401);
         }
 
@@ -61,11 +72,4 @@ class OfficeLifeController extends Controller
         ]);
     }
 
-    private function getPayLink(Request $request, Plan $plan, int $quantity = 1)
-    {
-        return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
-            ->returnTo(route('officelife.index'))
-            ->quantity($quantity)
-            ->create();
-    }
 }

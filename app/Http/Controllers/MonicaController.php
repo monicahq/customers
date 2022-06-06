@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\ManageProduct;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class MonicaController extends Controller
 {
-    public const PRODUCT = 'Monica';
+    use ManageProduct;
+
+    public function productName(): string
+    {
+        return 'Monica';
+    }
+
+    public function redirectTo(): string
+    {
+        return route('monica.index');
+    }
 
     public function index(Request $request)
     {
-        $plans = Plan::where('product', static::PRODUCT)->get();
+        $plans = Plan::where('product', $this->productName())->get();
 
         $plansCollection = $plans->map(function (Plan $plan) use ($request): array {
             return [
@@ -39,12 +50,5 @@ class MonicaController extends Controller
                 'current_licence' => $licence,
             ],
         ]);
-    }
-
-    private function getPayLink(Request $request, Plan $plan)
-    {
-        return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
-            ->returnTo(route('monica.index'))
-            ->create();
     }
 }
