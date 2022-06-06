@@ -87,8 +87,12 @@ const logout = () => {
                                             Manage Account
                                         </div>
 
+                                        <JetDropdownLink :href="route('account.show')">
+                                            Account
+                                        </JetDropdownLink>
+
                                         <JetDropdownLink :href="route('profile.show')">
-                                            Profile
+                                            Settings
                                         </JetDropdownLink>
 
                                         <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">

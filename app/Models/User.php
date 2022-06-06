@@ -78,4 +78,32 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UserToken::class);
     }
+
+    /**
+     * Get the billable model's country to associate with Paddle.
+     *
+     * This needs to be a 2 letter code. See the link below for supported countries.
+     *
+     * @return string|null
+     *
+     * @link https://developer.paddle.com/reference/platform-parameters/supported-countries
+     */
+    public function paddleCountry()
+    {
+        return $this->country ?? 'US';
+    }
+
+    /**
+     * Get the billable model's postcode to associate with Paddle.
+     *
+     * See the link below for countries which require this.
+     *
+     * @return string|null
+     *
+     * @link https://developer.paddle.com/reference/platform-parameters/supported-countries#countries-requiring-postcode
+     */
+    public function paddlePostcode()
+    {
+        return $this->postal_code;
+    }
 }
