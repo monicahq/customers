@@ -35,6 +35,6 @@ class ProductPrices
 
     private function getKey(User $user, Collection $products): string
     {
-        return App::getLocale() . '|' . $user->paddleCountry() . '|' . $products->implode(',');
+        return App::getLocale().'|'.$user->paddleCountry().'|'.$products->implode(',');
     }
 }

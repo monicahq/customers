@@ -25,7 +25,7 @@ class UserAddressController extends Controller
             'country',
             'state',
         ]) + [
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
         ]);
 
         return back(303)->with('status', 'user-address-updated');

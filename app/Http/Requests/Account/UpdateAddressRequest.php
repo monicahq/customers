@@ -29,12 +29,10 @@ class UpdateAddressRequest extends FormRequest
             'address_line_1' => ['nullable', 'string'],
             'address_line_2' => ['nullable', 'string'],
             'city' => ['nullable', 'string'],
-            'postal_code' => ['string', Rule::when(fn ($data) =>
-                in_array(Str::of($data['country'])->upper(), [
-                    //@see https://developer.paddle.com/reference/29717a4e58630-supported-countries#countries-requiring-postcode
-                    'AU', 'CA', 'FR', 'DE', 'IN', 'IT', 'NL', 'ES', 'GB', 'US'
-                ])
-            , 'required', 'nullable')],
+            'postal_code' => ['string', Rule::when(fn ($data) => in_array(Str::of($data['country'])->upper(), [
+                //@see https://developer.paddle.com/reference/29717a4e58630-supported-countries#countries-requiring-postcode
+                'AU', 'CA', 'FR', 'DE', 'IN', 'IT', 'NL', 'ES', 'GB', 'US',
+            ]), 'required', 'nullable')],
             'country' => ['nullable', 'string'],
             'state' => ['nullable', 'string'],
         ];
