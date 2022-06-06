@@ -71,5 +71,4 @@ class OfficeLifeController extends Controller
             'pay_link' => $this->getPayLink($request, $plan, $request->input('quantity')),
         ]);
     }
-
 }
