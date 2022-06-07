@@ -25,7 +25,7 @@ trait PasswordValidationRules
         }
 
         return [
-            'required',
+            'nullable',
             'string',
             'confirmed',
             $rules,

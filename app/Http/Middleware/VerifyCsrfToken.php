@@ -13,5 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'paddle/*',
+        'auth/saml2/callback',
     ];
 }

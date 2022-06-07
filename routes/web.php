@@ -1,24 +1,15 @@
 <?php
 
 use App\Http\Controllers\AdministrationController;
+use App\Http\Controllers\Auth\SocialiteCallbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\OfficeLifeController;
+use App\Http\Controllers\Profile\UserTokenController;
 use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -29,6 +20,12 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 })->name('home');
+
+Route::middleware(['throttle:oauth2-socialite'])->group(function () {
+    Route::get('auth/{driver}', [SocialiteCallbackController::class, 'login'])->name('login.provider');
+    Route::get('auth/{driver}/callback', [SocialiteCallbackController::class, 'callback']);
+    Route::post('auth/{driver}/callback', [SocialiteCallbackController::class, 'callback']);
+});
 
 Route::middleware([
     'auth:sanctum',
@@ -43,10 +40,14 @@ Route::middleware([
 
     // monica
     Route::get('/monica', [MonicaController::class, 'index'])->name('monica.index');
+
     Route::delete('', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
 
     Route::middleware(['administration'])->prefix('administration')->group(function () {
         Route::get('', [AdministrationController::class, 'index'])->name('administration.index');
         Route::get('{user}', [AdministrationController::class, 'show'])->name('administration.user.show');
     });
+
+    // User & Profile...
+    Route::delete('auth/{driver}', [UserTokenController::class, 'destroy'])->name('provider.delete');
 });

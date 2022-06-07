@@ -6,10 +6,14 @@ import LogoutOtherBrowserSessionsForm from '@/Pages/Profile/Partials/LogoutOther
 import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthenticationForm.vue';
 import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue';
+import UpdateProviders from '@/Pages/Profile/Partials/UpdateProviders.vue';
 
 defineProps({
     confirmsTwoFactorAuthentication: Boolean,
     sessions: Array,
+    providers: Array,
+    providersName: Object,
+    userTokens: Array,
 });
 </script>
 
@@ -31,6 +35,12 @@ defineProps({
 
                 <div v-if="$page.props.jetstream.canUpdatePassword">
                     <UpdatePasswordForm class="mt-10 sm:mt-0" />
+
+                    <JetSectionBorder />
+                </div>
+
+                <div v-if="providers.length > 0">
+                    <UpdateProviders :user="$page.props.user" :providers="providers" :providersName="providersName" :userTokens="userTokens" />
 
                     <JetSectionBorder />
                 </div>

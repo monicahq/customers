@@ -80,6 +80,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 export default {
   components: {
     AppLayout,
+    Link,
   },
 
   props: {
