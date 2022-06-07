@@ -11,30 +11,57 @@ use Laravel\Paddle\ProductPrice;
 class ProductPrices
 {
     /**
-     * Destroy a licence key based on the payload received by Paddle.
-     * We react to the webhook `subscription_cancelled`.
-     * We need to pass the payload as an array.
+     * Get the prices for a set of products for a given user.
      *
-     * @param  array  $payload
+     * @param  \App\Models\User  $user
+     * @param  \Illuminate\Support\Collection $products
+     * @param  int  $quantity
      * @return bool|null
      */
-    public function execute(User $user, Collection $products): Collection
+    public function execute(User $user, Collection $products, int $quantity = 1): Collection
     {
         $key = $this->getKey($user, $products);
 
-        return Cache::remember($key, 60 * 60, function () use ($user, $products) {
+        $productPrices = Cache::remember($key, 60 * 60, function () use ($user, $products) {
             $prices = $user->productPrices($products->toArray());
+            return $prices->map(fn (ProductPrice $price) => $price->toArray());
+        });
 
-            return $prices->map(fn (ProductPrice $price) => [
-                'product_id' => $price->product_id,
-                'price' => $price->price()->gross(),
-                'currency' => $price->currency,
-            ]);
+        return $productPrices->map(function (array $price) use ($user, $quantity) {
+            $price['price'] = collect($price['price'])->mapWithKeys(fn ($item, $key) => [$key => $item * $quantity])->toArray();
+            $pprice = new ProductPrice($user->paddleCountry(), $price);
+
+            return [
+                'product_id' => $pprice->product_id,
+                'price' => $pprice->price()->gross(),
+                'currency' => $pprice->currency,
+                'frequency' => $this->getFrequency($pprice),
+            ];
         });
     }
 
     private function getKey(User $user, Collection $products): string
     {
         return App::getLocale().'|'.$user->paddleCountry().'|'.$products->implode(',');
+    }
+
+    private function getFrequency(ProductPrice $price): ?string
+    {
+        $interval = $price->planInterval();
+        $frequency = $price->planFrequency();
+
+        switch ($interval)
+        {
+            case 'day':
+                return trans_choice('day|:period days', $frequency, ['period' => $frequency]);
+            case 'week':
+                return trans_choice('week|:period weeks', $frequency, ['period' => $frequency]);
+            case 'month':
+                return trans_choice('month|:period months', $frequency, ['period' => $frequency]);
+            case 'year':
+                return trans_choice('year|:period years', $frequency, ['period' => $frequency]);
+            default:
+                return null;
+        }
     }
 }

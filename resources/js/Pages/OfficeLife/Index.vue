@@ -108,9 +108,10 @@
                     v-model="plan.quantity"
                     class="rounded-md border-gray-300 border text-center mr-2 w-20 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     type="number"
-                    min="0"
+                    min="1"
                     max="10000"
                     @keyup="checkPrice(plan)"
+                    @input="checkPrice(plan)"
                   />
 
                   <span>seats</span>
@@ -118,7 +119,7 @@
 
                 <div class="text-center">
                   <a :href="plan.url.pay_link" class="mb-1 cursor-pointer focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
-                    Subscribe for ${{ plan.price }}
+                    Subscribe for {{ plan.price }}
                   </a>
 
                   <p class="flex items-center text-xs">
@@ -165,24 +166,17 @@ export default {
   data() {
     return {
       localPlans: [],
-      form: {
-        quantity: 0,
-      },
     };
   },
 
   methods: {
     checkPrice(plan) {
-      this.form.quantity = plan.quantity;
-
       axios
-        .post(plan.url.price, this.form)
+        .post(route('officelife.price', { plan: plan.id }), { quantity: plan.quantity })
         .then((response) => {
-          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['price'] = response.data.price;
-          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['url']['pay_link'] = response.data.pay_link;
-        })
-        .catch((error) => {
-          this.form.errors = error.response.data;
+          const lplan = this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)];
+          lplan['price'] = response.data.price;
+          lplan['url']['pay_link'] = response.data.pay_link;
         });
     },
   },

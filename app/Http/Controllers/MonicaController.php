@@ -19,13 +19,15 @@ class MonicaController extends Controller
         $prices = app(ProductPrices::class)->execute($request->user(), $productIds);
 
         $plansCollection = $plans->map(function (Plan $plan) use ($request, $prices): array {
+            $price = $prices->where('product_id', $plan->plan_id_on_paddle)->first();
+
             return [
                 'id' => $plan->id,
                 'friendly_name' => $plan->friendly_name,
                 'description' => $plan->description,
                 'plan_name' => $plan->plan_name,
-                'price' => $prices->where('product_id', $plan->plan_id_on_paddle)->first()['price'],
-                'frequency' => $plan->frequency,
+                'price' => $price['price'],
+                'frequency' => $price['frequency'],
                 'url' => [
                     'pay_link' => $this->getPayLink($request, $plan),
                 ],
