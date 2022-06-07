@@ -11,10 +11,10 @@ class UserAddressController extends Controller
     /**
      * Update user account.
      *
-     * @param  \App\Http\Requests\Account\UpdateAddressRequest  $request
+     * @param  UpdateAddressRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateAddressRequest $request)
+    public function update(UpdateAddressRequest $request): RedirectResponse
     {
         app(UpdateAddress::class)->execute($request->only([
             'address_line_1',
