@@ -14,7 +14,7 @@ class ProductPrices
      * Get the prices for a set of products for a given user.
      *
      * @param  \App\Models\User  $user
-     * @param  \Illuminate\Support\Collection $products
+     * @param  \Illuminate\Support\Collection  $products
      * @param  int  $quantity
      * @return bool|null
      */
@@ -24,6 +24,7 @@ class ProductPrices
 
         $productPrices = Cache::remember($key, 60 * 60, function () use ($user, $products) {
             $prices = $user->productPrices($products->toArray());
+
             return $prices->map(fn (ProductPrice $price) => $price->toArray());
         });
 
@@ -50,8 +51,7 @@ class ProductPrices
         $interval = $price->planInterval();
         $frequency = $price->planFrequency();
 
-        switch ($interval)
-        {
+        switch ($interval) {
             case 'day':
                 return trans_choice('day|:period days', $frequency, ['period' => $frequency]);
             case 'week':
