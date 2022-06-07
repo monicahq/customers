@@ -43,7 +43,7 @@ Route::middleware([
 
     Route::delete('', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
 
-    Route::middleware(['administration'])->prefix('administration')->group(function () {
+    Route::prefix('administration')->group(function () {
         Route::get('', [AdministrationController::class, 'index'])->name('administration.index');
         Route::get('{user}', [AdministrationController::class, 'show'])->name('administration.user.show');
     });
