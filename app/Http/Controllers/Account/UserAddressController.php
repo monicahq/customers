@@ -12,7 +12,6 @@ class UserAddressController extends Controller
      * Update user account.
      *
      * @param  \App\Http\Requests\Account\UpdateAddressRequest  $request
-     * @param  string  $driver
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateAddressRequest $request)

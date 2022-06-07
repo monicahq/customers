@@ -88,7 +88,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @link https://developer.paddle.com/reference/platform-parameters/supported-countries
      */
-    public function paddleCountry()
+    public function paddleCountry(): ?string
     {
         return $this->country ?? 'US';
     }
@@ -102,7 +102,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @link https://developer.paddle.com/reference/platform-parameters/supported-countries#countries-requiring-postcode
      */
-    public function paddlePostcode()
+    public function paddlePostcode(): ?string
     {
         return $this->postal_code;
     }

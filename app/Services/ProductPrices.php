@@ -16,7 +16,7 @@ class ProductPrices
      * @param  \App\Models\User  $user
      * @param  \Illuminate\Support\Collection  $products
      * @param  int  $quantity
-     * @return bool|null
+     * @return \Illuminate\Support\Collection
      */
     public function execute(User $user, Collection $products, int $quantity = 1): Collection
     {
@@ -33,9 +33,9 @@ class ProductPrices
             $pprice = new ProductPrice($user->paddleCountry(), $price);
 
             return [
-                'product_id' => $pprice->product_id,
+                'product_id' => $price['product_id'],
                 'price' => $pprice->price()->gross(),
-                'currency' => $pprice->currency,
+                'currency' => $price['currency'],
                 'frequency' => $this->getFrequency($pprice),
             ];
         });
