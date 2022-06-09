@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\UpdateAddressRequest;
 use App\Services\UpdateAddress;
+use Illuminate\Http\RedirectResponse;
 
 class UserAddressController extends Controller
 {

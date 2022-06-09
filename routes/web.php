@@ -44,17 +44,17 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // officelife
-    Route::get('/officelife', [OfficeLifeController::class, 'index'])->name('officelife.index');
-    Route::post('/officelife/{plan}/price', [OfficeLifeController::class, 'price'])->name('officelife.price');
+    Route::get('officelife', [OfficeLifeController::class, 'index'])->name('officelife.index');
+    Route::post('officelife/{plan}/price', [OfficeLifeController::class, 'price'])->name('officelife.price');
 
     // monica
-    Route::get('/monica', [MonicaController::class, 'index'])->name('monica.index');
+    Route::get('monica', [MonicaController::class, 'index'])->name('monica.index');
 
     // User & Profile...
     Route::get('user/account', [AccountController::class, 'show'])->name('account.show');
-    Route::put('user/address', [UserAddressController::class, 'update'])->name('user-address.update');
+    Route::patch('user/address', [UserAddressController::class, 'update'])->name('user-address.update');
     Route::delete('auth/{driver}', [UserTokenController::class, 'destroy'])->name('provider.delete');
 });

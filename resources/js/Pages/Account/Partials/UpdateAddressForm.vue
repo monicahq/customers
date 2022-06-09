@@ -6,14 +6,12 @@ import JetInput from '@/Jetstream/Input.vue';
 import JetInputError from '@/Jetstream/InputError.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 import JetActionMessage from '@/Jetstream/ActionMessage.vue';
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 
 const props = defineProps({
     user: Object,
 });
 
 const form = useForm({
-    _method: 'PUT',
     address_line_1: props.user.address_line_1,
     address_line_2: props.user.address_line_2,
     city: props.user.city,
@@ -23,7 +21,7 @@ const form = useForm({
 });
 
 const updateAddress = () => {
-    form.post(route('user-address.update'), {
+    form.patch(route('user-address.update'), {
         errorBag: 'updateAddress',
         preserveScroll: true,
     });

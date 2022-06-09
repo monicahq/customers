@@ -60,12 +60,7 @@ class OfficeLifeController extends Controller
         }
 
         $plans = Plan::where('product', static::PRODUCT)->get();
-
         $productIds = $plans->pluck('plan_id_on_paddle');
-
-        if (! $productIds->contains($plan->plan_id_on_paddle)) {
-            abort(401);
-        }
 
         $price = app(ProductPrices::class)->execute($productIds, $request->user(), $request->quantity())
             ->where('product_id', $plan->plan_id_on_paddle)

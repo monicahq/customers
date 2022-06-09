@@ -32,7 +32,7 @@ class CreateLicenceKeyTest extends TestCase
                 ->andReturn(collect([
                     [
                         'product_id' => 1,
-                        'price' => '10.00',
+                        'price' => '$10.00',
                         'currency' => 'USD',
                         'frequency' => 'month',
                     ]])
