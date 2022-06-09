@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class MonicaControllerTest extends TestCase
 {
-    static $iteration;
+    public static $iteration;
 
     /** @test */
     public function it_displays_list_of_plans(): void
@@ -37,8 +37,8 @@ class MonicaControllerTest extends TestCase
                                 'interval' => 'month',
                                 'frequency' => 1,
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ], 200),
             'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
@@ -51,10 +51,9 @@ class MonicaControllerTest extends TestCase
 
         $response = $this->actingAs($user)->get('/monica');
 
-        static::$iteration=0;
+        static::$iteration = 0;
         Http::assertSent(function ($request) use ($user, $plan) {
-            switch (static::$iteration++)
-            {
+            switch (static::$iteration++) {
                 case 0:
                     $this->assertEquals("https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}", $request->url());
                     $this->assertEquals('GET', $request->method());
@@ -108,8 +107,8 @@ class MonicaControllerTest extends TestCase
                                 'interval' => 'month',
                                 'frequency' => 1,
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ], 200),
             'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
@@ -122,10 +121,9 @@ class MonicaControllerTest extends TestCase
 
         $response = $this->actingAs($user)->get('/monica');
 
-        static::$iteration=0;
+        static::$iteration = 0;
         Http::assertSent(function ($request) use ($user, $plan) {
-            switch (static::$iteration++)
-            {
+            switch (static::$iteration++) {
                 case 0:
                     $this->assertEquals("https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}", $request->url());
                     $this->assertEquals('GET', $request->method());
@@ -179,8 +177,8 @@ class MonicaControllerTest extends TestCase
                                 'interval' => 'month',
                                 'frequency' => 1,
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ], 200),
             'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
@@ -233,8 +231,8 @@ class MonicaControllerTest extends TestCase
                                 'interval' => 'month',
                                 'frequency' => 1,
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ], 200),
             'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
