@@ -10,16 +10,37 @@ use Tests\TestCase;
 
 class MonicaControllerTest extends TestCase
 {
+    static $iteration;
+
     /** @test */
     public function it_displays_list_of_plans(): void
     {
         $user = User::factory()->create();
-        Plan::factory()->monica()->create([
+        $plan = Plan::factory()->monica()->create([
             'friendly_name' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
 
         Http::fake([
+            "https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}" => Http::response([
+                'success' => true,
+                'response' => [
+                    'customer_country' => 'US',
+                    'products' => [
+                        [
+                            'product_id' => $plan->plan_id_on_paddle,
+                            'currency' => 'USD',
+                            'price' => [
+                                'gross' => 10,
+                            ],
+                            'subscription' => [
+                                'interval' => 'month',
+                                'frequency' => 1,
+                            ],
+                        ]
+                    ]
+                ],
+            ], 200),
             'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
                 'success' => true,
                 'response' => [
@@ -30,13 +51,27 @@ class MonicaControllerTest extends TestCase
 
         $response = $this->actingAs($user)->get('/monica');
 
-        Http::assertSent(function ($request) use ($user) {
-            $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
-            $this->assertEquals('POST', $request->method());
-            $this->assertStringContainsString('"product_id":"1"', $request->body());
-            $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
+        static::$iteration=0;
+        Http::assertSent(function ($request) use ($user, $plan) {
+            switch (static::$iteration++)
+            {
+                case 0:
+                    $this->assertEquals("https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}", $request->url());
+                    $this->assertEquals('GET', $request->method());
 
-            return true;
+                    return true;
+                            break;
+                case 1:
+                    $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
+                    $this->assertEquals('POST', $request->method());
+                    $this->assertStringContainsString('"product_id":"1"', $request->body());
+                    $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
+
+                    return true;
+                    break;
+                default:
+                    return false;
+            }
         });
 
         $response->assertStatus(200);
@@ -48,7 +83,7 @@ class MonicaControllerTest extends TestCase
     public function it_does_not_displays_officelife_plans(): void
     {
         $user = User::factory()->create();
-        Plan::factory()->monica()->create([
+        $plan = Plan::factory()->monica()->create([
             'friendly_name' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
@@ -58,6 +93,25 @@ class MonicaControllerTest extends TestCase
         ]);
 
         Http::fake([
+            "https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}" => Http::response([
+                'success' => true,
+                'response' => [
+                    'customer_country' => 'US',
+                    'products' => [
+                        [
+                            'product_id' => $plan->plan_id_on_paddle,
+                            'currency' => 'USD',
+                            'price' => [
+                                'gross' => 10,
+                            ],
+                            'subscription' => [
+                                'interval' => 'month',
+                                'frequency' => 1,
+                            ],
+                        ]
+                    ]
+                ],
+            ], 200),
             'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
                 'success' => true,
                 'response' => [
@@ -68,13 +122,27 @@ class MonicaControllerTest extends TestCase
 
         $response = $this->actingAs($user)->get('/monica');
 
-        Http::assertSent(function ($request) use ($user) {
-            $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
-            $this->assertEquals('POST', $request->method());
-            $this->assertStringContainsString('"product_id":"1"', $request->body());
-            $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
+        static::$iteration=0;
+        Http::assertSent(function ($request) use ($user, $plan) {
+            switch (static::$iteration++)
+            {
+                case 0:
+                    $this->assertEquals("https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}", $request->url());
+                    $this->assertEquals('GET', $request->method());
 
-            return true;
+                    return true;
+                            break;
+                case 1:
+                    $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
+                    $this->assertEquals('POST', $request->method());
+                    $this->assertStringContainsString('"product_id":"1"', $request->body());
+                    $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
+
+                    return true;
+                    break;
+                default:
+                    return false;
+            }
         });
 
         $response->assertStatus(200);
@@ -96,6 +164,25 @@ class MonicaControllerTest extends TestCase
         ]);
 
         Http::fake([
+            "https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}" => Http::response([
+                'success' => true,
+                'response' => [
+                    'customer_country' => 'US',
+                    'products' => [
+                        [
+                            'product_id' => $plan->plan_id_on_paddle,
+                            'currency' => 'USD',
+                            'price' => [
+                                'gross' => 10,
+                            ],
+                            'subscription' => [
+                                'interval' => 'month',
+                                'frequency' => 1,
+                            ],
+                        ]
+                    ]
+                ],
+            ], 200),
             'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
                 'success' => true,
                 'response' => [
@@ -131,6 +218,25 @@ class MonicaControllerTest extends TestCase
         ]);
 
         Http::fake([
+            "https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user2->country}&product_ids={$plan->plan_id_on_paddle}" => Http::response([
+                'success' => true,
+                'response' => [
+                    'customer_country' => 'US',
+                    'products' => [
+                        [
+                            'product_id' => $plan->plan_id_on_paddle,
+                            'currency' => 'USD',
+                            'price' => [
+                                'gross' => 10,
+                            ],
+                            'subscription' => [
+                                'interval' => 'month',
+                                'frequency' => 1,
+                            ],
+                        ]
+                    ]
+                ],
+            ], 200),
             'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
                 'success' => true,
                 'response' => [

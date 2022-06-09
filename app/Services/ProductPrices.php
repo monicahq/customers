@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
+use Laravel\Paddle\Cashier;
 use Laravel\Paddle\ProductPrice;
 
 class ProductPrices
@@ -13,37 +14,47 @@ class ProductPrices
     /**
      * Get the prices for a set of products for a given user.
      *
-     * @param  \App\Models\User  $user
      * @param  \Illuminate\Support\Collection  $products
+     * @param  \App\Models\User|null  $user
      * @param  int  $quantity
      * @return \Illuminate\Support\Collection
      */
-    public function execute(User $user, Collection $products, int $quantity = 1): Collection
+    public function execute(Collection $products, ?User $user = null, int $quantity = 1): Collection
     {
-        $key = $this->getKey($user, $products);
+        $country = $user !== null ? $user->paddleCountry() : 'US';
 
-        $productPrices = Cache::remember($key, 60 * 60, function () use ($user, $products) {
-            $prices = $user->productPrices($products->toArray());
+        return $this->getPrices($products, $country)
+            ->map(function (array $price) use ($country, $quantity) {
+                $price['price'] = collect($price['price'])
+                    ->mapWithKeys(fn ($item, $key) => [$key => $item * $quantity])
+                    ->toArray();
+                $pprice = new ProductPrice($country, $price);
+
+                return [
+                    'product_id' => $price['product_id'],
+                    'price' => $pprice->price()->gross(),
+                    'currency' => $price['currency'],
+                    'frequency' => $this->getFrequency($pprice),
+                ];
+            });
+    }
+
+    private function getPrices(Collection $products, string $country): Collection
+    {
+        $key = $this->getKey($country, $products);
+
+        return Cache::remember($key, 60 * 60, function () use ($products, $country) {
+            $prices = Cashier::productPrices($products->toArray(), [
+                'customer_country' => $country,
+            ]);
 
             return $prices->map(fn (ProductPrice $price) => $price->toArray());
         });
-
-        return $productPrices->map(function (array $price) use ($user, $quantity) {
-            $price['price'] = collect($price['price'])->mapWithKeys(fn ($item, $key) => [$key => $item * $quantity])->toArray();
-            $pprice = new ProductPrice($user->paddleCountry(), $price);
-
-            return [
-                'product_id' => $price['product_id'],
-                'price' => $pprice->price()->gross(),
-                'currency' => $price['currency'],
-                'frequency' => $this->getFrequency($pprice),
-            ];
-        });
     }
 
-    private function getKey(User $user, Collection $products): string
+    private function getKey(string $country, Collection $products): string
     {
-        return App::getLocale().'|'.$user->paddleCountry().'|'.$products->implode(',');
+        return App::getLocale().'|'.$country.'|'.$products->implode(',');
     }
 
     private function getFrequency(ProductPrice $price): ?string

@@ -54,8 +54,15 @@ class CreateLicenceKey
      */
     private function generateKey(): array
     {
+        $plans = Plan::where('product', $this->plan->product)->get();
+
+        $productIds = $plans->pluck('plan_id_on_paddle');
+        $prices = app(ProductPrices::class)->execute($productIds);
+
+        $price = $prices->where('product_id', $this->plan->plan_id_on_paddle)->first();
+
         return [
-            'frequency' => $this->plan->frequency,
+            'frequency' => $price['frequency'],
             'purchaser_email' => $this->user->email,
             'next_check_at' => $this->nextDate->format('Y-m-d'),
         ];

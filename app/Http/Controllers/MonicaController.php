@@ -16,7 +16,7 @@ class MonicaController extends Controller
         $plans = Plan::where('product', static::PRODUCT)->get();
 
         $productIds = $plans->pluck('plan_id_on_paddle');
-        $prices = app(ProductPrices::class)->execute($request->user(), $productIds);
+        $prices = app(ProductPrices::class)->execute($productIds, $request->user());
 
         $plansCollection = $plans->map(function (Plan $plan) use ($request, $prices): array {
             $price = $prices->where('product_id', $plan->plan_id_on_paddle)->first();

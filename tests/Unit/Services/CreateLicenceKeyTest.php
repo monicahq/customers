@@ -7,6 +7,8 @@ use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Services\CreateLicenceKey;
+use App\Services\ProductPrices;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class CreateLicenceKeyTest extends TestCase
@@ -18,13 +20,24 @@ class CreateLicenceKeyTest extends TestCase
             'email' => 'regis@monicahq.com',
         ]);
         $plan = Plan::factory()->create([
-            'frequency' => Plan::TYPE_MONTHLY,
             'plan_id_on_paddle' => 1,
         ]);
         $subscription = Subscription::factory()->create([
             'billable_id' => $user->id,
             'paddle_plan' => $plan->plan_id_on_paddle,
         ]);
+
+        $this->mock(ProductPrices::class, function (MockInterface $mock) {
+            $mock->shouldReceive('execute')
+                ->andReturn(collect([
+                    [
+                        'product_id' => 1,
+                        'price' => '10.00',
+                        'currency' => 'USD',
+                        'frequency' => 'month',
+                    ]])
+                );
+        });
 
         $licenceKey = (new CreateLicenceKey)->execute($user, $subscription, [
             'next_bill_date' => '2022-04-02',
@@ -53,7 +66,7 @@ class CreateLicenceKeyTest extends TestCase
             $array['next_check_at']
         );
         $this->assertEquals(
-            Plan::TYPE_MONTHLY,
+            'month',
             $array['frequency']
         );
 
