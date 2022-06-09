@@ -6,6 +6,7 @@ use App\Models\Plan;
 use App\Models\User;
 use App\Services\ProductPrices;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
@@ -61,6 +62,8 @@ class ProductPricesTest extends TestCase
             'frequency' => 'month',
             'frequency_name' => 'month',
         ], $result->first());
+
+        Cache::has('en|US|1');
     }
 
     /** @test */
