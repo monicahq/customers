@@ -37,13 +37,13 @@ class MonicaControllerTest extends TestCase
                         'price' => '$10.00',
                         'currency' => 'USD',
                         'frequency' => 'month',
-                    ]])
+                    ], ])
                 );
         });
 
         $response = $this->actingAs($user)->get('/monica');
 
-        Http::assertSent(function ($request) use ($user, $plan) {
+        Http::assertSent(function ($request) use ($user) {
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertStringContainsString('"product_id":"1"', $request->body());
@@ -86,13 +86,13 @@ class MonicaControllerTest extends TestCase
                         'price' => '$10.00',
                         'currency' => 'USD',
                         'frequency' => 'month',
-                    ]])
+                    ], ])
                 );
         });
 
         $response = $this->actingAs($user)->get('/monica');
 
-        Http::assertSent(function ($request) use ($user, $plan) {
+        Http::assertSent(function ($request) use ($user) {
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertStringContainsString('"product_id":"1"', $request->body());
@@ -135,7 +135,7 @@ class MonicaControllerTest extends TestCase
                         'price' => '$10.00',
                         'currency' => 'USD',
                         'frequency' => 'month',
-                    ]])
+                    ], ])
                 );
         });
 
@@ -181,7 +181,7 @@ class MonicaControllerTest extends TestCase
                         'price' => '$10.00',
                         'currency' => 'USD',
                         'frequency' => 'month',
-                    ]])
+                    ], ])
                 );
         });
 
