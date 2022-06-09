@@ -35,8 +35,8 @@ class CreateLicenceKeyTest extends TestCase
                         'price' => '$10.00',
                         'currency' => 'USD',
                         'frequency' => 'month',
-                    ], ])
-                );
+                    ],
+                ]));
         });
 
         $licenceKey = (new CreateLicenceKey)->execute($user, $subscription, [
