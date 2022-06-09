@@ -2,12 +2,8 @@
 
 namespace Tests\Unit\Services;
 
-use App\Models\Plan;
 use App\Models\User;
-use App\Services\ProductPrices;
 use App\Services\UpdateAddress;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 

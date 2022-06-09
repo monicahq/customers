@@ -37,13 +37,13 @@ class OfficeLifeControllerTest extends TestCase
                         'price' => '$10.00',
                         'currency' => 'USD',
                         'frequency_name' => 'month',
-                    ]])
-                );
+                    ],
+                ]));
         });
 
         $response = $this->actingAs($user)->get('/officelife');
 
-        Http::assertSent(function ($request) use ($user, $plan) {
+        Http::assertSent(function ($request) use ($user) {
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertStringContainsString('"product_id":"1"', $request->body());
@@ -86,13 +86,13 @@ class OfficeLifeControllerTest extends TestCase
                         'price' => '$10.00',
                         'currency' => 'USD',
                         'frequency_name' => 'month',
-                    ]])
-                );
+                    ],
+                ]));
         });
 
         $response = $this->actingAs($user)->get('/officelife');
 
-        Http::assertSent(function ($request) use ($user, $plan) {
+        Http::assertSent(function ($request) use ($user) {
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertStringContainsString('"product_id":"1"', $request->body());
@@ -136,8 +136,8 @@ class OfficeLifeControllerTest extends TestCase
                         'price' => '$10.00',
                         'currency' => 'USD',
                         'frequency_name' => 'month',
-                    ]])
-                );
+                    ],
+                ]));
         });
 
         $response = $this->actingAs($user)->get('/officelife');
@@ -182,8 +182,8 @@ class OfficeLifeControllerTest extends TestCase
                         'price' => '$10.00',
                         'currency' => 'USD',
                         'frequency_name' => 'month',
-                    ]])
-                );
+                    ],
+                ]));
         });
 
         $response = $this->actingAs($user2)->get('/officelife');
@@ -214,8 +214,8 @@ class OfficeLifeControllerTest extends TestCase
                         'price' => '$20.00',
                         'currency' => 'USD',
                         'frequency_name' => 'month',
-                    ]])
-                );
+                    ],
+                ]));
         });
 
         $response = $this->actingAs($user)->post("/officelife/{$plan->id}/price", [

@@ -36,8 +36,8 @@ class ProductPricesTest extends TestCase
                                 'interval' => 'month',
                                 'frequency' => 1,
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ], 200),
         ]);
@@ -88,8 +88,8 @@ class ProductPricesTest extends TestCase
                                 'interval' => 'month',
                                 'frequency' => 1,
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ], 200),
         ]);
@@ -139,8 +139,8 @@ class ProductPricesTest extends TestCase
                                 'interval' => 'month',
                                 'frequency' => 1,
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ], 200),
         ]);
