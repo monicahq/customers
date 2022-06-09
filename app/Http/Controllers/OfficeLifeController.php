@@ -64,7 +64,7 @@ class OfficeLifeController extends Controller
     private function getPayLink(Request $request, Plan $plan, int $quantity = 1)
     {
         return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
-            ->returnTo(route('officelife.index'))
+            ->returnTo(route('officelife.index') . '?refresh=true')
             ->quantity($quantity)
             ->create();
     }
