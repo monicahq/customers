@@ -29,13 +29,10 @@ class OfficeLifeController extends Controller
                 'plan_name' => $plan->plan_name,
                 'single_price' => $price['price'],
                 'price' => $price['price'],
-                'frequency' => $price['frequency'],
+                'frequency' => $price['frequency_name'],
                 'quantity' => 1,
                 'url' => [
                     'pay_link' => $this->getPayLink($request, $plan),
-                    'price' => route('officelife.price', [
-                        'plan' => $plan->id,
-                    ]),
                 ],
             ];
         });

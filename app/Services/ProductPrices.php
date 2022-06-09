@@ -33,8 +33,10 @@ class ProductPrices
                 return [
                     'product_id' => $price['product_id'],
                     'price' => $pprice->price()->gross(),
+                    'price_value' => $pprice->price()->rawGross(),
                     'currency' => $price['currency'],
-                    'frequency' => $this->getFrequency($pprice),
+                    'frequency' => $pprice->planInterval(),
+                    'frequency_name' => $this->getFrequency($pprice),
                 ];
             });
     }

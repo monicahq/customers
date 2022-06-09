@@ -27,7 +27,7 @@ class MonicaController extends Controller
                 'description' => $plan->description,
                 'plan_name' => $plan->plan_name,
                 'price' => $price['price'],
-                'frequency' => $price['frequency'],
+                'frequency' => $price['frequency_name'],
                 'url' => [
                     'pay_link' => $this->getPayLink($request, $plan),
                 ],

@@ -36,7 +36,7 @@ class MonicaControllerTest extends TestCase
                         'product_id' => $plan->plan_id_on_paddle,
                         'price' => '$10.00',
                         'currency' => 'USD',
-                        'frequency' => 'month',
+                        'frequency_name' => 'month',
                     ]])
                 );
         });
@@ -85,7 +85,7 @@ class MonicaControllerTest extends TestCase
                         'product_id' => $plan->plan_id_on_paddle,
                         'price' => '$10.00',
                         'currency' => 'USD',
-                        'frequency' => 'month',
+                        'frequency_name' => 'month',
                     ]])
                 );
         });
@@ -134,7 +134,7 @@ class MonicaControllerTest extends TestCase
                         'product_id' => $plan->plan_id_on_paddle,
                         'price' => '$10.00',
                         'currency' => 'USD',
-                        'frequency' => 'month',
+                        'frequency_name' => 'month',
                     ]])
                 );
         });
@@ -180,7 +180,7 @@ class MonicaControllerTest extends TestCase
                         'product_id' => $plan->plan_id_on_paddle,
                         'price' => '$10.00',
                         'currency' => 'USD',
-                        'frequency' => 'month',
+                        'frequency_name' => 'month',
                     ]])
                 );
         });
