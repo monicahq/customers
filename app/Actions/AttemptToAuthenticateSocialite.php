@@ -39,7 +39,7 @@ class AttemptToAuthenticateSocialite
     protected $limiter;
 
     /**
-     * Create a new controller instance.
+     * Create a new action instance.
      *
      * @param  \Illuminate\Contracts\Auth\StatefulGuard  $guard
      * @param  \Laravel\Fortify\LoginRateLimiter  $limiter
