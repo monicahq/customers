@@ -1,9 +1,6 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
-import useClipboard from 'vue-clipboard3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
-import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 import LicenceDisplay from '@/Pages/Partials/LicenceDisplay.vue';
 
 const props = defineProps({
