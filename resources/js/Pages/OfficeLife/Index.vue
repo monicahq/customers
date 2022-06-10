@@ -1,5 +1,50 @@
-<style lang="scss" scoped>
-</style>
+<script setup>
+import { onMounted, onUnmounted, ref } from 'vue';
+import { usePage } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
+import AppLayout from '@/Layouts/AppLayout.vue';
+
+const props = defineProps({
+    data: Object,
+    refresh: Boolean,
+});
+
+const refresh = ref(_.debounce(() => doRefresh(), 1000));
+const localPlans = ref([]);
+
+onMounted(() => {
+    localPlans.value = props.data.plans;
+    if (props.refresh) {
+        (refresh.value)();
+    }
+});
+onUnmounted(() => {
+    refresh.value.cancel();
+});
+
+const doRefresh = () => {
+    if (usePage().component.value === 'OfficeLife/Index') {
+        Inertia.reload({
+            only: ['data'],
+            onFinish: () => {
+                if (props.data.current_licence === '' || props.data.current_licence.subscription_state === 'subscription_cancelled') {
+                    (refresh.value)();
+                }
+            },
+        });
+    }
+};
+
+const checkPrice = (plan) => {
+    axios
+        .post(plan.url.price, { quantity: plan.quantity })
+        .then((response) => {
+          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['price'] = response.data.price;
+          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['url']['pay_link'] = response.data.pay_link;
+        });
+};
+
+</script>
 
 <template>
    <AppLayout title="OfficeLife’s Subscriptions">
@@ -17,7 +62,7 @@
           <div v-if="data.current_licence">
 
             <!-- case: active subscription -->
-            <div v-if="data.current_licence.subscription_state != 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
+            <div v-if="data.current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
               <p class="mb-6 text-center">🎉 You have an active subscription.</p>
 
               <p class="mb-4">This is your licence key:
@@ -142,49 +187,3 @@
       </div>
    </AppLayout>
 </template>
-
-<script>
-import AppLayout from '@/Layouts/AppLayout.vue';
-
-export default {
-  components: {
-    AppLayout,
-  },
-
-  props: {
-    data: {
-      type: Object,
-      default: null,
-    },
-  },
-
-  mounted() {
-    this.localPlans = this.data.plans;
-  },
-
-  data() {
-    return {
-      localPlans: [],
-      form: {
-        quantity: 0,
-      },
-    };
-  },
-
-  methods: {
-    checkPrice(plan) {
-      this.form.quantity = plan.quantity;
-
-      axios
-        .post(plan.url.price, this.form)
-        .then((response) => {
-          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['price'] = response.data.price;
-          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['url']['pay_link'] = response.data.pay_link;
-        })
-        .catch((error) => {
-          this.form.errors = error.response.data;
-        });
-    },
-  },
-};
-</script>
