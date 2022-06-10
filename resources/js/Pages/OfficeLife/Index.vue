@@ -1,5 +1,48 @@
-<style lang="scss" scoped>
-</style>
+<script setup>
+import { onMounted, ref } from 'vue';
+import useClipboard from 'vue-clipboard3';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
+import JetActionMessage from '@/Jetstream/ActionMessage.vue';
+
+const props = defineProps({
+    data: Object,
+});
+
+const localPlans = ref([]);
+const licence = ref(null);
+const copied = ref(false);
+const { toClipboard } = useClipboard();
+
+onMounted(() => {
+    localPlans.value = props.data.plans;
+});
+
+const select = () => {
+  licence.value.focus();
+  licence.value.select();
+}
+
+const copyIntoClipboard = async (text) => {
+    await toClipboard(text)
+    .then(() => {
+        copied.value = true;
+        setTimeout(() => {
+            copied.value = false;
+        }, 2000);
+    });
+};
+
+const checkPrice = (plan) => {
+    axios
+        .post(plan.url.price, { quantity: plan.quantity })
+        .then((response) => {
+          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['price'] = response.data.price;
+          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['url']['pay_link'] = response.data.pay_link;
+        });
+};
+
+</script>
 
 <template>
    <AppLayout title="OfficeLife’s Subscriptions">
@@ -20,11 +63,24 @@
             <div v-if="data.current_licence.subscription_state != 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
               <p class="mb-6 text-center">🎉 You have an active subscription.</p>
 
-              <p class="mb-4">This is your licence key:
-                <span class="overflow-hidden w-full inline-block rounded bg-gray-200 px-3 py-2">
-                {{ data.current_licence.key }}
-                </span>
-              </p>
+              <div class="mb-4">
+                <div class="flex">
+                  <p class="flex-auto">
+                    This is your licence key:
+                  </p>
+                  <JetActionMessage :on="copied" class="mr-6">
+                      Copied!
+                  </JetActionMessage>
+                </div>
+
+                <div class="flex">
+                  <input class="truncate w-full inline-block rounded bg-gray-200 px-3 py-2 mr-3" :value="data.current_licence.key" ref="licence" type="text" @click.prevent="select" />
+                  <JetSecondaryButton title="Copy licence into your clipboard" @click.prevent="copyIntoClipboard(data.current_licence.key)">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="w-4 mr-1"><g transform="matrix(2.857142857142857,0,0,2.857142857142857,0,0)"><g><path d="M9.5,1.5H11a1,1,0,0,1,1,1v10a1,1,0,0,1-1,1H3a1,1,0,0,1-1-1V2.5a1,1,0,0,1,1-1H4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path><rect x="4.5" y="0.5" width="5" height="2.5" rx="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></rect><line x1="4.5" y1="5.5" x2="9.5" y2="5.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></line><line x1="4.5" y1="8" x2="9.5" y2="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></line><line x1="4.5" y1="10.5" x2="9.5" y2="10.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></line></g></g></svg>
+                      Copy
+                  </JetSecondaryButton>
+                </div>
+              </div>
 
               <div class="mb-4 bg-blue-100 flex rounded-lg p-4">
                 <div>
@@ -142,49 +198,3 @@
       </div>
    </AppLayout>
 </template>
-
-<script>
-import AppLayout from '@/Layouts/AppLayout.vue';
-
-export default {
-  components: {
-    AppLayout,
-  },
-
-  props: {
-    data: {
-      type: Object,
-      default: null,
-    },
-  },
-
-  mounted() {
-    this.localPlans = this.data.plans;
-  },
-
-  data() {
-    return {
-      localPlans: [],
-      form: {
-        quantity: 0,
-      },
-    };
-  },
-
-  methods: {
-    checkPrice(plan) {
-      this.form.quantity = plan.quantity;
-
-      axios
-        .post(plan.url.price, this.form)
-        .then((response) => {
-          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['price'] = response.data.price;
-          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['url']['pay_link'] = response.data.pay_link;
-        })
-        .catch((error) => {
-          this.form.errors = error.response.data;
-        });
-    },
-  },
-};
-</script>
