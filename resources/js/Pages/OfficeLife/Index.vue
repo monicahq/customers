@@ -62,7 +62,7 @@ const checkPrice = (plan) => {
           <div v-if="data.current_licence">
 
             <!-- case: active subscription -->
-            <div v-if="data.current_licence.subscription_state != 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
+            <div v-if="data.current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
               <p class="mb-6 text-center">🎉 You have an active subscription.</p>
 
               <p class="mb-4">This is your licence key:
