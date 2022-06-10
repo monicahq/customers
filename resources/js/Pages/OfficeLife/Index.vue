@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import useClipboard from 'vue-clipboard3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
@@ -7,16 +7,40 @@ import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 
 const props = defineProps({
     data: Object,
+    refresh: Boolean,
 });
 
 const localPlans = ref([]);
+
+const refresh = ref(_.debounce(() => doRefresh(), 1000));
+
 const licence = ref(null);
 const copied = ref(false);
 const { toClipboard } = useClipboard();
 
 onMounted(() => {
     localPlans.value = props.data.plans;
+    if (props.refresh) {
+        (refresh.value)();
+    }
 });
+
+onUnmounted(() => {
+    refresh.value.cancel();
+});
+
+const doRefresh = () => {
+    if (usePage().component.value === 'OfficeLife/Index') {
+        Inertia.reload({
+            only: ['data'],
+            onFinish: () => {
+                if (props.data.current_licence === '' || props.data.current_licence.subscription_state === 'subscription_cancelled') {
+                    (refresh.value)();
+                }
+            },
+        });
+    }
+};
 
 const select = () => {
   licence.value.focus();
@@ -25,17 +49,16 @@ const select = () => {
 
 const copyIntoClipboard = async (text) => {
     await toClipboard(text)
-    .then(() => {
-        copied.value = true;
-        setTimeout(() => {
-            copied.value = false;
-        }, 2000);
-    });
+      .then(() => {
+          copied.value = true;
+          setTimeout(() => {
+              copied.value = false;
+          }, 2000);
+      });
 };
 
 const checkPrice = (plan) => {
-    axios
-        .post(plan.url.price, { quantity: plan.quantity })
+    axios.post(plan.url.price, { quantity: plan.quantity })
         .then((response) => {
           this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['price'] = response.data.price;
           this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['url']['pay_link'] = response.data.pay_link;
@@ -60,7 +83,7 @@ const checkPrice = (plan) => {
           <div v-if="data.current_licence">
 
             <!-- case: active subscription -->
-            <div v-if="data.current_licence.subscription_state != 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
+            <div v-if="data.current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
               <p class="mb-6 text-center">🎉 You have an active subscription.</p>
 
               <div class="mb-4">

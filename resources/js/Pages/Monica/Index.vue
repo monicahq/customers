@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import useClipboard from 'vue-clipboard3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
@@ -7,11 +7,37 @@ import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 
 const props = defineProps({
     data: Object,
+    refresh: Boolean,
 });
+
+const refresh = ref(_.debounce(() => doRefresh(), 1000));
 
 const licence = ref(null);
 const copied = ref(false);
 const { toClipboard } = useClipboard();
+
+onMounted(() => {
+    if (props.refresh) {
+        (refresh.value)();
+    }
+});
+
+onUnmounted(() => {
+    refresh.value.cancel();
+});
+
+const doRefresh = () => {
+    if (usePage().component.value === 'Monica/Index') {
+        Inertia.reload({
+            only: ['data'],
+            onFinish: () => {
+                if (props.data.current_licence === '' || props.data.current_licence.subscription_state === 'subscription_cancelled') {
+                    (refresh.value)();
+                }
+            },
+        });
+    }
+};
 
 const select = () => {
   licence.value.focus();
