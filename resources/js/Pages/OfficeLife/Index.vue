@@ -13,7 +13,7 @@ const refresh = ref(_.debounce(() => doRefresh(), 1000));
 const localPlans = ref([]);
 
 onMounted(() => {
-    localPlans = props.data.plans;
+    localPlans.value = props.data.plans;
     if (props.refresh) {
         (refresh.value)();
     }
@@ -41,9 +41,6 @@ const checkPrice = (plan) => {
         .then((response) => {
           this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['price'] = response.data.price;
           this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['url']['pay_link'] = response.data.pay_link;
-        })
-        .catch((error) => {
-          this.form.errors = error.response.data;
         });
 };
 
