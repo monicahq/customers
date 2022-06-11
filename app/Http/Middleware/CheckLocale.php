@@ -41,7 +41,7 @@ class CheckLocale
             $locale = $this->getLocale($request);
         }
 
-        $this->app->setLocale($locale);
+        $this->app->setLocale($locale ?? $this->app['config']->get('app.locale'));
 
         return $next($request);
     }
@@ -50,16 +50,12 @@ class CheckLocale
      * Get the current or default locale.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return string
+     * @return string|null
      */
-    public function getLocale(Request $request): string
+    public function getLocale(Request $request): ?string
     {
-        if ($user = $request->user()) {
-            $locale = $user->locale;
-        } else {
-            $locale = $this->app['language.detector']->detect() ?? $this->app['config']->get('app.locale');
-        }
-
-        return $locale;
+        return ($user = $request->user())
+            ? $user->locale
+            : $this->app['language.detector']->detect();
     }
 }
