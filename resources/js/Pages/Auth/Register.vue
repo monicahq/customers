@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { trans } from 'laravel-vue-i18n';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
 import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
 import JetButton from '@/Jetstream/Button.vue';
@@ -21,6 +22,13 @@ const submit = () => {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
+
+const terms = () => {
+  return '<a target="_blank" href="'+route('terms.show')+'" class="underline text-sm text-gray-600 hover:text-gray-900">'+trans('Terms of Service')+'</a>';
+}
+const policy = () => {
+  return '<a target="_blank" href="'+route('policy.show')+'" class="underline text-sm text-gray-600 hover:text-gray-900">'+trans('Privacy Policy')+'</a>';
+}
 </script>
 
 <template>
@@ -87,12 +95,7 @@ const submit = () => {
                     <div class="flex items-center">
                         <JetCheckbox id="terms" v-model:checked="form.terms" name="terms" />
 
-                        <div class="ml-2">
-                            {{ $t('I agree to the :terms and :policy', {
-                              terms: '<a target="_blank" href="'+route('terms.show')+'" class="underline text-sm text-gray-600 hover:text-gray-900">'+$t('Terms of Service')+'</a>',
-                              policy: '<a target="_blank" href="'+route('policy.show')+'" class="underline text-sm text-gray-600 hover:text-gray-900">'+$t('Privacy Policy')+'</a>',
-                            }) }}
-                        </div>
+                        <div class="ml-2" v-html="$t('I agree to the :terms and :policy', { terms: terms(), policy: policy() })"></div>
                     </div>
                 </JetLabel>
             </div>

@@ -82,7 +82,7 @@ defineProps({
                         {{ $t('Create an account') }}
                       </Link>
 
-                      <p class="text-lg font-bold mb-3">{{ $t('Returning user') }}?</p>
+                      <p class="text-lg font-bold mb-3">{{ $t('Returning user?') }}</p>
 
                       <Link :href="route('login')" class="mb-4 focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
                         {{ $t('Login') }}

@@ -17,9 +17,7 @@ return [
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
-    'login_with' => 'Login with:',
     'login_provider_github' => 'GitHub',
     'login_provider_monica' => 'Monica',
     'login_provider_officelife' => 'OfficeLife',
-    'provider_already_used' => 'This provider is already associated with another account',
 ];
