@@ -47,11 +47,11 @@ const logout = () => {
                                 </JetNavLink>
 
                                 <JetNavLink :href="route('officelife.index')" :active="route().current('officelife.index')">
-                                    OfficeLife's subscription
+                                    OfficeLife’s subscription
                                 </JetNavLink>
 
                                 <JetNavLink :href="route('monica.index')" :active="route().current('monica.index')">
-                                    Monica's subscription
+                                    Monica’s subscription
                                 </JetNavLink>
                             </div>
                         </div>
@@ -145,11 +145,11 @@ const logout = () => {
                         </JetResponsiveNavLink>
 
                         <JetResponsiveNavLink :href="route('officelife.index')" :active="route().current('officelife.index')">
-                            OfficeLife's subscription
+                            OfficeLife’s subscription
                         </JetResponsiveNavLink>
 
                         <JetResponsiveNavLink :href="route('monica.index')" :active="route().current('monica.index')">
-                            Monica's subscription
+                            Monica’s subscription
                         </JetResponsiveNavLink>
                     </div>
 
