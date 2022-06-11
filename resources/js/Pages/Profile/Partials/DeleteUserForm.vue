@@ -40,42 +40,42 @@ const closeModal = () => {
 <template>
     <JetActionSection :danger="true">
         <template #title>
-            Delete Account
+            {{ $t('Delete Account') }}
         </template>
 
         <template #description>
-            Permanently delete your account.
+            {{ $t('Permanently delete your account.') }}
         </template>
 
         <template #content>
             <div class="max-w-xl text-sm text-gray-600">
-                <p class="text-center text-xl mb-4 font-semibold text-red-500">⚠️ Danger zone</p>
+                <p class="text-center text-xl mb-4 font-semibold text-red-500">{{ $t('⚠️ Danger zone') }}</p>
 
-                <p>Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.</p>
+                <p>{{ $t('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}</p>
 
-                <p class="pt-5">This will immediately:</p>
+                <p class="pt-5">{{ $t('This will immediately:') }}</p>
                 <ul class="ml-5 mb-2">
-                  <li>- Cancel all your active subscriptions,</li>
-                  <li>- Delete your account on https://customers.monicahq.com.</li>
+                  <li>- {{ $t('Cancel all your active subscriptions') }},</li>
+                  <li>- {{ $t('Delete your account on https://customers.monicahq.com.') }}</li>
                 </ul>
 
-                <p class="font-semibold text-red-500">You WILL still have to delete your account on Monica or OfficeLife.</p>
+                <p class="font-semibold text-red-500">{{ $t('You WILL still have to delete your account on Monica or OfficeLife.') }}</p>
             </div>
 
             <div class="mt-5">
                 <JetDangerButton @click="confirmUserDeletion">
-                    Delete Account
+                    {{ $t('Delete Account') }}
                 </JetDangerButton>
             </div>
 
             <!-- Delete Account Confirmation Modal -->
             <JetDialogModal :show="confirmingUserDeletion" @close="closeModal">
                 <template #title>
-                    Delete Account
+                    {{ $t('Delete Account') }}
                 </template>
 
                 <template #content>
-                    Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
+                    {{ $t('Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
 
                     <div class="mt-4">
                         <JetInput
@@ -93,7 +93,7 @@ const closeModal = () => {
 
                 <template #footer>
                     <JetSecondaryButton @click="closeModal">
-                        Cancel
+                        {{ $t('Cancel') }}
                     </JetSecondaryButton>
 
                     <JetDangerButton
@@ -102,7 +102,7 @@ const closeModal = () => {
                         :disabled="form.processing"
                         @click="deleteUser"
                     >
-                        Delete Account
+                        {{ $t('Delete Account') }}
                     </JetDangerButton>
                 </template>
             </JetDialogModal>

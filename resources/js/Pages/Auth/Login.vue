@@ -99,23 +99,23 @@ const open = (provider) => {
             <div class="block mt-4">
                 <label class="flex items-center">
                     <JetCheckbox v-model:checked="form.remember" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                    <span class="ml-2 text-sm text-gray-600">{{ $t('Remember me') }}</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
+                    {{ $t('Forgot your password?') }}
                 </Link>
 
                 <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
+                    {{ $t('Log in') }}
                 </JetButton>
             </div>
 
             <div class="block mt-4">
                 <p v-if="providers.length > 0" class="block font-medium text-sm text-gray-700">
-                    Login with:
+                    {{ $t('Login with:') }}
                 </p>
                 <div v-for="provider in providers" :key="provider" class="inline">
                   <JetSecondaryButton class="mr-2" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
