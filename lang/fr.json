@@ -151,5 +151,8 @@
     "City": "Ville",
     "Postal code": "Code postal",
     "Country": "Pays",
-    "State": "État"
+    "State": "État",
+    "Copy licence into your clipboard": "Copier la licence dans le presse-papier",
+    "Copy": "Copier",
+    "Copied!": "Copié !"
 }
