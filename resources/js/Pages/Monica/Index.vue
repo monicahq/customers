@@ -5,6 +5,7 @@ import { Inertia } from '@inertiajs/inertia';
 import { trans } from 'laravel-vue-i18n';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import MonicaLogo from '@/Layouts/MonicaLogo.vue';
+import LicenceDisplay from '@/Pages/Partials/LicenceDisplay.vue';
 
 const props = defineProps({
     data: Object,
@@ -18,6 +19,7 @@ onMounted(() => {
         (refresh.value)();
     }
 });
+
 onUnmounted(() => {
     refresh.value.cancel();
 });
@@ -66,51 +68,7 @@ const paddle = () => {
 
             <!-- case: active subscription -->
             <div v-if="data.current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
-              <p class="mb-6 text-center">{{ $t('🎉 You have an active subscription.') }}</p>
-
-              <p class="mb-4">{{ $t('This is your licence key:') }}
-                <span class="overflow-hidden w-full inline-block rounded bg-gray-200 px-3 py-2">
-                {{ data.current_licence.key }}
-                </span>
-              </p>
-
-              <div class="mb-4 bg-blue-100 flex rounded-lg p-4">
-                <div>
-                  <p class="font-bold mb-2">{{ $t('How to use your key:') }}</p>
-                  <ul class="ml-4">
-                    <li><span class="text-blue-500">1. </span>  <span v-html="link('https://app.monicahq.com/settings/billing')"></span></li>
-                    <li><span class="text-blue-500">2. </span>  {{ $t('Locate the Licence key section') }}</li>
-                    <li><span class="text-blue-500">3. </span>  {{ $t('Paste the licence key shown above.') }}</li>
-                    <li><span class="text-blue-500">4. </span>  {{ $t('Enjoy!') }}</li>
-                  </ul>
-                </div>
-              </div>
-
-              <p class="mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                {{ $t('The licence key will automatically renew on :date.', { date: data.current_licence.valid_until_at }) }}
-              </p>
-
-              <p>
-
-                <a :href="data.current_licence.paddle_update_url" rel="noopener noreferrer" class="mr-2 cursor-pointer focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
-
-                  {{ $t('Update payment details') }}
-                </a>
-
-                <a :href="data.current_licence.paddle_cancel_url" rel="noopener noreferrer" class="cursor-pointer focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-
-                  {{ $t('Stop') }}
-                </a>
-              </p>
+              <LicenceDisplay :licence="data.current_licence" :url="'https://app.monicahq.com/settings/billing'" />
             </div>
 
             <!-- case: cancelled subscription -->
