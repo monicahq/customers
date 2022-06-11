@@ -25,6 +25,11 @@ class UserProfile
         $data['providersName'] = $providersName;
         $data['userTokens'] = $request->user()->usertokens()->get();
 
+        $data['locales'] = collect(config('lang-detector.languages'))->map(fn ($locale) => [
+            'id' => $locale,
+            'name' => __('lang', [], $locale),
+        ]);
+
         return $data;
     }
 }

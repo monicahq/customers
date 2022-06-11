@@ -24,10 +24,10 @@ const submit = () => {
 };
 
 const terms = () => {
-  return '<a target="_blank" href="'+route('terms.show')+'" class="underline text-sm text-gray-600 hover:text-gray-900">'+trans('Terms of Service')+'</a>';
+  return `<a target="_blank" href="${route('terms.show')}" class="underline text-sm text-gray-600 hover:text-gray-900">${trans('Terms of Service')}</a>`;
 }
 const policy = () => {
-  return '<a target="_blank" href="'+route('policy.show')+'" class="underline text-sm text-gray-600 hover:text-gray-900">'+trans('Privacy Policy')+'</a>';
+  return `<a target="_blank" href="${route('policy.show')}" class="underline text-sm text-gray-600 hover:text-gray-900">${trans('Privacy Policy')}</a>`;
 }
 </script>
 

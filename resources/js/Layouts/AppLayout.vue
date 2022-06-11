@@ -87,8 +87,12 @@ const logout = () => {
                                             {{ $t('Manage Account') }}
                                         </div>
 
-                                        <JetDropdownLink :href="route('profile.show')">
+                                        <JetDropdownLink :href="route('account.show')">
                                             {{ $t('Profile') }}
+                                        </JetDropdownLink>
+
+                                        <JetDropdownLink :href="route('profile.show')">
+                                            {{ $t('Settings') }}
                                         </JetDropdownLink>
 
                                         <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
@@ -171,8 +175,12 @@ const logout = () => {
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <JetResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
+                            <JetResponsiveNavLink :href="route('account.show')" :active="route().current('account.show')">
                                 {{ $t('Profile') }}
+                            </JetResponsiveNavLink>
+
+                            <JetResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
+                                {{ $t('Settings') }}
                             </JetResponsiveNavLink>
 
                             <JetResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">

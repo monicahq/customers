@@ -1,4 +1,5 @@
 {
+    "lang": "Français",
     "Home": "Accueil",
     "Please choose a product first.": "Merci de choisir un produit.",
     "OfficeLife logo": "Logo OfficeLife",
@@ -14,6 +15,8 @@
     "Monica’s subscription": "Abonnement à Monica",
     "Manage Account": "Gérer le compte",
     "Profile": "Profil",
+    "Settings": "Paramètres",
+    "Language": "Langue",
     "API Tokens": "Tokens d’API",
     "Log Out": "Se déconnecter",
     "Whoops! Something went wrong.": "Oups ! Quelque chose s’est passé de travers.",
@@ -140,5 +143,13 @@
     "Password": "Mot de passe",
     "Recovery Code": "Code de récupération",
     "The provided password does not match your current password.": "Le mot de passe renseigné ne correspond pas à votre mot de passe actuel.",
-    "This provider is already associated with another account": "Ce fournisseur est déjà associé à un autre compte"
+    "This provider is already associated with another account": "Ce fournisseur est déjà associé à un autre compte",
+    "Account address": "Adresse du compte",
+    "Update your account’s address.": "Mettre à jour l’adresse de votre compte.",
+    "Street": "Rue",
+    "Additional information": "Informations additionnelles",
+    "City": "Ville",
+    "Postal code": "Code postal",
+    "Country": "Pays",
+    "State": "État"
 }

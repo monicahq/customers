@@ -1,4 +1,5 @@
 {
+    "lang": "English",
     "Home": "Home",
     "Please choose a product first.": "Please choose a product first.",
     "OfficeLife logo": "OfficeLife logo",
@@ -14,6 +15,8 @@
     "Monica’s subscription": "Monica’s subscription",
     "Manage Account": "Manage Account",
     "Profile": "Profile",
+    "Settings": "Settings",
+    "Language": "Language",
     "API Tokens": "API Tokens",
     "Log Out": "Log Out",
     "Whoops! Something went wrong.": "Whoops! Something went wrong.",
@@ -140,5 +143,13 @@
     "Password": "Password",
     "Recovery Code": "Recovery Code",
     "The provided password does not match your current password.": "The provided password does not match your current password.",
-    "This provider is already associated with another account": "This provider is already associated with another account"
+    "This provider is already associated with another account": "This provider is already associated with another account",
+    "Account address": "Account address",
+    "Update your account’s address.": "Update your account’s address.",
+    "Street": "Street",
+    "Additional information": "Additional information",
+    "City": "City",
+    "Postal code": "Postal code",
+    "Country": "Country",
+    "State": "State"
 }

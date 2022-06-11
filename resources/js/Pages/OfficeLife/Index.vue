@@ -46,9 +46,9 @@ const checkPrice = (plan) => {
         });
 };
 
-const link = (link) => {
-    return trans('Go to <link>:link</link>', { link: link })
-      .replace('<link>', `<a href="${link}" class="underline" rel="noopener noreferrer">`)
+const link = (href) => {
+    return trans('Go to <link>:link</link>', { link: href })
+      .replace('<link>', `<a href="${href}" class="underline" rel="noopener noreferrer">`)
       .replace('</link>', '</a>');
 };
 const paddle = () => {

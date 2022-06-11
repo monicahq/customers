@@ -2,9 +2,11 @@
 import { ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/inertia-vue3';
+import { loadLanguageAsync, getActiveLanguage } from 'laravel-vue-i18n';
 import JetButton from '@/Jetstream/Button.vue';
 import JetFormSection from '@/Jetstream/FormSection.vue';
 import JetInput from '@/Jetstream/Input.vue';
+import JetSelect from '@/Jetstream/Select.vue';
 import JetInputError from '@/Jetstream/InputError.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 import JetActionMessage from '@/Jetstream/ActionMessage.vue';
@@ -12,12 +14,14 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 
 const props = defineProps({
     user: Object,
+    locales: Array,
 });
 
 const form = useForm({
     _method: 'PUT',
     name: props.user.name,
     email: props.user.email,
+    locale: props.user.locale,
     photo: null,
 });
 
@@ -33,6 +37,11 @@ const updateProfileInformation = () => {
         errorBag: 'updateProfileInformation',
         preserveScroll: true,
         onSuccess: () => clearPhotoFileInput(),
+        onFinish: () => {
+          if (getActiveLanguage() !== form.locale) {
+            loadLanguageAsync(form.locale);
+          }
+        },
     });
 };
 
@@ -148,6 +157,18 @@ const clearPhotoFileInput = () => {
                     class="mt-1 block w-full"
                 />
                 <JetInputError :message="form.errors.email" class="mt-2" />
+            </div>
+
+            <!-- Locale -->
+            <div class="col-span-6 sm:col-span-4" v-if="locales !== undefined && locales.length > 0">
+                <JetLabel for="locale" value="Language" />
+                <JetSelect
+                    id="locale"
+                    v-model="form.locale"
+                    class="mt-1 block w-full"
+                    :options="locales"
+                />
+                <JetInputError :message="form.errors.locale" class="mt-2" />
             </div>
         </template>
 
