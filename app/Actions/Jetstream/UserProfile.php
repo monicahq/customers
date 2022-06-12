@@ -27,7 +27,7 @@ class UserProfile
 
         $data['locales'] = collect(config('lang-detector.languages'))->map(fn ($locale) => [
             'id' => $locale,
-            'name' => __('lang', [], $locale),
+            'name' => __('auth.lang', [], $locale),
         ]);
 
         return $data;

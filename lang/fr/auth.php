@@ -21,5 +21,5 @@ return [
     'login_provider_monica' => 'Monica',
     'login_provider_officelife' => 'OfficeLife',
 
-    'lang' => 'English',
+    'lang' => 'Français',
 ];

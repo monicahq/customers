@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -57,6 +58,16 @@ class LicenceKey extends Model
         'paddle_update_url',
         'subscription_state',
         'valid_until_at',
+        'valid_until_at_formatted',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'valid_until_at_formatted',
     ];
 
     /**
@@ -77,5 +88,15 @@ class LicenceKey extends Model
     public function plan()
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    /**
+     * Get the new validation date formatted.
+     *
+     * @return string|null
+     */
+    public function getValidUntilAtFormattedAttribute(): ?string
+    {
+        return $this->valid_until_at->isoFormat('LL');
     }
 }
