@@ -155,6 +155,7 @@ const clearPhotoFileInput = () => {
                     v-model="form.email"
                     type="email"
                     class="mt-1 block w-full"
+                    autocomplete="email"
                 />
                 <JetInputError :message="form.errors.email" class="mt-2" />
             </div>
@@ -167,6 +168,7 @@ const clearPhotoFileInput = () => {
                     v-model="form.locale"
                     class="mt-1 block w-full"
                     :options="locales"
+                    autocomplete="language"
                 />
                 <JetInputError :message="form.errors.locale" class="mt-2" />
             </div>

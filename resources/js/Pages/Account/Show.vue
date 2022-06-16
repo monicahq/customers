@@ -3,6 +3,11 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue';
 import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue';
 import UpdateAddressForm from './Partials/UpdateAddressForm.vue';
+
+defineProps({
+    countries: Array,
+});
+
 </script>
 
 <template>
@@ -22,7 +27,7 @@ import UpdateAddressForm from './Partials/UpdateAddressForm.vue';
                 </div>
 
                 <div>
-                    <UpdateAddressForm class="mt-10 sm:mt-0" :user="$page.props.user" />
+                    <UpdateAddressForm class="mt-10 sm:mt-0" :user="$page.props.user" :countries="countries" />
 
                     <JetSectionBorder />
                 </div>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17059abfb136e1a05f1a54d147b372fe",
+    "content-hash": "56ec4189af66eb02ecb70c5e63b3a307",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3097,6 +3097,67 @@
                 "source": "https://github.com/serbanghita/Mobile-Detect/tree/2.8.39"
             },
             "time": "2022-02-17T19:24:25+00:00"
+        },
+        {
+            "name": "monarobase/country-list",
+            "version": "3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Monarobase/country-list.git",
+                "reference": "6fa307de681cd1aa236145eb7c8ed133a97e12e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Monarobase/country-list/zipball/6fa307de681cd1aa236145eb7c8ed133a97e12e9",
+                "reference": "6fa307de681cd1aa236145eb7c8ed133a97e12e9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.8|^6|^7|^8|^9",
+                "php": ">=5.6.0",
+                "umpirsky/country-list": "2.0.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Monarobase\\CountryList\\CountryListServiceProvider"
+                    ],
+                    "aliases": {
+                        "Countries": "Monarobase\\CountryList\\CountryListFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Monarobase\\CountryList\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Thuau",
+                    "email": "jonathan@monarobase.net",
+                    "homepage": "https://monarobase.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "List of all countries with names and ISO 3166-1 codes in all languages and data formats for Laravel",
+            "keywords": [
+                "countries",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/Monarobase/country-list/issues",
+                "source": "https://github.com/Monarobase/country-list/tree/3.3.0"
+            },
+            "time": "2022-02-14T12:04:26+00:00"
         },
         {
             "name": "moneyphp/money",
@@ -7561,6 +7622,52 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.4"
             },
             "time": "2021-12-08T09:12:39+00:00"
+        },
+        {
+            "name": "umpirsky/country-list",
+            "version": "2.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/umpirsky/country-list.git",
+                "reference": "6dddae6983c1bc4d314b513c5decb7c8c6c879dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/umpirsky/country-list/zipball/6dddae6983c1bc4d314b513c5decb7c8c6c879dc",
+                "reference": "6dddae6983c1bc4d314b513c5decb7c8c6c879dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "slowprog/composer-copy-file": "^0.2",
+                "symfony/intl": "^4.3",
+                "umpirsky/list-generator": "^1.2"
+            },
+            "type": "library",
+            "extra": {
+                "copy-file": {
+                    "vendor/umpirsky/list-generator/Dockerfile": "./",
+                    "vendor/umpirsky/list-generator/docker-compose.yml": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saša Stamenković",
+                    "email": "umpirsky@gmail.com"
+                }
+            ],
+            "description": "List of all countries with names and ISO 3166-1 codes in all languages and data formats.",
+            "support": {
+                "issues": "https://github.com/umpirsky/country-list/issues",
+                "source": "https://github.com/umpirsky/country-list/tree/2.0.6"
+            },
+            "time": "2020-12-03T10:09:09+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

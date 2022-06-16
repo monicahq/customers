@@ -17,6 +17,7 @@
         "laravel/sanctum": "^2.8",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
+        "monarobase/country-list": "^3.3",
         "socialiteproviders/github": "^4.1",
         "socialiteproviders/laravelpassport": "^4.1",
         "thecodingmachine/safe": "^2.0",
