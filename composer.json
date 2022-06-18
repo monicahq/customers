@@ -6,8 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
+        "asbiin/laravel-webauthn": "^3.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0",
+        "guzzlehttp/psr7": "^2.2",
         "inertiajs/inertia-laravel": "^0.5",
         "laravel/cashier-paddle": "^1.5",
         "laravel/fortify": "^1.12",

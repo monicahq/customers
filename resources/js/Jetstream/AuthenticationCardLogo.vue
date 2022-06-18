@@ -9,7 +9,7 @@ import { Link } from '@inertiajs/inertia-vue3';
                 width="100"
           />
 
-          <img loading="lazy" src="/img/monica-logo.svg" alt="officelife logo" class="mb-3 mx-auto" height="100"
+          <img loading="lazy" src="/img/monica-logo.svg" alt="monica logo" class="mb-3 mx-auto" height="100"
                 width="100"
           />
         </div>

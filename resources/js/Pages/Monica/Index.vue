@@ -41,7 +41,7 @@ const doRefresh = () => {
         <div class="mx-auto max-w-3xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
 
           <div class="text-center mb-12">
-            <img loading="lazy" src="/img/monica-logo.svg" alt="officelife logo" class="mb-3 mx-auto" height="150"
+            <img loading="lazy" src="/img/monica-logo.svg" alt="monica logo" class="mb-3 mx-auto" height="150"
                   width="150"
             />
             <p class="text-sm">Monica is a great open source personal CRM. Monica allows people to keep track of everything that’s important about their friends and family. <a href="https://monicahq.com" rel="noopener noreferrer" class="underline">https://monicahq.com</a></p>
