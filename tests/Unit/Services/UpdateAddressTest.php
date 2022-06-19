@@ -7,7 +7,7 @@ use App\Services\UpdateAddress;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class UserAddressTest extends TestCase
+class UpdateAddressTest extends TestCase
 {
     /** @test */
     public function it_updates_user_address(): void
