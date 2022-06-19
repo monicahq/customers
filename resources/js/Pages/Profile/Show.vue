@@ -7,6 +7,7 @@ import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthe
 import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue';
 import UpdateProviders from '@/Pages/Profile/Partials/UpdateProviders.vue';
+import WebauthnKeys from '@/Pages/Webauthn/WebauthnKeys.vue'
 
 defineProps({
     confirmsTwoFactorAuthentication: Boolean,
@@ -15,6 +16,7 @@ defineProps({
     providersName: Object,
     userTokens: Array,
     locales: Array,
+    webauthnKeys: Array,
 });
 </script>
 
@@ -51,6 +53,12 @@ defineProps({
                         :requires-confirmation="confirmsTwoFactorAuthentication"
                         class="mt-10 sm:mt-0"
                     />
+
+                    <JetSectionBorder />
+                </div>
+
+                <div>
+                    <WebauthnKeys :webauthnKeys="webauthnKeys" />
 
                     <JetSectionBorder />
                 </div>

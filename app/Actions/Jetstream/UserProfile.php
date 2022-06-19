@@ -21,9 +21,22 @@ class UserProfile
             return [$provider => config("services.$provider.name") ?? __("auth.login_provider_{$provider}")];
         });
 
+        $webauthnKeys = $request->user()->webauthnKeys()
+            ->get()
+            ->map(function ($key) {
+                return [
+                    'id' => $key->id,
+                    'name' => $key->name,
+                    'type' => $key->type,
+                    'last_active' => $key->updated_at->diffForHumans(),
+                ];
+            })
+            ->toArray();
+
         $data['providers'] = $providers;
         $data['providersName'] = $providersName;
         $data['userTokens'] = $request->user()->usertokens()->get();
+        $data['webauthnKeys'] = $webauthnKeys;
 
         $data['locales'] = collect(config('lang-detector.languages'))->map(fn ($locale) => [
             'id' => $locale,
