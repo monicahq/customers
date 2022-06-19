@@ -18,7 +18,7 @@ defineEmits(['retry']);
                     {{ errorMessage }}
                 </p>
                 <JetButton class="mt-4" @click="$emit('retry')">
-                    Retry
+                    {{ $t('Retry') }}
                 </JetButton>
             </div>
         </div>
@@ -44,7 +44,7 @@ defineEmits(['retry']);
                     </svg>
                 </div>
                 <p class="font-bold text-2xl text-teal-900">
-                    Validating key…
+                    {{ $t('Validating key…') }}
                 </p>
             </div>
             <div v-else-if="!form.hasErrors" class="bg-indigo-100 border-t-4 border-indigo-500 rounded-b mb-4 px-4 py-8 shadow-md flex">
@@ -67,7 +67,7 @@ defineEmits(['retry']);
                     </svg>
                 </div>
                 <p class="font-bold text-2xl text-indigo-900">
-                    Waiting for key…
+                    {{ $t('Waiting for key…') }}
                 </p>
             </div>
         </template>

@@ -97,13 +97,13 @@ const reload = () => {
                 {{ userName }}
             </div>
             <div class="mb-4 max-w-xl text-gray-600">
-                Connect with your security key
+                {{ $t('Connect with your security key') }}
             </div>
 
             <WebauthnLogin :remember="true" :public-key="publicKeyRef" />
 
             <JetSecondaryButton class="mr-2 mt-4" @click.prevent="webauthn = false">
-                Use your password
+                {{ $t('Use your password') }}
             </JetSecondaryButton>
         </div>
 
@@ -169,7 +169,7 @@ const reload = () => {
 
             <div v-if="publicKeyRef" class="block mt-4">
                 <JetSecondaryButton class="mr-2" @click.prevent="reload">
-                    Use your security key
+                    {{ $t('Use your security key') }}
                 </JetSecondaryButton>
             </div>
 

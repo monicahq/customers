@@ -38,18 +38,6 @@ const props = defineProps({
 const main = ref(null);
 const select = ref(null);
 const open = ref(false);
-const input = ref(null);
-
-onMounted(() => {
-    document.addEventListener('keydown', onKeydown);
-    if (_.find(useAttrs(), (item, key) => key === 'autofocus') > -1) {
-      setTimeout(() => {
-        select.value.focus();
-        open.value = true;
-      }, 100);
-    }
-});
-onUnmounted(() => document.removeEventListener('keydown', onKeydown));
 
 const proxySelect = computed({
     get() {
@@ -63,21 +51,54 @@ const proxySelect = computed({
     },
 });
 
+const input = ref(null);
+const onInput = (e) => {
+    input.value = e.target.value;
+};
+
 const filtered = computed(() => {
   return input.value !== null
     ? props.options.filter((option) => option.name.search(new RegExp(input.value, "i")) > -1)
     : props.options.filter((option) => option.id !== props.excludedId);
 });
 
+defineExpose({
+    focus: () => {
+        select.value.focus();
+        open.value = true;
+    }
+});
+
 const onKeydown = (e) => {
     if (open.value && e.key === 'Escape') {
         close();
+    }
+    if (e.target == select.value) {
+        if (e.key === 'ArrowDown') {
+            //select.value.focus();
+        } else if (e.key === 'ArrowUp') {
+            //input.value.focus();
+        } else if (e.key.length === 1) {
+          input.value = (input.value !== null ? input.value : '') + e.key;
+          e.stopPropagation();
+        }
     }
 };
 const close = () => {
     open.value = false;
     input.value = null;
 };
+
+onMounted(() => {
+    document.addEventListener('keydown', onKeydown);
+    if (_.find(useAttrs(), (item, key) => key === 'autofocus') > -1) {
+      setTimeout(() => {
+        select.value.focus();
+        open.value = true;
+      }, 100);
+    }
+});
+onUnmounted(() => document.removeEventListener('keydown', onKeydown));
 
 const widthClass = computed(() => {
     return {
@@ -96,13 +117,6 @@ const alignmentClasses = computed(() => {
     }
 
     return 'origin-top';
-});
-
-defineExpose({
-    focus: () => {
-        select.value.focus();
-        open.value = true;
-    }
 });
 
 </script>

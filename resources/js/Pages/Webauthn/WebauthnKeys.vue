@@ -2,6 +2,7 @@
 <script setup>
 import { ref, nextTick, computed, onMounted } from 'vue';
 import { useForm } from '@inertiajs/inertia-vue3'
+import { trans } from 'laravel-vue-i18n';
 import JetActionSection from '@/Jetstream/ActionSection.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetConfirmsPassword from '@/Jetstream/ConfirmsPassword.vue'
@@ -49,9 +50,9 @@ const webauthn = new WebAuthn((name, message) => {
 const _errorMessage = (name, message) => {
     switch (name) {
         case 'InvalidStateError':
-            return 'This key is already registered. It’s not necessary to register it again.';
+            return trans('This key is already registered. It’s not necessary to register it again.');
         case 'NotAllowedError':
-            return 'The operation either timed out or was not allowed.';
+            return trans('The operation either timed out or was not allowed.');
         default:
             return message;
     }
@@ -60,9 +61,9 @@ const _errorMessage = (name, message) => {
 const notSupportedMessage = () => {
     switch (webauthn.notSupportedMessage()) {
         case 'not_supported':
-            return 'Your browser doesn’t currently support WebAuthn.';
+            return trans('Your browser doesn’t currently support WebAuthn.');
         case 'not_secured':
-            return 'WebAuthn only supports secure connections. Please load this page with https scheme.';
+            return trans('WebAuthn only supports secure connections. Please load this page with https scheme.');
         default:
             return '';
     }
@@ -107,22 +108,22 @@ const webauthnRegisterCallback = (data) => {
 <template>
     <JetActionSection>
         <template #title>
-            Security keys
+            {{ $t('Security keys') }}
         </template>
 
         <template #description>
-            Add additional security to your account using a security key.
+            {{ $t('Add additional security to your account using a security key.') }}
         </template>
 
         <template #content>
             <h3 v-if="keyBeingUpdated > 0" class="text-lg font-medium text-gray-900">
-                Update a key.
+                {{ $t('Update a key.') }}
             </h3>
             <h3 v-else-if="!register" class="text-lg font-medium text-gray-900">
-                Use a security key (Webauthn, or FIDO) to increase your account security.
+                {{ $t('Use a security key (Webauthn, or FIDO) to increase your account security.') }}
             </h3>
             <h3 v-else class="text-lg font-medium text-gray-900">
-                Register a new key.
+                {{ $t('Register a new key.') }}
             </h3>
 
             <div v-if="!isSupported">
@@ -139,7 +140,7 @@ const webauthnRegisterCallback = (data) => {
 
             <div v-else class="mt-5 space-y-6">
                 <div v-if="webauthnKeys.length === 0">
-                    No keys registered yet
+                    {{ $t('No keys registered yet') }}
                 </div>
                 <div v-else v-for="key in webauthnKeys" :key="key.id" class="flex items-center mb-2">
                     <div class="text-gray-500">
@@ -168,18 +169,18 @@ const webauthnRegisterCallback = (data) => {
 
                         <div class="text-xs text-gray-500">
                             <span>
-                                Last active {{ key.last_active }}
+                                {{ $t('Last active :date', { date: key.last_active }) }}
                             </span>
                         </div>
                     </div>
 
                     <div class="ml-3 text-sm">
                         <JetSecondaryButton class="pointer text-indigo-400 hover:text-indigo-600" href="" @click.prevent="keyBeingUpdated = key.id">
-                            Update
+                            {{ $t('Update') }}
                         </JetSecondaryButton>
                         <JetConfirmsPassword @confirmed="keyBeingDeleted = key.id">
                             <JetSecondaryButton class="ml-2 pointer text-indigo-400 hover:text-indigo-600" href="">
-                                Delete
+                                {{ $t('Delete') }}
                             </JetSecondaryButton>
                         </JetConfirmsPassword>
                     </div>
@@ -188,7 +189,7 @@ const webauthnRegisterCallback = (data) => {
                 <div class="flex items-center mt-5">
                     <JetConfirmsPassword @confirmed="showRegisterModal">
                         <JetButton type="button">
-                            Register a new key
+                            {{ $t('Register a new key') }}
                         </JetButton>
                     </JetConfirmsPassword>
                 </div>

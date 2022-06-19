@@ -52,32 +52,71 @@ defineProps({
             <JetAuthenticationCardLogo />
         </template>
 
-        <div class="mb-4 text-sm text-gray-600">
-            <template v-if="! recovery">
-                {{ $t('Please confirm access to your account by entering the authentication code provided by your authenticator application.') }}
-            </template>
+        <div v-if="publicKey">
+            <h1 class="mb-4 max-w-xl text-gray-600">
+                {{ $t('Please confirm access to your account by validating your security key.') }}
+            </h1>
 
-            <template v-else>
-                {{ $t('Please confirm access to your account by entering one of your emergency recovery codes.') }}
-            </template>
+            <WebauthnLogin :remember="remember" :publicKey="publicKey" />
         </div>
 
         <div v-if="two_factor">
-            <div class="flex items-center justify-end mt-4">
-                <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer" @click.prevent="toggleRecovery">
-                    <template v-if="! recovery">
-                        {{ $t('Use a recovery code') }}
-                    </template>
+            <div class="mb-4 text-sm text-gray-600">
+                <template v-if="! recovery">
+                    {{ $t('Please confirm access to your account by entering the authentication code provided by your authenticator application.') }}
+                </template>
 
-                    <template v-else>
-                        {{ $t('Use an authentication code') }}
-                    </template>
-                </button>
-
-                <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    {{ $t('Log in') }}
-                </JetButton>
+                <template v-else>
+                    {{ $t('Please confirm access to your account by entering one of your emergency recovery codes.') }}
+                </template>
             </div>
+
+
+            <JetValidationErrors class="mb-4" />
+
+            <form @submit.prevent="submit">
+                <div v-if="! recovery">
+                    <JetLabel for="code" value="Code" />
+                    <JetInput
+                        id="code"
+                        ref="codeInput"
+                        v-model="form.code"
+                        type="text"
+                        inputmode="numeric"
+                        class="mt-1 block w-full"
+                        autofocus
+                        autocomplete="one-time-code"
+                    />
+                </div>
+
+                <div v-else>
+                    <JetLabel for="recovery_code" value="Recovery Code" />
+                    <JetInput
+                        id="recovery_code"
+                        ref="recoveryCodeInput"
+                        v-model="form.recovery_code"
+                        type="text"
+                        class="mt-1 block w-full"
+                        autocomplete="one-time-code"
+                    />
+                </div>
+
+                <div class="flex items-center justify-end mt-4">
+                    <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer" @click.prevent="toggleRecovery">
+                        <template v-if="! recovery">
+                            {{ $t('Use a recovery code') }}
+                        </template>
+
+                        <template v-else>
+                            {{ $t('Use an authentication code') }}
+                        </template>
+                    </button>
+
+                    <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        {{ $t('Log in') }}
+                    </JetButton>
+                </div>
+            </form>
         </div>
     </JetAuthenticationCard>
 </template>

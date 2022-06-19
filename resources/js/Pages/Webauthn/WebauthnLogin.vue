@@ -3,6 +3,7 @@
 import { ref, nextTick, watch, onMounted } from 'vue';
 import { useForm } from '@inertiajs/inertia-vue3'
 import { Inertia } from '@inertiajs/inertia'
+import { trans } from 'laravel-vue-i18n';
 import JetInputError from '@/Jetstream/InputError.vue'
 import JetButton from '@/Jetstream/Button.vue'
 import WaitForKey from './Partials/WaitForKey.vue'
@@ -44,9 +45,9 @@ const webauthn = new WebAuthn((name, message) => {
 const _errorMessage = (name, message) => {
     switch (name) {
         case 'InvalidStateError':
-            return 'Unexpected error on login.';
+            return trans('Unexpected error on login.');
         case 'NotAllowedError':
-            return 'The operation either timed out or was not allowed.';
+            return trans('The operation either timed out or was not allowed.');
         default:
             return message;
     }
@@ -55,9 +56,9 @@ const _errorMessage = (name, message) => {
 const notSupportedMessage = () => {
     switch (webauthn.notSupportedMessage()) {
         case 'not_supported':
-            return 'Your browser doesn’t currently support WebAuthn.';
+            return trans('Your browser doesn’t currently support WebAuthn.');
         case 'not_secured':
-            return 'WebAuthn only supports secure connections. Please load this page with https scheme.';
+            return trans('WebAuthn only supports secure connections. Please load this page with https scheme.');
         default:
             return '';
     }
@@ -114,7 +115,7 @@ const webauthnLoginCallback = (data) => {
             <JetInputError :message="authForm.errors.data" class="mt-2" />
 
             <JetButton class="ml-2" @click="start()" v-show="!processing">
-                Retry
+                {{ $t('Retry') }}
             </JetButton>
         </div>
     </div>
