@@ -8,7 +8,6 @@ use App\Listeners\SubscriptionCreatedListener;
 use App\Listeners\SubscriptionPaymentSucceededListener;
 use App\Providers\Auth\MonicaExtendSocialite;
 use App\Providers\Auth\OfficeLifeExtendSocialite;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Events\LocaleUpdated;
