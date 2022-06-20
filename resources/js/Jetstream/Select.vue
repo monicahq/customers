@@ -6,7 +6,7 @@ export default {
 </script>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref, useAttrs, nextTick } from 'vue';
+import { computed, onMounted, onUnmounted, ref, useAttrs } from 'vue';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -73,7 +73,7 @@ const onKeydown = (e) => {
     if (open.value && e.key === 'Escape') {
         close();
     }
-    if (e.target == select.value) {
+    if (e.target === select.value) {
         if (e.key === 'ArrowDown') {
             //select.value.focus();
         } else if (e.key === 'ArrowUp') {
