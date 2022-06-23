@@ -30,7 +30,7 @@ const logout = () => {
 
 <template>
     <div>
-        <Head :title="title" />
+        <Head :title="$t(title)" />
 
         <JetBanner />
 
@@ -43,15 +43,15 @@ const logout = () => {
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Home
+                                    {{ $t('Home') }}
                                 </JetNavLink>
 
                                 <JetNavLink :href="route('officelife.index')" :active="route().current('officelife.index')">
-                                    OfficeLife's subscription
+                                    {{ $t('OfficeLife’s subscription') }}
                                 </JetNavLink>
 
                                 <JetNavLink :href="route('monica.index')" :active="route().current('monica.index')">
-                                    Monica's subscription
+                                    {{ $t('Monica’s subscription') }}
                                 </JetNavLink>
                             </div>
                         </div>
@@ -84,19 +84,19 @@ const logout = () => {
                                     <template #content>
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
+                                            {{ $t('Manage Account') }}
                                         </div>
 
                                         <JetDropdownLink :href="route('account.show')">
-                                            Account
+                                            {{ $t('Profile') }}
                                         </JetDropdownLink>
 
                                         <JetDropdownLink :href="route('profile.show')">
-                                            Settings
+                                            {{ $t('Settings') }}
                                         </JetDropdownLink>
 
                                         <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
-                                            API Tokens
+                                            {{ $t('API Tokens') }}
                                         </JetDropdownLink>
 
                                         <div class="border-t border-gray-100" />
@@ -104,7 +104,7 @@ const logout = () => {
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <JetDropdownLink as="button">
-                                                Log Out
+                                                {{ $t('Log Out') }}
                                             </JetDropdownLink>
                                         </form>
                                     </template>
@@ -145,15 +145,15 @@ const logout = () => {
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Home
+                            {{ $t('Home') }}
                         </JetResponsiveNavLink>
 
                         <JetResponsiveNavLink :href="route('officelife.index')" :active="route().current('officelife.index')">
-                            OfficeLife's subscription
+                            {{ $t('OfficeLife’s subscription') }}
                         </JetResponsiveNavLink>
 
                         <JetResponsiveNavLink :href="route('monica.index')" :active="route().current('monica.index')">
-                            Monica's subscription
+                            {{ $t('Monica’s subscription') }}
                         </JetResponsiveNavLink>
                     </div>
 
@@ -175,18 +175,22 @@ const logout = () => {
                         </div>
 
                         <div class="mt-3 space-y-1">
+                            <JetResponsiveNavLink :href="route('account.show')" :active="route().current('account.show')">
+                                {{ $t('Profile') }}
+                            </JetResponsiveNavLink>
+
                             <JetResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
-                                Profile
+                                {{ $t('Settings') }}
                             </JetResponsiveNavLink>
 
                             <JetResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">
-                                API Tokens
+                                {{ $t('API Tokens') }}
                             </JetResponsiveNavLink>
 
                             <!-- Authentication -->
                             <form method="POST" @submit.prevent="logout">
                                 <JetResponsiveNavLink as="button">
-                                    Log Out
+                                    {{ $t('Log Out') }}
                                 </JetResponsiveNavLink>
                             </form>
 

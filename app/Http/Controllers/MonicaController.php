@@ -44,13 +44,14 @@ class MonicaController extends Controller
                 'plans' => $plansCollection,
                 'current_licence' => $licence,
             ],
+            'refresh' => $request->boolean('refresh'),
         ]);
     }
 
     private function getPayLink(Request $request, Plan $plan)
     {
         return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
-            ->returnTo(route('monica.index'))
+            ->returnTo(route('monica.index').'?refresh=true')
             ->create();
     }
 }

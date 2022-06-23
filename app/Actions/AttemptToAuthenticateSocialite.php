@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
 use Laravel\Fortify\LoginRateLimiter;
 use Laravel\Socialite\Contracts\Provider;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
@@ -19,6 +20,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\One\User as OAuth1User;
 use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\User as OAuth2User;
+use LaravelWebauthn\Facades\Webauthn;
 
 class AttemptToAuthenticateSocialite
 {
@@ -37,7 +39,7 @@ class AttemptToAuthenticateSocialite
     protected $limiter;
 
     /**
-     * Create a new controller instance.
+     * Create a new action instance.
      *
      * @param  \Illuminate\Contracts\Auth\StatefulGuard  $guard
      * @param  \Laravel\Fortify\LoginRateLimiter  $limiter
@@ -63,7 +65,12 @@ class AttemptToAuthenticateSocialite
         $provider = $this->getSocialiteProvider($driver);
         $user = $this->authenticateUser($request, $driver, $provider->user());
 
-        $this->guard->login($user, $request->session()->pull('remember', false));
+        if ((optional($user)->two_factor_secret && ! is_null(optional($user)->two_factor_confirmed_at))
+            || Webauthn::enabled($user)) {
+            return $this->twoFactorChallengeResponse($request, $user);
+        }
+
+        $this->guard->login($user, $request->session()->pull('login.remember', false));
 
         return $next($request);
     }
@@ -125,7 +132,7 @@ class AttemptToAuthenticateSocialite
     private function checkUserAssociation(Request $request, User $user, string $driver)
     {
         if (($userId = Auth::id()) && $userId !== $user->id) {
-            $this->throwFailedAuthenticationException($request, $driver, trans('auth.provider_already_used'));
+            $this->throwFailedAuthenticationException($request, $driver, __('This provider is already associated with another account'));
         }
     }
 
@@ -229,5 +236,26 @@ class AttemptToAuthenticateSocialite
         event(new Failed('web', $user, [
             'email' => $request->email,
         ]));
+    }
+
+    /**
+     * Get the two factor authentication enabled response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function twoFactorChallengeResponse($request, $user)
+    {
+        $request->session()->put([
+            'login.id' => $user->getKey(),
+            'login.remember' => $request->session()->pull('login.remember', $request->filled('remember')),
+        ]);
+
+        TwoFactorAuthenticationChallenged::dispatch($user);
+
+        return $request->wantsJson()
+                    ? response()->json(['two_factor' => true])
+                    : redirect()->route('two-factor.login');
     }
 }

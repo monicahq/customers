@@ -6,8 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
+        "asbiin/laravel-webauthn": "^3.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0",
+        "guzzlehttp/psr7": "^2.2",
         "inertiajs/inertia-laravel": "^0.5",
         "laravel/cashier-paddle": "^1.5",
         "laravel/fortify": "^1.12",
@@ -17,10 +19,12 @@
         "laravel/sanctum": "^2.8",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
+        "monarobase/country-list": "^3.3",
         "socialiteproviders/github": "^4.1",
         "socialiteproviders/laravelpassport": "^4.1",
         "thecodingmachine/safe": "^2.0",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+        "vluzrmos/language-detector": "^2.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
