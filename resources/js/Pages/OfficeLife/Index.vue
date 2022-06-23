@@ -49,7 +49,7 @@ const checkPrice = (plan) => {
 
 const paddle = () => {
     return trans('Secure payment by <link>Paddle</link>')
-      .replace('<link>', '<a href="https://paddle.com" class="ml-1" rel="noopener noreferrer">')
+      .replace('<link>', '<a href="https://paddle.com" class="underline" rel="noopener noreferrer">')
       .replace('</link>', '</a>');
 };
 
