@@ -79,7 +79,7 @@ const reload = () => {
 </style>
 
 <template>
-    <Head title="Log in" />
+    <Head :title="$t('Log in')" />
 
     <JetAuthenticationCard>
         <template #logo>

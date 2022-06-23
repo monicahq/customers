@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head :title="$t('Welcome')" />
 
     <div class="flex flex-col justify-center min-h-screen bg-gray-100 sm:items-center sm:pt-0">
         <nav v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">

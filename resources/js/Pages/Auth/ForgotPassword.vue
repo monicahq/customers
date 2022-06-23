@@ -21,7 +21,7 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Forgot Password" />
+    <Head :title="$t('Forgot Password')" />
 
     <JetAuthenticationCard>
         <template #logo>

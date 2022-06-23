@@ -32,7 +32,7 @@ const policy = () => {
 </script>
 
 <template>
-    <Head title="Register" />
+    <Head :title="$t('Register')" />
 
     <JetAuthenticationCard>
         <template #logo>

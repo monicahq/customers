@@ -45,7 +45,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Two-factor Confirmation" />
+    <Head :title="$t('Two-factor Confirmation')" />
 
     <JetAuthenticationCard>
         <template #logo>
