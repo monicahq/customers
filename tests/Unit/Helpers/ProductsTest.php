@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Services;
 
+use App\Helpers\Products;
 use App\Models\Plan;
 use App\Models\User;
-use App\Helpers\Products;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;

@@ -7,7 +7,6 @@ use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Services\CreateLicenceKey;
-use App\Helpers\Products;
 use Mockery\MockInterface;
 use Tests\TestCase;
 

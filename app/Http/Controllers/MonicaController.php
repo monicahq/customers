@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Plan;
 use App\Helpers\Products;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
