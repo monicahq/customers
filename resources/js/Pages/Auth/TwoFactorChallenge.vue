@@ -45,7 +45,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Two-factor Confirmation" />
+    <Head :title="$t('Two-factor Confirmation')" />
 
     <JetAuthenticationCard>
         <template #logo>
@@ -54,7 +54,7 @@ defineProps({
 
         <div v-if="publicKey">
             <h1 class="mb-4 max-w-xl text-gray-600">
-                Please confirm access to your account by validating your security key.
+                {{ $t('Please confirm access to your account by validating your security key.') }}
             </h1>
 
             <WebauthnLogin :remember="remember" :publicKey="publicKey" />
@@ -63,13 +63,14 @@ defineProps({
         <div v-if="two_factor">
             <div class="mb-4 text-sm text-gray-600">
                 <template v-if="! recovery">
-                    Please confirm access to your account by entering the authentication code provided by your authenticator application.
+                    {{ $t('Please confirm access to your account by entering the authentication code provided by your authenticator application.') }}
                 </template>
 
                 <template v-else>
-                    Please confirm access to your account by entering one of your emergency recovery codes.
+                    {{ $t('Please confirm access to your account by entering one of your emergency recovery codes.') }}
                 </template>
             </div>
+
 
             <JetValidationErrors class="mb-4" />
 
@@ -103,20 +104,19 @@ defineProps({
                 <div class="flex items-center justify-end mt-4">
                     <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer" @click.prevent="toggleRecovery">
                         <template v-if="! recovery">
-                            Use a recovery code
+                            {{ $t('Use a recovery code') }}
                         </template>
 
                         <template v-else>
-                            Use an authentication code
+                            {{ $t('Use an authentication code') }}
                         </template>
                     </button>
 
                     <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Log in
+                        {{ $t('Log in') }}
                     </JetButton>
                 </div>
             </form>
         </div>
-
     </JetAuthenticationCard>
 </template>

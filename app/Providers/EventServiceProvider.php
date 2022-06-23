@@ -2,15 +2,15 @@
 
 namespace App\Providers;
 
-use App\Listeners\LoginListener;
+use App\Listeners\LocaleUpdatedListener;
 use App\Listeners\SubscriptionCancelledListener;
 use App\Listeners\SubscriptionCreatedListener;
 use App\Listeners\SubscriptionPaymentSucceededListener;
 use App\Providers\Auth\MonicaExtendSocialite;
 use App\Providers\Auth\OfficeLifeExtendSocialite;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Foundation\Events\LocaleUpdated;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Laravel\Paddle\Events\SubscriptionCancelled;
 use Laravel\Paddle\Events\SubscriptionCreated;
@@ -26,8 +26,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Login::class => [
-            LoginListener::class,
+        LocaleUpdated::class => [
+            LocaleUpdatedListener::class,
         ],
         Registered::class => [
             SendEmailVerificationNotification::class,

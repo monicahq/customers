@@ -38,6 +38,11 @@ class UserProfile
         $data['userTokens'] = $request->user()->usertokens()->get();
         $data['webauthnKeys'] = $webauthnKeys;
 
+        $data['locales'] = collect(config('lang-detector.languages'))->map(fn ($locale) => [
+            'id' => $locale,
+            'name' => __('auth.lang', [], $locale),
+        ]);
+
         return $data;
     }
 }

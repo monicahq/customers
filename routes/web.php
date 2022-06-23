@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Account\AccountController;
+use App\Http\Controllers\Account\UserAddressController;
 use App\Http\Controllers\Auth\SocialiteCallbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
@@ -52,5 +54,7 @@ Route::middleware([
     Route::get('monica', [MonicaController::class, 'index'])->name('monica.index');
 
     // User & Profile...
+    Route::get('user/account', [AccountController::class, 'show'])->name('account.show');
+    Route::patch('user/address', [UserAddressController::class, 'update'])->name('user-address.update');
     Route::delete('auth/{driver}', [UserTokenController::class, 'destroy'])->name('provider.delete');
 });

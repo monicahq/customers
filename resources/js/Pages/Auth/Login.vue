@@ -79,7 +79,7 @@ const reload = () => {
 </style>
 
 <template>
-    <Head title="Log in" />
+    <Head :title="$t('Log in')" />
 
     <JetAuthenticationCard>
         <template #logo>
@@ -97,13 +97,13 @@ const reload = () => {
                 {{ userName }}
             </div>
             <div class="mb-4 max-w-xl text-gray-600">
-                Connect with your security key
+                {{ $t('Connect with your security key') }}
             </div>
 
             <WebauthnLogin :remember="true" :public-key="publicKeyRef" />
 
             <JetSecondaryButton class="mr-2 mt-4" @click.prevent="webauthn = false">
-                Use your password
+                {{ $t('Use your password') }}
             </JetSecondaryButton>
         </div>
 
@@ -135,23 +135,29 @@ const reload = () => {
             <div class="block mt-4">
                 <label class="flex items-center">
                     <JetCheckbox v-model:checked="form.remember" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                    <span class="ml-2 text-sm text-gray-600">{{ $t('Remember me') }}</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
+                    {{ $t('Forgot your password?') }}
                 </Link>
 
                 <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
+                    {{ $t('Log in') }}
                 </JetButton>
             </div>
 
             <div class="block mt-4">
-                <div v-if="providers.length > 0" class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-                    <p class="text-center font-semibold mx-4 mb-0">Or login with</p>
+                <p v-if="providers.length > 0" class="block font-medium text-sm text-gray-700">
+                    {{ $t('Login with:') }}
+                </p>
+                <div v-for="provider in providers" :key="provider" class="inline">
+                  <JetSecondaryButton class="mr-2" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
+                      <img :src="`/img/auth/${provider}.svg`" alt="" class="auth-provider relative" />
+                      {{ providersName[provider] }}
+                  </JetSecondaryButton>
                 </div>
                 <div class="flex flex-wrap">
                     <JetSecondaryButton v-for="provider in providers" :key="provider" class="mr-2" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
@@ -163,7 +169,7 @@ const reload = () => {
 
             <div v-if="publicKeyRef" class="block mt-4">
                 <JetSecondaryButton class="mr-2" @click.prevent="reload">
-                    Use your security key
+                    {{ $t('Use your security key') }}
                 </JetSecondaryButton>
             </div>
 

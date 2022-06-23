@@ -39,7 +39,7 @@ class LicenceKey extends Model
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'valid_until_at' => 'date:Y-m-d',
@@ -48,7 +48,7 @@ class LicenceKey extends Model
     /**
      * The attributes that should be visible in serialization.
      *
-     * @var array
+     * @var array<string>
      */
     protected $visible = [
         'id',
@@ -57,6 +57,16 @@ class LicenceKey extends Model
         'paddle_update_url',
         'subscription_state',
         'valid_until_at',
+        'valid_until_at_formatted',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<string>
+     */
+    protected $appends = [
+        'valid_until_at_formatted',
     ];
 
     /**
@@ -77,5 +87,15 @@ class LicenceKey extends Model
     public function plan()
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    /**
+     * Get the new validation date formatted.
+     *
+     * @return string|null
+     */
+    public function getValidUntilAtFormattedAttribute(): ?string
+    {
+        return $this->valid_until_at->isoFormat('LL');
     }
 }

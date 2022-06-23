@@ -24,20 +24,20 @@ const deleteKey = () => {
 <template>
     <JetConfirmationModal :show="keyid > 0" @close="$emit('close')">
         <template #title>
-            Delete a new key
+            {{ $t('Delete a new key') }}
         </template>
 
         <template #content>
-            Are you sure you would like to delete this key?
+            {{ $t('Are you sure you would like to delete this key?') }}
         </template>
 
         <template #footer>
             <JetSecondaryButton @click="$emit('close')">
-                Cancel
+                {{ $t('Cancel') }}
             </JetSecondaryButton>
 
             <JetDangerButton class="ml-2" @click="deleteKey" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Delete
+                {{ $t('Delete') }}
             </JetDangerButton>
         </template>
     </JetConfirmationModal>

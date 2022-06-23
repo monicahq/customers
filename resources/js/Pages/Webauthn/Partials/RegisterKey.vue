@@ -68,7 +68,7 @@ const stop = () => {
 
         <div class="mt-4" v-show="!processing || form.errors.name">
             <JetLabel for="name" value="Key name" />
-            <JetInput type="text" class="mt-1 block w-3/4" placeholder="Name"
+            <JetInput type="text" class="mt-1 block w-3/4"
                 id="name" ref="nameInput"
                 v-model="form.name"
                 required
@@ -87,11 +87,11 @@ const stop = () => {
 
         <div class="flex items-center mt-5">
             <JetSecondaryButton @click="stop()">
-                Cancel
+                {{ $t('Cancel') }}
             </JetSecondaryButton>
 
             <JetButton class="ml-2" :class="{ 'opacity-25': processing }" :disabled="processing">
-                Submit
+                {{ $t('Submit') }}
             </JetButton>
         </div>
     </form>

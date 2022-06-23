@@ -51,16 +51,16 @@ defineProps({
 <template>
     <JetActionSection id="socialite" @submitted="updatePassword">
         <template #title>
-            OAuth connections
+            {{ $t('External connections') }}
         </template>
 
         <template #description>
-            Manage accounts you have linked to your Customers account.
+            {{ $t('Manage accounts you have linked to your Customers account.') }}
         </template>
 
         <template #content>
             <div class="max-w-xl text-sm text-gray-600">
-                You can add more account to log in to our service with one click.
+                {{ $t('You can add more account to log in to our service with one click.') }}
             </div>
 
             <div class="mt-5 space-y-6">
@@ -68,12 +68,12 @@ defineProps({
 
                 <img :src="`/img/auth/${provider}.svg`" alt="" class="auth-provider relative" />
                 <span class="mr-3 text-sm text-gray-600">
-                {{ providersName[provider] }}
+                  {{ providersName[provider] }}
                 </span>
 
                 <template v-if="userTokens.findIndex(driver => driver.driver === provider) > -1">
                     <JetSecondaryButton class="mr-3" @click.prevent="deleteProvider(provider)">
-                      Disconnect
+                      {{ $t('Disconnect') }}
                     </JetSecondaryButton>
 
                     <JetInputError :message="form.errors[provider]" class="mt-4" />
@@ -81,7 +81,7 @@ defineProps({
 
                 <template v-else>
                     <JetButton class="mr-3" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
-                      Connect
+                      {{ $t('Connect') }}
                     </JetButton>
 
                     <JetInputError v-if="errors[provider]" :message="errors[provider]" class="mt-4" />

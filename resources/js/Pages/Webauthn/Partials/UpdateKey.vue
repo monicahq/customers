@@ -43,7 +43,7 @@ watch(() => props.nameUpdate, (value) => {
     <form @submit.prevent="updateKey">
         <div class="mt-4">
             <JetLabel for="keyname" value="Key name" />
-            <JetInput type="text" class="mt-1 block" placeholder="Name"
+            <JetInput type="text" class="mt-1 block"
                 id="keyname" ref="nameInput"
                 v-model="form.name"
                 required
@@ -54,11 +54,11 @@ watch(() => props.nameUpdate, (value) => {
 
         <div class="mt-5">
             <JetSecondaryButton @click="$emit('close')">
-                Cancel
+                {{ $t('Cancel') }}
             </JetSecondaryButton>
 
             <JetButton class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Update
+                {{ $t('Update') }}
             </JetButton>
         </div>
     </form>

@@ -3613,6 +3613,14 @@ laravel-mix@^6.0.6:
     webpackbar "^5.0.0-3"
     yargs "^17.2.1"
 
+laravel-vue-i18n@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/laravel-vue-i18n/-/laravel-vue-i18n-1.4.3.tgz#929461b6afa7e8c841075fd19e0f1b1701ba802b"
+  integrity sha512-LFnUYF4IYh7u6pdZNNXvp3e+zsBSm8cqDd1P9sH7Xa2lxc1CvRd0FmBDRrEfeOt+thfAbFS1+d8mZaeNGduULQ==
+  dependencies:
+    php-parser "^3.1.0-beta.4"
+    vue "^3.2.31"
+
 lilconfig@^2.0.3, lilconfig@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.4.tgz#f4507d043d7058b380b6a8f5cb7bcd4b34cee082"
@@ -4234,6 +4242,11 @@ pbkdf2@^3.0.3:
     ripemd160 "^2.0.1"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+php-parser@^3.1.0-beta.4:
+  version "3.1.0-beta.7"
+  resolved "https://registry.yarnpkg.com/php-parser/-/php-parser-3.1.0-beta.7.tgz#8df7d100a547b128e573a60980e332cd6e7a1e71"
+  integrity sha512-d0Ic+st1I5ZxQ6sSv79dtWNTK4oT35JxA0G2yb/A4Kyi82TwUEEeCkyQu7GZ2tDP2QIVVuJoABLR2mXJXU9+wQ==
 
 picocolors@^1.0.0:
   version "1.0.0"
