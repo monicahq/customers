@@ -25,6 +25,10 @@ const props = defineProps({
         type: String,
         default: 'full',
     },
+    height: {
+        type: String,
+        default: '48',
+    },
     contentClasses: {
         type: Array,
         default: () => ['py-1', 'bg-white'],
@@ -73,16 +77,6 @@ const onKeydown = (e) => {
     if (open.value && e.key === 'Escape') {
         close();
     }
-    if (e.target === select.value) {
-        if (e.key === 'ArrowDown') {
-            //select.value.focus();
-        } else if (e.key === 'ArrowUp') {
-            //input.value.focus();
-        } else if (e.key.length === 1) {
-          input.value = (input.value !== null ? input.value : '') + e.key;
-          e.stopPropagation();
-        }
-    }
 };
 const close = () => {
     open.value = false;
@@ -107,6 +101,13 @@ const widthClass = computed(() => {
     }[props.width.toString()];
 });
 
+const heightClass = computed(() => {
+    return {
+        '48': 'h-48',
+        'full': 'h-full',
+    }[props.height.toString()];
+});
+
 const alignmentClasses = computed(() => {
     if (props.align === 'left') {
         return 'origin-top-left left-0';
@@ -120,6 +121,12 @@ const alignmentClasses = computed(() => {
 });
 
 </script>
+
+<style scoped>
+.overflow-auto {
+    overflow: auto;
+}
+</style>
 
 <template>
   <div ref="main" class="relative" :class="$attrs.class">
@@ -163,9 +170,8 @@ const alignmentClasses = computed(() => {
     >
         <div
             v-show="open"
-            class="absolute z-50 mt-2 rounded-md shadow-lg w-full"
-            :class="[widthClass, alignmentClasses]"
-            style="display: none;"
+            class="absolute z-50 mt-2 rounded-md shadow-lg overflow-auto"
+            :class="[widthClass, heightClass, alignmentClasses]"
         >
             <div class="rounded-md ring-1 ring-black ring-opacity-5" :class="contentClasses">
               <div v-for="option in filtered"
