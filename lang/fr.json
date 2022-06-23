@@ -180,5 +180,9 @@
     "Register a new key": "Enregistrer une nouvelle clé",
     "No keys registered yet.": "Aucune clé enregistrée pour le moment.",
     "Update": "Mettre à jour",
-    "Unexpected error on login.": "Erreur inattendue lors de la connexion."
+    "Unexpected error on login.": "Erreur inattendue lors de la connexion.",
+    "day|:period days": "jour|:period jours",
+    "week|:period weeks": "semaine|:period semaines",
+    "month|:period months": "mois|:period mois",
+    "year|:period years": "an|:period ans"
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
-use App\Services\ProductPrices;
+use App\Helpers\Products;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -16,7 +16,7 @@ class MonicaController extends Controller
         $plans = Plan::where('product', static::PRODUCT)->get();
 
         $productIds = $plans->pluck('plan_id_on_paddle');
-        $prices = app(ProductPrices::class)->execute($productIds, $request->user());
+        $prices = app(Products::class)->getProductPrices($productIds, $request->user());
 
         $plansCollection = $plans->map(function (Plan $plan) use ($request, $prices): array {
             $price = $prices->where('product_id', $plan->plan_id_on_paddle)->first();

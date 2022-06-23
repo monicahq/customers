@@ -4,13 +4,13 @@ namespace Tests\Unit\Services;
 
 use App\Models\Plan;
 use App\Models\User;
-use App\Services\ProductPrices;
+use App\Helpers\Products;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
-class ProductPricesTest extends TestCase
+class ProductsTest extends TestCase
 {
     /** @test */
     public function it_gets_list_of_prices(): void
@@ -43,7 +43,7 @@ class ProductPricesTest extends TestCase
             ], 200),
         ]);
 
-        $result = app(ProductPrices::class)->execute(collect([1]), $user);
+        $result = app(Products::class)->getProductPrices(collect([1]), $user);
 
         Http::assertSent(function ($request) use ($user, $plan) {
             $this->assertEquals("https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}", $request->url());
@@ -97,7 +97,7 @@ class ProductPricesTest extends TestCase
             ], 200),
         ]);
 
-        $result = app(ProductPrices::class)->execute(collect([1]), $user, 3);
+        $result = app(Products::class)->getProductPrices(collect([1]), $user, 3);
 
         Http::assertSent(function ($request) use ($user, $plan) {
             $this->assertEquals("https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}", $request->url());
@@ -148,7 +148,7 @@ class ProductPricesTest extends TestCase
             ], 200),
         ]);
 
-        $result = app(ProductPrices::class)->execute(collect([1]));
+        $result = app(Products::class)->getProductPrices(collect([1]));
 
         Http::assertSent(function ($request) use ($plan) {
             $this->assertEquals("https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country=US&product_ids={$plan->plan_id_on_paddle}", $request->url());
@@ -200,7 +200,7 @@ class ProductPricesTest extends TestCase
             ], 200),
         ]);
 
-        $result = app(ProductPrices::class)->execute(collect([1]), $user);
+        $result = app(Products::class)->getProductPrices(collect([1]), $user);
 
         Http::assertSent(function ($request) use ($user, $plan) {
             $this->assertEquals("https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}", $request->url());
@@ -252,7 +252,7 @@ class ProductPricesTest extends TestCase
             ], 200),
         ]);
 
-        $result = app(ProductPrices::class)->execute(collect([1]), $user);
+        $result = app(Products::class)->getProductPrices(collect([1]), $user);
 
         Http::assertSent(function ($request) use ($user, $plan) {
             $this->assertEquals("https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}", $request->url());
@@ -304,7 +304,7 @@ class ProductPricesTest extends TestCase
             ], 200),
         ]);
 
-        $result = app(ProductPrices::class)->execute(collect([1]), $user);
+        $result = app(Products::class)->getProductPrices(collect([1]), $user);
 
         Http::assertSent(function ($request) use ($user, $plan) {
             $this->assertEquals("https://sandbox-checkout.paddle.com/api/2.0/prices?customer_country={$user->country}&product_ids={$plan->plan_id_on_paddle}", $request->url());

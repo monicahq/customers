@@ -5,7 +5,7 @@ namespace Tests\Feature\Controllers;
 use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\User;
-use App\Services\ProductPrices;
+use App\Helpers\Products;
 use Illuminate\Support\Facades\Http;
 use Mockery\MockInterface;
 use Tests\TestCase;

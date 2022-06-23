@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Helpers;
 
 use App\Models\User;
 use Illuminate\Support\Collection;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Laravel\Paddle\Cashier;
 use Laravel\Paddle\ProductPrice;
 
-class ProductPrices
+class Products
 {
     /**
      * Get the prices for a set of products for a given user.
@@ -19,7 +19,7 @@ class ProductPrices
      * @param  int  $quantity
      * @return \Illuminate\Support\Collection
      */
-    public function execute(Collection $products, ?User $user = null, int $quantity = 1): Collection
+    public function getProductPrices(Collection $products, ?User $user = null, int $quantity = 1): Collection
     {
         $country = $user !== null ? $user->paddleCountry() : 'US';
 

@@ -57,7 +57,7 @@ class CreateLicenceKey
         $plans = Plan::where('product', $this->plan->product)->get();
 
         $productIds = $plans->pluck('plan_id_on_paddle');
-        $prices = app(ProductPrices::class)->execute($productIds);
+        $prices = app(Products::class)->getProductPrices($productIds);
 
         $price = $prices->where('product_id', $this->plan->plan_id_on_paddle)->first();
 
