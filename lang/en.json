@@ -184,5 +184,6 @@
     "day|:period days": "day|:period days",
     "week|:period weeks": "week|:period weeks",
     "month|:period months": "month|:period months",
-    "year|:period years": "year|:period years"
+    "year|:period years": "year|:period years",
+    "Subscribe for :price": "Subscribe for :price"
 }

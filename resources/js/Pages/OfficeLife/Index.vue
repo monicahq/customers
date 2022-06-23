@@ -42,7 +42,7 @@ const doRefresh = () => {
 const checkPrice = (plan) => {
     axios.post(route('officelife.price', { plan: plan.id }), { quantity: plan.quantity })
         .then((response) => {
-          const lplan = this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)];
+          const lplan = localPlans.value[localPlans.value.findIndex((x) => x.id === plan.id)];
           lplan['price'] = response.data.price;
           lplan['url']['pay_link'] = response.data.pay_link;
         });

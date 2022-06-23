@@ -184,5 +184,6 @@
     "day|:period days": "jour|:period jours",
     "week|:period weeks": "semaine|:period semaines",
     "month|:period months": "mois|:period mois",
-    "year|:period years": "an|:period ans"
+    "year|:period years": "an|:period ans",
+    "Subscribe for :price": "S’abonner pour :price"
 }
