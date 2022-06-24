@@ -91,7 +91,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function paddleCountry(): ?string
     {
-        return $this->country ?? 'US';
+        return $this->country ?? config('customers.fallback_country');
     }
 
     /**

@@ -86,7 +86,7 @@ const paddle = () => {
 
               <div v-for="plan in data.plans" :key="plan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
                 <div>
-                  <h3 class="text-lg">{{ plan.friendly_name }} - <span class="text-sm text-gray-500">{{ plan.price }} / {{ plan.frequency }}</span></h3>
+                  <h3 class="text-lg">{{ plan.friendly_name }} — <span class="text-sm text-gray-500">{{ plan.price }} / {{ plan.frequency }}</span></h3>
                   <p class="text-gray-600 text-sm">{{ plan.description }}</p>
                 </div>
 
@@ -110,7 +110,7 @@ const paddle = () => {
           <div v-else>
             <div v-for="plan in localPlans" :key="plan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
               <div>
-                <h3 class="text-lg">{{ plan.friendly_name }} - <span class="text-sm text-gray-500">{{ plan.single_price }} / {{ plan.frequency }}</span></h3>
+                <h3 class="text-lg">{{ plan.friendly_name }} — <span class="text-sm text-gray-500">{{ plan.single_price }} / {{ plan.frequency }}</span></h3>
                 <p class="text-gray-600 text-sm">{{ plan.description }}</p>
               </div>
 

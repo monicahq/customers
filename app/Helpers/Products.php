@@ -21,7 +21,7 @@ class Products
      */
     public function getProductPrices(Collection $products, ?User $user = null, int $quantity = 1): Collection
     {
-        $country = $user !== null ? $user->paddleCountry() : 'US';
+        $country = $user !== null ? $user->paddleCountry() : config('customers.fallback_country');
 
         return $this->getPrices($products, $country)
             ->map(function (array $price) use ($country, $quantity) {
