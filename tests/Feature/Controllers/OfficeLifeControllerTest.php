@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Helpers\Products;
 use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\User;
@@ -28,8 +29,8 @@ class OfficeLifeControllerTest extends TestCase
                 ],
             ], 200),
         ]);
-        $this->mock(ProductPrices::class, function (MockInterface $mock) use ($plan) {
-            $mock->shouldReceive('execute')
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
                 ->andReturn(collect([
                     [
                         'product_id' => $plan->plan_id_on_paddle,
@@ -77,8 +78,8 @@ class OfficeLifeControllerTest extends TestCase
                 ],
             ], 200),
         ]);
-        $this->mock(ProductPrices::class, function (MockInterface $mock) use ($plan) {
-            $mock->shouldReceive('execute')
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
                 ->andReturn(collect([
                     [
                         'product_id' => $plan->plan_id_on_paddle,
@@ -127,8 +128,8 @@ class OfficeLifeControllerTest extends TestCase
                 ],
             ], 200),
         ]);
-        $this->mock(ProductPrices::class, function (MockInterface $mock) use ($plan) {
-            $mock->shouldReceive('execute')
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
                 ->andReturn(collect([
                     [
                         'product_id' => $plan->plan_id_on_paddle,
@@ -173,8 +174,8 @@ class OfficeLifeControllerTest extends TestCase
                 ],
             ], 200),
         ]);
-        $this->mock(ProductPrices::class, function (MockInterface $mock) use ($plan) {
-            $mock->shouldReceive('execute')
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
                 ->andReturn(collect([
                     [
                         'product_id' => $plan->plan_id_on_paddle,
@@ -205,8 +206,8 @@ class OfficeLifeControllerTest extends TestCase
                 ],
             ], 200),
         ]);
-        $this->mock(ProductPrices::class, function (MockInterface $mock) use ($plan) {
-            $mock->shouldReceive('execute')
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
                 ->andReturn(collect([
                     [
                         'product_id' => $plan->plan_id_on_paddle,

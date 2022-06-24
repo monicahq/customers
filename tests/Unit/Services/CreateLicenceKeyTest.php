@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Services;
 
+use App\Helpers\Products;
 use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\Subscription;
@@ -26,8 +27,8 @@ class CreateLicenceKeyTest extends TestCase
             'paddle_plan' => $plan->plan_id_on_paddle,
         ]);
 
-        $this->mock(ProductPrices::class, function (MockInterface $mock) {
-            $mock->shouldReceive('execute')
+        $this->mock(Products::class, function (MockInterface $mock) {
+            $mock->shouldReceive('getProductPrices')
                 ->andReturn(collect([
                     [
                         'product_id' => 1,
