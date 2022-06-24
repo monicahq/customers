@@ -30,5 +30,4 @@ return [
 
     'fallback_country' => 'US',
 
-
 ];
