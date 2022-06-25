@@ -40,10 +40,11 @@ const doRefresh = () => {
 };
 
 const checkPrice = (plan) => {
-    axios.post(plan.url.price, { quantity: plan.quantity })
+    axios.post(route('officelife.price', { plan: plan.id }), { quantity: plan.quantity })
         .then((response) => {
-          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['price'] = response.data.price;
-          this.localPlans[this.localPlans.findIndex((x) => x.id === plan.id)]['url']['pay_link'] = response.data.pay_link;
+          const lplan = localPlans.value[localPlans.value.findIndex((x) => x.id === plan.id)];
+          lplan['price'] = response.data.price;
+          lplan['url']['pay_link'] = response.data.pay_link;
         });
 };
 
@@ -85,7 +86,7 @@ const paddle = () => {
 
               <div v-for="plan in data.plans" :key="plan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
                 <div>
-                  <h3 class="text-lg">{{ plan.friendly_name }} - <span class="text-sm text-gray-500">USD ${{ plan.price }} / {{ plan.frequency }}</span></h3>
+                  <h3 class="text-lg">{{ plan.friendly_name }} — <span class="text-sm text-gray-500">{{ plan.price }} / {{ plan.frequency }}</span></h3>
                   <p class="text-gray-600 text-sm">{{ plan.description }}</p>
                 </div>
 
@@ -109,7 +110,7 @@ const paddle = () => {
           <div v-else>
             <div v-for="plan in localPlans" :key="plan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
               <div>
-                <h3 class="text-lg">{{ plan.friendly_name }} - <span class="text-sm text-gray-500">USD ${{ plan.single_price }} / {{ plan.frequency }}</span></h3>
+                <h3 class="text-lg">{{ plan.friendly_name }} — <span class="text-sm text-gray-500">{{ plan.single_price }} / {{ plan.frequency }}</span></h3>
                 <p class="text-gray-600 text-sm">{{ plan.description }}</p>
               </div>
 
@@ -120,9 +121,10 @@ const paddle = () => {
                     v-model="plan.quantity"
                     class="rounded-md border-gray-300 border text-center mr-2 w-20 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     type="number"
-                    min="0"
+                    min="1"
                     max="10000"
                     @keyup="checkPrice(plan)"
+                    @input="checkPrice(plan)"
                   />
 
                   <span>{{ $t('seats') }}</span>

@@ -37,7 +37,7 @@ class UserFactory extends Factory
             'address_line_2' => $this->faker->streetAddress(),
             'city' => $this->faker->city(),
             'postal_code' => $this->faker->postcode(),
-            'country' => $this->faker->country(),
+            'country' => $this->faker->countryCode(),
             'state' => $this->faker->state(),
         ];
     }

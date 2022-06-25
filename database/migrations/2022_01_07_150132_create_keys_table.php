@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('description', 1024);
             $table->string('plan_name', 128);
             $table->string('plan_id_on_paddle', 64);
-            $table->integer('price');
-            $table->string('frequency', 512);
             $table->timestamps();
         });
 

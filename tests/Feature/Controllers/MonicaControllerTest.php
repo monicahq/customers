@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Helpers\Products;
 use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class MonicaControllerTest extends TestCase
@@ -14,7 +16,7 @@ class MonicaControllerTest extends TestCase
     public function it_displays_list_of_plans(): void
     {
         $user = User::factory()->create();
-        Plan::factory()->monica()->create([
+        $plan = Plan::factory()->monica()->create([
             'friendly_name' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
@@ -27,6 +29,17 @@ class MonicaControllerTest extends TestCase
                 ],
             ], 200),
         ]);
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
+                ->andReturn(collect([
+                    [
+                        'product_id' => $plan->plan_id_on_paddle,
+                        'price' => '$10.00',
+                        'currency' => 'USD',
+                        'frequency_name' => 'month',
+                    ],
+                ]));
+        });
 
         $response = $this->actingAs($user)->get('/monica');
 
@@ -48,7 +61,7 @@ class MonicaControllerTest extends TestCase
     public function it_does_not_displays_officelife_plans(): void
     {
         $user = User::factory()->create();
-        Plan::factory()->monica()->create([
+        $plan = Plan::factory()->monica()->create([
             'friendly_name' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
@@ -65,6 +78,17 @@ class MonicaControllerTest extends TestCase
                 ],
             ], 200),
         ]);
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
+                ->andReturn(collect([
+                    [
+                        'product_id' => $plan->plan_id_on_paddle,
+                        'price' => '$10.00',
+                        'currency' => 'USD',
+                        'frequency_name' => 'month',
+                    ],
+                ]));
+        });
 
         $response = $this->actingAs($user)->get('/monica');
 
@@ -103,6 +127,17 @@ class MonicaControllerTest extends TestCase
                 ],
             ], 200),
         ]);
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
+                ->andReturn(collect([
+                    [
+                        'product_id' => $plan->plan_id_on_paddle,
+                        'price' => '$10.00',
+                        'currency' => 'USD',
+                        'frequency_name' => 'month',
+                    ],
+                ]));
+        });
 
         $response = $this->actingAs($user)->get('/monica');
 
@@ -138,6 +173,17 @@ class MonicaControllerTest extends TestCase
                 ],
             ], 200),
         ]);
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
+                ->andReturn(collect([
+                    [
+                        'product_id' => $plan->plan_id_on_paddle,
+                        'price' => '$10.00',
+                        'currency' => 'USD',
+                        'frequency_name' => 'month',
+                    ],
+                ]));
+        });
 
         $response = $this->actingAs($user2)->get('/monica');
 

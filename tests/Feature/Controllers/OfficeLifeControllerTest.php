@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Helpers\Products;
 use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class OfficeLifeControllerTest extends TestCase
@@ -14,7 +16,7 @@ class OfficeLifeControllerTest extends TestCase
     public function it_displays_list_of_plans(): void
     {
         $user = User::factory()->create();
-        Plan::factory()->officelife()->create([
+        $plan = Plan::factory()->officelife()->create([
             'friendly_name' => 'OfficeLifePlan',
             'plan_id_on_paddle' => 1,
         ]);
@@ -27,6 +29,17 @@ class OfficeLifeControllerTest extends TestCase
                 ],
             ], 200),
         ]);
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
+                ->andReturn(collect([
+                    [
+                        'product_id' => $plan->plan_id_on_paddle,
+                        'price' => '$10.00',
+                        'currency' => 'USD',
+                        'frequency_name' => 'month',
+                    ],
+                ]));
+        });
 
         $response = $this->actingAs($user)->get('/officelife');
 
@@ -48,7 +61,7 @@ class OfficeLifeControllerTest extends TestCase
     public function it_does_not_displays_monica_plans(): void
     {
         $user = User::factory()->create();
-        Plan::factory()->officelife()->create([
+        $plan = Plan::factory()->officelife()->create([
             'friendly_name' => 'OfficeLifePlan',
             'plan_id_on_paddle' => 1,
         ]);
@@ -65,6 +78,17 @@ class OfficeLifeControllerTest extends TestCase
                 ],
             ], 200),
         ]);
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
+                ->andReturn(collect([
+                    [
+                        'product_id' => $plan->plan_id_on_paddle,
+                        'price' => '$10.00',
+                        'currency' => 'USD',
+                        'frequency_name' => 'month',
+                    ],
+                ]));
+        });
 
         $response = $this->actingAs($user)->get('/officelife');
 
@@ -104,6 +128,17 @@ class OfficeLifeControllerTest extends TestCase
                 ],
             ], 200),
         ]);
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
+                ->andReturn(collect([
+                    [
+                        'product_id' => $plan->plan_id_on_paddle,
+                        'price' => '$10.00',
+                        'currency' => 'USD',
+                        'frequency_name' => 'month',
+                    ],
+                ]));
+        });
 
         $response = $this->actingAs($user)->get('/officelife');
 
@@ -139,6 +174,17 @@ class OfficeLifeControllerTest extends TestCase
                 ],
             ], 200),
         ]);
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
+                ->andReturn(collect([
+                    [
+                        'product_id' => $plan->plan_id_on_paddle,
+                        'price' => '$10.00',
+                        'currency' => 'USD',
+                        'frequency_name' => 'month',
+                    ],
+                ]));
+        });
 
         $response = $this->actingAs($user2)->get('/officelife');
 
@@ -150,9 +196,7 @@ class OfficeLifeControllerTest extends TestCase
     public function it_gets_new_price(): void
     {
         $user = User::factory()->create();
-        $plan = Plan::factory()->officelife()->create([
-            'price' => 10,
-        ]);
+        $plan = Plan::factory()->officelife()->create();
 
         Http::fake([
             'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
@@ -162,6 +206,17 @@ class OfficeLifeControllerTest extends TestCase
                 ],
             ], 200),
         ]);
+        $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
+            $mock->shouldReceive('getProductPrices')
+                ->andReturn(collect([
+                    [
+                        'product_id' => $plan->plan_id_on_paddle,
+                        'price' => '$20.00',
+                        'currency' => 'USD',
+                        'frequency_name' => 'month',
+                    ],
+                ]));
+        });
 
         $response = $this->actingAs($user)->post("/officelife/{$plan->id}/price", [
             'quantity' => 2,
@@ -179,7 +234,7 @@ class OfficeLifeControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'price' => 20,
+            'price' => '$20.00',
             'pay_link' => 'https://sandbox-vendors.paddle.com/example',
         ]);
     }

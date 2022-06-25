@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Products;
 use App\Http\Requests\OfficeLifePriceRequest;
 use App\Models\Plan;
 use Illuminate\Http\Request;
@@ -15,21 +16,23 @@ class OfficeLifeController extends Controller
     {
         $plans = Plan::where('product', static::PRODUCT)->get();
 
-        $plansCollection = $plans->map(function (Plan $plan) use ($request): array {
+        $productIds = $plans->pluck('plan_id_on_paddle');
+        $prices = app(Products::class)->getProductPrices($productIds, $request->user());
+
+        $plansCollection = $plans->map(function (Plan $plan) use ($request, $prices): array {
+            $price = $prices->where('product_id', $plan->plan_id_on_paddle)->first();
+
             return [
                 'id' => $plan->id,
                 'friendly_name' => $plan->friendly_name,
                 'description' => $plan->description,
                 'plan_name' => $plan->plan_name,
-                'single_price' => $plan->price,
-                'price' => $plan->price,
-                'frequency' => $plan->frequency,
+                'single_price' => $price['price'],
+                'price' => $price['price'],
+                'frequency' => $price['frequency_name'],
                 'quantity' => 1,
                 'url' => [
                     'pay_link' => $this->getPayLink($request, $plan),
-                    'price' => route('officelife.price', [
-                        'plan' => $plan->id,
-                    ]),
                 ],
             ];
         });
@@ -53,11 +56,16 @@ class OfficeLifeController extends Controller
             abort(401);
         }
 
-        $quotedPrice = $plan->price * $request->input('quantity');
+        $plans = Plan::where('product', static::PRODUCT)->get();
+        $productIds = $plans->pluck('plan_id_on_paddle');
+
+        $price = app(Products::class)->getProductPrices($productIds, $request->user(), $request->quantity())
+            ->where('product_id', $plan->plan_id_on_paddle)
+            ->first();
 
         return response()->json([
-            'price' => $quotedPrice,
-            'pay_link' => $this->getPayLink($request, $plan, $request->input('quantity')),
+            'price' => $price['price'],
+            'pay_link' => $this->getPayLink($request, $plan, $request->quantity()),
         ]);
     }
 
