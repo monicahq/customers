@@ -52,6 +52,7 @@ Route::middleware([
 
     // monica
     Route::get('monica', [MonicaController::class, 'index'])->name('monica.index');
+    Route::patch('monica', [MonicaController::class, 'update'])->name('monica.update');
 
     // User & Profile...
     Route::get('user/account', [AccountController::class, 'show'])->name('account.show');

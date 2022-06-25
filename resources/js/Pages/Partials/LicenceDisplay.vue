@@ -7,6 +7,7 @@ import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 
 const props = defineProps({
     licence: Object,
+    plan: Object,
     url: String,
 });
 
@@ -41,7 +42,12 @@ const link = (href) => {
   <div>
     <p class="mb-6 text-center">{{ $t('🎉 You have an active subscription.') }}</p>
 
-    <p class="mb-4">
+    <div>
+      <h3 class="text-lg">{{ plan.friendly_name }} - <span class="text-sm text-gray-500">USD ${{ plan.price }} / {{ plan.frequency }}</span></h3>
+      <p class="text-gray-600 text-sm">{{ plan.description }}</p>
+    </div>
+
+    <p class="mb-4 mt-4">
       <div class="flex">
         <p class="flex-auto">
           {{ $t('This is your licence key:') }}

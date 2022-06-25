@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Products;
 use App\Models\Plan;
+use App\Services\UpdateSubscription;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,6 +12,12 @@ class MonicaController extends Controller
 {
     public const PRODUCT = 'Monica';
 
+    /**
+     * Display Monica licences.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Inertia\Response
+     */
     public function index(Request $request)
     {
         $plans = Plan::where('product', static::PRODUCT)->get();
@@ -34,8 +41,14 @@ class MonicaController extends Controller
             ];
         });
 
+        $subscription = $request->user()->subscriptions()
+            ->active()
+            ->notCancelled()
+            ->product(static::PRODUCT)
+            ->first();
+
         $licence = $request->user()->licenceKeys()
-            ->whereIn('plan_id', $plans->pluck('id'))
+            ->where('plan_id', optional($subscription)->plan->id)
             ->orderBy('created_at', 'desc')
             ->first();
 
@@ -53,5 +66,24 @@ class MonicaController extends Controller
         return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
             ->returnTo(route('monica.index').'?refresh=true')
             ->create();
+    }
+
+    /**
+     * Update Monica licences.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Inertia\Response
+     */
+    public function update(Request $request)
+    {
+        app(UpdateSubscription::class)->execute([
+            'user_id' => $request->user()->id,
+            'plan_id' => $request->input('plan_id'),
+            'product' => static::PRODUCT,
+        ]);
+
+        return back()->with([
+            'refresh' => true,
+        ]);
     }
 }
