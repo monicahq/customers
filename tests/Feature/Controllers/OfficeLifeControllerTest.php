@@ -5,6 +5,7 @@ namespace Tests\Feature\Controllers;
 use App\Helpers\Products;
 use App\Models\LicenceKey;
 use App\Models\Plan;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Mockery\MockInterface;
@@ -46,7 +47,7 @@ class OfficeLifeControllerTest extends TestCase
         Http::assertSent(function ($request) use ($user) {
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
-            $this->assertStringContainsString('"product_id":"1"', $request->body());
+            $this->assertStringContainsString('"product_id":1', $request->body());
             $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
 
             return true;
@@ -95,7 +96,7 @@ class OfficeLifeControllerTest extends TestCase
         Http::assertSent(function ($request) use ($user) {
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
-            $this->assertStringContainsString('"product_id":"1"', $request->body());
+            $this->assertStringContainsString('"product_id":1', $request->body());
             $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
 
             return true;
@@ -118,6 +119,15 @@ class OfficeLifeControllerTest extends TestCase
             'user_id' => $user->id,
             'plan_id' => $plan->id,
             'key' => 'abc123',
+        ]);
+        Subscription::create([
+            'billable_id' => $user->id,
+            'billable_type' => User::class,
+            'name' => 'name',
+            'paddle_id' => random_int(0, 100),
+            'paddle_status' => 'active',
+            'paddle_plan' => $plan->plan_id_on_paddle,
+            'quantity' => 1,
         ]);
 
         Http::fake([
@@ -225,7 +235,7 @@ class OfficeLifeControllerTest extends TestCase
         Http::assertSent(function ($request) use ($user, $plan) {
             $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
             $this->assertEquals('POST', $request->method());
-            $this->assertStringContainsString('"product_id":"'.$plan->plan_id_on_paddle.'"', $request->body());
+            $this->assertStringContainsString('"product_id":'.$plan->plan_id_on_paddle, $request->body());
             $this->assertStringContainsString('"quantity":2', $request->body());
             $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
 

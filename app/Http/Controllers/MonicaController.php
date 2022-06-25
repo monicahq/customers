@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Helpers\Products;
 use App\Models\Plan;
 use App\Services\UpdateSubscription;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class MonicaController extends Controller
 {
@@ -18,7 +20,7 @@ class MonicaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Inertia\Response
      */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $plans = Plan::where('product', static::PRODUCT)->get();
 
@@ -48,7 +50,7 @@ class MonicaController extends Controller
             ->first();
 
         $licence = $request->user()->licenceKeys()
-            ->where('plan_id', optional($subscription)->plan->id)
+            ->where('plan_id', optional(optional($subscription)->plan)->id)
             ->orderBy('created_at', 'desc')
             ->first();
 
@@ -70,9 +72,9 @@ class MonicaController extends Controller
      * Update Monica licences.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Inertia\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         app(UpdateSubscription::class)->execute([
             'user_id' => $request->user()->id,

@@ -6,14 +6,23 @@ use App\Helpers\Products;
 use App\Http\Requests\OfficeLifePriceRequest;
 use App\Models\Plan;
 use App\Services\UpdateSubscription;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class OfficeLifeController extends Controller
 {
     public const PRODUCT = 'OfficeLife';
 
-    public function index(Request $request)
+    /**
+     * Display OfficeLife licences.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Inertia\Response
+     */
+    public function index(Request $request): Response
     {
         $subscription = $request->user()->subscriptions()
             ->active()
@@ -24,7 +33,7 @@ class OfficeLifeController extends Controller
         $plans = Plan::where('product', static::PRODUCT)->get();
 
         $productIds = $plans->pluck('plan_id_on_paddle');
-        $prices = app(Products::class)->getProductPrices($productIds, $request->user(), $subscription !== null ? $subscription->quantity : 1);
+        $prices = app(Products::class)->getProductPrices($productIds, $request->user(), optional($subscription)->quantity ?? 1);
 
         $plansCollection = $plans->map(function (Plan $plan) use ($request, $prices, $subscription): array {
             $price = $prices->where('product_id', $plan->plan_id_on_paddle)->first();
@@ -37,7 +46,7 @@ class OfficeLifeController extends Controller
                 'single_price' => $price['price'],
                 'price' => $price['price'],
                 'frequency' => $price['frequency_name'],
-                'quantity' => $subscription !== null ? $subscription->quantity : 1,
+                'quantity' => optional($subscription)->quantity ?? 1,
                 'url' => [
                     'pay_link' => $this->getPayLink($request, $plan),
                 ],
@@ -45,7 +54,7 @@ class OfficeLifeController extends Controller
         });
 
         $licence = $request->user()->licenceKeys()
-            ->where('plan_id', optional($subscription)->plan->id)
+            ->where('plan_id', optional(optional($subscription)->plan)->id)
             ->orderBy('created_at', 'desc')
             ->first();
 
@@ -56,7 +65,14 @@ class OfficeLifeController extends Controller
         ]);
     }
 
-    public function price(OfficeLifePriceRequest $request, Plan $plan)
+    /**
+     * Get the updated price for the given plan.
+     *
+     * @param  \App\Http\Requests\OfficeLifePriceRequest  $request
+     * @param  \App\Models\Plan  $plan
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function price(OfficeLifePriceRequest $request, Plan $plan): JsonResponse
     {
         if ($plan->product !== static::PRODUCT) {
             abort(401);
@@ -87,9 +103,9 @@ class OfficeLifeController extends Controller
      * Update Monica licences.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Inertia\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         app(UpdateSubscription::class)->execute([
             'user_id' => $request->user()->id,
