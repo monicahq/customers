@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Plan;
+use App\Models\Subscription;
 use App\Models\User;
 
 class UpdateSubscription extends BaseService
@@ -17,6 +18,7 @@ class UpdateSubscription extends BaseService
         return [
             'user_id' => ['required', 'integer', 'exists:users,id'],
             'plan_id' => ['required', 'integer', 'exists:plans,id'],
+            'quantity' => ['nullable', 'integer', 'min:1'],
         ];
     }
 
@@ -24,9 +26,9 @@ class UpdateSubscription extends BaseService
      * Update user address.
      *
      * @param  array  $data
-     * @return User
+     * @return Subscription
      */
-    public function execute(array $data)
+    public function execute(array $data): Subscription
     {
         $this->validateRules($data);
 
@@ -40,6 +42,14 @@ class UpdateSubscription extends BaseService
             ->product($plan->product)
             ->firstOrFail();
 
-        return $subscription->swapAndInvoice($plan->plan_id_on_paddle);
+        if ($subscription->paddle_plan !== $plan->plan_id_on_paddle) {
+            $subscription = $subscription->swapAndInvoice($plan->plan_id_on_paddle);
+        }
+
+        if (isset($data['quantity']) && $subscription->quantity !== $data['quantity']) {
+            $subscription->updateQuantity($data['quantity']);
+        }
+
+        return $subscription;
     }
 }

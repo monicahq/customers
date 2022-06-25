@@ -53,10 +53,8 @@ class MonicaController extends Controller
             ->first();
 
         return Inertia::render('Monica/Index', [
-            'data' => [
-                'plans' => $plansCollection,
-                'current_licence' => $licence,
-            ],
+            'plans' => $plansCollection,
+            'current_licence' => $licence,
             'refresh' => $request->boolean('refresh'),
         ]);
     }

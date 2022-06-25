@@ -49,6 +49,7 @@ Route::middleware([
     // officelife
     Route::get('officelife', [OfficeLifeController::class, 'index'])->name('officelife.index');
     Route::post('officelife/{plan}/price', [OfficeLifeController::class, 'price'])->name('officelife.price');
+    Route::patch('officelife', [OfficeLifeController::class, 'update'])->name('officelife.update');
 
     // monica
     Route::get('monica', [MonicaController::class, 'index'])->name('monica.index');
