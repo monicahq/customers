@@ -29,7 +29,7 @@ class UpdateSubscriptionTest extends TestCase
         ]);
 
         Http::fake([
-            "https://sandbox-vendors.paddle.com/api/2.0/subscription/users/update" => Http::response([
+            'https://sandbox-vendors.paddle.com/api/2.0/subscription/users/update' => Http::response([
                 'success' => true,
                 'response' => [],
             ], 200),
@@ -41,7 +41,7 @@ class UpdateSubscriptionTest extends TestCase
         ]);
 
         Http::assertSent(function ($request) use ($subscription, $plan2) {
-            $this->assertEquals("https://sandbox-vendors.paddle.com/api/2.0/subscription/users/update", $request->url());
+            $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/subscription/users/update', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertEquals([
                 'vendor_id' => 0,
@@ -82,7 +82,7 @@ class UpdateSubscriptionTest extends TestCase
         ]);
 
         Http::fake([
-            "https://sandbox-vendors.paddle.com/api/2.0/subscription/users/update" => Http::response([
+            'https://sandbox-vendors.paddle.com/api/2.0/subscription/users/update' => Http::response([
                 'success' => true,
                 'response' => [],
             ], 200),
@@ -95,7 +95,7 @@ class UpdateSubscriptionTest extends TestCase
         ]);
 
         Http::assertSent(function ($request) use ($subscription) {
-            $this->assertEquals("https://sandbox-vendors.paddle.com/api/2.0/subscription/users/update", $request->url());
+            $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/subscription/users/update', $request->url());
             $this->assertEquals('POST', $request->method());
             $this->assertEquals([
                 'vendor_id' => 0,
