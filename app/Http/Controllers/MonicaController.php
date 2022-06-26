@@ -69,7 +69,7 @@ class MonicaController extends Controller
     }
 
     /**
-     * Update Monica licences.
+     * Update subscription plan.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -79,7 +79,6 @@ class MonicaController extends Controller
         app(UpdateSubscription::class)->execute([
             'user_id' => $request->user()->id,
             'plan_id' => $request->input('plan_id'),
-            'product' => static::PRODUCT,
         ]);
 
         return back()->with([

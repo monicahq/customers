@@ -7,6 +7,7 @@ use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Services\UpdateSubscription;
 use Illuminate\Support\Facades\Http;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -199,5 +200,31 @@ class MonicaControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertDontSee('abc123');
+    }
+
+    /** @test */
+    public function it_updates_subscription_plan(): void
+    {
+        $user = User::factory()->create();
+        $plan = Plan::factory()->monica()->create();
+
+        $this->mock(UpdateSubscription::class, function (MockInterface $mock) use ($user, $plan) {
+            $mock->shouldReceive('execute')
+                ->once()
+                ->withArgs(function ($data) use ($user, $plan) {
+                    $this->assertEquals([
+                        'user_id' => $user->id,
+                        'plan_id' => $plan->id,
+                    ], $data);
+
+                    return true;
+                });
+        });
+
+        $response = $this->actingAs($user)->patch('/monica', [
+            'plan_id' => $plan->id,
+        ]);
+
+        $response->assertStatus(302);
     }
 }

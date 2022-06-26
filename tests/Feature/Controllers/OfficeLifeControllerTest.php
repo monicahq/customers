@@ -7,6 +7,7 @@ use App\Models\LicenceKey;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Services\UpdateSubscription;
 use Illuminate\Support\Facades\Http;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -260,5 +261,33 @@ class OfficeLifeControllerTest extends TestCase
         ]);
 
         $response->assertStatus(401);
+    }
+
+    /** @test */
+    public function it_updates_subscription_plan(): void
+    {
+        $user = User::factory()->create();
+        $plan = Plan::factory()->officelife()->create();
+
+        $this->mock(UpdateSubscription::class, function (MockInterface $mock) use ($user, $plan) {
+            $mock->shouldReceive('execute')
+                ->once()
+                ->withArgs(function ($data) use ($user, $plan) {
+                    $this->assertEquals([
+                        'user_id' => $user->id,
+                        'plan_id' => $plan->id,
+                        'quantity' => 5,
+                    ], $data);
+
+                    return true;
+                });
+        });
+
+        $response = $this->actingAs($user)->patch('/officelife', [
+            'plan_id' => $plan->id,
+            'quantity' => 5,
+        ]);
+
+        $response->assertStatus(302);
     }
 }

@@ -47,9 +47,7 @@ class UpdateSubscription extends BaseService
         }
 
         if (isset($data['quantity']) && $subscription->quantity !== $data['quantity']) {
-            $subscription->updateQuantity($data['quantity'], [
-                'bill_immediately' => true,
-            ]);
+            $subscription = $subscription->incrementAndInvoice($data['quantity'] - $subscription->quantity);
         }
 
         return $subscription;
