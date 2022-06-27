@@ -4,7 +4,6 @@ namespace Tests\Unit\Services;
 
 use App\Models\LicenceKey;
 use App\Models\Plan;
-use App\Models\Receipt;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Services\RenewLicenceKey;
