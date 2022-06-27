@@ -20,6 +20,9 @@ class SubscriptionUpdatedListener
             return; // @codeCoverageIgnore
         }
 
-        app(RenewLicenceKey::class)->execute($event->subscription->billable, $event->subscription, $event->payload);
+        /** @var \App\Models\User */
+        $user = $event->subscription->billable;
+
+        app(RenewLicenceKey::class)->execute($user, $event->subscription, $event->payload);
     }
 }

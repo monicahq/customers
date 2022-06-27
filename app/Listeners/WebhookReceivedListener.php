@@ -11,7 +11,7 @@ class WebhookReceivedListener
     /**
      * Handle Paddle webhook event.
      *
-     * @param  SubscriptionCancelled  $event
+     * @param  WebhookReceived  $event
      * @return void
      */
     public function handle(WebhookReceived $event)

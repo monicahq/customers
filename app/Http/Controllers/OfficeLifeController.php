@@ -90,7 +90,7 @@ class OfficeLifeController extends Controller
     /**
      * Subscribe to this plan.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\OfficeLifePriceRequest  $request
      * @param  Plan  $plan
      * @return \Symfony\Component\HttpFoundation\Response
      */
