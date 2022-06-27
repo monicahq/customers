@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use Illuminate\Support\Facades\Log;
-use Laravel\Paddle\Events\SubscriptionCancelled;
 use Laravel\Paddle\Events\WebhookReceived;
 
 class WebhookReceivedListener
