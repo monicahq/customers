@@ -26,8 +26,8 @@ class OfficeLifeController extends Controller
     {
         $subscription = $request->user()->subscriptions()
             ->active()
-            ->notCancelled()
             ->product(static::PRODUCT)
+            ->orderBy('created_at', 'desc')
             ->first();
 
         $plans = Plan::where('product', static::PRODUCT)->get();
@@ -35,7 +35,7 @@ class OfficeLifeController extends Controller
         $productIds = $plans->pluck('plan_id_on_paddle');
         $prices = app(Products::class)->getProductPrices($productIds, $request->user(), optional($subscription)->quantity ?? 1);
 
-        $plansCollection = $plans->map(function (Plan $plan) use ($request, $prices, $subscription): array {
+        $plansCollection = $plans->map(function (Plan $plan) use ($prices, $subscription): array {
             $price = $prices->where('product_id', $plan->plan_id_on_paddle)->first();
 
             return [
@@ -47,9 +47,6 @@ class OfficeLifeController extends Controller
                 'price' => $price['price'],
                 'frequency' => $price['frequency_name'],
                 'quantity' => optional($subscription)->quantity ?? 1,
-                'url' => [
-                    'pay_link' => $this->getPayLink($request, $plan),
-                ],
             ];
         });
 
@@ -87,16 +84,28 @@ class OfficeLifeController extends Controller
 
         return response()->json([
             'price' => $price['price'],
-            'pay_link' => $this->getPayLink($request, $plan, $request->quantity()),
         ]);
     }
 
-    private function getPayLink(Request $request, Plan $plan, int $quantity = 1)
+    /**
+     * Subscribe to this plan.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Plan  $plan
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function create(OfficeLifePriceRequest $request, Plan $plan)
     {
-        return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
+        if ($plan->product !== static::PRODUCT) {
+            abort(401);
+        }
+
+        $url = $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
             ->returnTo(route('officelife.index').'?refresh=true')
-            ->quantity($quantity)
+            ->quantity($request->quantity())
             ->create();
+
+        return Inertia::location($url);
     }
 
     /**

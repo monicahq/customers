@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { useForm, usePage, Link } from '@inertiajs/inertia-vue3';
+import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 import { trans } from 'laravel-vue-i18n';
 import AppLayout from '@/Layouts/AppLayout.vue';
@@ -19,8 +19,12 @@ const props = defineProps({
 
 const localPlans = ref([]);
 const refresh = ref(_.debounce(() => doRefresh(), 1000));
-const newPlanId = ref(null);
-const updateForm = useForm();
+const updateForm = useForm({
+  plan_id: null,
+});
+const subscribeForm = useForm({
+  quantity: 1,
+});
 
 onMounted(() => {
     localPlans.value = props.plans;
@@ -33,8 +37,8 @@ onUnmounted(() => {
     refresh.value.cancel();
 });
 
-const currentPlan = computed(() => plan(props.current_licence.plan_id));
-const newPlan = computed(() => plan(newPlanId.value));
+const currentPlan = computed(() => props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled' ? null : plan(props.current_licence.plan_id));
+const newPlan = computed(() => plan(updateForm.plan_id));
 
 const plan = (id) => localPlans.value[localPlans.value.findIndex((x) => x.id === id)];
 
@@ -56,7 +60,6 @@ const checkPrice = (pplan) => {
         .then((response) => {
           const lplan = plan(pplan.id);
           lplan['price'] = response.data.price;
-          lplan['url']['pay_link'] = response.data.pay_link;
         });
 };
 
@@ -67,16 +70,25 @@ const paddle = () => {
 };
 
 const updatePlan = () => {
-    updateForm.transform(() => ({
-        plan_id: newPlanId.value,
-        quantity: newPlan.value.quantity,
+    updateForm.transform((data) => ({
+        ...data,
+        quantity: newPlan.quantity,
     }))
     .patch(route('officelife.update'), {
         preserveScroll: true,
         onFinish: () => {
-          newPlanId.value = null;
+          updateForm.reset();
+          updateForm.plan_id = null;
         }
     });
+};
+
+const subscribe = (planId) => {
+  const p = plan(planId);
+  subscribeForm.transform(() => ({
+      quantity: p.quantity,
+  }))
+  .post(route('officelife.create', { plan: planId }));
 };
 
 </script>
@@ -95,46 +107,55 @@ const updatePlan = () => {
       </div>
 
         <!-- case: active subscription -->
-        <div v-if="current_licence && current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
-          <LicenceDisplay :licence="current_licence" :url="'https://app.officelife.io/settings/billing'">
-            <div v-if="currentPlan" class="overflow-hidden flex items-center justify-between">
+        <template v-if="current_licence">
+          <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
+            <LicenceDisplay :licence="current_licence" :url="'https://app.officelife.io/settings/billing'">
+              <div v-if="currentPlan" class="overflow-hidden flex items-center justify-between">
 
-              <Plan :plan="currentPlan" />
+                <Plan :plan="currentPlan" />
 
-              <div class="flex">
+                <div class="flex">
 
-                <div class="flex items-center mr-6">
-                  <input
-                    v-model="currentPlan.quantity"
-                    class="rounded-md border-gray-300 border text-center mr-2 w-20 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    type="number"
-                    min="1"
-                    max="10000"
-                    @keyup="checkPrice(currentPlan)"
-                    @input="checkPrice(currentPlan)"
-                  />
+                  <div class="flex items-center mr-6">
+                    <input
+                      v-model="currentPlan.quantity"
+                      class="rounded-md border-gray-300 border text-center mr-2 w-20 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                      type="number"
+                      min="1"
+                      max="10000"
+                      @keyup="checkPrice(currentPlan)"
+                      @input="checkPrice(currentPlan)"
+                    />
 
-                  <span>{{ $t('seats') }}</span>
-                </div>
+                    <span>{{ $t('seats') }}</span>
+                  </div>
 
-                <div class="text-center">
-                  <JetButton @click="newPlanId = currentPlan.id">
-                    {{ $t('Update quantity for :price', { price: currentPlan.price }) }}
-                  </JetButton>
+                  <div class="text-center">
+                    <JetButton @click="updateForm.plan_id = currentPlan.id">
+                      {{ $t('Update quantity for :price', { price: currentPlan.price }) }}
+                    </JetButton>
+
+                    <p class="flex items-center text-xs">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                      <span v-html="paddle()"></span>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </LicenceDisplay>
-        </div>
+            </LicenceDisplay>
+          </div>
 
-        <!-- case: cancelled subscription -->
-        <div v-else class="mb-4 text-center p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
-          <p class="mb-4">{{ $t('☠️ You have cancelled your subscription.') }}</p>
-          <p class="text-gray-600 text-sm">{{ $t('You can always pick a new plan and start over, if you want.') }}</p>
-        </div>
+          <!-- case: cancelled subscription -->
+          <div v-else class="mb-4 text-center p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
+            <p class="mb-4">{{ $t('☠️ You have cancelled your subscription.') }}</p>
+            <p class="text-gray-600 text-sm">{{ $t('You can always pick a new plan and start over, if you want.') }}</p>
+          </div>
+        </template>
 
         <div v-for="plan in localPlans" :key="plan.id">
-          <div v-if="plan.id !== currentPlan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
+          <div v-if="! currentPlan || plan.id !== currentPlan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
             <Plan :plan="plan" />
 
             <div class="flex">
@@ -154,13 +175,13 @@ const updatePlan = () => {
               </div>
 
               <div class="text-center">
-                <JetButton v-if="current_licence" @click="newPlanId = plan.id">
+                <JetButton v-if="currentPlan" @click="updateForm.plan_id = plan.id">
                   {{ $t('Switch for :price', { price: plan.price }) }}
                 </JetButton>
 
-                <Link v-else :href="plan.url.pay_link" rel="noopener noreferrer" class="mb-1 cursor-pointer focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
+                <JetButton v-else @click="subscribe(plan.id)">
                   {{ $t('Subscribe for :price', { price: plan.price }) }}
-                </Link>
+                </JetButton>
 
                 <p class="flex items-center text-xs">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -183,7 +204,7 @@ const updatePlan = () => {
     </div>
 
     <!-- Change plan -->
-    <JetConfirmationModal :show="newPlanId" @close="newPlanId = null">
+    <JetConfirmationModal :show="updateForm.plan_id" @close="updateForm.plan_id = null">
         <template #title>
             {{ $t('Switch to plan') }}
         </template>
@@ -195,7 +216,7 @@ const updatePlan = () => {
         </template>
 
         <template #footer>
-            <JetSecondaryButton @click="newPlanId = null">
+            <JetSecondaryButton @click="updateForm.plan_id = null">
                 {{ $t('Cancel') }}
             </JetSecondaryButton>
 

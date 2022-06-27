@@ -23,14 +23,6 @@ class MonicaControllerTest extends TestCase
             'plan_id_on_paddle' => 1,
         ]);
 
-        Http::fake([
-            'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
-                'success' => true,
-                'response' => [
-                    'url' => 'https://sandbox-vendors.paddle.com/example',
-                ],
-            ], 200),
-        ]);
         $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
             $mock->shouldReceive('getProductPrices')
                 ->andReturn(collect([
@@ -45,18 +37,8 @@ class MonicaControllerTest extends TestCase
 
         $response = $this->actingAs($user)->get('/monica');
 
-        Http::assertSent(function ($request) use ($user) {
-            $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
-            $this->assertEquals('POST', $request->method());
-            $this->assertStringContainsString('"product_id":1', $request->body());
-            $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
-
-            return true;
-        });
-
         $response->assertStatus(200);
         $response->assertSee('MonicaPlan');
-        $response->assertSee('https:\\/\\/sandbox-vendors.paddle.com\\/example');
     }
 
     /** @test */
@@ -72,14 +54,6 @@ class MonicaControllerTest extends TestCase
             'plan_id_on_paddle' => 2,
         ]);
 
-        Http::fake([
-            'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
-                'success' => true,
-                'response' => [
-                    'url' => 'https://sandbox-vendors.paddle.com/example',
-                ],
-            ], 200),
-        ]);
         $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
             $mock->shouldReceive('getProductPrices')
                 ->andReturn(collect([
@@ -94,18 +68,8 @@ class MonicaControllerTest extends TestCase
 
         $response = $this->actingAs($user)->get('/monica');
 
-        Http::assertSent(function ($request) use ($user) {
-            $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
-            $this->assertEquals('POST', $request->method());
-            $this->assertStringContainsString('"product_id":1', $request->body());
-            $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
-
-            return true;
-        });
-
         $response->assertStatus(200);
         $response->assertSee('MonicaPlan');
-        $response->assertSee('https:\\/\\/sandbox-vendors.paddle.com\\/example');
         $response->assertDontSee('OfficeLifePlan');
     }
 
@@ -120,24 +84,11 @@ class MonicaControllerTest extends TestCase
             'plan_id' => $plan->id,
             'key' => 'abc123',
         ]);
-        Subscription::create([
+        Subscription::factory()->create([
             'billable_id' => $user->id,
-            'billable_type' => User::class,
-            'name' => 'name',
-            'paddle_id' => random_int(0, 100),
-            'paddle_status' => 'active',
             'paddle_plan' => $plan->plan_id_on_paddle,
-            'quantity' => 1,
         ]);
 
-        Http::fake([
-            'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
-                'success' => true,
-                'response' => [
-                    'url' => 'https://sandbox-vendors.paddle.com/example',
-                ],
-            ], 200),
-        ]);
         $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
             $mock->shouldReceive('getProductPrices')
                 ->andReturn(collect([
@@ -176,14 +127,6 @@ class MonicaControllerTest extends TestCase
             'plan_id' => $plan->id,
         ]);
 
-        Http::fake([
-            'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
-                'success' => true,
-                'response' => [
-                    'url' => 'https://sandbox-vendors.paddle.com/example',
-                ],
-            ], 200),
-        ]);
         $this->mock(Products::class, function (MockInterface $mock) use ($plan) {
             $mock->shouldReceive('getProductPrices')
                 ->andReturn(collect([
@@ -226,5 +169,38 @@ class MonicaControllerTest extends TestCase
         ]);
 
         $response->assertStatus(302);
+    }
+
+    /** @test */
+    public function it_subscribes_to_a_plan(): void
+    {
+        $user = User::factory()->create();
+        $plan = Plan::factory()->monica()->create([
+            'friendly_name' => 'MonicaPlan',
+            'plan_id_on_paddle' => 1,
+        ]);
+
+        Http::fake([
+            'https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link' => Http::response([
+                'success' => true,
+                'response' => [
+                    'url' => 'https://sandbox-vendors.paddle.com/example',
+                ],
+            ], 200),
+        ]);
+
+        $response = $this->actingAs($user)->post("/monica/{$plan->id}");
+
+        Http::assertSent(function ($request) use ($user) {
+            $this->assertEquals('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', $request->url());
+            $this->assertEquals('POST', $request->method());
+            $this->assertStringContainsString('"product_id":1', $request->body());
+            $this->assertStringContainsString('\"billable_id\":'.$user->id, $request->body());
+
+            return true;
+        });
+
+        $response->assertStatus(302);
+        $response->assertRedirect('https://sandbox-vendors.paddle.com/example');
     }
 }

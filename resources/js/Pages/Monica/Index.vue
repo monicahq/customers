@@ -21,6 +21,7 @@ const refresh = ref(_.debounce(() => doRefresh(), 1000));
 const updateForm = useForm({
   plan_id: null,
 });
+const subscribeForm = useForm();
 
 onMounted(() => {
     if (props.refresh) {
@@ -32,7 +33,7 @@ onUnmounted(() => {
     refresh.value.cancel();
 });
 
-const currentPlan = computed(() => plan(props.current_licence.plan_id));
+const currentPlan = computed(() => props.current_licence === null ? null : plan(props.current_licence.plan_id));
 const newPlan = computed(() => plan(updateForm.plan_id));
 
 const plan = (id) => props.plans[props.plans.findIndex((x) => x.id === id)];
@@ -60,9 +61,14 @@ const updatePlan = () => {
     updateForm.patch(route('monica.update'), {
         preserveScroll: true,
         onFinish: () => {
-          updateForm.plan_id.value = null;
+          updateForm.reset();
+          updateForm.plan_id = null;
         }
     });
+};
+
+const subscribe = (planId) => {
+  subscribeForm.post(route('monica.create', { plan: planId }));
 };
 
 </script>
@@ -81,30 +87,32 @@ const updatePlan = () => {
         </div>
 
         <!-- case: active subscription -->
-        <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
-          <LicenceDisplay :licence="current_licence" :url="'https://app.monicahq.com/settings/billing'">
-            <Plan v-if="currentPlan" :plan="currentPlan" />
-          </LicenceDisplay>
-        </div>
+        <template v-if="current_licence">
+          <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
+            <LicenceDisplay :licence="current_licence" :url="'https://app.monicahq.com/settings/billing'">
+              <Plan v-if="currentPlan" :plan="currentPlan" />
+            </LicenceDisplay>
+          </div>
 
-        <!-- case: cancelled subscription -->
-        <div v-else class="mb-4 text-center p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
-          <p class="mb-4">{{ $t('☠️ You have cancelled your subscription.') }}</p>
-          <p class="text-gray-600 text-sm">{{ $t('You can always pick a new plan and start over, if you want.') }}</p>
-        </div>
+          <!-- case: cancelled subscription -->
+          <div v-else class="mb-4 text-center p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
+            <p class="mb-4">{{ $t('☠️ You have cancelled your subscription.') }}</p>
+            <p class="text-gray-600 text-sm">{{ $t('You can always pick a new plan and start over, if you want.') }}</p>
+          </div>
+        </template>
 
         <div v-for="plan in plans" :key="plan.id">
-          <div v-if="plan.id !== currentPlan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
+          <div v-if="! currentPlan || plan.id !== currentPlan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
             <Plan :plan="plan" />
 
             <div class="text-center">
-              <JetButton v-if="current_licence" @click="updateForm.plan_id = plan.id">
+              <JetButton v-if="currentPlan" @click="updateForm.plan_id = plan.id">
                 {{ $t('Switch') }}
               </JetButton>
 
-              <Link v-else :href="plan.url.pay_link" rel="noopener noreferrer" class="cursor-pointer block mb-2 focus:shadow-outline-gray items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
+              <JetButton v-else @click="subscribe(plan.id)">
                 {{ $t('Choose') }}
-              </Link>
+              </JetButton>
 
               <p class="flex items-center text-xs">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -117,7 +125,7 @@ const updatePlan = () => {
         </div>
 
         <!-- no licence yet -->
-        <div v-if="current_licence.subscription_state !== 'subscription_cancelled'">
+        <div v-if="! current_licence || current_licence.subscription_state !== 'subscription_cancelled'">
           <div>{{ $t('You will be able to upgrade storage later.') }}</div>
         </div>
 

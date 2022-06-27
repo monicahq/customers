@@ -18,7 +18,7 @@
         @routes
         <script src="{{ asset(mix('js/app.js')) }}" defer></script>
         @inertiaHead
-        @paddleJS
+        {{-- @paddleJS --}}
     </head>
     <body class="font-sans antialiased bg-gray-50">
         @inertia

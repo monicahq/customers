@@ -23,16 +23,12 @@ class RenewLicenceKeyTest extends TestCase
             'billable_id' => $user->id,
             'paddle_plan' => $plan->plan_id_on_paddle,
         ]);
-        $receipt = Receipt::factory()->create([
-            'billable_id' => $user->id,
-            'paddle_subscription_id' => $subscription->paddle_id,
-        ]);
         $licenceKey = LicenceKey::factory()->create([
             'user_id' => $user->id,
             'plan_id' => $plan->id,
         ]);
 
-        $response = (new RenewLicenceKey)->execute($user, $receipt, [
+        $response = (new RenewLicenceKey)->execute($user, $subscription, [
             'next_bill_date' => '2022-04-02',
         ]);
 

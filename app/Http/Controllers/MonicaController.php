@@ -22,12 +22,18 @@ class MonicaController extends Controller
      */
     public function index(Request $request): Response
     {
+        $subscription = $request->user()->subscriptions()
+            ->active()
+            ->product(static::PRODUCT)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
         $plans = Plan::where('product', static::PRODUCT)->get();
 
         $productIds = $plans->pluck('plan_id_on_paddle');
         $prices = app(Products::class)->getProductPrices($productIds, $request->user());
 
-        $plansCollection = $plans->map(function (Plan $plan) use ($request, $prices): array {
+        $plansCollection = $plans->map(function (Plan $plan) use ($prices): array {
             $price = $prices->where('product_id', $plan->plan_id_on_paddle)->first();
 
             return [
@@ -37,17 +43,8 @@ class MonicaController extends Controller
                 'plan_name' => $plan->plan_name,
                 'price' => $price['price'],
                 'frequency' => $price['frequency_name'],
-                'url' => [
-                    'pay_link' => $this->getPayLink($request, $plan),
-                ],
             ];
         });
-
-        $subscription = $request->user()->subscriptions()
-            ->active()
-            ->notCancelled()
-            ->product(static::PRODUCT)
-            ->first();
 
         $licence = $request->user()->licenceKeys()
             ->where('plan_id', optional(optional($subscription)->plan)->id)
@@ -61,11 +58,24 @@ class MonicaController extends Controller
         ]);
     }
 
-    private function getPayLink(Request $request, Plan $plan)
+    /**
+     * Subscribe to this plan.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Plan  $plan
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function create(Request $request, Plan $plan)
     {
-        return $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
+        if ($plan->product !== static::PRODUCT) {
+            abort(401);
+        }
+
+        $url = $request->user()->newSubscription($plan->plan_name, $plan->plan_id_on_paddle)
             ->returnTo(route('monica.index').'?refresh=true')
             ->create();
+
+        return Inertia::location($url);
     }
 
     /**

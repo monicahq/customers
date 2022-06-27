@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UpdateSubscription extends BaseService
 {
@@ -42,13 +43,26 @@ class UpdateSubscription extends BaseService
             ->product($plan->product)
             ->firstOrFail();
 
-        if ($subscription->paddle_plan !== $plan->plan_id_on_paddle) {
-            $subscription = $subscription->swapAndInvoice($plan->plan_id_on_paddle);
-        }
+        // Get current licence
+        $licence = $user->licenceKeys()
+            ->where('plan_id', $subscription->plan->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
 
-        if (isset($data['quantity']) && $subscription->quantity !== $data['quantity']) {
-            $subscription = $subscription->incrementAndInvoice($data['quantity'] - $subscription->quantity);
-        }
+        DB::transaction(function () use ($plan, $subscription, $licence, $data) {
+            if ($licence !== null) {
+                $licence->plan_id = $plan->id;
+                $licence->save();
+            }
+
+            if ($subscription->paddle_plan !== $plan->plan_id_on_paddle) {
+                $subscription = $subscription->swapAndInvoice($plan->plan_id_on_paddle);
+            }
+
+            if (isset($data['quantity']) && $subscription->quantity !== $data['quantity']) {
+                $subscription = $subscription->incrementAndInvoice($data['quantity'] - $subscription->quantity);
+            }
+        });
 
         return $subscription;
     }

@@ -18,14 +18,10 @@ class UpdateSubscriptionTest extends TestCase
         $plan1 = Plan::factory()->monica()->create();
         $plan2 = Plan::factory()->monica()->create();
 
-        $subscription = Subscription::create([
-            'billable_id' => $user->id,
-            'billable_type' => User::class,
+        $subscription = Subscription::factory()->create([
             'name' => 'name',
-            'paddle_id' => random_int(0, 100),
-            'paddle_status' => 'active',
+            'billable_id' => $user->id,
             'paddle_plan' => $plan1->plan_id_on_paddle,
-            'quantity' => 1,
         ]);
 
         Http::fake([
@@ -71,14 +67,10 @@ class UpdateSubscriptionTest extends TestCase
         $user = User::factory()->create();
         $plan = Plan::factory()->monica()->create();
 
-        $subscription = Subscription::create([
-            'billable_id' => $user->id,
-            'billable_type' => User::class,
+        $subscription = Subscription::factory()->create([
             'name' => 'name',
-            'paddle_id' => random_int(0, 100),
-            'paddle_status' => 'active',
+            'billable_id' => $user->id,
             'paddle_plan' => $plan->plan_id_on_paddle,
-            'quantity' => 1,
         ]);
 
         Http::fake([

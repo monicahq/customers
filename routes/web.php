@@ -48,11 +48,13 @@ Route::middleware([
 
     // officelife
     Route::get('officelife', [OfficeLifeController::class, 'index'])->name('officelife.index');
+    Route::post('officelife/{plan}', [OfficeLifeController::class, 'create'])->name('officelife.create');
     Route::post('officelife/{plan}/price', [OfficeLifeController::class, 'price'])->name('officelife.price');
     Route::patch('officelife', [OfficeLifeController::class, 'update'])->name('officelife.update');
 
     // monica
     Route::get('monica', [MonicaController::class, 'index'])->name('monica.index');
+    Route::post('monica/{plan}', [MonicaController::class, 'create'])->name('monica.create');
     Route::patch('monica', [MonicaController::class, 'update'])->name('monica.update');
 
     // User & Profile...
