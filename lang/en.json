@@ -68,6 +68,7 @@
     "Done.": "Done.",
     "Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.": "Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.",
     "Cancel": "Cancel",
+    "OK": "OK",
     "External connections": "External connections",
     "Manage accounts you have linked to your Customers account.": "Manage accounts you have linked to your Customers account.",
     "You can add more account to log in to our service with one click.": "You can add more account to log in to our service with one click.",
@@ -185,5 +186,10 @@
     "week|:period weeks": "week|:period weeks",
     "month|:period months": "month|:period months",
     "year|:period years": "year|:period years",
-    "Subscribe for :price": "Subscribe for :price"
+    "Subscribe for :price": "Subscribe for :price",
+    "Update quantity for :price": "Update quantity for :price",
+    "Switch for :price": "Switch for :price",
+    "Switch": "Switch",
+    "Switch to plan": "Switch to plan",
+    "Are you sure you would like to switch to this plan?": "Are you sure you would like to switch to this plan?"
 }
