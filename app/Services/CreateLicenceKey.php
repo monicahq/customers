@@ -65,7 +65,6 @@ class CreateLicenceKey
         return [
             'frequency' => $price['frequency'],
             'purchaser_email' => $this->user->email,
-            'next_check_at' => $this->nextDate->format('Y-m-d'),
         ];
     }
 
