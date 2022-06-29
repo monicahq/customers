@@ -6,6 +6,7 @@ use App\Listeners\LocaleUpdatedListener;
 use App\Listeners\SubscriptionCancelledListener;
 use App\Listeners\SubscriptionCreatedListener;
 use App\Listeners\SubscriptionPaymentSucceededListener;
+use App\Listeners\WebhookReceivedListener;
 use App\Providers\Auth\MonicaExtendSocialite;
 use App\Providers\Auth\OfficeLifeExtendSocialite;
 use Illuminate\Auth\Events\Registered;
@@ -15,6 +16,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Laravel\Paddle\Events\SubscriptionCancelled;
 use Laravel\Paddle\Events\SubscriptionCreated;
 use Laravel\Paddle\Events\SubscriptionPaymentSucceeded;
+use Laravel\Paddle\Events\WebhookReceived;
 use SocialiteProviders\GitHub\GitHubExtendSocialite;
 use SocialiteProviders\Manager\SocialiteWasCalled;
 
@@ -45,6 +47,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         SubscriptionPaymentSucceeded::class => [
             SubscriptionPaymentSucceededListener::class,
+        ],
+        WebhookReceived::class => [
+            WebhookReceivedListener::class,
         ],
     ];
 
