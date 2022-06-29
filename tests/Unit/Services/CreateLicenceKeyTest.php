@@ -55,15 +55,10 @@ class CreateLicenceKeyTest extends TestCase
 
         $this->assertArrayHasKey('frequency', $array);
         $this->assertArrayHasKey('purchaser_email', $array);
-        $this->assertArrayHasKey('next_check_at', $array);
 
         $this->assertEquals(
             'regis@monicahq.com',
             $array['purchaser_email']
-        );
-        $this->assertEquals(
-            '2022-04-02',
-            $array['next_check_at']
         );
         $this->assertEquals(
             'month',
