@@ -2,13 +2,14 @@
 
 namespace App\Listeners;
 
+use function Safe\json_decode;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
-use Laravel\Paddle\Cashier;
+use Laravel\Paddle\Customer;
 use Laravel\Paddle\Events\SubscriptionCreated;
 use Laravel\Paddle\Events\WebhookReceived;
 use Laravel\Paddle\Exceptions\InvalidPassthroughPayload;
@@ -56,6 +57,7 @@ class WebhookReceivedListener
 
         $plan = Plan::where('plan_id_on_paddle', $payload['subscription_plan_id'])->firstOrFail();
 
+        /** @var Subscription */
         $subscription = $customer->subscriptions()->create([
             'name' => $plan->plan_name,
             'paddle_id' => $payload['subscription_id'],
@@ -73,11 +75,11 @@ class WebhookReceivedListener
      *
      * @param  array  $payload
      * @param  string  $passthrough
-     * @return \Laravel\Paddle\Billable
+     * @return User
      *
      * @throws \Laravel\Paddle\Exceptions\InvalidPassthroughPayload
      */
-    protected function findOrCreateCustomer(array $payload, string $passthrough)
+    protected function findOrCreateCustomer(array $payload, string $passthrough): User
     {
         $passthrough = json_decode($passthrough, true);
 
@@ -86,14 +88,14 @@ class WebhookReceivedListener
             throw new InvalidPassthroughPayload();
         }
 
-        $user = User::findOrCreate([
-            'name' => $payload['email'],
-            'email' => $payload['email'],
-        ]);
-
-        return Cashier::$customerModel::firstOrCreate([
-            'billable_id' => $user->id,
-            'billable_type' => User::class,
-        ])->billable;
+        return tap(User::firstOrCreate(
+            ['email' => $payload['email']],
+            ['name' => $payload['email']]
+        ), function ($user) {
+            Customer::firstOrCreate([
+                'billable_id' => $user->id,
+                'billable_type' => User::class,
+            ]);
+        });
     }
 }
