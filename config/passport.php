@@ -1,6 +1,6 @@
 <?php
 
-return [
+$passport = [
 
     /*
     |--------------------------------------------------------------------------
@@ -64,3 +64,19 @@ return [
     ],
 
 ];
+
+// Use fortrabbit secrets
+if (env('APP_SECRETS')) {
+    $secrets = json_decode(file_get_contents(env('APP_SECRETS')), true);
+
+    $escapeChar = isset($secrets['CUSTOM']['ESCAPE_CHAR']) ? $secrets['CUSTOM']['ESCAPE_CHAR'] : '!!';
+
+    if (isset($secrets['CUSTOM']['PASSPORT_PRIVATE_KEY'])) {
+        $passport['private_key'] = str_replace($escapeChar, '\\n', $secrets['CUSTOM']['PASSPORT_PRIVATE_KEY']);
+    }
+    if (isset($secrets['CUSTOM']['PASSPORT_PUBLIC_KEY'])) {
+        $passport['public_key'] = str_replace($escapeChar, '\\n', $secrets['CUSTOM']['PASSPORT_PUBLIC_KEY']);
+    }
+}
+
+return $passport;
