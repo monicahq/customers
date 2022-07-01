@@ -21,8 +21,7 @@ class LoginController extends Controller
      */
     public function __invoke(Request $request): Response
     {
-        /** @var \Illuminate\Support\Collection $providers */
-        $providers = config('auth.login_providers');
+        $providers = collect(config('auth.login_providers'));
         $providersName = $providers->mapWithKeys(function ($provider) {
             return [$provider => config("services.$provider.name") ?? __("auth.login_provider_{$provider}")];
         });

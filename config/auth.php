@@ -115,6 +115,6 @@ return [
     |
     */
 
-    'login_providers' => explode(',', env('LOGIN_PROVIDERS')),
+    'login_providers' => explode(',', env('LOGIN_PROVIDERS', '')),
 
 ];
