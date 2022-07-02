@@ -153,12 +153,6 @@ const reload = () => {
                 <p v-if="providers.length > 0" class="block font-medium text-sm text-gray-700">
                     {{ $t('Login with:') }}
                 </p>
-                <div v-for="provider in providers" :key="provider" class="inline">
-                  <JetSecondaryButton class="mr-2" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
-                      <img :src="`/img/auth/${provider}.svg`" alt="" class="auth-provider relative" />
-                      {{ providersName[provider] }}
-                  </JetSecondaryButton>
-                </div>
                 <div class="flex flex-wrap">
                     <JetSecondaryButton v-for="provider in providers" :key="provider" class="mr-2" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
                         <img :src="`/img/auth/${provider}.svg`" alt="" class="auth-provider relative" />
