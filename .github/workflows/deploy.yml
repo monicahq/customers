@@ -85,6 +85,19 @@ jobs:
         run: yarn install
       # - name: Lint files
       #   run: yarn run lint
+
+      - name: Get version
+        id: version
+        run: |
+          echo "::set-output name=version::$(git describe --abbrev=0 --tags 2>/dev/null || echo '0.0.0' | sed 's/^v//')"
+          echo "::set-output name=release::$(git describe --abbrev=0 --tags --exact-match $GITHUB_SHA 2>/dev/null || git log --pretty="%h" -n1 $GITHUB_SHA)"
+      - name: Prepare environment
+        run: |
+          { \
+            echo "MIX_PROD_SOURCE_MAPS=true"; \
+            echo "MIX_SENTRY_RELEASE=${{ steps.version.outputs.version }}"; \
+          } | tee .env
+
       - name: Build assets
         run: yarn run production
 
