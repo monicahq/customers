@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\UpdateAddressRequest;
 use App\Services\UpdateAddress;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 
 class UserAddressController extends Controller
 {
@@ -13,9 +13,9 @@ class UserAddressController extends Controller
      * Update user account.
      *
      * @param  UpdateAddressRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateAddressRequest $request): RedirectResponse
+    public function update(UpdateAddressRequest $request)
     {
         app(UpdateAddress::class)->execute($request->only([
             'address_line_1',
@@ -28,6 +28,8 @@ class UserAddressController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        return back(303)->with('status', 'user-address-updated');
+        return $request->wantsJson()
+            ? new JsonResponse('', 200)
+            : back()->with('status', 'user-address-updated');
     }
 }
