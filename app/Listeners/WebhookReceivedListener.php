@@ -74,14 +74,16 @@ class WebhookReceivedListener
      * Find or create a customer based on the passthrough values and return the billable model.
      *
      * @param  array  $payload
-     * @param  string  $passthrough
+     * @param  string|null  $passthrough
      * @return User
      *
      * @throws \Laravel\Paddle\Exceptions\InvalidPassthroughPayload
      */
-    protected function findOrCreateCustomer(array $payload, string $passthrough): User
+    protected function findOrCreateCustomer(array $payload, ?string $passthrough): User
     {
-        $passthrough = json_decode($passthrough, true);
+        if (! empty($passthrough)) {
+            $passthrough = json_decode($passthrough, true);
+        }
 
         if (is_array($passthrough) && isset($passthrough['billable_id'], $passthrough['billable_type'])) {
             // It will be handled by cashier's WebhookController
