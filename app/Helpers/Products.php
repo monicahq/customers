@@ -43,6 +43,10 @@ class Products
 
     private function getPrices(Collection $products, string $country): Collection
     {
+        if ($products->isEmpty()) {
+            return collect();
+        }
+
         $key = $this->getKey($country, $products);
 
         return Cache::remember($key, 60 * 60, function () use ($products, $country) {
