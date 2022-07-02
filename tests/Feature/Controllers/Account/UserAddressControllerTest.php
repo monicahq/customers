@@ -19,7 +19,7 @@ class UserAddressControllerTest extends TestCase
             'country' => 'FR',
         ]);
 
-        $response->assertStatus(303);
+        $response->assertStatus(302);
         $response->assertRedirect('');
         $response->assertSessionHas('status', 'user-address-updated');
 
@@ -65,7 +65,7 @@ class UserAddressControllerTest extends TestCase
             'country' => 'BE',
         ]);
 
-        $response->assertStatus(303);
+        $response->assertStatus(302);
         $response->assertRedirect('');
         $response->assertSessionHas('status', 'user-address-updated');
 
