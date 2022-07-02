@@ -162,6 +162,7 @@ class AttemptToAuthenticateSocialite
         $data = [
             'email' => $socialite->getEmail(),
             'name' => empty($socialite->getName()) ? $socialite->getEmail() : $socialite->getName(),
+            'locale' => App::getLocale(),
             'terms' => true,
         ];
 
