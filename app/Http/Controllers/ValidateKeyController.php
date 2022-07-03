@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class ValidationController extends Controller
+class ValidateKeyController extends Controller
 {
     public function index(Request $request)
     {
