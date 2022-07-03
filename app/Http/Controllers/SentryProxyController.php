@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class SentryProxyController extends Controller
 {
@@ -17,6 +17,7 @@ class SentryProxyController extends Controller
     {
         if (app()->bound('sentry')) {
             $project_id = Str::of(config('sentry.dsn'))->trim('/')->afterLast('/');
+
             return Http::withBody($request->getContent(), 'application/x-sentry-envelope')
                 ->post("https://sentry.io/api/$project_id/envelope/");
         }
