@@ -5,8 +5,8 @@ import { Inertia } from '@inertiajs/inertia';
 let activated = false;
 
 const xsrfToken = () => {
-  const xsrfToken = document.cookie.match(new RegExp('(^|;\\s*)(XSRF-TOKEN)=([^;]*)'));
-  return xsrfToken ? decodeURIComponent(xsrfToken[3]) : null;
+  const token = document.cookie.match(new RegExp('(^|;\\s*)(XSRF-TOKEN)=([^;]*)'));
+  return token ? decodeURIComponent(token[3]) : null;
 };
 
 const install = (app, options) => {
