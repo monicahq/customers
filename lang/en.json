@@ -29,7 +29,7 @@
     "Enjoy!": "Enjoy!",
     "The licence key will automatically renew on :date.": "The licence key will automatically renew on :date.",
     "Update payment details": "Update payment details",
-    "Stop": "Stop",
+    "Stop": "Cancel subscription",
     "☠️ You have cancelled your subscription.": "☠️ You have cancelled your subscription.",
     "You can always pick a new plan and start over, if you want.": "You can always pick a new plan and start over, if you want.",
     "Choose": "Choose",
@@ -191,5 +191,5 @@
     "Switch for :price": "Switch for :price",
     "Switch": "Switch",
     "Switch to plan": "Switch to plan",
-    "Are you sure you would like to switch to this plan?": "Are you sure you would like to switch to this plan?"
+    "Are you sure you would like to switch to this plan?": "Are you sure you would like to switch to this plan? Changes will be taken into account immediately."
 }

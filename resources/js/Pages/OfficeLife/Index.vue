@@ -210,7 +210,7 @@ const subscribe = (planId) => {
         </template>
 
         <template #content>
-            {{ $t('Are you sure you would like to switch to this plan?') }}
+            <p class="mb-5">{{ $t('Are you sure you would like to switch to this plan?') }}</p>
 
             <Plan :plan="newPlan" />
         </template>
