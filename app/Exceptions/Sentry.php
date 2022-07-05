@@ -7,6 +7,14 @@ use Sentry\Tracing\SamplingContext;
 
 class Sentry
 {
+    /**
+     * Sentry trace sampler analyzer.
+     *
+     * @param  \Sentry\Tracing\SamplingContext  $context
+     * @return float
+     *
+     * @codeCoverageIgnore
+     */
     public static function tracesSampler(SamplingContext $context): float
     {
         $url = optional($context->getTransactionContext())->getData()['url'];
