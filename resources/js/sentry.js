@@ -13,7 +13,7 @@ const install = (app, options) => {
   if (typeof SentryConfig !== 'undefined' && SentryConfig.dsn !== '') {
     Sentry.init({
       dsn: SentryConfig.dsn,
-      tunnel: '/sentry',
+      tunnel: '/sentry/tunnel',
       environment: SentryConfig.environment || null,
       release: options.release || '',
       sendDefaultPii: SentryConfig.sendDefaultPii || false,

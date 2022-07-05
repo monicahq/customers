@@ -20,6 +20,7 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
         "monarobase/country-list": "^3.3",
+        "naugrim/laravel-sentry-tunnel": "^1.0",
         "sentry/sentry-laravel": "^2.12",
         "socialiteproviders/github": "^4.1",
         "socialiteproviders/laravelpassport": "^4.1",

@@ -10,7 +10,7 @@ class Sentry
     public static function tracesSampler(SamplingContext $context): float
     {
         $url = optional($context->getTransactionContext())->getData()['url'];
-        if ($url === '/sentry' || Str::startsWith($url, '/_debugbar')) {
+        if (Str::startsWith($url, '/sentry') || Str::startsWith($url, '/_debugbar')) {
             return 0.0;
         }
 

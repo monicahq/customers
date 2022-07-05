@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a27b468fbd461f56fe6e1b6f0d3431f",
+    "content-hash": "ef6708c5b8762db30b051f8567abbc8c",
     "packages": [
         {
             "name": "asbiin/laravel-webauthn",
@@ -3766,6 +3766,59 @@
                 }
             ],
             "time": "2022-06-09T08:59:12+00:00"
+        },
+        {
+            "name": "naugrim/laravel-sentry-tunnel",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Naugrimm/laravel-sentry-tunnel.git",
+                "reference": "87f1f5ccaef6765e84e29f69a196741a0809ae57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Naugrimm/laravel-sentry-tunnel/zipball/87f1f5ccaef6765e84e29f69a196741a0809ae57",
+                "reference": "87f1f5ccaef6765e84e29f69a196741a0809ae57",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^8.0|^9.0",
+                "illuminate/routing": "^8.0|^9.0",
+                "illuminate/support": "^8.0|^9.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "symplify/easy-coding-standard": "^10.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Naugrim\\LaravelSentryTunnel\\Provider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Naugrim\\LaravelSentryTunnel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erik Anders",
+                    "email": "erik.anders@securepoint.de"
+                }
+            ],
+            "description": "Provides an endpoint to use the `tunnel`-parameter of the Sentry SDK",
+            "support": {
+                "issues": "https://github.com/Naugrimm/laravel-sentry-tunnel/issues",
+                "source": "https://github.com/Naugrimm/laravel-sentry-tunnel/tree/1.0.1"
+            },
+            "time": "2022-04-08T07:41:08+00:00"
         },
         {
             "name": "nesbot/carbon",

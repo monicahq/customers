@@ -40,8 +40,6 @@ Route::middleware(['throttle:oauth2-socialite'])->group(function () {
     Route::post('auth/{driver}/callback', [SocialiteCallbackController::class, 'callback']);
 });
 
-Route::post('sentry', [SentryProxyController::class, 'handle'])->name('sentry');
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
