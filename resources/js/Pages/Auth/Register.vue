@@ -92,7 +92,7 @@ const policy = () => {
 
             <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
                 <JetLabel for="terms">
-                    <div class="flex items-center">
+                    <div class="flex">
                         <JetCheckbox id="terms" v-model:checked="form.terms" name="terms" />
 
                         <div class="ml-2" v-html="$t('I agree to the :terms and :policy', { terms: terms(), policy: policy() })"></div>
