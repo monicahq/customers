@@ -29,7 +29,7 @@
     "Enjoy!": "Enjoy!",
     "The licence key will automatically renew on :date.": "The licence key will automatically renew on :date.",
     "Update payment details": "Update payment details",
-    "Stop": "Stop",
+    "Cancel subscription": "Cancel subscription",
     "☠️ You have cancelled your subscription.": "☠️ You have cancelled your subscription.",
     "You can always pick a new plan and start over, if you want.": "You can always pick a new plan and start over, if you want.",
     "Choose": "Choose",
@@ -68,6 +68,7 @@
     "Done.": "Done.",
     "Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.": "Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.",
     "Cancel": "Cancel",
+    "OK": "OK",
     "External connections": "External connections",
     "Manage accounts you have linked to your Customers account.": "Manage accounts you have linked to your Customers account.",
     "You can add more account to log in to our service with one click.": "You can add more account to log in to our service with one click.",
@@ -185,5 +186,10 @@
     "week|:period weeks": "week|:period weeks",
     "month|:period months": "month|:period months",
     "year|:period years": "year|:period years",
-    "Subscribe for :price": "Subscribe for :price"
+    "Subscribe for :price": "Subscribe for :price",
+    "Update quantity for :price": "Update quantity for :price",
+    "Switch for :price": "Switch for :price",
+    "Switch": "Switch",
+    "Switch to plan": "Switch to plan",
+    "Are you sure you would like to switch to this plan?": "Are you sure you would like to switch to this plan? Changes will be taken into account immediately."
 }
