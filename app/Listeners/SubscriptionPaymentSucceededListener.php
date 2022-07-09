@@ -21,6 +21,7 @@ class SubscriptionPaymentSucceededListener
         if (! $event->billable instanceof User) {
             return; // @codeCoverageIgnore
         }
+
         if (! $event->receipt instanceof Receipt) {
             return; // @codeCoverageIgnore
         }

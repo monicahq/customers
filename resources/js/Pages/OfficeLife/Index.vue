@@ -47,7 +47,7 @@ const doRefresh = () => {
         Inertia.reload({
             only: ['data'],
             onFinish: () => {
-                if (props.current_licence === '' || props.current_licence.subscription_state === 'subscription_cancelled') {
+                if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
                     (refresh.value)();
                 }
             },
@@ -84,9 +84,8 @@ const updatePlan = () => {
 };
 
 const subscribe = (planId) => {
-  const p = plan(planId);
   subscribeForm.transform(() => ({
-      quantity: p.quantity,
+      quantity: plan(planId).quantity,
   }))
   .post(route('officelife.create', { plan: planId }));
 };
