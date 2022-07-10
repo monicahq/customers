@@ -1,13 +1,27 @@
 import * as Sentry from '@sentry/vue';
 import { BrowserTracing } from "@sentry/tracing";
+import { createTransport } from '@sentry/core';
 import { Inertia } from '@inertiajs/inertia';
 
 let activated = false;
 
-const xsrfToken = () => {
-  const token = document.cookie.match(new RegExp('(^|;\\s*)(XSRF-TOKEN)=([^;]*)'));
-  return token ? decodeURIComponent(token[3]) : null;
-};
+const myTransport = (options) => {
+  function makeRequest(request) {
+    const requestOptions = {
+      data: request.body,
+      url: options.url,
+      method: 'POST',
+      referrerPolicy: 'origin',
+      headers: options.headers,
+      ...options.fetchOptions,
+    };
+    return axios(requestOptions).then(response => ({
+      statusCode: response.status,
+      headers: response.headers,
+    }));
+  }
+  return createTransport({ bufferSize: options.bufferSize }, makeRequest);
+}
 
 const install = (app, options) => {
   if (typeof SentryConfig !== 'undefined' && SentryConfig.dsn !== '') {
@@ -21,9 +35,7 @@ const install = (app, options) => {
       integrations: [
         SentryConfig.tracesSampleRate > 0 ? new BrowserTracing() : null,
       ],
-      transportOptions: {
-        headers: { 'X-XSRF-TOKEN': xsrfToken() },
-      },
+      transport: myTransport,
     });
     app.mixin(Sentry.createTracingMixins({ trackComponents: true }))
     activated = true;
