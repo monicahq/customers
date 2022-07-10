@@ -16,3 +16,5 @@ parameters:
           path: */Http/Controllers/DashboardController.php
         - message: '#Cannot call method parameter\(\) on object\|string\.#'
           path: */Actions/AttemptToAuthenticateSocialite.php
+        - message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\MorphMany::active\(\)\.#'
+          path: */Services/UpdateSubscription.php

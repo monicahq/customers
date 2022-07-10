@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services;
+namespace Tests\Unit\Helpers;
 
 use App\Helpers\Products;
 use App\Models\Plan;

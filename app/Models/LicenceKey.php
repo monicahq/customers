@@ -52,6 +52,7 @@ class LicenceKey extends Model
      */
     protected $visible = [
         'id',
+        'plan_id',
         'key',
         'paddle_cancel_url',
         'paddle_update_url',

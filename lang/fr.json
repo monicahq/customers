@@ -29,7 +29,7 @@
     "Enjoy!": "C’est parti !",
     "The licence key will automatically renew on :date.": "La clé de licence sera mise à jour automatiquement le :date.",
     "Update payment details": "Mettre à jour les informations de paiement",
-    "Stop": "Arrêter",
+    "Cancel subscription": "Arrêter la souscription",
     "☠️ You have cancelled your subscription.": "☠️ Vous avez annulé votre abonnement.",
     "You can always pick a new plan and start over, if you want.": "Vous pouvez toujours choisir un nouveau plan et reprendre l’abonnement, si vous le souhaitez.",
     "Choose": "Choisir",
@@ -67,6 +67,7 @@
     "Log Out Other Browser Sessions": "Déconnecter les autres sessions de navigation",
     "Done.": "Terminé.",
     "Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.": "Merci de renseigner votre mot de passe pour confirmer la demande de déconnexion de vos sessions de navigation sur tous vos appareils.",
+    "OK": "OK",
     "Cancel": "Annuler",
     "External connections": "Connexions externes",
     "Manage accounts you have linked to your Customers account.": "Gérer les comptes que vous avez connecté au portail client.",
@@ -185,5 +186,10 @@
     "week|:period weeks": "semaine|:period semaines",
     "month|:period months": "mois|:period mois",
     "year|:period years": "an|:period ans",
-    "Subscribe for :price": "S’abonner pour :price"
+    "Subscribe for :price": "S’abonner pour :price",
+    "Update quantity for :price": "Mettre à jour la quantité pour :price",
+    "Switch for :price": "Changer pour :price",
+    "Switch": "Changer",
+    "Switch to plan": "Changer de plan",
+    "Are you sure you would like to switch to this plan?": "Êtes-vous sûr⋅e de vouloir changer de plan ?"
 }
