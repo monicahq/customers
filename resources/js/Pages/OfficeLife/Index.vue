@@ -45,7 +45,7 @@ const plan = (id) => localPlans.value[localPlans.value.findIndex((x) => x.id ===
 const doRefresh = () => {
   if (usePage().component.value === 'OfficeLife/Index') {
     Inertia.reload({
-      only: ['data'],
+      only: ['current_licence'],
       onFinish: () => {
         if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
           (refresh.value)();
