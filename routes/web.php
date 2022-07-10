@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\UserAddressController;
+use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\Auth\SocialiteCallbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
