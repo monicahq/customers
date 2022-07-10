@@ -2,7 +2,6 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
-import { trans } from 'laravel-vue-i18n';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import MonicaLogo from '@/Layouts/MonicaLogo.vue';
 import LicenceDisplay from '@/Pages/Partials/LicenceDisplay.vue';
@@ -15,6 +14,7 @@ const props = defineProps({
     plans: Object,
     current_licence: Object,
     refresh: Boolean,
+    links: Object,
 });
 
 const refresh = ref(_.debounce(() => doRefresh(), 1000));
@@ -51,12 +51,6 @@ const doRefresh = () => {
     }
 };
 
-const paddle = () => {
-    return trans('Secure payment by <link>Paddle</link>')
-      .replace('<link>', '<a href="https://paddle.com" class="underline" rel="noopener noreferrer">')
-      .replace('</link>', '</a>');
-};
-
 const updatePlan = () => {
     updateForm.patch(route('monica.update'), {
         preserveScroll: true,
@@ -89,7 +83,7 @@ const subscribe = (planId) => {
         <!-- case: active subscription -->
         <template v-if="current_licence">
           <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
-            <LicenceDisplay :licence="current_licence" :url="'https://app.monicahq.com/settings/billing'">
+            <LicenceDisplay :licence="current_licence" :link="links.billing">
               <Plan v-if="currentPlan" :plan="currentPlan" />
             </LicenceDisplay>
           </div>
@@ -118,7 +112,7 @@ const subscribe = (planId) => {
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
-                <span v-html="paddle()"></span>
+                <span v-html="links.paddle"></span>
               </p>
             </div>
           </div>
@@ -132,7 +126,7 @@ const subscribe = (planId) => {
         <p class="text-gray-6 mt-8 mb-10">
           {{ $t('It might take a few seconds for your subscription to be processed.') }}
           {{ $t('Refresh this page once you’ve subscribed to see your licence key.') }}
-          {{ $t('If you experience issues after purchase, please contact us at support@monicahq.com.') }}
+          <span v-html="links.support"></span>
         </p>
 
       </div>

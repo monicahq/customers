@@ -6,7 +6,7 @@ import { Inertia } from '@inertiajs/inertia';
 let activated = false;
 
 const myTransport = (options) => {
-  function makeRequest(request) {
+  const makeRequest = async (request) => {
     const requestOptions = {
       data: request.body,
       url: options.url,
@@ -15,7 +15,7 @@ const myTransport = (options) => {
       headers: options.headers,
       ...options.fetchOptions,
     };
-    return axios(requestOptions).then(response => ({
+    return await axios(requestOptions).then(response => ({
       statusCode: response.status,
       headers: response.headers,
     }));
@@ -24,7 +24,7 @@ const myTransport = (options) => {
 }
 
 const install = (app, options) => {
-  if (typeof SentryConfig !== 'undefined' && SentryConfig.dsn !== '') {
+  if (typeof SentryConfig !== 'undefined' && SentryConfig.dsn !== null) {
     Sentry.init({
       dsn: SentryConfig.dsn,
       tunnel: '/sentry/tunnel',
