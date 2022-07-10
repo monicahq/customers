@@ -6,9 +6,7 @@ use App\Http\Controllers\Auth\SocialiteCallbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
 use App\Http\Controllers\OfficeLifeController;
-use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\Profile\UserTokenController;
-use App\Http\Controllers\TermsOfUseController;
 use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -23,9 +21,6 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 })->name('home');
-
-Route::get('terms-of-use', [TermsOfUseController::class, 'index'])->name('terms.show');
-Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('policy.show');
 
 Route::middleware(['throttle:oauth2-socialite'])->group(function () {
     Route::get('auth/{driver}', [SocialiteCallbackController::class, 'login'])->name('login.provider');
