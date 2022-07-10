@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'locale' => 'en',
             'remember_token' => Str::random(10),
             'company_name' => $this->faker->company(),
             'total_number_of_employees' => $this->faker->numberBetween(1, 100),
@@ -36,7 +37,7 @@ class UserFactory extends Factory
             'address_line_2' => $this->faker->streetAddress(),
             'city' => $this->faker->city(),
             'postal_code' => $this->faker->postcode(),
-            'country' => $this->faker->country(),
+            'country' => $this->faker->countryCode(),
             'state' => $this->faker->state(),
             'instance_administrator' => false,
         ];

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdministrationController;
+use App\Http\Controllers\Account\AccountController;
+use App\Http\Controllers\Account\UserAddressController;
 use App\Http\Controllers\Auth\SocialiteCallbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
@@ -32,14 +34,18 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // officelife
-    Route::get('/officelife', [OfficeLifeController::class, 'index'])->name('officelife.index');
-    Route::post('/officelife/{plan}/price', [OfficeLifeController::class, 'price'])->name('officelife.price');
+    Route::get('officelife', [OfficeLifeController::class, 'index'])->name('officelife.index');
+    Route::post('officelife/{plan}', [OfficeLifeController::class, 'create'])->name('officelife.create');
+    Route::post('officelife/{plan}/price', [OfficeLifeController::class, 'price'])->name('officelife.price');
+    Route::patch('officelife', [OfficeLifeController::class, 'update'])->name('officelife.update');
 
     // monica
-    Route::get('/monica', [MonicaController::class, 'index'])->name('monica.index');
+    Route::get('monica', [MonicaController::class, 'index'])->name('monica.index');
+    Route::post('monica/{plan}', [MonicaController::class, 'create'])->name('monica.create');
+    Route::patch('monica', [MonicaController::class, 'update'])->name('monica.update');
 
     Route::delete('', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
 
@@ -49,5 +55,7 @@ Route::middleware([
     });
 
     // User & Profile...
+    Route::get('user/account', [AccountController::class, 'show'])->name('account.show');
+    Route::patch('user/address', [UserAddressController::class, 'update'])->name('user-address.update');
     Route::delete('auth/{driver}', [UserTokenController::class, 'destroy'])->name('provider.delete');
 });

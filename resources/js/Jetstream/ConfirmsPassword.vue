@@ -100,7 +100,7 @@ const closeModal = () => {
 
             <template #footer>
                 <JetSecondaryButton @click="closeModal">
-                    Cancel
+                    {{ $t('Cancel') }}
                 </JetSecondaryButton>
 
                 <JetButton

@@ -27,7 +27,7 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Reset Password" />
+    <Head :title="$t('Reset Password')" />
 
     <JetAuthenticationCard>
         <template #logo>
@@ -75,7 +75,7 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Reset Password
+                    {{ $t('Reset Password') }}
                 </JetButton>
             </div>
         </form>

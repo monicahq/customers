@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 const path = require('path');
+require('laravel-vue-i18n/mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -20,10 +21,11 @@ mix.js('resources/js/app.js', 'public/js').vue()
     ])
     .alias({
       vue$: path.join(__dirname, 'node_modules/vue/dist/vue.esm-bundler.js'),
-      '@': 'resources/js',
+      '@': path.resolve('resources/js'),
     })
     .sourceMaps(process.env.MIX_PROD_SOURCE_MAPS || false, 'eval-cheap-module-source-map', 'source-map')
-    .setResourceRoot('../');
+    .setResourceRoot('../')
+    .i18n();
 
 if (mix.inProduction()) {
     mix.version();

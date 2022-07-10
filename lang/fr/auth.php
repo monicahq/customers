@@ -13,13 +13,13 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed'   => 'Ces identifiants ne correspondent pas à nos enregistrements.',
+    'password' => 'Le mot de passe fourni est incorrect.',
+    'throttle' => 'Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans :seconds secondes.',
 
-    'login_with' => 'Login with:',
     'login_provider_github' => 'GitHub',
     'login_provider_monica' => 'Monica',
     'login_provider_officelife' => 'OfficeLife',
-    'provider_already_used' => 'This provider is already associated with another account',
+
+    'lang' => 'Français',
 ];

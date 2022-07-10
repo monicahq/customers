@@ -19,7 +19,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 </script>
 
 <template>
-    <Head title="Email Verification" />
+    <Head :title="$t('Email Verification')" />
 
     <JetAuthenticationCard>
         <template #logo>
@@ -27,17 +27,17 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
         </template>
 
         <div class="mb-4 text-sm text-gray-600">
-            Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.
+            {{ $t('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn’t receive the email, we will gladly send you another.') }}
         </div>
 
         <div v-if="verificationLinkSent" class="mb-4 font-medium text-sm text-green-600">
-            A new verification link has been sent to the email address you provided during registration.
+            {{ $t('A new verification link has been sent to the email address you provided during registration.') }}
         </div>
 
         <form @submit.prevent="submit">
             <div class="mt-4 flex items-center justify-between">
                 <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Resend Verification Email
+                    {{ $t('Resend Verification Email') }}
                 </JetButton>
 
                 <Link
@@ -46,7 +46,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
                     as="button"
                     class="underline text-sm text-gray-600 hover:text-gray-900"
                 >
-                    Log Out
+                    {{ $t('Log Out') }}
                 </Link>
             </div>
         </form>

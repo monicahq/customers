@@ -15,9 +15,9 @@ class DashboardController extends Controller
         $receiptsCollection = $receipts->map(function (Receipt $receipt): array {
             return [
                 'id' => $receipt->id,
-                'amount' => $receipt->amount,
+                'amount' => $receipt->amount(),
                 'currency' => $receipt->currency,
-                'paid_at' => $receipt->paid_at->format('Y-m-d'),
+                'paid_at' => $receipt->paid_at->isoFormat('L'),
                 'receipt_url' => $receipt->receipt_url,
             ];
         });

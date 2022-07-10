@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
-
 return [
 
     /*
@@ -63,14 +61,9 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
+            'driver' => 'webauthn',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -122,6 +115,6 @@ return [
     |
     */
 
-    'login_providers' => Str::of(env('LOGIN_PROVIDERS'))->split('/\s*,\s*/', -1, PREG_SPLIT_NO_EMPTY),
+    'login_providers' => explode(',', env('LOGIN_PROVIDERS', '')),
 
 ];

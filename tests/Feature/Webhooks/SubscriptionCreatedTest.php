@@ -19,7 +19,6 @@ class SubscriptionCreatedTest extends TestCase
             'email' => 'regis@monicahq.com',
         ]);
         $plan = Plan::factory()->create([
-            'frequency' => Plan::TYPE_MONTHLY,
             'plan_id_on_paddle' => 1,
         ]);
 
@@ -47,7 +46,6 @@ class SubscriptionCreatedTest extends TestCase
             'email' => 'regis@monicahq.com',
         ]);
         $plan = Plan::factory()->create([
-            'frequency' => Plan::TYPE_MONTHLY,
             'plan_id_on_paddle' => 1,
         ]);
 
