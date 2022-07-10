@@ -30,7 +30,6 @@ return [
 
     'fallback_country' => 'US',
 
-
     /*
     |--------------------------------------------------------------------------
     | Monica and OfficeLife billing links

@@ -11,9 +11,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Paddle\Cashier;
 use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
+use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
                     'nofollow' => '',
                     'noopener' => 'external',
                     'noreferrer' => 'external',
-                ]
+                ],
             ];
             $environment = new Environment($config);
             $environment->addExtension(new CommonMarkCoreExtension());
