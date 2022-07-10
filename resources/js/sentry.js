@@ -24,7 +24,7 @@ const myTransport = (options) => {
 }
 
 const install = (app, options) => {
-  if (typeof SentryConfig !== 'undefined' && SentryConfig.dsn !== '') {
+  if (typeof SentryConfig !== 'undefined' && SentryConfig.dsn !== null) {
     Sentry.init({
       dsn: SentryConfig.dsn,
       tunnel: '/sentry/tunnel',
