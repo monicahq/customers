@@ -21,7 +21,7 @@ defineProps({
         </JetSectionTitle>
 
         <div class="mt-5 md:mt-0 md:col-span-2">
-            <div class="px-4 py-5 sm:p-6 shadow sm:rounded-lg" :class="danger ? ['border-red-600 bg-red-50'] : ['bg-white']">
+            <div class="px-4 py-5 sm:p-6 shadow sm:rounded-lg" :class="danger ? ['border-red-600 dark:border-red-400 bg-red-50 dark:bg-red-900'] : ['bg-white dark:bg-gray-900']">
                 <slot name="content" />
             </div>
         </div>
