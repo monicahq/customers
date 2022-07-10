@@ -18,7 +18,7 @@
         @routes
         <script src="{{ asset(mix('js/app.js')) }}" defer></script>
         @inertiaHead
-        @paddleJS
+        {{-- @paddleJS --}}
 
         @if (app()->bound('sentry'))
         <script>
