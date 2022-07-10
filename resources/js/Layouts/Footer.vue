@@ -1,5 +1,5 @@
 <template>
-    <footer class="text-xs text-center mb-8 mt-4">
+    <footer class="text-xs text-center mb-8 mt-4 dark:text-gray-100">
         <div class="mb-2">
           {{ $t('Monica. All rights reserved. 2017 — :date.', { date: (new Date).getFullYear() }) }}
           {{ $t('Made from all over the world. We ❤️ you.') }}

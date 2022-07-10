@@ -31,11 +31,11 @@ defineProps({
     <AppLayout title="Home">
         <div class="sm:mt-18 relative">
           <div class="mx-auto max-w-4xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
-            <h2 class="text-center mb-8 text-lg">{{ $t('Please choose a product first.') }}</h2>
+            <h2 class="text-center mb-8 text-lg dark:text-gray-100">{{ $t('Please choose a product first.') }}</h2>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-10">
               <!-- left -->
-              <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:max-w-md sm:rounded-lg">
+              <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md sm:max-w-md sm:rounded-lg">
 
                 <OfficeLifeLogo />
 
@@ -46,7 +46,7 @@ defineProps({
               </div>
 
               <!-- right -->
-              <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:max-w-md sm:rounded-lg">
+              <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md sm:max-w-md sm:rounded-lg">
 
                 <MonicaLogo />
 
@@ -58,7 +58,7 @@ defineProps({
             </div>
 
             <div v-if="receipts.length > 0">
-              <p class="mb-4">{{ $t('All the receipts for all your subscriptions') }}</p>
+              <p class="mb-4 dark:text-gray-200">{{ $t('All the receipts for all your subscriptions') }}</p>
 
               <ul class="mb-12 rounded-lg border border-gray-200 bg-white">
                 <li v-for="receipt in receipts" :key="receipt.id" class="flex justify-between item-list border-b border-gray-200 px-5 py-2 hover:bg-slate-50">
