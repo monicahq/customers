@@ -29,7 +29,6 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('state')->nullable();
             $table->string('invoice_comment')->nullable();
-            $table->boolean('instance_administrator')->default(false);
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->timestamps();

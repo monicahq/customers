@@ -95,7 +95,9 @@ const logout = () => {
                                             {{ $t('Settings') }}
                                         </JetDropdownLink>
 
-                                        <JetDropdownLink v-if="$page.props.user.instance_administrator" :href="route('administration.index')">Administration</JetDropdownLink>
+                                        <JetDropdownLink v-if="$page.props.user.instance_administrator" :href="route('administration.index')">
+                                          Administration
+                                        </JetDropdownLink>
 
                                         <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
                                             {{ $t('API Tokens') }}
@@ -183,6 +185,10 @@ const logout = () => {
 
                             <JetResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
                                 {{ $t('Settings') }}
+                            </JetResponsiveNavLink>
+
+                            <JetResponsiveNavLink v-if="$page.props.user.instance_administrator" :href="route('administration.index')" :active="route().current('administration.index')">
+                              Administration
                             </JetResponsiveNavLink>
 
                             <JetResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">

@@ -1,5 +1,10 @@
-Index.vue<style lang="scss" scoped>
-</style>
+<script setup>
+import AppLayout from '@/Layouts/AppLayout.vue';
+
+defineProps({
+  user: Object,
+});
+</script>
 
 <template>
   <AppLayout title="Administration">
@@ -34,8 +39,12 @@ Index.vue<style lang="scss" scoped>
           <!-- name -->
           <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
             <div>
-              <h3 class="text-lg leading-6 font-medium text-gray-900">Regis Freyd</h3>
-              <p class="mt-1 max-w-2xl text-sm text-gray-500">Active since 2022-03-03.</p>
+              <h3 class="text-lg leading-6 font-medium text-gray-900">
+                {{ user.name }}
+              </h3>
+              <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                {{ $t('Active since :date.', { date: user.created_at }) }}
+              </p>
             </div>
 
             <div class="flex">
@@ -75,11 +84,15 @@ Index.vue<style lang="scss" scoped>
             <dl>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">Full name</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Margot Foster</dd>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{ user.name }}
+                </dd>
               </div>
               <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">Email address</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">margotfoster@example.com</dd>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{ user.email }}
+                </dd>
               </div>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">OfficeLife subscription</dt>
@@ -123,26 +136,3 @@ Index.vue<style lang="scss" scoped>
     </main>
   </AppLayout>
 </template>
-
-<script>
-import AppLayout from '@/Layouts/AppLayout.vue';
-
-export default {
-  components: {
-    AppLayout,
-  },
-
-  props: {
-    data: {
-      type: Object,
-      default: null,
-    },
-  },
-
-  data() {
-    return {
-      licenceKey: 'blabla',
-    };
-  },
-};
-</script>

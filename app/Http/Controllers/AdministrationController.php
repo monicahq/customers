@@ -2,36 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class AdministrationController extends Controller
 {
     public function index(Request $request)
     {
-        $usersCollection = User::get()->map(function (User $user): array {
-            return [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'url' => [
-                    'show' => route('administration.user.show', [
-                        'user' => $user->id,
-                    ]),
-                ],
-            ];
-        });
+        if (! Gate::allows('administration')) {
+            abort(403);
+        }
+
+        $usersCollection = UserResource::collection(User::paginate(20));
 
         return Inertia::render('Administration/Index', [
-            'data' => [
-                'users' => $usersCollection,
-            ],
+            'users' => $usersCollection,
         ]);
     }
 
-    public function show(Request $request, int $userId)
+    public function show(Request $request, User $user)
     {
-        return Inertia::render('Administration/Show');
+        if (! Gate::allows('administration')) {
+            abort(403);
+        }
+
+        JsonResource::withoutWrapping();
+
+        return Inertia::render('Administration/Show', [
+            'user' => new UserResource($user),
+        ]);
     }
 }

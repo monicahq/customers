@@ -119,4 +119,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(WebauthnKey::class);
     }
+
+    /**
+     * Get the created at date formatted.
+     *
+     * @return string|null
+     */
+    public function getCreatedAtFormattedAttribute(): ?string
+    {
+        return $this->created_at->isoFormat('LL');
+    }
 }

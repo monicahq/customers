@@ -40,8 +40,5 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('administration', function (User $user) {
             return $user->instance_administrator === true;
         });
-        Gate::define('administration/{user}', function (User $user) {
-            return $user->instance_administrator === true;
-        });
     }
 }

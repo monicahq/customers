@@ -1,5 +1,11 @@
-Index.vue<style lang="scss" scoped>
-</style>
+<script setup>
+import { Link } from '@inertiajs/inertia-vue3';
+import AppLayout from '@/Layouts/AppLayout.vue';
+
+defineProps({
+    users: Object,
+});
+</script>
 
 <template>
   <AppLayout title="Administration">
@@ -26,35 +32,37 @@ Index.vue<style lang="scss" scoped>
         <!-- stats -->
         <div class="grid grid-cols-3 gap-4 mb-10">
           <div class="shadow-md sm:rounded-lg bg-gray-50 dark:bg-gray-700 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 ml-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 ml-5 text-gray-400 dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
 
             <div class="pl-3 pt-5 pb-5 pr-5">
-              <p class="text-sm text-gray-500 font-medium">Total number of accounts</p>
-              <h2 class="text-xl">2 342</h2>
+              <p class="text-sm text-gray-500 dark:text-gray-100 font-medium">Total number of accounts</p>
+              <h2 class="text-xl dark:text-gray-400">
+                {{ users.meta.total }}
+              </h2>
             </div>
           </div>
 
           <div class="shadow-md sm:rounded-lg bg-gray-50 dark:bg-gray-700 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 ml-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 ml-5 text-gray-400 dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
 
             <div class="pl-3 pt-5 pb-5 pr-5">
-              <p class="text-sm text-gray-500 font-medium">New accounts last week</p>
-              <h2 class="text-xl">123</h2>
+              <p class="text-sm text-gray-500 dark:text-gray-100 font-medium">New accounts last week</p>
+              <h2 class="text-xl dark:text-gray-400">123</h2>
             </div>
           </div>
 
           <div class="shadow-md sm:rounded-lg bg-gray-50 dark:bg-gray-700 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 ml-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 ml-5 text-gray-400 dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
             </svg>
 
             <div class="pl-3 pt-5 pb-5 pr-5">
-              <p class="text-sm text-gray-500 font-medium">New accounts last month</p>
-              <h2 class="text-xl">123</h2>
+              <p class="text-sm text-gray-500 dark:text-gray-100 font-medium">New accounts last month</p>
+              <h2 class="text-xl dark:text-gray-400">123</h2>
             </div>
           </div>
         </div>
@@ -68,10 +76,7 @@ Index.vue<style lang="scss" scoped>
                   ID
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  First name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Last name
+                  Name
                 </th>
                 <th scope="col" class="px-6 py-3">
                   Email address
@@ -85,24 +90,23 @@ Index.vue<style lang="scss" scoped>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in data.users" :key="user.id" class="border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+              <tr v-for="user in users.data" :key="user.id" class="border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                 <td class="px-6 py-4">
-                  23
+                  {{ user.id }}
                 </td>
                 <td class="px-6 py-4">
-                  Regis
-                </td>
-                <td class="px-6 py-4">
-                  Freyd
+                  {{ user.name }}
                 </td>
                 <td class="px-6 py-4">
                   {{ user.email }}
                 </td>
                 <td class="px-6 py-4">
-                  2022-04-01
+                  {{ user.created_at }}
                 </td>
                 <td class="px-6 py-4">
-                  <Link :href="user.url.show" class="text-indigo-600 hover:text-indigo-500">View</Link>
+                  <Link :href="route('administration.user.show', { user: user.id })" class="text-indigo-600 hover:text-indigo-500">
+                    View
+                  </Link>
                 </td>
               </tr>
             </tbody>
@@ -112,22 +116,3 @@ Index.vue<style lang="scss" scoped>
     </main>
   </AppLayout>
 </template>
-
-<script>
-import AppLayout from '@/Layouts/AppLayout.vue';
-import { Link } from '@inertiajs/inertia-vue3';
-
-export default {
-  components: {
-    AppLayout,
-    Link,
-  },
-
-  props: {
-    data: {
-      type: Object,
-      default: null,
-    },
-  }
-};
-</script>
