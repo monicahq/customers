@@ -31,7 +31,9 @@ defineProps({
     <AppLayout title="Home">
         <div class="sm:mt-18 relative">
           <div class="mx-auto max-w-4xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
-            <h2 class="text-center mb-8 text-lg dark:text-gray-100">{{ $t('Please choose a product first.') }}</h2>
+            <h2 class="text-center mb-8 text-lg dark:text-gray-100">
+              {{ $t('Please choose a product first.') }}
+            </h2>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-10">
               <!-- left -->

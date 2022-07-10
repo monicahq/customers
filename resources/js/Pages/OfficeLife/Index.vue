@@ -6,15 +6,15 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import OfficeLifeLogo from '@/Layouts/OfficeLifeLogo.vue';
 import LicenceDisplay from '@/Pages/Partials/LicenceDisplay.vue';
 import Plan from '@/Pages/Partials/Plan.vue';
-import JetButton from '@/Jetstream/Button.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+import JetButton from '@/Jetstream/Button.vue';
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue';
 
 const props = defineProps({
-    plans: Object,
-    current_licence: Object,
-    refresh: Boolean,
-    links: Object,
+  plans: Object,
+  current_licence: Object,
+  refresh: Boolean,
+  links: Object,
 });
 
 const localPlans = ref([]);
@@ -27,14 +27,14 @@ const subscribeForm = useForm({
 });
 
 onMounted(() => {
-    localPlans.value = props.plans;
-    if (props.refresh) {
-        (refresh.value)();
-    }
+  localPlans.value = props.plans;
+  if (props.refresh) {
+    (refresh.value)();
+  }
 });
 
 onUnmounted(() => {
-    refresh.value.cancel();
+  refresh.value.cancel();
 });
 
 const currentPlan = computed(() => props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled' ? null : plan(props.current_licence.plan_id));
@@ -43,45 +43,45 @@ const newPlan = computed(() => plan(updateForm.plan_id));
 const plan = (id) => localPlans.value[localPlans.value.findIndex((x) => x.id === id)];
 
 const doRefresh = () => {
-    if (usePage().component.value === 'OfficeLife/Index') {
-        Inertia.reload({
-            only: ['current_licence'],
-            onFinish: () => {
-                if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
-                    (refresh.value)();
-                }
-            },
-        });
-    }
+  if (usePage().component.value === 'OfficeLife/Index') {
+    Inertia.reload({
+      only: ['current_licence'],
+      onFinish: () => {
+        if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
+          (refresh.value)();
+        }
+      },
+    });
+  }
 };
 
 const checkPrice = (pplan) => {
-    axios.post(route('officelife.price', { plan: pplan.id }), { quantity: pplan.quantity })
-        .then((response) => {
-          const lplan = plan(pplan.id);
-          lplan['price'] = response.data.price;
-        });
+  axios.post(route('officelife.price', { plan: pplan.id }), { quantity: pplan.quantity })
+    .then((response) => {
+      const lplan = plan(pplan.id);
+      lplan['price'] = response.data.price;
+    });
 };
 
 const updatePlan = () => {
-    updateForm.transform((data) => ({
-        ...data,
-        quantity: newPlan.quantity,
-    }))
+  updateForm.transform((data) => ({
+    ...data,
+    quantity: newPlan.value.quantity,
+  }))
     .patch(route('officelife.update'), {
-        preserveScroll: true,
-        onFinish: () => {
-          updateForm.reset();
-          updateForm.plan_id = null;
-        }
+      preserveScroll: true,
+      onFinish: () => {
+        updateForm.reset();
+        updateForm.plan_id = null;
+      }
     });
 };
 
 const subscribe = (planId) => {
   subscribeForm.transform(() => ({
-      quantity: plan(planId).quantity,
+    quantity: plan(planId).quantity,
   }))
-  .post(route('officelife.create', { plan: planId }));
+    .post(route('officelife.create', { plan: planId }));
 };
 
 </script>

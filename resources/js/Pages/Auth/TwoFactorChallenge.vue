@@ -12,35 +12,35 @@ import WebauthnLogin from '@/Pages/Webauthn/WebauthnLogin.vue';
 const recovery = ref(false);
 
 const form = useForm({
-    code: '',
-    recovery_code: '',
+  code: '',
+  recovery_code: '',
 });
 
 const recoveryCodeInput = ref(null);
 const codeInput = ref(null);
 
 const toggleRecovery = async () => {
-    recovery.value ^= true;
+  recovery.value ^= true;
 
-    await nextTick();
+  await nextTick();
 
-    if (recovery.value) {
-        recoveryCodeInput.value.focus();
-        form.code = '';
-    } else {
-        codeInput.value.focus();
-        form.recovery_code = '';
-    }
+  if (recovery.value) {
+    recoveryCodeInput.value.focus();
+    form.code = '';
+  } else {
+    codeInput.value.focus();
+    form.recovery_code = '';
+  }
 };
 
 const submit = () => {
-    form.post(route('two-factor.login'));
+  form.post(route('two-factor.login'));
 };
 
 defineProps({
-    two_factor: Boolean,
-    remember: Boolean,
-    publicKey: Object,
+  two_factor: Boolean,
+  remember: Boolean,
+  publicKey: Object,
 });
 </script>
 

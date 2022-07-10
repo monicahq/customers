@@ -9,19 +9,19 @@ import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 const form = useForm({
-    password: '',
+  password: '',
 });
 
 const passwordInput = ref(null);
 
 const submit = () => {
-    form.post(route('password.confirm'), {
-        onFinish: () => {
-            form.reset();
+  form.post(route('password.confirm'), {
+    onFinish: () => {
+      form.reset();
 
-            passwordInput.value.focus();
-        },
-    });
+      passwordInput.value.focus();
+    },
+  });
 };
 </script>
 

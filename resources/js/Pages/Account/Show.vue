@@ -5,7 +5,7 @@ import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfile
 import UpdateAddressForm from './Partials/UpdateAddressForm.vue';
 
 defineProps({
-    countries: Array,
+  countries: Array,
 });
 
 </script>

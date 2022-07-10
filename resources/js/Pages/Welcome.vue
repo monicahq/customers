@@ -4,10 +4,10 @@ import JetApplicationLogo from '@/Jetstream/ApplicationLogo.vue';
 import Footer from '@/Layouts/Footer.vue';
 
 defineProps({
-    canLogin: Boolean,
-    canRegister: Boolean,
-    laravelVersion: String,
-    phpVersion: String,
+  canLogin: Boolean,
+  canRegister: Boolean,
+  laravelVersion: String,
+  phpVersion: String,
 });
 </script>
 
@@ -38,7 +38,9 @@ defineProps({
                   <!-- left -->
                   <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden px-6 py-6 sm:max-w-md dark:bg-gray-700 dark:text-gray-200">
 
-                    <h2 class="text-2xl mb-4">{{ $t('Welcome to the Monica and OfficeLife customer portal!') }}</h2>
+                    <h2 class="text-2xl mb-4">
+                      {{ $t('Welcome to the Monica and OfficeLife customer portal!') }}
+                    </h2>
 
                     <p>{{ $t('Here you can purchase and manage your subscriptions with ease.') }}</p>
 

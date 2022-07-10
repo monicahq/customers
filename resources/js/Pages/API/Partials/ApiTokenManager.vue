@@ -16,18 +16,18 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue';
 
 const props = defineProps({
-    tokens: Array,
-    availablePermissions: Array,
-    defaultPermissions: Array,
+  tokens: Array,
+  availablePermissions: Array,
+  defaultPermissions: Array,
 });
 
 const createApiTokenForm = useForm({
-    name: '',
-    permissions: props.defaultPermissions,
+  name: '',
+  permissions: props.defaultPermissions,
 });
 
 const updateApiTokenForm = useForm({
-    permissions: [],
+  permissions: [],
 });
 
 const deleteApiTokenForm = useForm();
@@ -37,38 +37,38 @@ const managingPermissionsFor = ref(null);
 const apiTokenBeingDeleted = ref(null);
 
 const createApiToken = () => {
-    createApiTokenForm.post(route('api-tokens.store'), {
-        preserveScroll: true,
-        onSuccess: () => {
-            displayingToken.value = true;
-            createApiTokenForm.reset();
-        },
-    });
+  createApiTokenForm.post(route('api-tokens.store'), {
+    preserveScroll: true,
+    onSuccess: () => {
+      displayingToken.value = true;
+      createApiTokenForm.reset();
+    },
+  });
 };
 
 const manageApiTokenPermissions = (token) => {
-    updateApiTokenForm.permissions = token.abilities;
-    managingPermissionsFor.value = token;
+  updateApiTokenForm.permissions = token.abilities;
+  managingPermissionsFor.value = token;
 };
 
 const updateApiToken = () => {
-    updateApiTokenForm.put(route('api-tokens.update', managingPermissionsFor.value), {
-        preserveScroll: true,
-        preserveState: true,
-        onSuccess: () => (managingPermissionsFor.value = null),
-    });
+  updateApiTokenForm.put(route('api-tokens.update', managingPermissionsFor.value), {
+    preserveScroll: true,
+    preserveState: true,
+    onSuccess: () => (managingPermissionsFor.value = null),
+  });
 };
 
 const confirmApiTokenDeletion = (token) => {
-    apiTokenBeingDeleted.value = token;
+  apiTokenBeingDeleted.value = token;
 };
 
 const deleteApiToken = () => {
-    deleteApiTokenForm.delete(route('api-tokens.destroy', apiTokenBeingDeleted.value), {
-        preserveScroll: true,
-        preserveState: true,
-        onSuccess: () => (apiTokenBeingDeleted.value = null),
-    });
+  deleteApiTokenForm.delete(route('api-tokens.destroy', apiTokenBeingDeleted.value), {
+    preserveScroll: true,
+    preserveState: true,
+    onSuccess: () => (apiTokenBeingDeleted.value = null),
+  });
 };
 </script>
 
@@ -106,7 +106,9 @@ const deleteApiToken = () => {
                         <div v-for="permission in availablePermissions" :key="permission">
                             <label class="flex items-center">
                                 <JetCheckbox v-model:checked="createApiTokenForm.permissions" :value="permission" />
-                                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ permission }}</span>
+                                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                                  {{ permission }}
+                                </span>
                             </label>
                         </div>
                     </div>
@@ -204,7 +206,9 @@ const deleteApiToken = () => {
                     <div v-for="permission in availablePermissions" :key="permission">
                         <label class="flex items-center">
                             <JetCheckbox v-model:checked="updateApiTokenForm.permissions" :value="permission" />
-                            <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ permission }}</span>
+                            <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                              {{ permission }}
+                            </span>
                         </label>
                     </div>
                 </div>

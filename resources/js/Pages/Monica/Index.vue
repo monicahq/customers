@@ -6,15 +6,15 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import MonicaLogo from '@/Layouts/MonicaLogo.vue';
 import LicenceDisplay from '@/Pages/Partials/LicenceDisplay.vue';
 import Plan from '@/Pages/Partials/Plan.vue';
-import JetButton from '@/Jetstream/Button.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+import JetButton from '@/Jetstream/Button.vue';
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue';
 
 const props = defineProps({
-    plans: Object,
-    current_licence: Object,
-    refresh: Boolean,
-    links: Object,
+  plans: Object,
+  current_licence: Object,
+  refresh: Boolean,
+  links: Object,
 });
 
 const refresh = ref(_.debounce(() => doRefresh(), 1000));
@@ -24,13 +24,13 @@ const updateForm = useForm({
 const subscribeForm = useForm();
 
 onMounted(() => {
-    if (props.refresh) {
-        (refresh.value)();
-    }
+  if (props.refresh) {
+    (refresh.value)();
+  }
 });
 
 onUnmounted(() => {
-    refresh.value.cancel();
+  refresh.value.cancel();
 });
 
 const currentPlan = computed(() => props.current_licence === null ? null : plan(props.current_licence.plan_id));
@@ -39,26 +39,26 @@ const newPlan = computed(() => plan(updateForm.plan_id));
 const plan = (id) => props.plans[props.plans.findIndex((x) => x.id === id)];
 
 const doRefresh = () => {
-    if (usePage().component.value === 'Monica/Index') {
-        Inertia.reload({
-            only: ['current_licence'],
-            onFinish: () => {
-                if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
-                    (refresh.value)();
-                }
-            },
-        });
-    }
+  if (usePage().component.value === 'Monica/Index') {
+    Inertia.reload({
+      only: ['current_licence'],
+      onFinish: () => {
+        if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
+          (refresh.value)();
+        }
+      },
+    });
+  }
 };
 
 const updatePlan = () => {
-    updateForm.patch(route('monica.update'), {
-        preserveScroll: true,
-        onFinish: () => {
-          updateForm.reset();
-          updateForm.plan_id = null;
-        }
-    });
+  updateForm.patch(route('monica.update'), {
+    preserveScroll: true,
+    onFinish: () => {
+      updateForm.reset();
+      updateForm.plan_id = null;
+    }
+  });
 };
 
 const subscribe = (planId) => {

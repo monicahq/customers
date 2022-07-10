@@ -1,19 +1,19 @@
 <script setup>
 import { ref, watch, nextTick } from 'vue';
 import { useForm } from '@inertiajs/inertia-vue3';
-import JetLabel from '@/Jetstream/Label.vue'
-import JetInput from '@/Jetstream/Input.vue'
-import JetInputError from '@/Jetstream/InputError.vue'
-import JetButton from '@/Jetstream/Button.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+import JetLabel from '@/Jetstream/Label.vue';
+import JetInput from '@/Jetstream/Input.vue';
+import JetInputError from '@/Jetstream/InputError.vue';
+import JetButton from '@/Jetstream/Button.vue';
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 
 const form = useForm({
-    name: '',
+  name: '',
 });
 
 const props = defineProps({
-    keyid: Number,
-    nameUpdate: String,
+  keyid: Number,
+  nameUpdate: String,
 });
 
 const emit = defineEmits(['close']);
@@ -21,21 +21,21 @@ const emit = defineEmits(['close']);
 const nameInput = ref(null);
 
 const updateKey = () => {
-    form.put(route('webauthn.update', props.keyid), {
-        preserveScroll: true,
-        preserveState: true,
-        onSuccess: () => {
-            form.reset();
-            nextTick().then(() => emit('close'));
-        },
-    })
+  form.put(route('webauthn.update', props.keyid), {
+    preserveScroll: true,
+    preserveState: true,
+    onSuccess: () => {
+      form.reset();
+      nextTick().then(() => emit('close'));
+    },
+  });
 };
 
 watch(() => props.nameUpdate, (value) => {
-    form.name = value;
-    setTimeout(() => nameInput.value ? nameInput.value.focus() : null, 200);
+  form.name = value;
+  setTimeout(() => nameInput.value ? nameInput.value.focus() : null, 200);
 }, {
-    immediate: true
+  immediate: true
 });
 </script>
 

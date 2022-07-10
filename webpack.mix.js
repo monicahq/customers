@@ -14,19 +14,19 @@ require('laravel-vue-i18n/mix');
  */
 
 mix.js('resources/js/app.js', 'public/js').vue()
-    .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
-        require('tailwindcss'),
-        require('autoprefixer'),
-    ])
-    .alias({
-      vue$: path.join(__dirname, 'node_modules/vue/dist/vue.esm-bundler.js'),
-      '@': path.resolve('resources/js'),
-    })
-    .sourceMaps(process.env.MIX_PROD_SOURCE_MAPS || false, 'eval-cheap-module-source-map', 'source-map')
-    .setResourceRoot('../')
-    .i18n();
+  .postCss('resources/css/app.css', 'public/css', [
+    require('postcss-import'),
+    require('tailwindcss'),
+    require('autoprefixer'),
+  ])
+  .alias({
+    vue$: path.join(__dirname, 'node_modules/vue/dist/vue.esm-bundler.js'),
+    '@': path.resolve('resources/js'),
+  })
+  .sourceMaps(process.env.MIX_PROD_SOURCE_MAPS || false, 'eval-cheap-module-source-map', 'source-map')
+  .setResourceRoot('../')
+  .i18n();
 
 if (mix.inProduction()) {
-    mix.version();
+  mix.version();
 }
