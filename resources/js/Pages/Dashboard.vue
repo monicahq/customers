@@ -58,7 +58,7 @@ defineProps({
             </div>
 
             <div v-if="receipts.length > 0">
-              <p class="mb-4">{{ $t('All the receipts for all your subscriptions') }}</p>
+              <p class="mb-4 dark:text-gray-200">{{ $t('All the receipts for all your subscriptions') }}</p>
 
               <ul class="mb-12 rounded-lg border border-gray-200 bg-white">
                 <li v-for="receipt in receipts" :key="receipt.id" class="flex justify-between item-list border-b border-gray-200 px-5 py-2 hover:bg-slate-50">
