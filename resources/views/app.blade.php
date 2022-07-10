@@ -21,7 +21,7 @@
         @inertiaHead
         {{-- @paddleJS --}}
 
-        @if (app()->bound('sentry'))
+        @if (app()->bound('sentry') && config('sentry.dsn') !== null)
         <script>
           const SentryConfig = {!! \json_encode([
             'dsn' => config('sentry.dsn'),
