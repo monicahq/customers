@@ -21,6 +21,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Build assets
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      release: ${{ steps.version.outputs.release }}
 
     strategy:
       fail-fast: false
@@ -169,8 +172,9 @@ jobs:
 
       - name: Create release files
         run: |
-          echo $GITHUB_SHA | cut -c-8 > config/release
-          echo $GITHUB_SHA > config/commit
+          echo ${{ needs.build.outputs.version }} | tee config/.version
+          echo ${{ needs.build.outputs.release }} | tee config/.release
+          echo $GITHUB_SHA | tee config/.commit
 
       - name: Update .htaccess
         run: cp -f resources/.htaccess_production public/.htaccess
@@ -195,35 +199,38 @@ jobs:
   ############################
   # Create a release on sentry
   ############################
-  # sentry:
-  #   runs-on: ubuntu-latest
-  #   name: Sentry release
-  #   needs: deploy
-  #   if: github.event_name != 'pull_request'
+  sentry:
+    runs-on: ubuntu-latest
+    name: Sentry release
+    needs: build
+    if: github.event_name != 'pull_request'
 
-  #   environment: fortrabbit-sentry
+    environment: fortrabbit-sentry
 
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-  #     - name: Download assets
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: assets
-  #         path: public
+      - name: Download assets
+        uses: actions/download-artifact@v3
+        with:
+          name: assets
+          path: public
 
-  #     - name: Download source maps
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: sourcemaps
-  #         path: public
+      - name: Download source maps
+        uses: actions/download-artifact@v3
+        with:
+          name: sourcemaps
+          path: public
 
-  #     - name: Create Sentry release
-  #       uses: getsentry/action-release@v1
-  #       env:
-  #         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-  #         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-  #         SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-  #       with:
-  #         environment: ${{ secrets.SENTRY_ENVIRONMENT }}
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: ${{ secrets.SENTRY_ENVIRONMENT }}
+          sourcemaps: public/js/app.js public/js/app.js.map
+          version: ${{ needs.build.outputs.release }}
+          url_prefix: ~/js

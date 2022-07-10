@@ -4,6 +4,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Version of the application
+    |--------------------------------------------------------------------------
+    |
+    | This value returns the current version of the application.
+    |
+    */
+
+    'app_version' => is_file(__DIR__.'/.version') ? file_get_contents(__DIR__.'/.version') : (is_dir(__DIR__.'/../.git') ? trim(exec('git --git-dir '.base_path('.git').' describe --abbrev=0 --tags')) : ''),
+
+    /*
+    |--------------------------------------------------------------------------
     | Private key to encrypt data
     |--------------------------------------------------------------------------
     |
@@ -30,4 +41,14 @@ return [
 
     'fallback_country' => 'US',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Monica and OfficeLife billing links
+    |--------------------------------------------------------------------------
+    */
+
+    'billing_links' => [
+        'monica' => 'https://app.monicahq.com/settings/billing',
+        'officelife' => 'https://app.officelife.io/settings/billing',
+    ],
 ];

@@ -5,9 +5,9 @@ import useClipboard from 'vue-clipboard3';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 
-const props = defineProps({
+defineProps({
     licence: Object,
-    url: String,
+    link: String,
 });
 
 const licenceInput = ref(null);
@@ -28,20 +28,15 @@ const copyIntoClipboard = async (text) => {
         }, 2000);
     });
 };
-
-const link = (href) => {
-    return trans('Go to <link>:link</link>', { link: href })
-      .replace('<link>', `<a href="${href}" class="underline" rel="noopener noreferrer">`)
-      .replace('</link>', '</a>');
-};
-
 </script>
 
 <template>
   <div>
-    <p class="mb-6 text-center">{{ $t('🎉 You have an active subscription.') }}</p>
+    <p class="mb-4 text-center">{{ $t('🎉 You have an active subscription.') }}</p>
 
-    <p class="mb-4">
+    <slot />
+
+    <p class="mb-4 mt-4">
       <div class="flex">
         <p class="flex-auto">
           {{ $t('This is your licence key:') }}
@@ -64,7 +59,7 @@ const link = (href) => {
       <div>
         <p class="font-bold mb-2">{{ $t('How to use your key:') }}</p>
         <ul class="ml-4">
-          <li><span class="text-blue-500">1. </span>  <span v-html="link(url)"></span></li>
+          <li><span class="text-blue-500">1. </span>  <span v-html="link"></span></li>
           <li><span class="text-blue-500">2. </span>  {{ $t('Locate the Licence key section') }}</li>
           <li><span class="text-blue-500">3. </span>  {{ $t('Paste the licence key shown above.') }}</li>
           <li><span class="text-blue-500">4. </span>  {{ $t('Enjoy!') }}</li>
@@ -94,7 +89,7 @@ const link = (href) => {
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
         </svg>
 
-        {{ $t('Stop') }}
+        {{ $t('Cancel subscription') }}
       </a>
     </p>
   </div>

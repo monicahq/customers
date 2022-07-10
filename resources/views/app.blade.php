@@ -18,7 +18,18 @@
         @routes
         <script src="{{ asset(mix('js/app.js')) }}" defer></script>
         @inertiaHead
-        @paddleJS
+        {{-- @paddleJS --}}
+
+        @if (app()->bound('sentry') && config('sentry.dsn') !== null)
+        <script>
+          const SentryConfig = {!! \json_encode([
+            'dsn' => config('sentry.dsn'),
+            'environment' => config('sentry.environment'),
+            'sendDefaultPii' => config('sentry.send_default_pii'),
+            'tracesSampleRate' => config('sentry.traces_sample_rate'),
+          ]); !!}
+        </script>
+        @endif
     </head>
     <body class="font-sans antialiased bg-gray-50">
         @inertia

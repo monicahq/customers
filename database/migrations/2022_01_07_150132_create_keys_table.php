@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('friendly_name', 512);
             $table->string('description', 1024);
             $table->string('plan_name', 128);
-            $table->string('plan_id_on_paddle', 64);
+            $table->unsignedBigInteger('plan_id_on_paddle');
             $table->timestamps();
         });
 
