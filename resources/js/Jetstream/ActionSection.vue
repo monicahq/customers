@@ -2,10 +2,10 @@
 import JetSectionTitle from './SectionTitle.vue';
 
 defineProps({
-    danger: {
-        type: Boolean,
-        default: false,
-    },
+  danger: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 

@@ -10,25 +10,25 @@ import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    terms: false,
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+  terms: false,
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+  form.post(route('register'), {
+    onFinish: () => form.reset('password', 'password_confirmation'),
+  });
 };
 
 const terms = () => {
   return `<a target="_blank" href="${route('terms.show')}" class="underline text-sm text-gray-600 hover:text-gray-900">${trans('Terms of Service')}</a>`;
-}
+};
 const policy = () => {
   return `<a target="_blank" href="${route('policy.show')}" class="underline text-sm text-gray-600 hover:text-gray-900">${trans('Privacy Policy')}</a>`;
-}
+};
 </script>
 
 <template>

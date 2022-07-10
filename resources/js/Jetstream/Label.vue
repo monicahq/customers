@@ -1,12 +1,16 @@
 <script setup>
 defineProps({
-    value: String,
+  value: String,
 });
 </script>
 
 <template>
     <label class="block font-medium text-sm text-gray-700">
-        <span v-if="value">{{ $t(value) }}</span>
-        <span v-else><slot /></span>
+        <span v-if="value">
+{{ $t(value) }}
+</span>
+        <span v-else>
+<slot />
+</span>
     </label>
 </template>

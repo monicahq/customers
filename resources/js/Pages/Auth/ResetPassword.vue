@@ -8,21 +8,21 @@ import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 const props = defineProps({
-    email: String,
-    token: String,
+  email: String,
+  token: String,
 });
 
 const form = useForm({
-    token: props.token,
-    email: props.email,
-    password: '',
-    password_confirmation: '',
+  token: props.token,
+  email: props.email,
+  password: '',
+  password_confirmation: '',
 });
 
 const submit = () => {
-    form.post(route('password.update'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+  form.post(route('password.update'), {
+    onFinish: () => form.reset('password', 'password_confirmation'),
+  });
 };
 </script>
 

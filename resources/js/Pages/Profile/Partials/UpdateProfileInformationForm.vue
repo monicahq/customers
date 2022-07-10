@@ -13,72 +13,72 @@ import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 
 const props = defineProps({
-    user: Object,
-    locales: Array,
+  user: Object,
+  locales: Array,
 });
 
 const form = useForm({
-    _method: 'PUT',
-    name: props.user.name,
-    email: props.user.email,
-    locale: props.user.locale,
-    photo: null,
+  _method: 'PUT',
+  name: props.user.name,
+  email: props.user.email,
+  locale: props.user.locale,
+  photo: null,
 });
 
 const photoPreview = ref(null);
 const photoInput = ref(null);
 
 const updateProfileInformation = () => {
-    if (photoInput.value) {
-        form.photo = photoInput.value.files[0];
-    }
+  if (photoInput.value) {
+    form.photo = photoInput.value.files[0];
+  }
 
-    form.post(route('user-profile-information.update'), {
-        errorBag: 'updateProfileInformation',
-        preserveScroll: true,
-        onSuccess: () => clearPhotoFileInput(),
-        onFinish: () => {
-          if (getActiveLanguage() !== form.locale) {
-            loadLanguageAsync(form.locale);
-          }
-        },
-    });
+  form.post(route('user-profile-information.update'), {
+    errorBag: 'updateProfileInformation',
+    preserveScroll: true,
+    onSuccess: () => clearPhotoFileInput(),
+    onFinish: () => {
+      if (getActiveLanguage() !== form.locale) {
+        loadLanguageAsync(form.locale);
+      }
+    },
+  });
 };
 
 const selectNewPhoto = () => {
-    photoInput.value.click();
+  photoInput.value.click();
 };
 
 const updatePhotoPreview = () => {
-    const photo = photoInput.value.files[0];
+  const photo = photoInput.value.files[0];
 
-    if (! photo) {
-      return;
-    }
+  if (! photo) {
+    return;
+  }
 
-    const reader = new FileReader();
+  const reader = new FileReader();
 
-    reader.onload = (e) => {
-        photoPreview.value = e.target.result;
-    };
+  reader.onload = (e) => {
+    photoPreview.value = e.target.result;
+  };
 
-    reader.readAsDataURL(photo);
+  reader.readAsDataURL(photo);
 };
 
 const deletePhoto = () => {
-    Inertia.delete(route('current-user-photo.destroy'), {
-        preserveScroll: true,
-        onSuccess: () => {
-            photoPreview.value = null;
-            clearPhotoFileInput();
-        },
-    });
+  Inertia.delete(route('current-user-photo.destroy'), {
+    preserveScroll: true,
+    onSuccess: () => {
+      photoPreview.value = null;
+      clearPhotoFileInput();
+    },
+  });
 };
 
 const clearPhotoFileInput = () => {
-    if (photoInput.value?.value) {
-        photoInput.value.value = null;
-    }
+  if (photoInput.value?.value) {
+    photoInput.value.value = null;
+  }
 };
 </script>
 

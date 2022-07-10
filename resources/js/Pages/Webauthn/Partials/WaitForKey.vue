@@ -1,9 +1,9 @@
 <script setup>
-import JetButton from '@/Jetstream/Button.vue'
+import JetButton from '@/Jetstream/Button.vue';
 
 defineProps({
-    errorMessage: String,
-    form: Object,
+  errorMessage: String,
+  form: Object,
 });
 
 defineEmits(['retry']);

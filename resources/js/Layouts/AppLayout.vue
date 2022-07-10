@@ -10,21 +10,13 @@ import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
 import Footer from '@/Layouts/Footer.vue';
 
 defineProps({
-    title: String,
+  title: String,
 });
 
 const showingNavigationDropdown = ref(false);
 
-const switchToTeam = (team) => {
-    Inertia.put(route('current-team.update'), {
-        team_id: team.id,
-    }, {
-        preserveState: false,
-    });
-};
-
 const logout = () => {
-    Inertia.post(route('logout'));
+  Inertia.post(route('logout'));
 };
 </script>
 

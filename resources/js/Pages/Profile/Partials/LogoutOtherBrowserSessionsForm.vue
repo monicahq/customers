@@ -10,35 +10,35 @@ import JetInputError from '@/Jetstream/InputError.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 
 defineProps({
-    sessions: Array,
+  sessions: Array,
 });
 
 const confirmingLogout = ref(false);
 const passwordInput = ref(null);
 
 const form = useForm({
-    password: '',
+  password: '',
 });
 
 const confirmLogout = () => {
-    confirmingLogout.value = true;
+  confirmingLogout.value = true;
 
-    setTimeout(() => passwordInput.value.focus(), 250);
+  setTimeout(() => passwordInput.value.focus(), 250);
 };
 
 const logoutOtherBrowserSessions = () => {
-    form.delete(route('other-browser-sessions.destroy'), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => passwordInput.value.focus(),
-        onFinish: () => form.reset(),
-    });
+  form.delete(route('other-browser-sessions.destroy'), {
+    preserveScroll: true,
+    onSuccess: () => closeModal(),
+    onError: () => passwordInput.value.focus(),
+    onFinish: () => form.reset(),
+  });
 };
 
 const closeModal = () => {
-    confirmingLogout.value = false;
+  confirmingLogout.value = false;
 
-    form.reset();
+  form.reset();
 };
 </script>
 
@@ -104,8 +104,12 @@ const closeModal = () => {
                             <div class="text-xs text-gray-500">
                                 {{ session.ip_address }},
 
-                                <span v-if="session.is_current_device" class="text-green-500 font-semibold">{{ $t('This device') }}</span>
-                                <span v-else>{{ $t('Last active :date', { date: session.last_active }) }}</span>
+                                <span v-if="session.is_current_device" class="text-green-500 font-semibold">
+                                  {{ $t('This device') }}
+                                </span>
+                                <span v-else>
+                                  {{ $t('Last active :date', { date: session.last_active }) }}
+                                </span>
                             </div>
                         </div>
                     </div>

@@ -4,22 +4,22 @@ import Modal from './Modal.vue';
 const emit = defineEmits(['close']);
 
 defineProps({
-    show: {
-        type: Boolean,
-        default: false,
-    },
-    maxWidth: {
-        type: String,
-        default: '2xl',
-    },
-    closeable: {
-        type: Boolean,
-        default: true,
-    },
+  show: {
+    type: Boolean,
+    default: false,
+  },
+  maxWidth: {
+    type: String,
+    default: '2xl',
+  },
+  closeable: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const close = () => {
-    emit('close');
+  emit('close');
 };
 </script>
 

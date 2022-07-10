@@ -2,8 +2,8 @@
 import { Link } from '@inertiajs/inertia-vue3';
 
 defineProps({
-    href: String,
-    as: String,
+  href: String,
+  as: String,
 });
 </script>
 

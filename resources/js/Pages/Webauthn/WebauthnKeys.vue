@@ -1,20 +1,20 @@
 
 <script setup>
 import { ref, nextTick, computed, onMounted } from 'vue';
-import { useForm } from '@inertiajs/inertia-vue3'
+import { useForm } from '@inertiajs/inertia-vue3';
 import { trans } from 'laravel-vue-i18n';
 import JetActionSection from '@/Jetstream/ActionSection.vue';
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
-import JetConfirmsPassword from '@/Jetstream/ConfirmsPassword.vue'
-import JetButton from '@/Jetstream/Button.vue'
-import RegisterKey from './Partials/RegisterKey.vue'
-import DeleteKeyModal from './Partials/DeleteKeyModal.vue'
-import UpdateKey from './Partials/UpdateKey.vue'
-import * as WebAuthn from '../../../../vendor/asbiin/laravel-webauthn/resources/js/webauthn.js'
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
+import JetConfirmsPassword from '@/Jetstream/ConfirmsPassword.vue';
+import JetButton from '@/Jetstream/Button.vue';
+import RegisterKey from './Partials/RegisterKey.vue';
+import DeleteKeyModal from './Partials/DeleteKeyModal.vue';
+import UpdateKey from './Partials/UpdateKey.vue';
+import * as WebAuthn from '../../../../vendor/asbiin/laravel-webauthn/resources/js/webauthn.js';
 
 const props = defineProps({
-    webauthnKeys: Array,
-    publicKey: Object,
+  webauthnKeys: Array,
+  publicKey: Object,
 });
 
 const isSupported = ref(true);
@@ -22,7 +22,7 @@ const errorMessage = ref('');
 
 const register = ref(false);
 const registerForm = useForm({
-    name: '',
+  name: '',
 });
 const keyBeingDeleted = ref(null);
 const keyBeingUpdated = ref(null);
@@ -30,77 +30,77 @@ const keyBeingUpdated = ref(null);
 const nameUpdate = computed(() => keyBeingUpdated.value > 0 ? props.webauthnKeys.find(key => key.id === keyBeingUpdated.value).name : '');
 
 onMounted(() => {
-    errorMessage.value = '';
+  errorMessage.value = '';
 
-    if (! webauthn.webAuthnSupport()) {
-        isSupported.value = false;
-        errorMessage.value = notSupportedMessage();
-    }
+  if (! webauthn.webAuthnSupport()) {
+    isSupported.value = false;
+    errorMessage.value = notSupportedMessage();
+  }
 
-    if (props.publicKey) {
-        showRegisterModal();
-        registerWaitForKey(props.publicKey);
-    }
+  if (props.publicKey) {
+    showRegisterModal();
+    registerWaitForKey(props.publicKey);
+  }
 });
 
 const webauthn = new WebAuthn((name, message) => {
-    errorMessage.value = _errorMessage(name, message);
+  errorMessage.value = _errorMessage(name, message);
 });
 
 const _errorMessage = (name, message) => {
-    switch (name) {
-        case 'InvalidStateError':
-            return trans('This key is already registered. It’s not necessary to register it again.');
-        case 'NotAllowedError':
-            return trans('The operation either timed out or was not allowed.');
-        default:
-            return message;
-    }
+  switch (name) {
+  case 'InvalidStateError':
+    return trans('This key is already registered. It’s not necessary to register it again.');
+  case 'NotAllowedError':
+    return trans('The operation either timed out or was not allowed.');
+  default:
+    return message;
+  }
 };
 
 const notSupportedMessage = () => {
-    switch (webauthn.notSupportedMessage()) {
-        case 'not_supported':
-            return trans('Your browser doesn’t currently support WebAuthn.');
-        case 'not_secured':
-            return trans('WebAuthn only supports secure connections. Please load this page with https scheme.');
-        default:
-            return '';
-    }
+  switch (webauthn.notSupportedMessage()) {
+  case 'not_supported':
+    return trans('Your browser doesn’t currently support WebAuthn.');
+  case 'not_secured':
+    return trans('WebAuthn only supports secure connections. Please load this page with https scheme.');
+  default:
+    return '';
+  }
 };
 
 const showRegisterModal = () => {
-    errorMessage.value = '';
-    register.value  = true;
+  errorMessage.value = '';
+  register.value  = true;
 };
 
 const start = () => {
-    errorMessage.value = '';
-    registerForm.clearErrors();
+  errorMessage.value = '';
+  registerForm.clearErrors();
 };
 
 const registerWaitForKey = (publicKey) => {
-    nextTick().then(() => webauthn.register(
-        publicKey,
-        (data) => { webauthnRegisterCallback(data); }
-    ));
+  nextTick().then(() => webauthn.register(
+    publicKey,
+    (data) => { webauthnRegisterCallback(data); }
+  ));
 };
 
 const webauthnRegisterCallback = (data) => {
-    registerForm.transform((form) => ({
-        ...form,
-        ...data
-    }))
+  registerForm.transform((form) => ({
+    ...form,
+    ...data
+  }))
     .post(route('webauthn.store'), {
-        preserveScroll: true,
-        preserveState: true,
-        onSuccess: () => {
-            register.value = false;
-            registerForm.reset();
-        },
-        onError: (error) => {
-            errorMessage.value = error.email ? error.email : error.data.errors.webauthn;
-        }
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        register.value = false;
+        registerForm.reset();
+      },
+      onError: (error) => {
+        errorMessage.value = error.email ? error.email : error.data.errors.webauthn;
+      }
     });
 };
 </script>
@@ -131,7 +131,10 @@ const webauthnRegisterCallback = (data) => {
             </div>
 
             <div v-else-if="register">
-                <RegisterKey :errorMessage="errorMessage" :form="registerForm" @start="start" @stop="register = false" @register="registerWaitForKey" />
+                <RegisterKey :errorMessage="errorMessage" :form="registerForm"
+                  :name="registerForm.name" @update:name="registerForm.name = $event"
+                  @start="start" @stop="register = false" @register="registerWaitForKey"
+                />
             </div>
 
             <div v-else-if="keyBeingUpdated > 0">

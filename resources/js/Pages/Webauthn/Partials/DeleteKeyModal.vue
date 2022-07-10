@@ -1,23 +1,23 @@
 <script setup>
 import { useForm } from '@inertiajs/inertia-vue3';
-import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
-import JetDangerButton from '@/Jetstream/DangerButton.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue';
+import JetDangerButton from '@/Jetstream/DangerButton.vue';
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 
 const form = useForm();
 
 const props = defineProps({
-    keyid: Number,
+  keyid: Number,
 });
 
 const emit = defineEmits(['close']);
 
 const deleteKey = () => {
-    form.delete(route('webauthn.destroy', props.keyid), {
-        preserveScroll: true,
-        preserveState: true,
-        onSuccess: () => (emit('close')),
-    })
+  form.delete(route('webauthn.destroy', props.keyid), {
+    preserveScroll: true,
+    preserveState: true,
+    onSuccess: () => (emit('close')),
+  });
 };
 </script>
 
