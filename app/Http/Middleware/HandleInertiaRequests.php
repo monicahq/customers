@@ -29,7 +29,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'footer' => Str::markdownExternalLink(__('You can [read the code here](:url).', [
-                'url' => 'https://github.com/monicahq/customers'
+                'url' => 'https://github.com/monicahq/customers',
             ])),
         ]);
     }
