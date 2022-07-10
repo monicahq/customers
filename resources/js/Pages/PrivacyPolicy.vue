@@ -39,7 +39,7 @@ defineProps({
 
                     <p>You have the right to close your account at any time.</p>
 
-                    <p>You have the right to request an export of your data at any time, in the SQL format.</p>
+                    <p>You have the right to request an export of your data at any time.</p>
 
                     <p>Your data will not be intentionally shown to other users or shared with third parties.</p>
 
