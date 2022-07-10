@@ -7,6 +7,7 @@ use App\Models\Plan;
 use App\Services\UpdateSubscription;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -55,6 +56,15 @@ class MonicaController extends Controller
             'plans' => $plansCollection,
             'current_licence' => $licence,
             'refresh' => $request->boolean('refresh'),
+            'links' => [
+                'billing' => Str::markdownExternalLink(__('Go to :url', [
+                    'url' => config('customers.billing_links.monica'),
+                ])),
+                'paddle' =>  Str::markdownExternalLink(__('Secure payment by [Paddle](:url)', [
+                    'url' => 'https://paddle.com',
+                ])),
+                'support' => Str::markdownExternalLink(__('If you experience issues after purchase, please contact us at support@monicahq.com.')),
+            ],
         ]);
     }
 

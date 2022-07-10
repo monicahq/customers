@@ -7,7 +7,7 @@ import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 
 defineProps({
     licence: Object,
-    url: String,
+    link: String,
 });
 
 const licenceInput = ref(null);
@@ -28,13 +28,6 @@ const copyIntoClipboard = async (text) => {
         }, 2000);
     });
 };
-
-const link = (href) => {
-    return trans('Go to <link>:link</link>', { link: href })
-      .replace('<link>', `<a href="${href}" class="underline" rel="noopener noreferrer">`)
-      .replace('</link>', '</a>');
-};
-
 </script>
 
 <template>
@@ -66,7 +59,7 @@ const link = (href) => {
       <div>
         <p class="font-bold mb-2">{{ $t('How to use your key:') }}</p>
         <ul class="ml-4">
-          <li><span class="text-blue-500">1. </span>  <span v-html="link(url)"></span></li>
+          <li><span class="text-blue-500">1. </span>  <span v-html="link"></span></li>
           <li><span class="text-blue-500">2. </span>  {{ $t('Locate the Licence key section') }}</li>
           <li><span class="text-blue-500">3. </span>  {{ $t('Paste the licence key shown above.') }}</li>
           <li><span class="text-blue-500">4. </span>  {{ $t('Enjoy!') }}</li>

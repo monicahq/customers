@@ -15,7 +15,7 @@ class UserProfile
      */
     public function __invoke(Request $request, array $data): array
     {
-        $providers = collect(config('auth.login_providers'));
+        $providers = collect(config('auth.login_providers'))->filter(fn ($provider) => ! empty($provider));
         $providersName = $providers->mapWithKeys(function ($provider) {
             return [$provider => config("services.$provider.name") ?? __("auth.login_provider_{$provider}")];
         });

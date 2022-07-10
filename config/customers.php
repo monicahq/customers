@@ -30,4 +30,14 @@ return [
 
     'fallback_country' => 'US',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Monica and OfficeLife billing links
+    |--------------------------------------------------------------------------
+    */
+
+    'billing_links' => [
+        'monica' => 'https://app.monicahq.com/settings/billing',
+        'officelife' => 'https://app.officelife.io/settings/billing',
+    ],
 ];
