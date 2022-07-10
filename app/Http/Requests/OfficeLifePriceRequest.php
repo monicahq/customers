@@ -27,4 +27,9 @@ class OfficeLifePriceRequest extends FormRequest
             'quantity' => 'required|integer|min:1',
         ];
     }
+
+    public function quantity(): int
+    {
+        return intval($this->input('quantity'));
+    }
 }

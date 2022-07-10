@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { trans } from 'laravel-vue-i18n';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
 import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
 import JetButton from '@/Jetstream/Button.vue';
@@ -21,10 +22,17 @@ const submit = () => {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
+
+const terms = () => {
+  return `<a target="_blank" href="${route('terms.show')}" class="underline text-sm text-gray-600 hover:text-gray-900">${trans('Terms of Service')}</a>`;
+}
+const policy = () => {
+  return `<a target="_blank" href="${route('policy.show')}" class="underline text-sm text-gray-600 hover:text-gray-900">${trans('Privacy Policy')}</a>`;
+}
 </script>
 
 <template>
-    <Head title="Register" />
+    <Head :title="$t('Register')" />
 
     <JetAuthenticationCard>
         <template #logo>
@@ -87,20 +95,18 @@ const submit = () => {
                     <div class="flex items-center">
                         <JetCheckbox id="terms" v-model:checked="form.terms" name="terms" />
 
-                        <div class="ml-2">
-                            I agree to the <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Terms of Service</a> and <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>
-                        </div>
+                        <div class="ml-2" v-html="$t('I agree to the :terms and :policy', { terms: terms(), policy: policy() })"></div>
                     </div>
                 </JetLabel>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Already registered?
+                    {{ $t('Already registered?') }}
                 </Link>
 
                 <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
+                    {{ $t('Register') }}
                 </JetButton>
             </div>
         </form>

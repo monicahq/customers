@@ -26,11 +26,11 @@ class SubscriptionPaymentSucceededTest extends TestCase
             'billable_id' => $user->id,
             'paddle_plan' => $plan->plan_id_on_paddle,
         ]);
-        $receipt = Receipt::factory()->create([
+        Receipt::factory()->create([
             'billable_id' => $user->id,
             'paddle_subscription_id' => $subscription->paddle_id,
         ]);
-        $licenceKey = LicenceKey::factory()->create([
+        LicenceKey::factory()->create([
             'user_id' => $user->id,
             'plan_id' => $plan->id,
         ]);
@@ -40,9 +40,9 @@ class SubscriptionPaymentSucceededTest extends TestCase
         $this->mock(RenewLicenceKey::class, function (MockInterface $mock) use ($user) {
             $mock->shouldReceive('execute')
                 ->once()
-                ->withArgs(function (User $billable, Receipt $receipt, array $payload) use ($user) {
+                ->withArgs(function (User $billable, Subscription $subscription, array $payload) use ($user) {
                     $this->assertEquals($user->id, $billable->id);
-                    $this->assertEquals($user->id, $receipt->billable_id);
+                    $this->assertEquals($user->id, $subscription->billable_id);
 
                     return true;
                 });

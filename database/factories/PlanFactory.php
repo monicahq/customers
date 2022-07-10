@@ -27,8 +27,6 @@ class PlanFactory extends Factory
             'description' => $this->faker->name(),
             'plan_name' => $this->faker->name(),
             'plan_id_on_paddle' => $this->faker->numberBetween(1, 100),
-            'price' => $this->faker->randomNumber(),
-            'frequency' => Plan::TYPE_MONTHLY,
         ];
     }
 

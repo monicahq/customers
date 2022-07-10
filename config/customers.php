@@ -19,4 +19,15 @@ return [
 
     'cipher' => 'AES-256-GCM',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application Fallback Country
+    |--------------------------------------------------------------------------
+    |
+    | This is the default country if the user did not defined one.
+    |
+    */
+
+    'fallback_country' => 'US',
+
 ];
