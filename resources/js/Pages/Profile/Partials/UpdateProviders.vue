@@ -56,7 +56,7 @@ defineProps({
         </template>
 
         <template #content>
-            <div class="max-w-xl text-sm text-gray-600">
+            <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
                 {{ $t('You can add more account to log in to our service with one click.') }}
             </div>
 
@@ -64,7 +64,7 @@ defineProps({
             <div v-for="provider in providers" :key="provider" class="flex items-center">
 
                 <img :src="`/img/auth/${provider}.svg`" alt="" class="auth-provider relative" />
-                <span class="mr-3 text-sm text-gray-600">
+                <span class="mr-3 text-sm text-gray-600 dark:text-gray-400">
                   {{ providersName[provider] }}
                 </span>
 

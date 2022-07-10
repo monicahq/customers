@@ -5,12 +5,12 @@ defineProps({
 </script>
 
 <template>
-    <label class="block font-medium text-sm text-gray-700">
+    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300">
         <span v-if="value">
-{{ $t(value) }}
-</span>
+          {{ $t(value) }}
+        </span>
         <span v-else>
-<slot />
-</span>
+          <slot />
+        </span>
     </label>
 </template>

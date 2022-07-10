@@ -26,8 +26,8 @@ const logout = () => {
 
         <JetBanner />
 
-        <div class="min-h-screen bg-gray-100 flex flex-col">
-            <nav class="bg-white border-b border-gray-100">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-800 flex flex-col">
+            <nav class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -53,12 +53,12 @@ const logout = () => {
                             <div class="ml-3 relative">
                                 <JetDropdown align="right" width="48">
                                     <template #trigger>
-                                        <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                        <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 focus:dark:border-gray-700 transition">
                                             <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
                                         </button>
 
                                         <span v-else class="inline-flex rounded-md">
-                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white dark:bg-gray-900 hover:text-gray-700 hover:dark:text-gray-300 focus:outline-none transition">
                                                 {{ $page.props.user.name }}
 
                                                 <svg
@@ -75,7 +75,7 @@ const logout = () => {
 
                                     <template #content>
                                         <!-- Account Management -->
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                        <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-600">
                                             {{ $t('Manage Account') }}
                                         </div>
 
@@ -91,7 +91,7 @@ const logout = () => {
                                             {{ $t('API Tokens') }}
                                         </JetDropdownLink>
 
-                                        <div class="border-t border-gray-100" />
+                                        <div class="border-t border-gray-100 dark:border-gray-900" />
 
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
@@ -106,27 +106,10 @@ const logout = () => {
 
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
-                            <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition" @click="showingNavigationDropdown = ! showingNavigationDropdown">
-                                <svg
-                                    class="h-6 w-6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
+                            <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-600 hover:text-gray-500 hover:bg-gray-100 hover:dark:bg-gray-900 focus:outline-none focus:bg-gray-100 focus:dark:bg-gray-900 focus:text-gray-500 transition" @click="showingNavigationDropdown = ! showingNavigationDropdown">
+                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                    <path :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                    <path :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
                         </div>
@@ -150,14 +133,14 @@ const logout = () => {
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
+                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-800">
                         <div class="flex items-center px-4">
                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                                 <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
                             </div>
 
                             <div>
-                                <div class="font-medium text-base text-gray-800">
+                                <div class="font-medium text-base text-gray-800 dark:text-gray-200">
                                     {{ $page.props.user.name }}
                                 </div>
                                 <div class="font-medium text-sm text-gray-500">
@@ -192,7 +175,7 @@ const logout = () => {
             </nav>
 
             <!-- Page Heading -->
-            <header v-if="$slots.header" class="bg-white shadow">
+            <header v-if="$slots.header" class="bg-white dark:bg-gray-900 shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>

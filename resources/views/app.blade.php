@@ -31,7 +31,7 @@
         </script>
         @endif
     </head>
-    <body class="font-sans antialiased bg-gray-50">
+    <body class="font-sans antialiased bg-gray-50 dark:bg-gray-900">
         @inertia
         @env ('local')
             <script src="http://localhost:3000/browser-sync/browser-sync-client.js"></script>

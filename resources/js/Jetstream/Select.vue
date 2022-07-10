@@ -139,16 +139,16 @@ const alignmentClasses = computed(() => {
       <div>
           <button @click.prevent="proxySelect = ''; close();" class="cursor-pointer w-6 h-full flex items-center text-gray-400 outline-none focus:outline-none">
               <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24"
-stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4">
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
                   <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
           </button>
       </div>
       <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200">
-          <button @click.prevent="open = ! open; if (open) { select.focus(); }" class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
+          <button @click.prevent="open = ! open; if (open) { select.focus(); }" class="cursor-pointer w-6 h-6 text-gray-600 dark:text-gray-400 outline-none focus:outline-none">
               <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24"
-stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up w-4 h-4">
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up w-4 h-4">
                   <polyline v-if="open" points="18 15 12 9 6 15"></polyline>
                   <polyline v-else points="18 9 12 15 6 9"></polyline>
               </svg>

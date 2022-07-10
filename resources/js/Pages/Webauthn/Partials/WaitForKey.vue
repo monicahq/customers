@@ -26,14 +26,8 @@ defineEmits(['retry']);
 
             <div v-if="form.processing" class="bg-teal-100 border-t-4 border-teal-500 rounded-b mb-4 px-4 py-8 shadow-md flex" role="alert">
                 <div class="text-teal-800 mr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        stroke="currentColor"
-                        class="w-8 h-8"
-                        viewBox="-50 0 700 600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        stroke="currentColor" class="w-8 h-8" viewBox="-50 0 700 600">
                         <g transform="matrix(42.857142857142854,0,0,42.857142857142854,0,0)">
                           <g>
                             <polyline points="5.62 7.38 11.5 1.5 13.5 3.5"></polyline>
@@ -49,14 +43,8 @@ defineEmits(['retry']);
             </div>
             <div v-else-if="!form.hasErrors" class="bg-indigo-100 border-t-4 border-indigo-500 rounded-b mb-4 px-4 py-8 shadow-md flex">
                 <div class="text-indigo-800 mr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        stroke="currentColor"
-                        class="w-8 h-8"
-                        viewBox="-50 0 700 600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        stroke="currentColor" class="w-8 h-8" viewBox="-50 0 700 600">
                         <g transform="matrix(42.857142857142854,0,0,42.857142857142854,0,0)">
                           <g>
                             <polyline points="5.62 7.38 11.5 1.5 13.5 3.5"></polyline>

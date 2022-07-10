@@ -106,7 +106,7 @@ const deleteApiToken = () => {
                         <div v-for="permission in availablePermissions" :key="permission">
                             <label class="flex items-center">
                                 <JetCheckbox v-model:checked="createApiTokenForm.permissions" :value="permission" />
-                                <span class="ml-2 text-sm text-gray-600">
+                                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">
                                   {{ permission }}
                                 </span>
                             </label>
@@ -206,7 +206,7 @@ const deleteApiToken = () => {
                     <div v-for="permission in availablePermissions" :key="permission">
                         <label class="flex items-center">
                             <JetCheckbox v-model:checked="updateApiTokenForm.permissions" :value="permission" />
-                            <span class="ml-2 text-sm text-gray-600">
+                            <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">
                               {{ permission }}
                             </span>
                         </label>
