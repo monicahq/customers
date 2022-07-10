@@ -43,7 +43,7 @@ const doRefresh = () => {
         Inertia.reload({
             only: ['data'],
             onFinish: () => {
-                if (props.current_licence === '' || props.current_licence.subscription_state === 'subscription_cancelled') {
+                if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
                     (refresh.value)();
                 }
             },
