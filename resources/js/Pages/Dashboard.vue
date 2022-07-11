@@ -37,7 +37,7 @@ defineProps({
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-10">
               <!-- left -->
-              <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md sm:max-w-md sm:rounded-lg">
+              <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:max-w-md sm:rounded-lg">
 
                 <OfficeLifeLogo />
 
@@ -48,7 +48,7 @@ defineProps({
               </div>
 
               <!-- right -->
-              <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md sm:max-w-md sm:rounded-lg">
+              <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:max-w-md sm:rounded-lg">
 
                 <MonicaLogo />
 

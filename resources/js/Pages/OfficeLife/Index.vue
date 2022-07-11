@@ -101,7 +101,7 @@ const subscribe = (planId) => {
 
         <!-- case: active subscription -->
         <template v-if="current_licence">
-          <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md sm:rounded-lg">
+          <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg">
             <LicenceDisplay :licence="current_licence" :link="links.billing">
               <div v-if="currentPlan" class="overflow-hidden flex items-center justify-between">
 
@@ -141,14 +141,14 @@ const subscribe = (planId) => {
           </div>
 
           <!-- case: cancelled subscription -->
-          <div v-else class="mb-4 text-center p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md sm:rounded-lg">
+          <div v-else class="mb-4 text-center p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg">
             <p class="mb-4">{{ $t('☠️ You have cancelled your subscription.') }}</p>
             <p class="text-gray-600 dark:text-gray-400 text-sm">{{ $t('You can always pick a new plan and start over, if you want.') }}</p>
           </div>
         </template>
 
         <div v-for="plan in localPlans" :key="plan.id">
-          <div v-if="! currentPlan || plan.id !== currentPlan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
+          <div v-if="! currentPlan || plan.id !== currentPlan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg flex items-center justify-between">
             <Plan :plan="plan" />
 
             <div class="flex">

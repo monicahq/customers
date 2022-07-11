@@ -75,7 +75,7 @@ defineProps({
                   </div>
 
                   <!-- right -->
-                  <div class="text-center p-3 sm:p-3 mt-6 w-full flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md sm:max-w-md sm:rounded-lg">
+                  <div class="text-center p-3 sm:p-3 mt-6 w-full flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:max-w-md sm:rounded-lg">
 
                     <div>
                       <p v-if="canRegister" class="text-lg font-bold mb-3 dark:text-gray-200">{{ $t('New on this site?') }}</p>
