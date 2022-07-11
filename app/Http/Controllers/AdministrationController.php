@@ -55,7 +55,6 @@ class AdministrationController extends Controller
                 ];
             });
 
-
         return Inertia::render('Administration/Show', [
             'users' => new UserResource($user),
             'licences' => $licences,
