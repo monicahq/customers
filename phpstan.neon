@@ -11,6 +11,7 @@ parameters:
         - '#Parameter \#1 \$view of function view expects view-string|null, string given\.#'
         - '#Access to an undefined property App\\Models\\Receipt::\$billable_id\.#'
         - '#Access to an undefined property App\\Models\\Subscription::\$billable_id\.#'
+        - '#Access to an undefined property App\\Http\\Resources.*\.#'
 
         - message: '#Access to an undefined property Laravel\\Paddle\\Receipt::.*\.#'
           path: */Http/Controllers/DashboardController.php

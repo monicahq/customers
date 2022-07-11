@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 
 defineProps({
-    users: Object,
+  users: Object,
 });
 </script>
 
@@ -51,7 +51,9 @@ defineProps({
 
             <div class="pl-3 pt-5 pb-5 pr-5">
               <p class="text-sm text-gray-500 dark:text-gray-100 font-medium">New accounts last week</p>
-              <h2 class="text-xl dark:text-gray-400">123</h2>
+              <h2 class="text-xl dark:text-gray-400">
+                123
+              </h2>
             </div>
           </div>
 
@@ -62,7 +64,9 @@ defineProps({
 
             <div class="pl-3 pt-5 pb-5 pr-5">
               <p class="text-sm text-gray-500 dark:text-gray-100 font-medium">New accounts last month</p>
-              <h2 class="text-xl dark:text-gray-400">123</h2>
+              <h2 class="text-xl dark:text-gray-400">
+                123
+              </h2>
             </div>
           </div>
         </div>

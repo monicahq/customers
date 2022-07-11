@@ -61,7 +61,7 @@ const copyIntoClipboard = async (text) => {
           </ol>
         </nav>
 
-        <div class="bg-white dark:bg-gray-900 shadow dark:shadow-gray-100 overflow-hidden sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-900 shadow dark:shadow-gray-700 overflow-hidden sm:rounded-lg">
           <!-- name -->
           <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
             <div>
@@ -105,23 +105,33 @@ const copyIntoClipboard = async (text) => {
           <div class="border-t border-gray-200 dark:border-gray-700">
             <dl>
               <div class="odd:bg-white even:bg-gray-50 odd:dark:bg-gray-900 even:dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500">Full name</dt>
+                <dt class="text-sm font-medium text-gray-500">
+                  Full name
+                </dt>
                 <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
                   {{ users.data.name }}
                 </dd>
               </div>
               <div class="odd:bg-white even:bg-gray-50 odd:dark:bg-gray-900 even:dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500">Email address</dt>
+                <dt class="text-sm font-medium text-gray-500">
+                  Email address
+                </dt>
                 <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
                   {{ users.data.email }}
                 </dd>
               </div>
               <div class="odd:bg-white even:bg-gray-50 odd:dark:bg-gray-900 even:dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500">OfficeLife subscription</dt>
-                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">-</dd>
+                <dt class="text-sm font-medium text-gray-500">
+                  OfficeLife subscription
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+                  -
+                </dd>
               </div>
               <div class="odd:bg-white even:bg-gray-50 odd:dark:bg-gray-900 even:dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500">Monica subscription</dt>
+                <dt class="text-sm font-medium text-gray-500">
+                  Monica subscription
+                </dt>
                 <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
                   <ul v-for="licence in licences" :key="licence.id" role="list" class="border border-gray-200 dark:border-gray-700 rounded-md divide-y divide-gray-200 dark:divide-gray-700">
                     <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
