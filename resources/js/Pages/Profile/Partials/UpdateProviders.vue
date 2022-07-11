@@ -1,41 +1,38 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import JetButton from '@/Jetstream/Button.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetActionSection from '@/Jetstream/ActionSection.vue';
 import JetInputError from '@/Jetstream/InputError.vue';
 
-const passwordInput = ref(null);
-const currentPasswordInput = ref(null);
-
 const form = useForm();
 const providerForm = useForm();
 const errors = computed(() => usePage().props.value.errors);
 
 const deleteProvider = (provider) => {
-    form.delete(route('provider.delete', {driver: provider}), {
-        errorBag: 'deleteProvider',
-        preserveScroll: true,
-        onSuccess: () => form.reset(),
-    });
+  form.delete(route('provider.delete', {driver: provider}), {
+    errorBag: 'deleteProvider',
+    preserveScroll: true,
+    onSuccess: () => form.reset(),
+  });
 };
 
 const open = (provider) => {
-    providerForm.transform(() => ({
-        redirect: location.href,
-    })).get(route('login.provider', { driver: provider }), {
-        preserveScroll: true,
-        onFinish: () => {
-            providerForm.reset();
-        },
-    });
+  providerForm.transform(() => ({
+    redirect: location.href,
+  })).get(route('login.provider', { driver: provider }), {
+    preserveScroll: true,
+    onFinish: () => {
+      providerForm.reset();
+    },
+  });
 };
 
 defineProps({
-    providers: Array,
-    providersName: Object,
-    userTokens: Array,
+  providers: Array,
+  providersName: Object,
+  userTokens: Array,
 });
 </script>
 
@@ -59,7 +56,7 @@ defineProps({
         </template>
 
         <template #content>
-            <div class="max-w-xl text-sm text-gray-600">
+            <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
                 {{ $t('You can add more account to log in to our service with one click.') }}
             </div>
 
@@ -67,7 +64,7 @@ defineProps({
             <div v-for="provider in providers" :key="provider" class="flex items-center">
 
                 <img :src="`/img/auth/${provider}.svg`" alt="" class="auth-provider relative" />
-                <span class="mr-3 text-sm text-gray-600">
+                <span class="mr-3 text-sm text-gray-600 dark:text-gray-400">
                   {{ providersName[provider] }}
                 </span>
 

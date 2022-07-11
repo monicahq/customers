@@ -2,19 +2,19 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
-import { trans } from 'laravel-vue-i18n';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import MonicaLogo from '@/Layouts/MonicaLogo.vue';
 import LicenceDisplay from '@/Pages/Partials/LicenceDisplay.vue';
 import Plan from '@/Pages/Partials/Plan.vue';
-import JetButton from '@/Jetstream/Button.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+import JetButton from '@/Jetstream/Button.vue';
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue';
 
 const props = defineProps({
-    plans: Object,
-    current_licence: Object,
-    refresh: Boolean,
+  plans: Object,
+  current_licence: Object,
+  refresh: Boolean,
+  links: Object,
 });
 
 const refresh = ref(_.debounce(() => doRefresh(), 1000));
@@ -24,13 +24,13 @@ const updateForm = useForm({
 const subscribeForm = useForm();
 
 onMounted(() => {
-    if (props.refresh) {
-        (refresh.value)();
-    }
+  if (props.refresh) {
+    (refresh.value)();
+  }
 });
 
 onUnmounted(() => {
-    refresh.value.cancel();
+  refresh.value.cancel();
 });
 
 const currentPlan = computed(() => props.current_licence === null ? null : plan(props.current_licence.plan_id));
@@ -39,32 +39,26 @@ const newPlan = computed(() => plan(updateForm.plan_id));
 const plan = (id) => props.plans[props.plans.findIndex((x) => x.id === id)];
 
 const doRefresh = () => {
-    if (usePage().component.value === 'Monica/Index') {
-        Inertia.reload({
-            only: ['data'],
-            onFinish: () => {
-                if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
-                    (refresh.value)();
-                }
-            },
-        });
-    }
-};
-
-const paddle = () => {
-    return trans('Secure payment by <link>Paddle</link>')
-      .replace('<link>', '<a href="https://paddle.com" class="underline" rel="noopener noreferrer">')
-      .replace('</link>', '</a>');
+  if (usePage().component.value === 'Monica/Index') {
+    Inertia.reload({
+      only: ['current_licence'],
+      onFinish: () => {
+        if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
+          (refresh.value)();
+        }
+      },
+    });
+  }
 };
 
 const updatePlan = () => {
-    updateForm.patch(route('monica.update'), {
-        preserveScroll: true,
-        onFinish: () => {
-          updateForm.reset();
-          updateForm.plan_id = null;
-        }
-    });
+  updateForm.patch(route('monica.update'), {
+    preserveScroll: true,
+    onFinish: () => {
+      updateForm.reset();
+      updateForm.plan_id = null;
+    }
+  });
 };
 
 const subscribe = (planId) => {
@@ -78,7 +72,7 @@ const subscribe = (planId) => {
     <div class="sm:mt-18 relative">
       <div class="mx-auto max-w-3xl px-2 py-2 sm:py-6 sm:px-6 lg:px-8">
 
-        <div class="text-center mb-12">
+        <div class="text-center mb-12 dark:text-gray-100">
           <MonicaLogo />
           <p class="text-sm">
             {{ $t('Monica is a great open source personal CRM. Monica allows people to keep track of everything that’s important about their friends and family.') }}
@@ -88,21 +82,21 @@ const subscribe = (planId) => {
 
         <!-- case: active subscription -->
         <template v-if="current_licence">
-          <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
-            <LicenceDisplay :licence="current_licence" :url="'https://app.monicahq.com/settings/billing'">
+          <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md sm:rounded-lg">
+            <LicenceDisplay :licence="current_licence" :link="links.billing">
               <Plan v-if="currentPlan" :plan="currentPlan" />
             </LicenceDisplay>
           </div>
 
           <!-- case: cancelled subscription -->
-          <div v-else class="mb-4 text-center p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg">
+          <div v-else class="mb-4 text-center p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 dark:text-gray-100 px-6 py-6 shadow-md sm:rounded-lg">
             <p class="mb-4">{{ $t('☠️ You have cancelled your subscription.') }}</p>
             <p class="text-gray-600 text-sm">{{ $t('You can always pick a new plan and start over, if you want.') }}</p>
           </div>
         </template>
 
         <div v-for="plan in plans" :key="plan.id">
-          <div v-if="! currentPlan || plan.id !== currentPlan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
+          <div v-if="! currentPlan || plan.id !== currentPlan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md sm:rounded-lg flex items-center justify-between">
             <Plan :plan="plan" />
 
             <div class="text-center">
@@ -115,24 +109,24 @@ const subscribe = (planId) => {
               </JetButton>
 
               <p class="flex items-center text-xs mt-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
-                <span v-html="paddle()"></span>
+                <span class="text-gray-800 dark:text-gray-200" v-html="links.paddle"></span>
               </p>
             </div>
           </div>
         </div>
 
         <!-- no licence yet -->
-        <div v-if="! current_licence || current_licence.subscription_state !== 'subscription_cancelled'">
+        <div v-if="! current_licence || current_licence.subscription_state !== 'subscription_cancelled'" class="text-gray-600 dark:text-gray-400">
           <div>{{ $t('You will be able to upgrade storage later.') }}</div>
         </div>
 
-        <p class="text-gray-6 mt-8 mb-10">
+        <p class="text-gray-600 dark:text-gray-400 mt-8 mb-10">
           {{ $t('It might take a few seconds for your subscription to be processed.') }}
           {{ $t('Refresh this page once you’ve subscribed to see your licence key.') }}
-          {{ $t('If you experience issues after purchase, please contact us at support@monicahq.com.') }}
+          <span v-html="links.support"></span>
         </p>
 
       </div>

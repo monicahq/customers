@@ -1,12 +1,12 @@
 import * as Sentry from '@sentry/vue';
-import { BrowserTracing } from "@sentry/tracing";
+import { BrowserTracing } from '@sentry/tracing';
 import { createTransport } from '@sentry/core';
 import { Inertia } from '@inertiajs/inertia';
 
 let activated = false;
 
 const myTransport = (options) => {
-  function makeRequest(request) {
+  const makeRequest = async (request) => {
     const requestOptions = {
       data: request.body,
       url: options.url,
@@ -15,13 +15,13 @@ const myTransport = (options) => {
       headers: options.headers,
       ...options.fetchOptions,
     };
-    return axios(requestOptions).then(response => ({
+    return await axios(requestOptions).then(response => ({
       statusCode: response.status,
       headers: response.headers,
     }));
-  }
+  };
   return createTransport({ bufferSize: options.bufferSize }, makeRequest);
-}
+};
 
 const install = (app, options) => {
   if (typeof SentryConfig !== 'undefined' && SentryConfig.dsn !== null) {
@@ -37,7 +37,7 @@ const install = (app, options) => {
       ],
       transport: myTransport,
     });
-    app.mixin(Sentry.createTracingMixins({ trackComponents: true }))
+    app.mixin(Sentry.createTracingMixins({ trackComponents: true }));
     activated = true;
   }
 };

@@ -5,16 +5,16 @@ import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfile
 import UpdateAddressForm from './Partials/UpdateAddressForm.vue';
 
 defineProps({
-    countries: Array,
+  countries: Array,
 });
 
 </script>
 
 <template>
-    <AppLayout title="Account">
+    <AppLayout title="Profile">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ $t('Account') }}
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ $t('Profile') }}
             </h2>
         </template>
 

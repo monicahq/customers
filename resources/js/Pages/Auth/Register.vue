@@ -10,25 +10,25 @@ import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    terms: false,
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+  terms: false,
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+  form.post(route('register'), {
+    onFinish: () => form.reset('password', 'password_confirmation'),
+  });
 };
 
 const terms = () => {
-  return `<a target="_blank" href="${route('terms.show')}" class="underline text-sm text-gray-600 hover:text-gray-900">${trans('Terms of Service')}</a>`;
-}
+  return `<a target="_blank" href="${route('terms.show')}" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">${trans('Terms of Service')}</a>`;
+};
 const policy = () => {
-  return `<a target="_blank" href="${route('policy.show')}" class="underline text-sm text-gray-600 hover:text-gray-900">${trans('Privacy Policy')}</a>`;
-}
+  return `<a target="_blank" href="${route('policy.show')}" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">${trans('Privacy Policy')}</a>`;
+};
 </script>
 
 <template>
@@ -92,7 +92,7 @@ const policy = () => {
 
             <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
                 <JetLabel for="terms">
-                    <div class="flex items-center">
+                    <div class="flex">
                         <JetCheckbox id="terms" v-model:checked="form.terms" name="terms" />
 
                         <div class="ml-2" v-html="$t('I agree to the :terms and :policy', { terms: terms(), policy: policy() })"></div>
@@ -101,7 +101,7 @@ const policy = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                <Link :href="route('login')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
                     {{ $t('Already registered?') }}
                 </Link>
 

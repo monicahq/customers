@@ -9,24 +9,24 @@ import JetLabel from '@/Jetstream/Label.vue';
 import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 
 const props = defineProps({
-    user: Object,
-    countries: Array,
+  user: Object,
+  countries: Array,
 });
 
 const form = useForm({
-    address_line_1: props.user.address_line_1,
-    address_line_2: props.user.address_line_2,
-    city: props.user.city,
-    postal_code: props.user.postal_code,
-    country: props.user.country,
-    state: props.user.state,
+  address_line_1: props.user.address_line_1,
+  address_line_2: props.user.address_line_2,
+  city: props.user.city,
+  postal_code: props.user.postal_code,
+  country: props.user.country,
+  state: props.user.state,
 });
 
 const updateAddress = () => {
-    form.patch(route('user-address.update'), {
-        errorBag: 'updateAddress',
-        preserveScroll: true,
-    });
+  form.patch(route('user-address.update'), {
+    errorBag: 'updateAddress',
+    preserveScroll: true,
+  });
 };
 
 </script>

@@ -13,56 +13,56 @@ import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 import WebauthnLogin from '@/Pages/Webauthn/WebauthnLogin.vue';
 
 const props = defineProps({
-    canResetPassword: Boolean,
-    status: String,
-    providers: Array,
-    providersName: Object,
-    publicKey: Object,
-    userName: String,
+  canResetPassword: Boolean,
+  status: String,
+  providers: Array,
+  providersName: Object,
+  publicKey: Object,
+  userName: String,
 });
 const webauthn = ref(true);
 const publicKeyRef = ref(null);
 
 const form = useForm({
-    email: '',
-    password: '',
-    remember: false,
+  email: '',
+  password: '',
+  remember: false,
 });
 const providerForm = useForm();
 
 watch(() => props.publicKey, (value) => {
-    publicKeyRef.value = value;
+  publicKeyRef.value = value;
 });
 
 onMounted(() => {
-    publicKeyRef.value = props.publicKey;
+  publicKeyRef.value = props.publicKey;
 });
 
 const submit = () => {
-    form.transform(data => ({
-        ...data,
-        remember: form.remember ? 'on' : '',
-    })).post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
+  form.transform(data => ({
+    ...data,
+    remember: form.remember ? 'on' : '',
+  })).post(route('login'), {
+    onFinish: () => form.reset('password'),
+  });
 };
 
 const open = (provider) => {
-    providerForm.transform(() => ({
-        redirect: location.href,
-        remember: form.remember ? 'on' : '',
-    })).get(route('login.provider', { driver: provider }), {
-        preserveScroll: true,
-        onFinish: () => {
-            providerForm.reset();
-        },
-    });
+  providerForm.transform(() => ({
+    redirect: location.href,
+    remember: form.remember ? 'on' : '',
+  })).get(route('login.provider', { driver: provider }), {
+    preserveScroll: true,
+    onFinish: () => {
+      providerForm.reset();
+    },
+  });
 };
 
 const reload = () => {
-    publicKeyRef.value = null;
-    webauthn.value = true;
-    Inertia.reload({only: ['publicKey']});
+  publicKeyRef.value = null;
+  webauthn.value = true;
+  Inertia.reload({only: ['publicKey']});
 };
 </script>
 
@@ -96,7 +96,7 @@ const reload = () => {
             <div class="mb-4 text-lg text-gray-900 text-center">
                 {{ userName }}
             </div>
-            <div class="mb-4 max-w-xl text-gray-600">
+            <div class="mb-4 max-w-xl text-gray-600 dark:text-gray-400">
                 {{ $t('Connect with your security key') }}
             </div>
 
@@ -135,12 +135,14 @@ const reload = () => {
             <div class="block mt-4">
                 <label class="flex items-center">
                     <JetCheckbox v-model:checked="form.remember" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ $t('Remember me') }}</span>
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                      {{ $t('Remember me') }}
+                    </span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900">
                     {{ $t('Forgot your password?') }}
                 </Link>
 

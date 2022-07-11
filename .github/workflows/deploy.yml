@@ -21,6 +21,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Build assets
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      release: ${{ steps.version.outputs.release }}
 
     strategy:
       fail-fast: false
@@ -82,9 +85,9 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install yarn dependencies
-        run: yarn install
-      # - name: Lint files
-      #   run: yarn run lint
+        run: yarn install --frozen-lockfile
+      - name: Lint files
+        run: yarn run lint
 
       - name: Get version
         id: version
@@ -169,8 +172,9 @@ jobs:
 
       - name: Create release files
         run: |
-          echo $GITHUB_SHA | cut -c-8 > config/.release
-          echo $GITHUB_SHA > config/.commit
+          echo ${{ needs.build.outputs.version }} | tee config/.version
+          echo ${{ needs.build.outputs.release }} | tee config/.release
+          echo $GITHUB_SHA | tee config/.commit
 
       - name: Update .htaccess
         run: cp -f resources/.htaccess_production public/.htaccess

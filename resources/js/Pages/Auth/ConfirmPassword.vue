@@ -9,19 +9,19 @@ import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 const form = useForm({
-    password: '',
+  password: '',
 });
 
 const passwordInput = ref(null);
 
 const submit = () => {
-    form.post(route('password.confirm'), {
-        onFinish: () => {
-            form.reset();
+  form.post(route('password.confirm'), {
+    onFinish: () => {
+      form.reset();
 
-            passwordInput.value.focus();
-        },
-    });
+      passwordInput.value.focus();
+    },
+  });
 };
 </script>
 
@@ -33,7 +33,7 @@ const submit = () => {
             <JetAuthenticationCardLogo />
         </template>
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
             {{ $t('This is a secure area of the application. Please confirm your password before continuing.') }}
         </div>
 

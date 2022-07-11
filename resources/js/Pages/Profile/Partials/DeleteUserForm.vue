@@ -12,28 +12,28 @@ const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
 
 const form = useForm({
-    password: '',
+  password: '',
 });
 
 const confirmUserDeletion = () => {
-    confirmingUserDeletion.value = true;
+  confirmingUserDeletion.value = true;
 
-    setTimeout(() => passwordInput.value.focus(), 250);
+  setTimeout(() => passwordInput.value.focus(), 250);
 };
 
 const deleteUser = () => {
-    form.delete(route('current-user.destroy'), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => passwordInput.value.focus(),
-        onFinish: () => form.reset(),
-    });
+  form.delete(route('current-user.destroy'), {
+    preserveScroll: true,
+    onSuccess: () => closeModal(),
+    onError: () => passwordInput.value.focus(),
+    onFinish: () => form.reset(),
+  });
 };
 
 const closeModal = () => {
-    confirmingUserDeletion.value = false;
+  confirmingUserDeletion.value = false;
 
-    form.reset();
+  form.reset();
 };
 </script>
 
@@ -48,7 +48,7 @@ const closeModal = () => {
         </template>
 
         <template #content>
-            <div class="max-w-xl text-sm text-gray-600">
+            <div class="max-w-xl text-sm text-gray-600 dark:text-gray-200">
                 <p class="text-center text-xl mb-4 font-semibold text-red-500">{{ $t('⚠️ Danger zone') }}</p>
 
                 <p>{{ $t('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}</p>

@@ -2,57 +2,57 @@
 import { computed, onMounted, onUnmounted, watch } from 'vue';
 
 const props = defineProps({
-    show: {
-        type: Boolean,
-        default: false,
-    },
-    maxWidth: {
-        type: String,
-        default: '2xl',
-    },
-    closeable: {
-        type: Boolean,
-        default: true,
-    },
+  show: {
+    type: Boolean,
+    default: false,
+  },
+  maxWidth: {
+    type: String,
+    default: '2xl',
+  },
+  closeable: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const emit = defineEmits(['close']);
 
 watch(() => props.show, () => {
-    if (props.show) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = null;
-    }
+  if (props.show) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = null;
+  }
 });
 
 const close = () => {
-    if (props.closeable) {
-        emit('close');
-    }
+  if (props.closeable) {
+    emit('close');
+  }
 };
 
 const closeOnEscape = (e) => {
-    if (e.key === 'Escape' && props.show) {
-        close();
-    }
+  if (e.key === 'Escape' && props.show) {
+    close();
+  }
 };
 
 onMounted(() => document.addEventListener('keydown', closeOnEscape));
 
 onUnmounted(() => {
-    document.removeEventListener('keydown', closeOnEscape);
-    document.body.style.overflow = null;
+  document.removeEventListener('keydown', closeOnEscape);
+  document.body.style.overflow = null;
 });
 
 const maxWidthClass = computed(() => {
-    return {
-        'sm': 'sm:max-w-sm',
-        'md': 'sm:max-w-md',
-        'lg': 'sm:max-w-lg',
-        'xl': 'sm:max-w-xl',
-        '2xl': 'sm:max-w-2xl',
-    }[props.maxWidth];
+  return {
+    'sm': 'sm:max-w-sm',
+    'md': 'sm:max-w-md',
+    'lg': 'sm:max-w-lg',
+    'xl': 'sm:max-w-xl',
+    '2xl': 'sm:max-w-2xl',
+  }[props.maxWidth];
 });
 </script>
 
@@ -81,7 +81,7 @@ const maxWidthClass = computed(() => {
                     leave-from-class="opacity-100 translate-y-0 sm:scale-100"
                     leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
-                    <div v-show="show" class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto" :class="maxWidthClass">
+                    <div v-show="show" class="mb-6 bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto" :class="maxWidthClass">
                         <slot v-if="show" />
                     </div>
                 </transition>

@@ -3,12 +3,12 @@ import { Head } from '@inertiajs/inertia-vue3';
 import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
 
 defineProps({
-    policy: String,
+  policy: String,
 });
 </script>
 
 <template>
-    <Head :title="$t('Privacy Policy')" />
+    <Head title="Privacy Policy" />
 
     <div class="font-sans text-gray-900 antialiased">
         <div class="pt-4 bg-gray-100">

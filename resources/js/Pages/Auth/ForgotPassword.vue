@@ -8,15 +8,15 @@ import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 defineProps({
-    status: String,
+  status: String,
 });
 
 const form = useForm({
-    email: '',
+  email: '',
 });
 
 const submit = () => {
-    form.post(route('password.email'));
+  form.post(route('password.email'));
 };
 </script>
 
@@ -28,7 +28,7 @@ const submit = () => {
             <JetAuthenticationCardLogo />
         </template>
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
             {{ $t('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
         </div>
 
