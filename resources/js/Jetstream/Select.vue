@@ -31,11 +31,11 @@ const props = defineProps({
   },
   contentClasses: {
     type: Array,
-    default: () => ['py-1', 'bg-white'],
+    default: () => ['py-1', 'bg-white', 'dark:bg-gray-800'],
   },
   inputClasses: {
     type: Array,
-    default: () => ['p-1', 'px-2', 'appearance-none', 'outline-none w-full'],
+    default: () => ['p-1', 'px-2', 'appearance-none', 'outline-none', 'w-full', 'dark:bg-gray-900'],
   },
 });
 
@@ -100,8 +100,8 @@ const widthClass = computed(() => {
 
 const heightClass = computed(() => {
   return {
-    '48': 'h-48',
-    'full': 'h-full',
+    '48': 'max-h-48',
+    'full': 'max-h-full',
   }[props.height.toString()];
 });
 
@@ -127,7 +127,7 @@ const alignmentClasses = computed(() => {
 
 <template>
   <div ref="main" class="relative" :class="$attrs.class">
-    <div class="flex p-1 border border-gray-300 focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 rounded-md shadow-sm">
+    <div class="flex p-1 border border-gray-300 dark:border-gray-600 focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 rounded-md shadow-sm">
       <input
         v-model="proxySelect"
         :id="$attrs.id"
@@ -137,7 +137,7 @@ const alignmentClasses = computed(() => {
         @focus="open = true"
       />
       <div>
-          <button @click.prevent="proxySelect = ''; close();" class="cursor-pointer w-6 h-full flex items-center text-gray-400 outline-none focus:outline-none">
+          <button @click.prevent="proxySelect = ''; close();" class="cursor-pointer w-6 h-full flex items-center text-gray-400 dark:text-gray-600 outline-none focus:outline-none">
               <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -145,8 +145,8 @@ const alignmentClasses = computed(() => {
               </svg>
           </button>
       </div>
-      <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200">
-          <button @click.prevent="open = ! open; if (open) { select.focus(); }" class="cursor-pointer w-6 h-6 text-gray-600 dark:text-gray-400 outline-none focus:outline-none">
+      <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 dark:border-gray-600">
+          <button @click.prevent="open = ! open; if (open) { select.focus(); }" class="cursor-pointer w-6 h-6 text-gray-600 dark:text-gray-300 outline-none focus:outline-none">
               <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up w-4 h-4">
                   <polyline v-if="open" points="18 15 12 9 6 15"></polyline>
@@ -175,14 +175,14 @@ const alignmentClasses = computed(() => {
             <div class="rounded-md ring-1 ring-black ring-opacity-5" :class="contentClasses">
               <div v-for="option in filtered"
                 :key="option.id"
-                class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-teal-100"
+                class="cursor-pointer w-full dark:bg-gray-800 border-gray-100 dark:border-gray-900 rounded-t border-b hover:bg-teal-100"
                 @click="proxySelect = option.name; close();"
                 >
-                  <div class="flex w-full items-center p-2 pl-2 border-transparent bg-white border-l-2 relative hover:bg-teal-600 hover:text-teal-100 hover:border-teal-600">
+                  <div class="flex w-full items-center p-2 pl-2 border-transparent bg-white dark:bg-gray-800 border-l-2 relative hover:bg-teal-600 hover:dark:bg-teal-400 hover:text-teal-100 hover:dark:text-teal-900 hover:border-teal-600 hover:dark:border-teal-400">
                       <div class="w-full items-center flex">
                           <div class="mx-2 leading-6">
-{{ option.name }}
-</div>
+                            {{ option.name }}
+                          </div>
                       </div>
                   </div>
               </div>
