@@ -142,7 +142,7 @@ const webauthnRegisterCallback = (data) => {
             </div>
 
             <div v-else class="mt-5 space-y-6">
-                <div v-if="webauthnKeys.length === 0" class="dark:text-gray-200">
+                <div v-if="webauthnKeys.length === 0" class="dark:text-gray-400">
                     {{ $t('No keys registered yet') }}
                 </div>
                 <div v-else v-for="key in webauthnKeys" :key="key.id" class="flex items-center mb-2">

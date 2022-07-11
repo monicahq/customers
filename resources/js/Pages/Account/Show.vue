@@ -11,10 +11,10 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Account">
+    <AppLayout title="Profile">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ $t('Account') }}
+                {{ $t('Profile') }}
             </h2>
         </template>
 

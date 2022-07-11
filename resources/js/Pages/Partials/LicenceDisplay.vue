@@ -31,22 +31,24 @@ const copyIntoClipboard = async (text) => {
 
 <template>
   <div>
-    <p class="mb-4 text-center">{{ $t('🎉 You have an active subscription.') }}</p>
+    <p class="mb-4 text-center dark:text-gray-100">
+      {{ $t('🎉 You have an active subscription.') }}
+    </p>
 
     <slot />
 
     <div class="mb-4 mt-4">
       <div class="flex">
-        <p class="flex-auto">
+        <p class="flex-auto dark:text-gray-200">
           {{ $t('This is your licence key:') }}
         </p>
         <JetActionMessage :on="copied" class="mr-6">
-            {{ $t('Copied!') }}
+          {{ $t('Copied!') }}
         </JetActionMessage>
       </div>
 
       <div class="flex">
-        <input class="truncate w-full inline-block rounded bg-gray-200 px-3 py-2 mr-3" :value="licence.key" ref="licenceInput" type="text" @click.prevent="select" />
+        <input class="truncate w-full inline-block rounded bg-gray-200 dark:bg-gray-800 px-3 py-2 mr-3" :value="licence.key" ref="licenceInput" type="text" @click.prevent="select" />
         <JetSecondaryButton :title="$t('Copy licence into your clipboard')" @click.prevent="copyIntoClipboard(licence.key)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="w-4 mr-1">
               <g transform="matrix(2.857142857142857,0,0,2.857142857142857,0,0)">
@@ -62,12 +64,12 @@ const copyIntoClipboard = async (text) => {
       </div>
     </div>
 
-    <div class="mb-4 bg-blue-100 flex rounded-lg p-4">
+    <div class="mb-4 bg-blue-100 dark:bg-blue-900 flex rounded-lg p-4">
       <div>
         <p class="font-bold mb-2">{{ $t('How to use your key:') }}</p>
         <ul class="ml-4">
           <li><span class="text-blue-500">1. </span>  <span v-html="link"></span></li>
-          <li><span class="text-blue-500">2. </span>  {{ $t('Locate the Licence key section') }}</li>
+          <li><span class="text-blue-500">2. </span>  {{ $t('Locate the Licence key section.') }}</li>
           <li><span class="text-blue-500">3. </span>  {{ $t('Paste the licence key shown above.') }}</li>
           <li><span class="text-blue-500">4. </span>  {{ $t('Enjoy!') }}</li>
         </ul>
