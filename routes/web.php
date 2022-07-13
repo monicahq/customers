@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\UserAddressController;
+use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\Auth\SocialiteCallbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonicaController;
@@ -45,6 +46,13 @@ Route::middleware([
     Route::get('monica', [MonicaController::class, 'index'])->name('monica.index');
     Route::post('monica/{plan}', [MonicaController::class, 'create'])->name('monica.create');
     Route::patch('monica', [MonicaController::class, 'update'])->name('monica.update');
+
+    Route::delete('', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
+
+    Route::prefix('administration')->group(function () {
+        Route::get('', [AdministrationController::class, 'index'])->name('administration.index');
+        Route::get('{user}', [AdministrationController::class, 'show'])->name('administration.user.show');
+    });
 
     // User & Profile...
     Route::get('user/account', [AccountController::class, 'show'])->name('account.show');

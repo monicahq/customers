@@ -37,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'postal_code',
         'country',
         'state',
+        'instance_administrator',
     ];
 
     /**
@@ -58,6 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'instance_administrator' => 'boolean',
     ];
 
     /**
@@ -116,5 +118,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function webauthnKeys()
     {
         return $this->hasMany(WebauthnKey::class);
+    }
+
+    /**
+     * Get the created at date formatted.
+     *
+     * @return string|null
+     */
+    public function getCreatedAtFormattedAttribute(): ?string
+    {
+        return $this->created_at->isoFormat('LL');
     }
 }
