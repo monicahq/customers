@@ -13,7 +13,7 @@ defineProps({
       {{ $t("All the receipts for all your subscriptions") }}
     </p>
 
-    <Pagination :items="receipts" class="mb-12">
+    <div class="mb-12">
       <ul class="mb-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
         <li v-for="receipt in receipts.data" :key="receipt.id" class="flex justify-between item-list border-b border-gray-200 dark:border-gray-700 px-5 py-2 hover:bg-slate-50 hover:dark:bg-slate-800">
           <div>
@@ -33,7 +33,10 @@ defineProps({
           </Link>
         </li>
       </ul>
-    </Pagination>
+
+      <Pagination :items="receipts" />
+
+    </div>
 
   </div>
 </template>
