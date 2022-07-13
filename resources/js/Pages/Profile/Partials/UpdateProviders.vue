@@ -77,7 +77,7 @@ defineProps({
                 </template>
 
                 <template v-else>
-                    <JetButton class="mr-3" :href="route('login.provider', { driver: provider })" @click.prevent="open(provider)">
+                    <JetButton class="mr-3" @click.prevent="open(provider)">
                       {{ $t('Connect') }}
                     </JetButton>
 

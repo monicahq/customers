@@ -191,5 +191,8 @@
     "Switch for :price": "Changer pour :price",
     "Switch": "Changer",
     "Switch to plan": "Changer de plan",
-    "Are you sure you would like to switch to this plan?": "Êtes-vous sûr⋅e de vouloir changer de plan ?"
+    "Are you sure you would like to switch to this plan?": "Êtes-vous sûr⋅e de vouloir changer de plan ?",
+    "Pagination Navigation": "Navigation de pagination",
+    "Showing :first to :last of :total results": "Affichage des résultats :first à :last sur :total",
+    "Showing :count of :total results": "Affichage des résultats :count sur :total"
 }
