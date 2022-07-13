@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from "vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { computed } from 'vue';
+import { Link } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
   items: Object,
@@ -32,27 +32,27 @@ const lastItem = computed(() => props.items.data.length > 0 ? firstItem.value + 
         </span>
       </div>
 
-      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-        <!-- <p class="text-sm w-full text-gray-700 dark:text-gray-300 leading-5">
-          <span v-if="firstItem">
-            {{
-              $t("Showing :first to :last of :total results", {
-                first: firstItem,
-                last: lastItem,
-                total: items.meta.total,
-              })
-            }}
-          </span>
-          <span v-else>
-            {{
-              $t("Showing :count of :total results", {
-                count: items.data.length,
-                total: items.meta.total,
-              })
-            }}
-          </span>
-        </p> -->
+      <p class="hidden text-sm w-full text-gray-700 dark:text-gray-300 leading-5">
+        <span v-if="firstItem">
+          {{
+            $t("Showing :first to :last of :total results", {
+              first: firstItem,
+              last: lastItem,
+              total: items.meta.total,
+            })
+          }}
+        </span>
+        <span v-else>
+          {{
+            $t("Showing :count of :total results", {
+              count: items.data.length,
+              total: items.meta.total,
+            })
+          }}
+        </span>
+      </p>
 
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
         <div class="relative z-0 inline-flex shadow-sm rounded-md">
           <span v-if="items.meta.current_page === 1" class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 cursor-default rounded-l-md leading-5"
             aria-hidden="true" aria-disabled="true" :aria-label="$t('pagination.previous')">
