@@ -22,6 +22,8 @@ class AdministrationController extends Controller
 
         return Inertia::render('Administration/Index', [
             'users' => $usersCollection,
+            'last_week_count' => User::where('created_at', '>=', now()->subWeek())->count(),
+            'last_month_count' => User::where('created_at', '>=', now()->subMonth())->count(),
         ]);
     }
 
@@ -43,6 +45,7 @@ class AdministrationController extends Controller
                     'id' => $licence->id,
                     'plan' => [
                         'id' => $licence->plan->id,
+                        'product' => $licence->plan->product,
                         'friendly_name' => $licence->plan->friendly_name,
                         'description' => $licence->plan->description,
                         'plan_name' => $licence->plan->plan_name,
@@ -51,6 +54,7 @@ class AdministrationController extends Controller
                     ],
                     'key' => $licence->key,
                     'subscription_state' => $licence->subscription_state,
+                    'created_at' => $licence->created_at->isoFormat('LL'),
                     'valid_until_at' => $licence->valid_until_at_formatted,
                 ];
             });
