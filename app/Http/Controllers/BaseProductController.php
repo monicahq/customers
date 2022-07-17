@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\LicenceKey;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseProductController extends Controller
 {
-    abstract function productName(): string;
+    abstract public function productName(): string;
 
     /**
      * Display Monica licences.
