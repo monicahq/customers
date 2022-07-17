@@ -83,7 +83,12 @@ const subscribe = (planId) => {
         <!-- case: active subscription -->
         <template v-if="current_licence">
           <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg">
-            <LicenceDisplay :licence="current_licence" :link="links.billing">
+            <LicenceDisplay
+              :licence="current_licence"
+              :link="links.billing"
+              @update-subscription="$inertia.patch(route('monica.update.paddle'))"
+              @cancel-subscription="$inertia.patch(route('monica.cancel.paddle'))"
+            >
               <Plan v-if="currentPlan" :plan="currentPlan" />
             </LicenceDisplay>
           </div>

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, nextTick } from 'vue';
+import { trans } from 'laravel-vue-i18n';
 import JetButton from './Button.vue';
 import JetDialogModal from './DialogModal.vue';
 import JetInput from './Input.vue';
@@ -11,15 +12,15 @@ const emit = defineEmits(['confirmed']);
 defineProps({
   title: {
     type: String,
-    default: 'Confirm Password',
+    default: trans('Confirm Password'),
   },
   content: {
     type: String,
-    default: 'For your security, please confirm your password to continue.',
+    default: trans('For your security, please confirm your password to continue.'),
   },
   button: {
     type: String,
-    default: 'Confirm',
+    default: trans('Confirm'),
   },
 });
 
