@@ -157,7 +157,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: assets
-          path: public
+          path: public/build
 
       - name: Configure Git
         run: |
@@ -212,13 +212,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: assets
-          path: public
+          path: public/build
 
       - name: Download source maps
         uses: actions/download-artifact@v3
         with:
           name: sourcemaps
-          path: public
+          path: public/build
 
       - name: Create Sentry release
         uses: getsentry/action-release@v1
@@ -228,6 +228,6 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: ${{ secrets.SENTRY_ENVIRONMENT }}
-          sourcemaps: public/js/app.js public/js/app.js.map
+          sourcemaps: public/build/assets/app.*.js public/build/assets/app.*.js.map
           version: ${{ needs.build.outputs.release }}
           url_prefix: ~/js
