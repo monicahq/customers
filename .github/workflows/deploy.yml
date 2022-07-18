@@ -97,12 +97,12 @@ jobs:
       - name: Prepare environment
         run: |
           { \
-            echo "MIX_PROD_SOURCE_MAPS=true"; \
-            echo "MIX_SENTRY_RELEASE=${{ steps.version.outputs.version }}"; \
+            echo "VITE_PROD_SOURCE_MAPS=true"; \
+            echo "VITE_SENTRY_RELEASE=${{ steps.version.outputs.version }}"; \
           } | tee .env
 
       - name: Build assets
-        run: yarn run production
+        run: yarn run build
 
       - name: Check if there is any file update needed
         id: check
@@ -121,18 +121,15 @@ jobs:
         with:
           name: assets
           path: |
-            public/mix-manifest.json
-            public/js
-            public/css
-            public/fonts
-            !public/**/*.map
+            public/build/**/*
+            !public/build/**/*.map
 
       - name: Store source maps
         uses: actions/upload-artifact@v3
         with:
           name: sourcemaps
           path: |
-            public/**/*.map
+            public/build/**/*.map
 
 
   ######################
