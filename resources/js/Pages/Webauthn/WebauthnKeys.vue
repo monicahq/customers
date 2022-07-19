@@ -10,7 +10,7 @@ import JetButton from '@/Jetstream/Button.vue';
 import RegisterKey from './Partials/RegisterKey.vue';
 import DeleteKeyModal from './Partials/DeleteKeyModal.vue';
 import UpdateKey from './Partials/UpdateKey.vue';
-import * as WebAuthn from '../../../../vendor/asbiin/laravel-webauthn/resources/js/webauthn.js';
+import WebAuthn from '../../webauthn.js';
 
 const props = defineProps({
   webauthnKeys: Array,
