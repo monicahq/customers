@@ -130,7 +130,7 @@ WebAuthn.prototype._bufferEncode = function(value) {
  * @return {string}
  */
 WebAuthn.prototype._bufferDecode = function(value) {
-  var t = window.atob(value)
+  var t = window.atob(value);
   return Uint8Array.from(t, c => c.charCodeAt(0));
 };
 
