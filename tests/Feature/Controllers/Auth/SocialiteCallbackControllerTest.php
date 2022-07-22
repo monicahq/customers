@@ -74,7 +74,7 @@ class SocialiteCallbackControllerTest extends TestCase
 
         $response = $this->get('/auth/test', [
             'X-Inertia' => true,
-            'X-Inertia-Version' => md5_file(public_path('mix-manifest.json')),
+            'X-Inertia-Version' => md5_file(public_path('build/manifest.json')),
         ]);
 
         $response->assertStatus(409);
