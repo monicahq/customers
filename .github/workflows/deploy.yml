@@ -112,7 +112,7 @@ jobs:
             echo "Nothing to push, already up to date."
           else
             echo -e "Waiting modifications:\n$status"
-            echo "::error::Resources are not up to date. Please rebuild with: 'yarn run lint:all' and 'yarn run prod'."
+            echo "::error::Resources are not up to date. Please fix it with: 'yarn run lint:fix'."
             exit -1
           fi
 
