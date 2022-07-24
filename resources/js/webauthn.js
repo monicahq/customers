@@ -28,7 +28,7 @@ function WebAuthn(notifyCallback = null) {
  * @param {function(PublicKeyCredential)} callback  User callback
  */
 WebAuthn.prototype.register = function(publicKey, callback) {
-  let publicKeyCredential = Object.assign({}, publicKey);
+  const publicKeyCredential = Object.assign({}, publicKey);
   publicKeyCredential.user.id = this._bufferDecode(publicKey.user.id);
   publicKeyCredential.challenge = this._bufferDecode(this._base64Decode(publicKey.challenge));
   if (publicKey.excludeCredentials) {
@@ -52,7 +52,7 @@ WebAuthn.prototype.register = function(publicKey, callback) {
  * @param {function(PublicKeyCredential)} callback  User callback
  */
 WebAuthn.prototype._registerCallback = function(publicKey, callback) {
-  let publicKeyCredential = {
+  const publicKeyCredential = {
     id: publicKey.id,
     type: publicKey.type,
     rawId: this._bufferEncode(publicKey.rawId),
@@ -73,7 +73,7 @@ WebAuthn.prototype._registerCallback = function(publicKey, callback) {
  * @param {function(PublicKeyCredential)} callback  User callback
  */
 WebAuthn.prototype.sign = function(publicKey, callback) {
-  let publicKeyCredential = Object.assign({}, publicKey);
+  const publicKeyCredential = Object.assign({}, publicKey);
   publicKeyCredential.challenge = this._bufferDecode(this._base64Decode(publicKey.challenge));
   if (publicKey.allowCredentials) {
     publicKeyCredential.allowCredentials = this._credentialDecode(publicKey.allowCredentials);
@@ -97,7 +97,7 @@ WebAuthn.prototype.sign = function(publicKey, callback) {
  * @param {function(PublicKeyCredential)} callback  User callback
  */
 WebAuthn.prototype._signCallback = function(publicKey, callback) {
-  let publicKeyCredential = {
+  const publicKeyCredential = {
     id: publicKey.id,
     type: publicKey.type,
     rawId: this._bufferEncode(publicKey.rawId),
@@ -150,7 +150,7 @@ WebAuthn.prototype._base64Decode = function(input) {
     if (pad === 1) {
       throw new Error('InvalidLengthError: Input base64url string is the wrong length to determine padding');
     }
-    input += new Array(5-pad).join('=');
+    input += Array.from({length: 5 - pad}).join('=');
   }
 
   return input;
