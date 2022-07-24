@@ -11,11 +11,15 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
+use Symfony\Component\HttpFoundation\Response;
 
-class OfficeLifeController extends Controller
+class OfficeLifeController extends BaseProductController
 {
-    public const PRODUCT = 'OfficeLife';
+    public function productName(): string
+    {
+        return 'OfficeLife';
+    }
 
     /**
      * Display OfficeLife licences.
@@ -23,15 +27,11 @@ class OfficeLifeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Inertia\Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request): InertiaResponse
     {
-        $subscription = $request->user()->subscriptions()
-            ->active()
-            ->product(static::PRODUCT)
-            ->orderBy('created_at', 'desc')
-            ->first();
+        $subscription = $this->subscription($request);
 
-        $plans = Plan::where('product', static::PRODUCT)->get();
+        $plans = Plan::where('product', $this->productName())->get();
 
         $productIds = $plans->pluck('plan_id_on_paddle');
         $prices = app(Products::class)->getProductPrices($productIds, $request->user(), optional($subscription)->quantity ?? 1);
@@ -51,10 +51,7 @@ class OfficeLifeController extends Controller
             ];
         });
 
-        $licence = $request->user()->licenceKeys()
-            ->where('plan_id', optional(optional($subscription)->plan)->id)
-            ->orderBy('created_at', 'desc')
-            ->first();
+        $licence = $this->licence($request, $subscription);
 
         return Inertia::render('OfficeLife/Index', [
             'plans' => $plansCollection,
@@ -81,11 +78,11 @@ class OfficeLifeController extends Controller
      */
     public function price(OfficeLifePriceRequest $request, Plan $plan): JsonResponse
     {
-        if ($plan->product !== static::PRODUCT) {
+        if ($plan->product !== $this->productName()) {
             abort(401);
         }
 
-        $plans = Plan::where('product', static::PRODUCT)->get();
+        $plans = Plan::where('product', $this->productName())->get();
         $productIds = $plans->pluck('plan_id_on_paddle');
 
         $price = app(Products::class)->getProductPrices($productIds, $request->user(), $request->quantity())
@@ -104,9 +101,9 @@ class OfficeLifeController extends Controller
      * @param  Plan  $plan
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(OfficeLifePriceRequest $request, Plan $plan)
+    public function create(OfficeLifePriceRequest $request, Plan $plan): Response
     {
-        if ($plan->product !== static::PRODUCT) {
+        if ($plan->product !== $this->productName()) {
             abort(401);
         }
 

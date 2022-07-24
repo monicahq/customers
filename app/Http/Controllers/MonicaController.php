@@ -9,11 +9,15 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
+use Symfony\Component\HttpFoundation\Response;
 
-class MonicaController extends Controller
+class MonicaController extends BaseProductController
 {
-    public const PRODUCT = 'Monica';
+    public function productName(): string
+    {
+        return 'Monica';
+    }
 
     /**
      * Display Monica licences.
@@ -21,15 +25,11 @@ class MonicaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Inertia\Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request): InertiaResponse
     {
-        $subscription = $request->user()->subscriptions()
-            ->active()
-            ->product(static::PRODUCT)
-            ->orderBy('created_at', 'desc')
-            ->first();
+        $subscription = $this->subscription($request);
 
-        $plans = Plan::where('product', static::PRODUCT)->get();
+        $plans = Plan::where('product', $this->productName())->get();
 
         $productIds = $plans->pluck('plan_id_on_paddle');
         $prices = app(Products::class)->getProductPrices($productIds, $request->user());
@@ -47,10 +47,7 @@ class MonicaController extends Controller
             ];
         });
 
-        $licence = $request->user()->licenceKeys()
-            ->where('plan_id', optional(optional($subscription)->plan)->id)
-            ->orderBy('created_at', 'desc')
-            ->first();
+        $licence = $this->licence($request, $subscription);
 
         return Inertia::render('Monica/Index', [
             'plans' => $plansCollection,
@@ -75,9 +72,9 @@ class MonicaController extends Controller
      * @param  Plan  $plan
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(Request $request, Plan $plan)
+    public function create(Request $request, Plan $plan): Response
     {
-        if ($plan->product !== static::PRODUCT) {
+        if ($plan->product !== $this->productName()) {
             abort(401);
         }
 

@@ -102,7 +102,12 @@ const subscribe = (planId) => {
         <!-- case: active subscription -->
         <template v-if="current_licence">
           <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg">
-            <LicenceDisplay :licence="current_licence" :link="links.billing">
+            <LicenceDisplay
+              :licence="current_licence"
+              :link="links.billing"
+              @update-subscription="$inertia.patch(route('officelife.update.paddle'))"
+              @cancel-subscription="$inertia.patch(route('officelife.cancel.paddle'))"
+            >
               <div v-if="currentPlan" class="overflow-hidden flex items-center justify-between">
 
                 <Plan :plan="currentPlan" />
