@@ -1,7 +1,6 @@
 <script setup>
 import JetButtonLink from '@/Jetstream/ButtonLink.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import JetButton from '@/Jetstream/Button.vue';
 import MonicaLogo from '@/Layouts/MonicaLogo.vue';
 import OfficeLifeLogo from '@/Layouts/OfficeLifeLogo.vue';
 import Receipts from '@/Pages/Partials/Receipts.vue';
@@ -40,18 +39,22 @@ defineProps({
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-10">
               <!-- left -->
               <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:max-w-md sm:rounded-lg">
+
                 <OfficeLifeLogo />
                 <JetButtonLink :href="route('officelife.index')">
                   {{ $t('Manage your subscription') }}
                 </JetButtonLink>
+
               </div>
 
               <!-- right -->
               <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:max-w-md sm:rounded-lg">
+
                 <MonicaLogo />
                 <JetButtonLink :href="route('monica.index')">
                   {{ $t('Manage your subscription') }}
                 </JetButtonLink>
+
               </div>
             </div>
 
