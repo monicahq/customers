@@ -10,6 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $version = Inertia::getVersion();
+
         /** @var \Illuminate\Database\Eloquent\Collection<int, \Laravel\Paddle\Receipt> */
         $receipts = Auth::user()->receipts;
         $receiptsCollection = $receipts->map(function (Receipt $receipt): array {

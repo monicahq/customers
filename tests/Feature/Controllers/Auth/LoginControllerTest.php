@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Controllers\Auth;
 
+use App\Http\Middleware\HandleInertiaRequests;
+use Inertia\Inertia;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
@@ -22,8 +24,9 @@ class LoginControllerTest extends TestCase
         $response = $this->get('/login', [
             'Cookie' => "webauthn_remember={$user->id}",
             'X-Inertia' => true,
-            'X-Inertia-Version' => md5_file(public_path('build/manifest.json')),
+            'X-Inertia-Version' => (new HandleInertiaRequests)->version(request()) ?? '',
         ]);
+        $response->dump();
 
         $response->assertStatus(200);
         $response->assertSee('Login');
@@ -50,7 +53,7 @@ class LoginControllerTest extends TestCase
         $response = $this->withCookie('webauthn_remember', $user->id)
             ->get('/login', [
                 'X-Inertia' => true,
-                'X-Inertia-Version' => md5_file(public_path('build/manifest.json')),
+                'X-Inertia-Version' => (new HandleInertiaRequests)->version(request()) ?? '',
             ]);
 
         $response->assertStatus(200);

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Controllers\Auth;
 
+use App\Http\Middleware\HandleInertiaRequests;
 use App\Models\User;
 use App\Models\UserToken;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -74,7 +75,7 @@ class SocialiteCallbackControllerTest extends TestCase
 
         $response = $this->get('/auth/test', [
             'X-Inertia' => true,
-            'X-Inertia-Version' => md5_file(public_path('build/manifest.json')),
+            'X-Inertia-Version' => (new HandleInertiaRequests)->version(request()) ?? '',
         ]);
 
         $response->assertStatus(409);

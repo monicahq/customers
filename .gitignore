@@ -1,4 +1,6 @@
 /bootstrap/ssr
+/config/.release
+/config/.version
 /node_modules
 /public/build
 /public/hot
