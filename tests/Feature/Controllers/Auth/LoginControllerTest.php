@@ -3,7 +3,6 @@
 namespace Tests\Feature\Controllers\Auth;
 
 use App\Http\Middleware\HandleInertiaRequests;
-use Inertia\Inertia;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
