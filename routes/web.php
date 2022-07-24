@@ -41,11 +41,15 @@ Route::middleware([
     Route::post('officelife/{plan}', [OfficeLifeController::class, 'create'])->name('officelife.create');
     Route::post('officelife/{plan}/price', [OfficeLifeController::class, 'price'])->name('officelife.price');
     Route::patch('officelife', [OfficeLifeController::class, 'update'])->name('officelife.update');
+    Route::patch('officelife/paddleUpdate', [OfficeLifeController::class, 'paddleUpdate'])->name('officelife.update.paddle');
+    Route::patch('officelife/paddleCancel', [OfficeLifeController::class, 'paddleCancel'])->name('officelife.cancel.paddle');
 
     // monica
     Route::get('monica', [MonicaController::class, 'index'])->name('monica.index');
     Route::post('monica/{plan}', [MonicaController::class, 'create'])->name('monica.create');
     Route::patch('monica', [MonicaController::class, 'update'])->name('monica.update');
+    Route::patch('monica/paddleUpdate', [MonicaController::class, 'paddleUpdate'])->name('monica.update.paddle');
+    Route::patch('monica/paddleCancel', [MonicaController::class, 'paddleCancel'])->name('monica.cancel.paddle');
 
     Route::delete('', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
 
