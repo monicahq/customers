@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import JetApplicationLogo from '@/Jetstream/ApplicationLogo.vue';
+import JetButtonLink from '@/Jetstream/ButtonLink.vue';
 import Footer from '@/Layouts/Footer.vue';
 import Check from '@/Pages/Partials/Check.vue';
 
@@ -72,15 +73,15 @@ defineProps({
                     <div>
                       <p v-if="canRegister" class="text-lg font-bold mb-3 dark:text-gray-200">{{ $t('New on this site?') }}</p>
 
-                      <Link v-if="canRegister" :href="route('register')" class="mb-14 focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 dark:bg-gray-700 dark:text-gray-400 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
+                      <JetButtonLink v-if="canRegister" :href="route('register')" class="mb-14">
                         {{ $t('Create an account') }}
-                      </Link>
+                      </JetButtonLink>
 
                       <p class="text-lg font-bold mb-3 dark:text-gray-200">{{ $t('Returning user?') }}</p>
 
-                      <Link :href="route('login')" class="mb-4 focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 dark:bg-gray-700 dark:text-gray-400 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
+                      <JetButtonLink :href="route('login')">
                         {{ $t('Login') }}
-                      </Link>
+                      </JetButtonLink>
 
                     </div>
 

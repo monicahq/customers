@@ -24,13 +24,8 @@ const close = () => {
 </script>
 
 <template>
-    <Modal
-        :show="show"
-        :max-width="maxWidth"
-        :closeable="closeable"
-        @close="close"
-    >
-        <div class="bg-white dark:bg-gray-900">
+    <Modal :show="show" :max-width="maxWidth" :closeable="closeable" @close="close">
+        <div class="bg-white dark:bg-gray-800">
           <div>
 
             <!-- title -->
@@ -56,7 +51,7 @@ const close = () => {
         </div>
 
         <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 dark:bg-gray-900 text-right">
-            <slot name="footer" />
+          <slot name="footer" />
         </div>
     </Modal>
 </template>

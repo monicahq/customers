@@ -1,6 +1,6 @@
 <script setup>
+import JetButtonLink from '@/Jetstream/ButtonLink.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { Link } from '@inertiajs/inertia-vue3';
 import MonicaLogo from '@/Layouts/MonicaLogo.vue';
 import OfficeLifeLogo from '@/Layouts/OfficeLifeLogo.vue';
 
@@ -40,20 +40,18 @@ defineProps({
               <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:max-w-md sm:rounded-lg">
 
                 <OfficeLifeLogo />
-
-                <Link :href="route('officelife.index')" class="mb-4 focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
+                <JetButtonLink :href="route('officelife.index')">
                   {{ $t('Manage your subscription') }}
-                </Link>
+                </JetButtonLink>
               </div>
 
               <!-- right -->
               <div class="text-center p-3 sm:p-3 mt-6 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:max-w-md sm:rounded-lg">
 
                 <MonicaLogo />
-
-                <Link :href="route('monica.index')" class="mb-4 focus:shadow-outline-gray inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:border-gray-900 focus:outline-none active:bg-gray-900">
+                <JetButtonLink :href="route('monica.index')">
                   {{ $t('Manage your subscription') }}
-                </Link>
+                </JetButtonLink>
 
               </div>
             </div>
