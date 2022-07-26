@@ -52,7 +52,7 @@ You should clone this repository and run a few commands to get started:
 ```bash
 composer install
 yarn install
-yarn prod
+yarn build
 ```
 
 Then you have to populate the .env file with your own setup. This file contains all the variables needed to run the software.

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\Profile\WebauthnDestroyResponse;
+use App\Http\Controllers\Profile\WebauthnUpdateResponse;
 use App\Models\Receipt;
 use App\Models\Subscription;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -10,6 +12,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Paddle\Cashier;
+use LaravelWebauthn\Facades\Webauthn;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
@@ -64,5 +67,8 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('oauth2-socialite', function (Request $request) {
             return Limit::perMinute(5)->by(optional($request->user())->id ?: $request->ip());
         });
+
+        Webauthn::updateViewResponseUsing(WebauthnUpdateResponse::class);
+        Webauthn::destroyViewResponseUsing(WebauthnDestroyResponse::class);
     }
 }

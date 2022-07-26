@@ -7,7 +7,7 @@ import { trans } from 'laravel-vue-i18n';
 import JetInputError from '@/Jetstream/InputError.vue';
 import JetButton from '@/Jetstream/Button.vue';
 import WaitForKey from './Partials/WaitForKey.vue';
-import * as WebAuthn from '../../../../vendor/asbiin/laravel-webauthn/resources/js/webauthn.js';
+import WebAuthn from '../../webauthn.js';
 
 const props = defineProps({
   publicKey: Object,

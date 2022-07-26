@@ -10,7 +10,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0",
         "guzzlehttp/psr7": "^2.2",
-        "inertiajs/inertia-laravel": "^0.5",
+        "inertiajs/inertia-laravel": "0.6.3",
         "laravel/cashier-paddle": "^1.5",
         "laravel/fortify": "^1.12",
         "laravel/framework": "^9.0",

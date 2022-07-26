@@ -24,16 +24,16 @@ const myTransport = (options) => {
 };
 
 const install = (app, options) => {
-  if (typeof SentryConfig !== 'undefined' && SentryConfig.dsn !== null) {
+  if (options.dsn !== undefined) {
     Sentry.init({
-      dsn: SentryConfig.dsn,
+      dsn: options.dsn,
       tunnel: '/sentry/tunnel',
-      environment: SentryConfig.environment || null,
+      environment: options.environment || null,
       release: options.release || '',
-      sendDefaultPii: SentryConfig.sendDefaultPii || false,
-      tracesSampleRate: SentryConfig.tracesSampleRate || 0.0,
+      sendDefaultPii: options.sendDefaultPii || false,
+      tracesSampleRate: options.tracesSampleRate || 0.0,
       integrations: [
-        SentryConfig.tracesSampleRate > 0 ? new BrowserTracing() : null,
+        options.tracesSampleRate > 0 ? new BrowserTracing() : null,
       ],
       transport: myTransport,
     });
@@ -57,7 +57,7 @@ const setContext = (vm) => {
   }
 };
 
-export default {
+export const sentry = {
   install,
   setContext,
 };

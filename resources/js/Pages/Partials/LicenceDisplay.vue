@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import useClipboard from 'vue-clipboard3';
+import useClipboard from 'vue-clipboard3/dist/esm/index.js';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetActionMessage from '@/Jetstream/ActionMessage.vue';
 
