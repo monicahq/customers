@@ -192,5 +192,8 @@
     "Switch": "Switch",
     "Switch to plan": "Switch to plan",
     "Are you sure you would like to switch to this plan?": "Are you sure you would like to switch to this plan?",
+    "Pagination Navigation": "Pagination Navigation",
+    "Showing :first to :last of :total results": "Showing :first to :last of :total results",
+    "Showing :count of :total results": "Showing :count of :total results",
     "For your security, please confirm your password to continue.": "For your security, please confirm your password to continue."
 }

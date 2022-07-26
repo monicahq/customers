@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import Pagination from '@/Pages/Partials/Pagination.vue';
 
 defineProps({
   users: Object,
@@ -82,7 +83,7 @@ defineProps({
         </div>
 
         <!-- table -->
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-4">
           <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <caption class="hidden">
               Users
@@ -129,6 +130,9 @@ defineProps({
             </tbody>
           </table>
         </div>
+
+        <Pagination :items="users" />
+
       </div>
     </div>
   </AppLayout>
