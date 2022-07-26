@@ -39,7 +39,7 @@ rules:
     - last
   vue/component-name-in-template-casing:
     - error
-    - kebab-case
+    - PascalCase
   vue/html-end-tags : error
   vue/html-self-closing: 0
   vue/no-v-model-argument: 0
