@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Paddle\Billable;
 use Laravel\Sanctum\HasApiTokens;
-use LaravelWebauthn\Models\WebauthnKey;
+use LaravelWebauthn\WebauthnAuthenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -19,6 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use WebauthnAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -108,16 +109,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function paddlePostcode(): ?string
     {
         return $this->postal_code;
-    }
-
-    /**
-     * Get the webauthn keys associated to this user.
-     *
-     * @return HasMany
-     */
-    public function webauthnKeys()
-    {
-        return $this->hasMany(WebauthnKey::class);
     }
 
     /**
