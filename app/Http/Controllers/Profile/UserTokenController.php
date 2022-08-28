@@ -16,7 +16,7 @@ class UserTokenController extends BaseController
      */
     public function destroy(Request $request, string $driver)
     {
-        $request->user()->usertokens()
+        $request->user()->userTokens()
             ->where('driver', $driver)
             ->delete();
 
