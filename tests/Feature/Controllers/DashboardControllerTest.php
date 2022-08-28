@@ -8,7 +8,7 @@ use App\Models\Subscription;
 use App\Models\User;
 use Tests\TestCase;
 
-class DashoardControllerTest extends TestCase
+class DashboardControllerTest extends TestCase
 {
     /** @test */
     public function it_displays_list_of_receipts(): void

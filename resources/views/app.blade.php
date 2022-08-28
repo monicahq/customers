@@ -27,7 +27,7 @@
         @routes
         @vite('resources/js/app.js')
         @inertiaHead
-      </head>
+    </head>
     <body class="font-sans antialiased bg-gray-50 dark:bg-gray-900 dark:text-gray-50">
         @inertia
     </body>
