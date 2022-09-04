@@ -31,7 +31,7 @@ const props = defineProps({
   },
   contentClasses: {
     type: Array,
-    default: () => ['py-1', 'bg-white', 'dark:bg-gray-800'],
+    default: () => ['py-1', 'bg-white dark:bg-gray-900', 'dark:bg-gray-800'],
   },
   inputClasses: {
     type: Array,
@@ -145,8 +145,8 @@ const alignmentClasses = computed(() => {
               </svg>
           </button>
       </div>
-      <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 dark:border-gray-600">
-          <button @click.prevent="open = ! open; if (open) { select.focus(); }" class="cursor-pointer w-6 h-6 text-gray-600 dark:text-gray-300 outline-none focus:outline-none">
+      <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 dark:border-gray-700 dark:border-gray-600">
+          <button @click.prevent="open = ! open; if (open) { select.focus(); }" class="cursor-pointer w-6 h-6 text-gray-600 dark:text-gray-400 dark:text-gray-300 outline-none focus:outline-none">
               <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up w-4 h-4">
                   <polyline v-if="open" points="18 15 12 9 6 15"></polyline>

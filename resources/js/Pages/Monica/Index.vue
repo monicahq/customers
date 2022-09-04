@@ -96,7 +96,7 @@ const subscribe = (planId) => {
           <!-- case: cancelled subscription -->
           <div v-else class="mb-4 text-center p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 dark:text-gray-100 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg">
             <p class="mb-4">{{ $t('☠️ You have cancelled your subscription.') }}</p>
-            <p class="text-gray-600 text-sm">{{ $t('You can always pick a new plan and start over, if you want.') }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">{{ $t('You can always pick a new plan and start over, if you want.') }}</p>
           </div>
         </template>
 
