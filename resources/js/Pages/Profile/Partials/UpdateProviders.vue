@@ -46,7 +46,7 @@ defineProps({
 </style>
 
 <template>
-    <JetActionSection id="socialite" @submitted="updatePassword">
+    <JetActionSection id="socialite">
         <template #title>
             {{ $t('External connections') }}
         </template>
