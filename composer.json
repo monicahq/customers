@@ -3,7 +3,7 @@
     "type": "project",
     "description": "Customer portal.",
     "keywords": ["framework", "laravel", "monica", "officelife"],
-    "license": "MIT",
+    "license": "AGPL-3.0-or-later",
     "require": {
         "php": "^8.0",
         "asbiin/laravel-webauthn": "^3.0",
@@ -59,13 +59,8 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
         ]
     },
     "extra": {
