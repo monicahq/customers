@@ -14,6 +14,11 @@ env:
   php-version: '8.1'
   node-version: 16
 
+concurrency:
+  group: Deploy ${{ github.ref }}
+  cancel-in-progress: true
+
+
 jobs:
   #############
   # Build
