@@ -101,11 +101,11 @@ const subscribe = (planId) => {
         </template>
 
         <div v-for="plan in plans" :key="plan.id">
-          <div v-if="! currentPlan || plan.id !== currentPlan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg flex items-center justify-between">
+          <div v-if="! currentPlan || plan.id !== currentPlan.id || current_licence.subscription_state === 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg flex items-center justify-between">
             <Plan :plan="plan" />
 
             <div class="text-center">
-              <JetButton v-if="currentPlan" @click="updateForm.plan_id = plan.id">
+              <JetButton v-if="currentPlan && current_licence.subscription_state !== 'subscription_cancelled'" @click="updateForm.plan_id = plan.id">
                 {{ $t('Switch') }}
               </JetButton>
 
