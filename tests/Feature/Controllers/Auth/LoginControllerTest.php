@@ -25,7 +25,6 @@ class LoginControllerTest extends TestCase
             'X-Inertia' => true,
             'X-Inertia-Version' => (new HandleInertiaRequests)->version(request()) ?? '',
         ]);
-        $response->dump();
 
         $response->assertStatus(200);
         $response->assertSee('Login');

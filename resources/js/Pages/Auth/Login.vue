@@ -152,7 +152,7 @@ const reload = () => {
             </div>
 
             <div class="block mt-4">
-                <p v-if="providers.length > 0" class="block font-medium text-sm text-gray-700">
+                <p v-if="providers.length > 0" class="block font-medium text-sm text-gray-700 dark:text-gray-300">
                     {{ $t('Login with:') }}
                 </p>
                 <div class="flex flex-wrap">
