@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Exceptions\PastDueLicenceException;
 use App\Models\LicenceKey;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 class ValidateLicenceKey extends BaseService
 {
