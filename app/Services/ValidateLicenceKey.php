@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Exceptions\PastDueLicenceException;
 use App\Models\LicenceKey;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class ValidateLicenceKey extends BaseService
 {
@@ -36,8 +37,6 @@ class ValidateLicenceKey extends BaseService
         $this->validateRules($data);
         $this->data = $data;
 
-        $this->decodeKey();
-
         $this->licenceKey = LicenceKey::where('key', $this->data['licence_key'])
             ->firstOrFail();
 
@@ -47,12 +46,5 @@ class ValidateLicenceKey extends BaseService
         }
 
         return $this->licenceKey->valid_until_at;
-    }
-
-    private function decodeKey(): array
-    {
-        $encrypter = app('license.encrypter');
-
-        return $encrypter->decrypt($this->data['licence_key']);
     }
 }
