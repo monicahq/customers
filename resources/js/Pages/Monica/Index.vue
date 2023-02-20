@@ -35,6 +35,7 @@ onUnmounted(() => {
 
 const currentPlan = computed(() => props.current_licence === null ? null : plan(props.current_licence.plan_id));
 const newPlan = computed(() => plan(updateForm.plan_id));
+const licenceCancelled = computed(() => props.current_licence.subscription_state === 'subscription_cancelled');
 
 const plan = (id) => props.plans[props.plans.findIndex((x) => x.id === id)];
 
@@ -82,7 +83,7 @@ const subscribe = (planId) => {
 
         <!-- case: active subscription -->
         <template v-if="current_licence">
-          <div v-if="current_licence.subscription_state !== 'subscription_cancelled'" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg">
+          <div v-if="! licenceCancelled" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg">
             <LicenceDisplay
               :licence="current_licence"
               :link="links.billing"
@@ -101,11 +102,11 @@ const subscribe = (planId) => {
         </template>
 
         <div v-for="plan in plans" :key="plan.id">
-          <div v-if="! currentPlan || plan.id !== currentPlan.id" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg flex items-center justify-between">
+          <div v-if="! currentPlan || plan.id !== currentPlan.id || licenceCancelled" class="mb-4 p-3 sm:p-3 w-full overflow-hidden bg-white dark:bg-gray-900 px-6 py-6 shadow-md dark:shadow-gray-700 sm:rounded-lg flex items-center justify-between">
             <Plan :plan="plan" />
 
             <div class="text-center">
-              <JetButton v-if="currentPlan" @click="updateForm.plan_id = plan.id">
+              <JetButton v-if="currentPlan && ! licenceCancelled" @click="updateForm.plan_id = plan.id">
                 {{ $t('Switch') }}
               </JetButton>
 
@@ -124,7 +125,7 @@ const subscribe = (planId) => {
         </div>
 
         <!-- no licence yet -->
-        <div v-if="! current_licence || current_licence.subscription_state !== 'subscription_cancelled'" class="text-gray-600 dark:text-gray-400">
+        <div v-if="! current_licence || ! licenceCancelled" class="text-gray-600 dark:text-gray-400">
           <div>{{ $t('You will be able to upgrade storage later.') }}</div>
         </div>
 
