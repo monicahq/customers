@@ -1,7 +1,7 @@
 
 <script setup>
 import { ref, nextTick, computed, onMounted } from 'vue';
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import JetActionSection from '@/Jetstream/ActionSection.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';

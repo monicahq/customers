@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm, router } from '@inertiajs/vue3';
 import { loadLanguageAsync, getActiveLanguage } from 'laravel-vue-i18n';
 import JetButton from '@/Jetstream/Button.vue';
 import JetFormSection from '@/Jetstream/FormSection.vue';
@@ -66,7 +65,7 @@ const updatePhotoPreview = () => {
 };
 
 const deletePhoto = () => {
-  Inertia.delete(route('current-user-photo.destroy'), {
+  router.delete(route('current-user-photo.destroy'), {
     preserveScroll: true,
     onSuccess: () => {
       photoPreview.value = null;

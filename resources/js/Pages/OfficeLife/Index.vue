@@ -1,7 +1,6 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { useForm, usePage } from '@inertiajs/inertia-vue3';
-import { Inertia } from '@inertiajs/inertia';
+import { useForm, usePage, router } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import OfficeLifeLogo from '@/Layouts/OfficeLifeLogo.vue';
 import LicenceDisplay from '@/Pages/Partials/LicenceDisplay.vue';
@@ -45,7 +44,7 @@ const plan = (id) => localPlans.value[localPlans.value.findIndex((x) => x.id ===
 
 const doRefresh = () => {
   if (usePage().component.value === 'OfficeLife/Index') {
-    Inertia.reload({
+    router.reload({
       only: ['current_licence'],
       onFinish: () => {
         if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {

@@ -7,7 +7,6 @@ use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Services\DestroyLicenceKey;
-use Carbon\Carbon;
 use Tests\TestCase;
 
 class DestroyLicenceKeyTest extends TestCase
@@ -38,7 +37,7 @@ class DestroyLicenceKeyTest extends TestCase
             'user_id' => $user->id,
             'plan_id' => $plan->id,
             'subscription_state' => 'subscription_cancelled',
-            'valid_until_at' => Carbon::create('2022-04-02'),
+            'valid_until_at' => '2022-04-02',
         ]);
     }
 }

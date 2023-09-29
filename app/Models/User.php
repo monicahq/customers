@@ -44,7 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<string>
+     * @var array<int,string>
      */
     protected $hidden = [
         'password',

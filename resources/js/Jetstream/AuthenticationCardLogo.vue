@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/vue3';
 import MonicaLogo from '@/Layouts/MonicaLogo.vue';
 import OfficeLifeLogo from '@/Layouts/OfficeLifeLogo.vue';
 </script>

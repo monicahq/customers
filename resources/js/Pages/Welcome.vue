@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import JetApplicationLogo from '@/Jetstream/ApplicationLogo.vue';
 import JetButtonLink from '@/Jetstream/ButtonLink.vue';
 import Footer from '@/Layouts/Footer.vue';
@@ -18,7 +18,7 @@ defineProps({
 
     <div class="flex flex-col justify-center min-h-screen bg-gray-100 dark:bg-gray-700 sm:items-center sm:pt-0">
         <nav v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-            <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm text-gray-700 dark:text-gray-300 underline">
+            <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-gray-700 dark:text-gray-300 underline">
                 {{ $t('Home') }}
             </Link>
 

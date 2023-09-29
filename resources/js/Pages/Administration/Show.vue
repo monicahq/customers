@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import MonicaLogo from '@/Layouts/MonicaLogo.vue';
 import OfficeLifeLogo from '@/Layouts/OfficeLifeLogo.vue';
