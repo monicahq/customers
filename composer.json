@@ -2,29 +2,40 @@
     "name": "monicahq/customers",
     "type": "project",
     "description": "Customer portal.",
-    "keywords": ["framework", "laravel", "monica", "officelife"],
+    "keywords": [
+        "laravel",
+        "monica",
+        "officelife",
+        "portal"
+    ],
     "license": "AGPL-3.0-or-later",
     "require": {
-        "php": "^8.0",
-        "asbiin/laravel-webauthn": "^3.0",
-        "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0",
-        "guzzlehttp/psr7": "^2.2",
-        "inertiajs/inertia-laravel": "0.6.3",
+        "php": "^8.2",
+        "ext-fileinfo": "*",
+        "asbiin/laravel-webauthn": "^4.0",
+        "codezero/laravel-localizer": "^2.0",
+        "doctrine/dbal": "^3.6",
+        "guzzlehttp/guzzle": "^7.4",
+        "http-interop/http-factory-guzzle": "^1.2",
+        "inertiajs/inertia-laravel": "^0",
         "laravel/cashier-paddle": "^1.5",
         "laravel/fortify": "^1.12",
-        "laravel/framework": "^9.0",
-        "laravel/jetstream": "^2.7",
-        "laravel/passport": "^10.4",
-        "laravel/sanctum": "^2.8",
+        "laravel/framework": "^10.0",
+        "laravel/jetstream": "^4.0",
+        "laravel/passport": "^11.0",
+        "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
         "monarobase/country-list": "^3.3",
         "naugrim/laravel-sentry-tunnel": "^1.0",
-        "sentry/sentry-laravel": "^2.12",
+        "sentry/sentry-laravel": "^3.0",
+        "socialiteproviders/facebook": "^4.1",
         "socialiteproviders/github": "^4.1",
+        "socialiteproviders/google": "^4.1",
         "socialiteproviders/laravelpassport": "^4.1",
-        "thecodingmachine/safe": "^2.0",
+        "socialiteproviders/linkedin": "^4.2",
+        "socialiteproviders/microsoft-azure": "^5.1",
+        "thecodingmachine/safe": "^2.5",
         "tightenco/ziggy": "^1.0",
         "vluzrmos/language-detector": "^2.3"
     },
@@ -33,12 +44,12 @@
         "fakerphp/faker": "^1.9",
         "laravel/sail": "^1.0",
         "mockery/mockery": "^1.4",
-        "nunomaduro/collision": "^6.1",
-        "nunomaduro/larastan": "2.0",
-        "phpunit/phpunit": "^9.0",
+        "nunomaduro/collision": "^7.0",
+        "nunomaduro/larastan": "^2.0",
+        "phpunit/phpunit": "^10.0",
         "psalm/plugin-laravel": "^2.0",
         "roave/security-advisories": "dev-master",
-        "spatie/laravel-ignition": "^1.0",
+        "spatie/laravel-ignition": "^2.0",
         "thecodingmachine/phpstan-safe-rule": "^1.2"
     },
     "autoload": {
@@ -63,19 +74,15 @@
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ]
     },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "composer/package-versions-deprecated": true
+            "composer/package-versions-deprecated": true,
+            "php-http/discovery": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

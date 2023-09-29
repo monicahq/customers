@@ -1,7 +1,6 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { useForm, usePage } from '@inertiajs/inertia-vue3';
-import { Inertia } from '@inertiajs/inertia';
+import { useForm, usePage, router } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import MonicaLogo from '@/Layouts/MonicaLogo.vue';
 import LicenceDisplay from '@/Pages/Partials/LicenceDisplay.vue';
@@ -21,7 +20,7 @@ const refresh = ref(_.debounce(() => doRefresh(), 1000));
 const updateForm = useForm({
   plan_id: null,
 });
-const subscribeForm = useForm();
+const subscribeForm = useForm({});
 
 onMounted(() => {
   if (props.refresh) {
@@ -41,7 +40,7 @@ const plan = (id) => props.plans[props.plans.findIndex((x) => x.id === id)];
 
 const doRefresh = () => {
   if (usePage().component.value === 'Monica/Index') {
-    Inertia.reload({
+    router.reload({
       only: ['current_licence'],
       onFinish: () => {
         if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {

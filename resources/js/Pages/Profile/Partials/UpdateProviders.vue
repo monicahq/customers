@@ -1,14 +1,14 @@
 <script setup>
 import { computed } from 'vue';
-import { useForm, usePage } from '@inertiajs/inertia-vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import JetButton from '@/Jetstream/Button.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetActionSection from '@/Jetstream/ActionSection.vue';
 import JetInputError from '@/Jetstream/InputError.vue';
 
-const form = useForm();
-const providerForm = useForm();
-const errors = computed(() => usePage().props.value.errors);
+const form = useForm({});
+const providerForm = useForm({});
+const errors = computed(() => usePage().props.errors);
 
 const deleteProvider = (provider) => {
   form.delete(route('provider.delete', {driver: provider}), {

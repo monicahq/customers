@@ -15,7 +15,6 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -32,10 +31,6 @@ class AuthServiceProvider extends ServiceProvider
         Passport::tokensCan([
             'manage-key' => 'Manage license keys',
         ]);
-
-        if (! $this->app->routesAreCached()) {
-            Passport::routes();
-        }
 
         Gate::define('administration', function (User $user) {
             return $user->instance_administrator === true;

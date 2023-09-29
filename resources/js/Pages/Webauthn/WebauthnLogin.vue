@@ -1,8 +1,7 @@
 
 <script setup>
 import { ref, nextTick, watch, onMounted } from 'vue';
-import { useForm } from '@inertiajs/inertia-vue3';
-import { Inertia } from '@inertiajs/inertia';
+import { useForm, router } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import JetInputError from '@/Jetstream/InputError.vue';
 import JetButton from '@/Jetstream/Button.vue';
@@ -18,7 +17,7 @@ const isSupported = ref(true);
 const errorMessage = ref('');
 const processing = ref(false);
 
-const authForm = useForm();
+const authForm = useForm({});
 
 watch(() => props.publicKey, (value) => {
   errorMessage.value = '';
@@ -66,7 +65,7 @@ const notSupportedMessage = () => {
 
 const start = () => {
   errorMessage.value = '';
-  Inertia.reload({ only: ['publicKey'] });
+  router.reload({ only: ['publicKey'] });
 };
 
 const stop = () => {

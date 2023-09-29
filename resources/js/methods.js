@@ -8,7 +8,7 @@ export default {
    * @param {string} message
    * @param {string} level
    */
-  flash(message, level = 'success') {
+  flash: (message, level = 'success') => {
     this.$emitt('flash', { message, level });
   },
 
