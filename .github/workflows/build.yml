@@ -8,10 +8,6 @@ on:
   release:
     types: [created]
 
-  # workflow_run:
-  #   workflows: [Compress images]
-  #   types: [completed]
-
 env:
   default-php-version: '8.2'
   coverage-with: 'sqlite'
@@ -29,17 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Testsuite ${{ matrix.testsuite }} with PHP ${{ matrix.php-version }} + ${{ matrix.connection }}
 
-    services:
-      pgsql:
-        image: postgres:13.0
-        env:
-          POSTGRES_DB: customers
-          POSTGRES_USER: customers
-          POSTGRES_PASSWORD: secret
-        ports:
-          - 5432:5432
-        options: --name=postgres --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
-
     strategy:
       fail-fast: false
       matrix:
@@ -50,14 +35,15 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP ${{ matrix.php-version }}
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, dom, fileinfo, ${{ matrix.connection }}
-          coverage: none
+          coverage: pcov
+          ini-values: pcov.directory=., pcov.exclude="~vendor~"
       - name: Check PHP Version
         run: php -v
       - name: Check Composer Version
@@ -109,6 +95,13 @@ jobs:
         run: |
           sudo systemctl start mysql.service
           mysql --protocol=tcp -u root -proot -e "CREATE DATABASE IF NOT EXISTS customers CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+      - name: Create pgsql database
+        if: matrix.connection == 'pgsql'
+        run: |
+          sudo systemctl start postgresql.service
+          sudo -u postgres psql --command="CREATE USER customers PASSWORD 'secret'" --command="\du"
+          sudo -u postgres createdb --owner=customers customers
+          PGPASSWORD=secret psql --username=customers --host=localhost --list customers
 
       - name: Generate key
         run: php artisan key:generate
@@ -133,9 +126,10 @@ jobs:
       - name: Fix results files
         run: sed -i -e "s%$GITHUB_WORKSPACE/%%g" **/*.xml
         working-directory: results/${{ matrix.connection }}
+        if: success() || failure()
 
       - name: Store results
-        if: matrix.php-version == env.default-php-version
+        if: matrix.php-version == env.default-php-version && (success() || failure())
         uses: actions/upload-artifact@v3
         with:
           name: results
@@ -145,15 +139,15 @@ jobs:
   ###########################
   # Reporting to sonarcloud
   ###########################
-  reporting:
+  sonarcloud:
     needs: tests
     runs-on: ubuntu-latest
     name: Sonarcloud
-    if: ${{ ! startsWith(github.ref, 'dependabot/') }}
+    if: ${{ ! startsWith(github.ref, 'dependabot/') && (success() || failure()) }}
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
@@ -165,8 +159,7 @@ jobs:
 
       - name: Merge junit files
         run: |
-          yarn global add junit-merge
-          $(yarn global bin)/junit-merge --recursive --dir results/${{ env.coverage-with }}/junit --out results/results.xml
+          yarn dlx junit-merge --recursive --dir results/${{ env.coverage-with }}/junit --out results/results.xml
 
       - name: Set version parameter
         id: version
@@ -183,7 +176,7 @@ jobs:
 
       - name: SonarCloud Scan
         if: env.SONAR_TOKEN != ''
-        uses: SonarSource/sonarcloud-github-action@v1.7
+        uses: SonarSource/sonarcloud-github-action@v2.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -192,3 +185,24 @@ jobs:
             -Dsonar.projectVersion=${{ steps.version.outputs.value }}
             -Dsonar.php.tests.reportPath=./results/results.xml
             -Dsonar.php.coverage.reportPaths=${{ steps.coverage.outputs.list }}
+
+  ###########################
+  # JUnit Test Report
+  ###########################
+  reporting:
+    needs: tests
+    runs-on: ubuntu-latest
+    name: Reporting
+    if: success() || failure()
+
+    steps:
+      - name: Download results
+        uses: actions/download-artifact@v3
+        with:
+          name: results
+          path: results
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v4
+        with:
+          report_paths: results/${{ env.coverage-with }}/junit/*.xml
