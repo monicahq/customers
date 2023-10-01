@@ -19,7 +19,7 @@ class OfficeLifeControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $plan = Plan::factory()->officelife()->create([
-            'friendly_name' => 'OfficeLifePlan',
+            'translation_key' => 'OfficeLifePlan',
             'plan_id_on_paddle' => 1,
         ]);
 
@@ -46,11 +46,11 @@ class OfficeLifeControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $plan = Plan::factory()->officelife()->create([
-            'friendly_name' => 'OfficeLifePlan',
+            'translation_key' => 'OfficeLifePlan',
             'plan_id_on_paddle' => 1,
         ]);
         Plan::factory()->monica()->create([
-            'friendly_name' => 'MonicaPlan',
+            'translation_key' => 'MonicaPlan',
             'plan_id_on_paddle' => 2,
         ]);
 
@@ -113,7 +113,7 @@ class OfficeLifeControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $plan = Plan::factory()->officelife()->create([
-            'friendly_name' => 'OfficeLifePlan',
+            'translation_key' => 'OfficeLifePlan',
         ]);
 
         LicenceKey::factory()->create([
@@ -220,7 +220,7 @@ class OfficeLifeControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $plan = Plan::factory()->officelife()->create([
-            'friendly_name' => 'OfficeLifePlan',
+            'translation_key' => 'OfficeLifePlan',
             'plan_id_on_paddle' => 1,
         ]);
 

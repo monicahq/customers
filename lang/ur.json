@@ -1,0 +1,196 @@
+{
+    "Account address": "اکاؤنٹ کا پتہ",
+    "Active since :date.": "اس وقت سے فعال: تاریخ۔",
+    "Add additional security to your account using a security key.": "سیکیورٹی کلید کا استعمال کرتے ہوئے اپنے اکاؤنٹ میں اضافی سیکیورٹی شامل کریں۔",
+    "Add additional security to your account using two factor authentication.": "دو عنصر کی توثیق کا استعمال کرتے ہوئے اپنے اکاؤنٹ میں اضافی سیکیورٹی شامل کریں۔",
+    "All the receipts for all your subscriptions": "آپ کی سبھی سبسکرپشنز کی تمام رسیدیں۔",
+    "Already registered?": "پہلے سے رجسٹرڈ ہیں؟",
+    "A monthly plan": "ایک ماہانہ منصوبہ",
+    "A new verification link has been sent to the email address you provided during registration.": "ایک نیا تصدیقی لنک اس ای میل ایڈریس پر بھیج دیا گیا ہے جو آپ نے رجسٹریشن کے دوران فراہم کیا تھا۔",
+    "API Token": "API ٹوکن",
+    "API Token Permissions": "API ٹوکن کی اجازتیں۔",
+    "API Tokens": "API ٹوکنز",
+    "API tokens allow third-party services to authenticate with our application on your behalf.": "API ٹوکن تیسرے فریق کی خدمات کو آپ کی طرف سے ہماری درخواست کے ساتھ تصدیق کرنے کی اجازت دیتے ہیں۔",
+    "Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.": "کیا آپ واقعی اپنا اکاؤنٹ حذف کرنا چاہتے ہیں؟ آپ کا اکاؤنٹ حذف ہونے کے بعد، اس کے تمام وسائل اور ڈیٹا مستقل طور پر حذف ہو جائیں گے۔ براہ کرم اس بات کی تصدیق کے لیے اپنا پاس ورڈ درج کریں کہ آپ اپنا اکاؤنٹ مستقل طور پر حذف کرنا چاہتے ہیں۔",
+    "Are you sure you would like to delete this API token?": "کیا آپ واقعی اس API ٹوکن کو حذف کرنا چاہیں گے؟",
+    "Are you sure you would like to delete this key?": "کیا آپ واقعی اس کلید کو حذف کرنا چاہیں گے؟",
+    "Are you sure you would like to switch to this plan?": "کیا آپ واقعی اس پلان پر سوئچ کرنا چاہیں گے؟",
+    "A yearly plan": "ایک سالانہ منصوبہ",
+    "Browser Sessions": "براؤزر سیشنز",
+    "Cancel": "منسوخ کریں۔",
+    "Cancel all your active subscriptions": "اپنی تمام فعال سبسکرپشنز منسوخ کریں۔",
+    "Cancel anytime": "کسی بھی وقت منسوخ کریں۔",
+    "Cancel subscription": "رکنیت منسوخ کریں۔",
+    "Choose": "منتخب کریں۔",
+    "Close": "بند کریں",
+    "Confirm": "تصدیق کریں۔",
+    "Confirm Password": "پاس ورڈ کی تصدیق کریں۔",
+    "Connect": "جڑیں",
+    "Connect with your security key": "اپنی سیکیورٹی کلید سے منسلک ہوں۔",
+    "Copied!": "نقل کیا گیا!",
+    "Copy": "کاپی",
+    "Copy licence into your clipboard": "اپنے کلپ بورڈ میں لائسنس کاپی کریں۔",
+    "Create": "بنانا",
+    "Create an account": "کھاتا کھولیں",
+    "Create API Token": "API ٹوکن بنائیں",
+    "Created.": "بنایا",
+    "Created at: :date": "پر تخلیق کیا گیا: :date",
+    "day|:period days": "دن |: مدت کے دن",
+    "Delete": "حذف کریں۔",
+    "Delete Account": "کھاتہ مٹا دو",
+    "Delete a new key": "ایک نئی کلید کو حذف کریں۔",
+    "Delete API Token": "API ٹوکن کو حذف کریں۔",
+    "Delete your account on https:\/\/customers.monicahq.com.": "https:\/\/customers.monicahq.com پر اپنا اکاؤنٹ حذف کریں۔",
+    "Disable": "غیر فعال کریں۔",
+    "Disconnect": "منقطع کرنا",
+    "Dismiss": "برطرف کرنا",
+    "Done.": "ہو گیا",
+    "Email Password Reset Link": "ای میل پاس ورڈ ری سیٹ لنک",
+    "Email Verification": "ای میل کی توثیق",
+    "Enable": "فعال",
+    "Enjoy!": "لطف اٹھائیں!",
+    "Ensure your account is using a long, random password to stay secure.": "یقینی بنائیں کہ آپ کا اکاؤنٹ محفوظ رہنے کے لیے ایک لمبا، بے ترتیب پاس ورڈ استعمال کر رہا ہے۔",
+    "External connections": "بیرونی روابط",
+    "Finish enabling two factor authentication.": "دو عنصر کی توثیق کو فعال کرنا مکمل کریں۔",
+    "Forgot Password": "پاسورڈ بھول گے",
+    "Forgot your password?": "اپنا پاس ورڈ بھول گئے؟",
+    "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.": "اپنا پاس ورڈ بھول گئے؟ کوئی مسئلہ نہیں. بس ہمیں اپنا ای میل پتہ بتائیں اور ہم آپ کو پاس ورڈ دوبارہ ترتیب دینے کا لنک ای میل کریں گے جو آپ کو ایک نیا منتخب کرنے کی اجازت دے گا۔",
+    "For your security, please confirm your password to continue.": "اپنی سیکیورٹی کے لیے، براہ کرم جاری رکھنے کے لیے اپنے پاس ورڈ کی تصدیق کریں۔",
+    "Go to :url": "پر جائیں :url",
+    "Go to page :page": "صفحہ پر جائیں: صفحہ",
+    "Here you can purchase and manage your subscriptions with ease.": "یہاں آپ آسانی سے اپنی سبسکرپشنز خرید اور ان کا نظم کر سکتے ہیں۔",
+    "Home": "گھر",
+    "How to use your key:": "اپنی کلید کا استعمال کیسے کریں:",
+    "I agree to the :terms and :policy": "میں :شرائط اور :پالیسی سے اتفاق کرتا ہوں۔",
+    "If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.": "اگر ضروری ہو تو، آپ اپنے تمام آلات پر اپنے تمام دیگر براؤزر سیشنز سے لاگ آؤٹ کر سکتے ہیں۔ آپ کے حالیہ سیشنز میں سے کچھ ذیل میں درج ہیں۔ تاہم، یہ فہرست مکمل نہیں ہوسکتی ہے۔ اگر آپ کو لگتا ہے کہ آپ کے اکاؤنٹ سے سمجھوتہ کیا گیا ہے، تو آپ کو اپنا پاس ورڈ بھی اپ ڈیٹ کرنا چاہیے۔",
+    "If you experience issues after purchase, please contact us at support@monicahq.com.": "اگر آپ کو خریداری کے بعد مسائل کا سامنا کرنا پڑتا ہے تو، براہ کرم ہم سے support@monicahq.com پر رابطہ کریں۔",
+    "It might take a few seconds for your subscription to be processed.": "آپ کی سبسکرپشن پر کارروائی ہونے میں چند سیکنڈ لگ سکتے ہیں۔",
+    "Key name": "کلیدی نام",
+    "Last active :date": "آخری فعال: تاریخ",
+    "Last used :date": "آخری بار استعمال کیا گیا: تاریخ",
+    "Locate the Licence key section.": "لائسنس کلید کے حصے کو تلاش کریں۔",
+    "Log in": "لاگ ان کریں",
+    "Login": "لاگ ان کریں",
+    "Login with:": "کے ساتھ لاگ ان:",
+    "Log Out": "لاگ آوٹ",
+    "Log Out Other Browser Sessions": "دوسرے براؤزر سیشن سے لاگ آؤٹ کریں۔",
+    "Made from all over the world. We ❤️ you.": "پوری دنیا سے تیار کردہ۔ ہم آپ کو ❤️",
+    "Manage Account": "اکاؤنٹ کا انتظام",
+    "Manage accounts you have linked to your Customers account.": "ان اکاؤنٹس کا نظم کریں جنہیں آپ نے اپنے صارفین کے اکاؤنٹ سے منسلک کیا ہے۔",
+    "Manage and log out your active sessions on other browsers and devices.": "دوسرے براؤزرز اور آلات پر اپنے فعال سیشنز کا نظم کریں اور لاگ آؤٹ کریں۔",
+    "Manage API Tokens": "API ٹوکنز کا نظم کریں۔",
+    "Manage your subscription": "اپنی رکنیت کا نظم کریں۔",
+    "Monica. All rights reserved. 2017 — :date.": "مونیکا۔ جملہ حقوق محفوظ ہیں. 2017 — : تاریخ۔",
+    "Monica is a great open source personal CRM. Monica allows people to keep track of everything that’s important about their friends and family.": "مونیکا ایک بہترین اوپن سورس ذاتی CRM ہے۔ مونیکا لوگوں کو ہر اس چیز پر نظر رکھنے کی اجازت دیتی ہے جو ان کے دوستوں اور خاندان کے بارے میں اہم ہے۔",
+    "Monica logo": "مونیکا کا لوگو",
+    "Monica’s subscription": "مونیکا کی رکنیت",
+    "Monthly plan": "ماہانہ منصوبہ",
+    "month|:period months": "مہینہ |: مدت مہینے",
+    "New on this site?": "اس سائٹ پر نیا؟",
+    "No keys registered yet": "ابھی تک کوئی چابیاں رجسٹر نہیں ہوئی ہیں۔",
+    "No long-term commitment": "کوئی طویل مدتی عزم نہیں۔",
+    "OfficeLife bills per active employee. An employee is a seat - if you plan to use OfficeLife with 10 employees, buy 10 seats.": "آفس لائف کے بل فی فعال ملازم۔ ایک ملازم ایک سیٹ ہے - اگر آپ 10 ملازمین کے ساتھ OfficeLife استعمال کرنے کا ارادہ رکھتے ہیں، تو 10 سیٹیں خریدیں۔",
+    "OfficeLife is an Employee Operation plateform. It manages everything employees do in a company. From projects to 1:1s to teams.": "آفس لائف ایک ملازم آپریشن پلیٹ فارم ہے۔ یہ ہر چیز کا انتظام کرتا ہے جو ملازمین کمپنی میں کرتے ہیں۔ پروجیکٹس سے لے کر ٹیموں تک 1:1s تک۔",
+    "OfficeLife logo": "آفس لائف کا لوگو",
+    "OfficeLife’s subscription": "آفس لائف کی رکنیت",
+    "OK": "ٹھیک ہے",
+    "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.": "آپ کا اکاؤنٹ حذف ہونے کے بعد، اس کے تمام وسائل اور ڈیٹا مستقل طور پر حذف ہو جائیں گے۔ اپنا اکاؤنٹ حذف کرنے سے پہلے، براہ کرم کوئی بھی ڈیٹا یا معلومات ڈاؤن لوڈ کریں جسے آپ برقرار رکھنا چاہتے ہیں۔",
+    "Pagination Navigation": "صفحہ بندی نیویگیشن",
+    "Password": "پاس ورڈ",
+    "Paste the licence key shown above.": "اوپر دکھائی گئی لائسنس کی کلید چسپاں کریں۔",
+    "Permanently delete your account.": "اپنا اکاؤنٹ مستقل طور پر حذف کریں۔",
+    "Permissions": "اجازتیں",
+    "Please choose a product first.": "براہ کرم پہلے ایک پروڈکٹ کا انتخاب کریں۔",
+    "Please confirm access to your account by entering one of your emergency recovery codes.": "براہ کرم اپنے ایمرجنسی ریکوری کوڈز میں سے ایک درج کرکے اپنے اکاؤنٹ تک رسائی کی تصدیق کریں۔",
+    "Please confirm access to your account by entering the authentication code provided by your authenticator application.": "براہ کرم اپنی تصدیق کنندہ درخواست کے ذریعہ فراہم کردہ توثیقی کوڈ درج کرکے اپنے اکاؤنٹ تک رسائی کی تصدیق کریں۔",
+    "Please confirm access to your account by validating your security key.": "براہ کرم اپنی سیکیورٹی کلید کی توثیق کرکے اپنے اکاؤنٹ تک رسائی کی تصدیق کریں۔",
+    "Please copy your new API token. For your security, it won’t be shown again.": "براہ کرم اپنا نیا API ٹوکن کاپی کریں۔ آپ کی سیکیورٹی کے لیے، اسے دوبارہ نہیں دکھایا جائے گا۔",
+    "Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.": "براہ کرم اس بات کی تصدیق کرنے کے لیے اپنا پاس ورڈ درج کریں کہ آپ اپنے تمام آلات پر اپنے دوسرے براؤزر سیشنز سے لاگ آؤٹ کرنا چاہتے ہیں۔",
+    "Privacy Policy": "رازداری کی پالیسی",
+    "Profile": "پروفائل",
+    "Profile Information": "ذاتی معلومات",
+    "Refresh this page once you’ve subscribed to see your licence key.": "اپنی لائسنس کلید دیکھنے کے لیے سبسکرائب کرنے کے بعد اس صفحہ کو ریفریش کریں۔",
+    "Regenerate Recovery Codes": "ریکوری کوڈز کو دوبارہ تخلیق کریں۔",
+    "Register": "رجسٹر کریں۔",
+    "Register a new key": "ایک نئی کلید رجسٹر کریں۔",
+    "Register a new key.": "ایک نئی کلید رجسٹر کریں۔",
+    "Remember me": "مجھے پہچانتے ہو",
+    "Remove Photo": "تصویر ہٹا دیں۔",
+    "Resend Verification Email": "توثیقی ای میل دوبارہ بھیجیں۔",
+    "Reset Password": "پاس ورڈ ری سیٹ",
+    "Retry": "دوبارہ کوشش کریں۔",
+    "Returning user?": "واپس آنے والا صارف؟",
+    "Save": "محفوظ کریں۔",
+    "Saved.": "محفوظ کیا گیا۔",
+    "seats": "نشستیں",
+    "Secure Area": "محفوظ علاقہ",
+    "Secure payment by [Paddle](:url)": "محفوظ ادائیگی بذریعہ [Paddle](:url)",
+    "Security keys": "سیکیورٹی کیز",
+    "Select A New Photo": "ایک نئی تصویر منتخب کریں۔",
+    "Settings": "ترتیبات",
+    "Setup Key:": "سیٹ اپ کلید:",
+    "Showing :count of :total results": "دکھا رہا ہے :مجموعی نتائج کی تعداد",
+    "Showing :first to :last of :total results": "دکھا رہا ہے :پہلے سے :آخری کے :کل نتائج",
+    "Show Recovery Codes": "ریکوری کوڈز دکھائیں۔",
+    "Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.": "ان ریکوری کوڈز کو ایک محفوظ پاس ورڈ مینیجر میں اسٹور کریں۔ ان کا استعمال آپ کے اکاؤنٹ تک رسائی کی بازیابی کے لیے کیا جا سکتا ہے اگر آپ کا دو فیکٹر توثیق کرنے والا آلہ گم ہو جائے۔",
+    "Submit": "جمع کرائیں",
+    "Subscribe for :price": "سبسکرائب کریں: قیمت",
+    "Support open source projects": "اوپن سورس پروجیکٹس کی حمایت کریں۔",
+    "Switch": "سوئچ کریں۔",
+    "Switch for :price": "کے لیے سوئچ کریں:قیمت",
+    "Switch to plan": "پلان پر سوئچ کریں۔",
+    "Terms of Service": "سروس کی شرائط",
+    "Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn’t receive the email, we will gladly send you another.": "سائن اپ کرنے کے لیے شکریہ! شروع کرنے سے پہلے، کیا آپ اس لنک پر کلک کر کے اپنے ای میل ایڈریس کی تصدیق کر سکتے ہیں جو ہم نے ابھی آپ کو ای میل کیا ہے؟ اگر آپ کو ای میل موصول نہیں ہوئی تو ہم خوشی سے آپ کو ایک اور بھیجیں گے۔",
+    "The licence key will automatically renew on :date.": "لائسنس کی کلید خود بخود :date کو تجدید ہو جائے گی۔",
+    "The operation either timed out or was not allowed.": "آپریشن کا وقت ختم ہو گیا یا اسے اجازت نہیں دی گئی۔",
+    "The provided password does not match your current password.": "فراہم کردہ پاس ورڈ آپ کے موجودہ پاس ورڈ سے مماثل نہیں ہے۔",
+    "This device": "یہ ڈیوائس",
+    "This is a secure area of the application. Please confirm your password before continuing.": "یہ درخواست کا ایک محفوظ علاقہ ہے۔ براہ کرم جاری رکھنے سے پہلے اپنے پاس ورڈ کی تصدیق کریں۔",
+    "This is your licence key:": "یہ آپ کی لائسنس کلید ہے:",
+    "This key is already registered. It’s not necessary to register it again.": "یہ کلید پہلے سے رجسٹرڈ ہے۔ اسے دوبارہ رجسٹر کرنا ضروری نہیں ہے۔",
+    "This provider is already associated with another account": "یہ فراہم کنندہ پہلے ہی کسی دوسرے اکاؤنٹ سے وابستہ ہے۔",
+    "This site is open source.": "یہ سائٹ اوپن سورس ہے۔",
+    "This will immediately:": "یہ فوری طور پر کرے گا:",
+    "To finish enabling two factor authentication, scan the following QR code using your phone’s authenticator application or enter the setup key and provide the generated OTP code.": "دو عنصر کی توثیق کو فعال کرنے کے لیے، اپنے فون کی تصدیق کنندہ ایپلیکیشن کا استعمال کرتے ہوئے درج ذیل QR کوڈ کو اسکین کریں یا سیٹ اپ کلید درج کریں اور تیار کردہ OTP کوڈ فراہم کریں۔",
+    "Two-factor Confirmation": "دو عنصر کی تصدیق",
+    "Two Factor Authentication": "دو عنصر کی تصدیق",
+    "Two factor authentication is now enabled. Scan the following QR code using your phone’s authenticator application or enter the setup key.": "دو عنصر کی توثیق اب فعال ہے۔ اپنے فون کی تصدیق کنندہ ایپلیکیشن کا استعمال کرتے ہوئے درج ذیل QR کوڈ کو اسکین کریں یا سیٹ اپ کلید درج کریں۔",
+    "Unexpected error on login.": "لاگ ان پر غیر متوقع خرابی۔",
+    "Unknown": "نامعلوم",
+    "Update": "اپ ڈیٹ",
+    "Update a key.": "ایک کلید کو اپ ڈیٹ کریں۔",
+    "Update Password": "پاس ورڈ اپ ڈیٹ کریں۔",
+    "Update payment details": "ادائیگی کی تفصیلات کو اپ ڈیٹ کریں۔",
+    "Update quantity for :price": "کی مقدار کو اپ ڈیٹ کریں: قیمت",
+    "Update your account’s address.": "اپنے اکاؤنٹ کا پتہ اپ ڈیٹ کریں۔",
+    "Update your account’s profile information and email address.": "اپنے اکاؤنٹ کی پروفائل کی معلومات اور ای میل ایڈریس کو اپ ڈیٹ کریں۔",
+    "Use an authentication code": "ایک تصدیقی کوڈ استعمال کریں۔",
+    "Use a recovery code": "ریکوری کوڈ استعمال کریں۔",
+    "Use a security key (Webauthn, or FIDO) to increase your account security.": "اپنے اکاؤنٹ کی سیکیورٹی بڑھانے کے لیے سیکیورٹی کلید (Webauthn، یا FIDO) استعمال کریں۔",
+    "Use your password": "اپنا پاس ورڈ استعمال کریں۔",
+    "Use your security key": "اپنی سیکیورٹی کلید استعمال کریں۔",
+    "Validating key…": "کلید کی توثیق ہو رہی ہے…",
+    "Valid until: :date": ":: تاریخ تک درست ہے۔",
+    "View receipt": "رسید دیکھیں",
+    "Waiting for key…": "چابی کا انتظار کر رہا ہے…",
+    "WebAuthn only supports secure connections. Please load this page with https scheme.": "WebAuthn صرف محفوظ کنکشنز کو سپورٹ کرتا ہے۔ براہ کرم اس صفحہ کو https اسکیم کے ساتھ لوڈ کریں۔",
+    "week|:period weeks": "ہفتہ |: مدت ہفتے",
+    "Welcome": "خوش آمدید",
+    "Welcome to the Monica and OfficeLife customer portal!": "مونیکا اور آفس لائف کسٹمر پورٹل میں خوش آمدید!",
+    "When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone’s Authenticator application.": "جب دو عنصر کی توثیق کو فعال کیا جاتا ہے، تو آپ کو تصدیق کے دوران ایک محفوظ، بے ترتیب ٹوکن کے لیے کہا جائے گا۔ آپ اس ٹوکن کو اپنے فون کی Authenticator ایپلیکیشن سے بازیافت کر سکتے ہیں۔",
+    "Whoops! Something went wrong.": "افوہ! کچھ غلط ہو گیا.",
+    "Yearly plan": "سالانہ منصوبہ",
+    "year|:period years": "سال |: مدت سال",
+    "You can add more account to log in to our service with one click.": "آپ ایک کلک کے ساتھ ہماری سروس میں لاگ ان کرنے کے لیے مزید اکاؤنٹ شامل کر سکتے ہیں۔",
+    "You can always pick a new plan and start over, if you want.": "اگر آپ چاہیں تو آپ ہمیشہ ایک نیا منصوبہ چن سکتے ہیں اور دوبارہ شروع کر سکتے ہیں۔",
+    "You can [read the code here](:url).": "آپ [یہاں کوڈ پڑھ سکتے ہیں](:url)۔",
+    "You have enabled two factor authentication.": "آپ نے دو عنصر کی توثیق کو فعال کیا ہے۔",
+    "You have not enabled two factor authentication.": "آپ نے دو عنصر کی توثیق کو فعال نہیں کیا ہے۔",
+    "You may delete any of your existing tokens if they are no longer needed.": "آپ اپنے موجودہ ٹوکنز میں سے کسی کو حذف کر سکتے ہیں اگر ان کی مزید ضرورت نہیں ہے۔",
+    "Your browser doesn’t currently support WebAuthn.": "آپ کا براؤزر فی الحال WebAuthn کو سپورٹ نہیں کرتا ہے۔",
+    "You will be able to upgrade storage later.": "آپ بعد میں اسٹوریج کو اپ گریڈ کر سکیں گے۔",
+    "You WILL still have to delete your account on Monica or OfficeLife.": "آپ کو اب بھی مونیکا یا آفس لائف پر اپنا اکاؤنٹ حذف کرنا پڑے گا۔",
+    "☠️ You have cancelled your subscription.": "☠️ آپ نے اپنا سبسکرپشن منسوخ کر دیا ہے۔",
+    "⚠️ Danger zone": "⚠️ خطرہ زون",
+    "🎉 You have an active subscription.": "🎉 آپ کے پاس ایک فعال سبسکرپشن ہے۔"
+}

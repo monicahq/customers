@@ -17,7 +17,7 @@ class ProductsTest extends TestCase
     {
         $user = User::factory()->create();
         $plan = Plan::factory()->monica()->create([
-            'friendly_name' => 'MonicaPlan',
+            'translation_key' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
 
@@ -71,7 +71,7 @@ class ProductsTest extends TestCase
     {
         $user = User::factory()->create();
         $plan = Plan::factory()->monica()->create([
-            'friendly_name' => 'MonicaPlan',
+            'translation_key' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
 
@@ -122,7 +122,7 @@ class ProductsTest extends TestCase
     public function it_gets_list_of_prices_without_user(): void
     {
         $plan = Plan::factory()->monica()->create([
-            'friendly_name' => 'MonicaPlan',
+            'translation_key' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
 
@@ -174,7 +174,7 @@ class ProductsTest extends TestCase
     {
         $user = User::factory()->create();
         $plan = Plan::factory()->monica()->create([
-            'friendly_name' => 'MonicaPlan',
+            'translation_key' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
 
@@ -226,7 +226,7 @@ class ProductsTest extends TestCase
     {
         $user = User::factory()->create();
         $plan = Plan::factory()->monica()->create([
-            'friendly_name' => 'MonicaPlan',
+            'translation_key' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
 
@@ -278,7 +278,7 @@ class ProductsTest extends TestCase
     {
         $user = User::factory()->create();
         $plan = Plan::factory()->monica()->create([
-            'friendly_name' => 'MonicaPlan',
+            'translation_key' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
 

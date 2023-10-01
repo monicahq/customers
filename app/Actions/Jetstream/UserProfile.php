@@ -37,10 +37,10 @@ class UserProfile
         $data['userTokens'] = $request->user()->userTokens()->get();
         $data['webauthnKeys'] = $webauthnKeys;
 
-        $data['locales'] = collect(config('lang-detector.languages'))->map(fn ($locale) => [
+        $data['locales'] = collect(config('localizer.supported_locales'))->map(fn ($locale) => [
             'id' => $locale,
             'name' => __('auth.lang', [], $locale),
-        ]);
+        ])->sortByCollator(fn ($locale) => $locale['name']);
 
         return $data;
     }

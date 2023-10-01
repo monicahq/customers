@@ -58,6 +58,7 @@ class Setup extends Command
             }
 
             $this->artisan('✓ Performing migrations', 'migrate', ['--force' => true]);
+            $this->artisan('✓ Seed database with records', 'db:seed', ['--force' => true]);
 
             // Cache config
             if ($this->getLaravel()->environment() == 'production'

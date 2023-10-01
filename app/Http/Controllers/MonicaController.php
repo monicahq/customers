@@ -39,8 +39,8 @@ class MonicaController extends BaseProductController
 
             return [
                 'id' => $plan->id,
-                'friendly_name' => $plan->friendly_name,
-                'description' => $plan->description,
+                'friendly_name' => __($plan->translation_key),
+                'description' => __($plan->description_key),
                 'plan_name' => $plan->plan_name,
                 'price' => $price['price'],
                 'frequency' => $price['frequency_name'],
