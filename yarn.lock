@@ -422,6 +422,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@simplewebauthn/browser@npm:^8.2.1":
+  version: 8.2.1
+  resolution: "@simplewebauthn/browser@npm:8.2.1"
+  dependencies:
+    "@simplewebauthn/typescript-types": ^8.0.0
+  checksum: 9454f501a088f7e412e5175e7660c29d2fc967034eacbeba0c6f5cc93a57250d0d21f068261c00864bffc297de1ab44c8e01c26206685d92c3103879c6230c49
+  languageName: node
+  linkType: hard
+
+"@simplewebauthn/typescript-types@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@simplewebauthn/typescript-types@npm:8.0.0"
+  checksum: 59b4ac9804170edbee50703428f5adcada70211117c8f458c805a4b6d4772b9ec678664dd3f00e400aee2e392c9da8e5a8c38448fb0c3d792aba535a3329bfe7
+  languageName: node
+  linkType: hard
+
 "@tailwindcss/forms@npm:^0.5.0":
   version: 0.5.3
   resolution: "@tailwindcss/forms@npm:0.5.3"
@@ -2978,6 +2994,7 @@ __metadata:
     "@inertiajs/vue3": ^1.0.11
     "@sentry/tracing": ^7.65.0
     "@sentry/vue": ^7.65.0
+    "@simplewebauthn/browser": ^8.2.1
     "@tailwindcss/forms": ^0.5.0
     "@tailwindcss/typography": ^0.5.2
     "@vitejs/plugin-basic-ssl": ^1.0.1
