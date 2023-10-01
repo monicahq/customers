@@ -43,23 +43,20 @@ class FortifyServiceProvider extends ServiceProvider
             PrepareAuthenticatedSession::class,
         ]);
 
-        Fortify::loginView(function ($request) {
-            return app()->call(LoginController::class, ['request' => $request]);
-        });
-        Fortify::confirmPasswordsUsing(function ($user, ?string $password = null) {
-            return $user->password ? app(StatefulGuard::class)->validate([
-                'email' => $user->email,
-                'password' => $password,
-            ]) : true;
-        });
+        Fortify::loginView(fn ($request) => (new LoginController())($request));
+        Fortify::confirmPasswordsUsing(fn ($user, ?string $password = null) => $user->password
+                ? app(StatefulGuard::class)->validate([
+                    'email' => $user->email,
+                    'password' => $password,
+                ])
+                : true
+        );
 
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        Fortify::twoFactorChallengeView(function () {
-            return new TwoFactorChallengeView();
-        });
+        Fortify::twoFactorChallengeView(fn () => new TwoFactorChallengeView());
 
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;
@@ -67,8 +64,6 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($email.$request->ip());
         });
 
-        RateLimiter::for('two-factor', function (Request $request) {
-            return Limit::perMinute(5)->by($request->session()->get('login.id'));
-        });
+        RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by($request->session()->get('login.id')));
     }
 }

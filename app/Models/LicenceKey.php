@@ -48,7 +48,7 @@ class LicenceKey extends Model
     /**
      * The attributes that should be visible in serialization.
      *
-     * @var array<string>
+     * @var array<int,string>
      */
     protected $visible = [
         'id',

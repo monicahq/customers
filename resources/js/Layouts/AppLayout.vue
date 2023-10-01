@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head, router } from '@inertiajs/vue3';
 import JetBanner from '@/Jetstream/Banner.vue';
 import JetDropdown from '@/Jetstream/Dropdown.vue';
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
@@ -16,7 +15,7 @@ defineProps({
 const showingNavigationDropdown = ref(false);
 
 const logout = () => {
-  Inertia.post(route('logout'));
+  router.post(route('logout'));
 };
 </script>
 
@@ -54,12 +53,12 @@ const logout = () => {
                                 <JetDropdown align="right" width="48">
                                     <template #trigger>
                                         <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 focus:dark:border-gray-700 transition">
-                                            <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
+                                            <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.auth.user?.profile_photo_url" :alt="$page.props.auth.user?.name">
                                         </button>
 
                                         <span v-else class="inline-flex rounded-md">
                                             <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white dark:bg-gray-900 hover:text-gray-700 hover:dark:text-gray-300 focus:outline-none transition">
-                                                {{ $page.props.user.name }}
+                                                {{ $page.props.auth.user?.name }}
 
                                                 <svg
                                                     class="ml-2 -mr-0.5 h-4 w-4"
@@ -87,7 +86,7 @@ const logout = () => {
                                             {{ $t('Settings') }}
                                         </JetDropdownLink>
 
-                                        <JetDropdownLink v-if="$page.props.user.instance_administrator" :href="route('administration.index')">
+                                        <JetDropdownLink v-if="$page.props.auth.user?.instance_administrator" :href="route('administration.index')">
                                           Administration
                                         </JetDropdownLink>
 
@@ -137,18 +136,18 @@ const logout = () => {
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-800">
+                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-700">
                         <div class="flex items-center px-4">
                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
-                                <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
+                                <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.auth.user?.profile_photo_url" :alt="$page.props.auth.user?.name">
                             </div>
 
                             <div>
                                 <div class="font-medium text-base text-gray-800 dark:text-gray-200">
-                                    {{ $page.props.user.name }}
+                                    {{ $page.props.auth.user?.name }}
                                 </div>
                                 <div class="font-medium text-sm text-gray-500">
-                                    {{ $page.props.user.email }}
+                                    {{ $page.props.auth.user?.email }}
                                 </div>
                             </div>
                         </div>
@@ -162,7 +161,7 @@ const logout = () => {
                                 {{ $t('Settings') }}
                             </JetResponsiveNavLink>
 
-                            <JetResponsiveNavLink v-if="$page.props.user.instance_administrator" :href="route('administration.index')" :active="route().current('administration.index')">
+                            <JetResponsiveNavLink v-if="$page.props.auth.user?.instance_administrator" :href="route('administration.index')" :active="route().current('administration.index')">
                               Administration
                             </JetResponsiveNavLink>
 

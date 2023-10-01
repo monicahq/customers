@@ -1,8 +1,7 @@
 import './bootstrap';
 import '../css/app.css';
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/inertia-vue3';
-import { InertiaProgress } from '@inertiajs/progress';
+import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { i18nVue } from 'laravel-vue-i18n';
@@ -15,9 +14,12 @@ const sentryConfigVal = typeof SentryConfig !== 'undefined' ? SentryConfig : {};
 createInertiaApp({
   title: (title) => `${title} - ${appName}`,
   resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
-  setup({ el, app, props, plugin }) {
+  progress: {
+    color: '#4B5563',
+  },
+  setup({ el, App, props, plugin }) {
     return createApp({
-      render: () => h(app, props),
+      render: () => h(App, props),
       mounted() {
         this.$nextTick(() => {
           sentry.setContext(this);
@@ -37,5 +39,3 @@ createInertiaApp({
       .mount(el);
   },
 });
-
-InertiaProgress.init({ color: '#4B5563' });

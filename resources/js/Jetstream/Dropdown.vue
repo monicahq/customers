@@ -12,7 +12,7 @@ const props = defineProps({
   },
   contentClasses: {
     type: Array,
-    default: () => ['py-1', 'bg-white'],
+    default: () => ['py-1', 'bg-white', 'dark:bg-gray-900'],
   },
 });
 
@@ -65,7 +65,7 @@ const alignmentClasses = computed(() => {
         >
             <div
                 v-show="open"
-                class="absolute z-50 mt-2 rounded-md shadow-lg dark:shadow-gray-700 dark:shadow-gray-700"
+                class="absolute z-50 mt-2 rounded-md shadow-lg dark:shadow-gray-700"
                 :class="[widthClass, alignmentClasses]"
                 style="display: none;"
                 @click="open = false"

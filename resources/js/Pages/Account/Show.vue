@@ -21,13 +21,13 @@ defineProps({
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <div>
-                    <UpdateProfileInformationForm :user="$page.props.user" />
+                    <UpdateProfileInformationForm :user="$page.props.auth.user" />
 
                     <JetSectionBorder />
                 </div>
 
                 <div>
-                    <UpdateAddressForm class="mt-10 sm:mt-0" :user="$page.props.user" :countries="countries" />
+                    <UpdateAddressForm class="mt-10 sm:mt-0" :user="$page.props.auth.user" :countries="countries" />
 
                     <JetSectionBorder />
                 </div>

@@ -31,7 +31,7 @@ defineProps({
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
-                    <UpdateProfileInformationForm :user="$page.props.user" :locales="locales" />
+                    <UpdateProfileInformationForm :user="$page.props.auth.user" :locales="locales" />
 
                     <JetSectionBorder />
                 </div>
@@ -43,7 +43,7 @@ defineProps({
                 </div>
 
                 <div v-if="providers.length > 0">
-                    <UpdateProviders :user="$page.props.user" :providers="providers" :providersName="providersName" :userTokens="userTokens" />
+                    <UpdateProviders :user="$page.props.auth.user" :providers="providers" :providersName="providersName" :userTokens="userTokens" />
 
                     <JetSectionBorder />
                 </div>

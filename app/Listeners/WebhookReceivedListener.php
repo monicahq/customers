@@ -12,6 +12,7 @@ use Laravel\Paddle\Customer;
 use Laravel\Paddle\Events\SubscriptionCreated;
 use Laravel\Paddle\Events\WebhookReceived;
 use Laravel\Paddle\Exceptions\InvalidPassthroughPayload;
+
 use function Safe\json_decode;
 
 class WebhookReceivedListener

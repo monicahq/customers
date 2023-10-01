@@ -1,10 +1,10 @@
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue';
 import JetDangerButton from '@/Jetstream/DangerButton.vue';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 
-const form = useForm();
+const form = useForm({});
 
 const props = defineProps({
   keyid: Number,
@@ -16,29 +16,33 @@ const deleteKey = () => {
   form.delete(route('webauthn.destroy', props.keyid), {
     preserveScroll: true,
     preserveState: true,
-    onSuccess: () => (emit('close')),
+    onSuccess: () => emit('close'),
   });
 };
 </script>
 
 <template>
-    <JetConfirmationModal :show="keyid > 0" @close="$emit('close')">
-        <template #title>
-            {{ $t('Delete a new key') }}
-        </template>
+  <JetConfirmationModal :show="keyid > 0" @close="$emit('close')">
+    <template #title>
+      {{ $t('Delete a new key') }}
+    </template>
 
-        <template #content>
-            {{ $t('Are you sure you would like to delete this key?') }}
-        </template>
+    <template #content>
+      {{ $t('Are you sure you would like to delete this key?') }}
+    </template>
 
-        <template #footer>
-            <JetSecondaryButton @click="$emit('close')">
-                {{ $t('Cancel') }}
-            </JetSecondaryButton>
+    <template #footer>
+      <JetSecondaryButton @click="$emit('close')">
+        {{ $t('Cancel') }}
+      </JetSecondaryButton>
 
-            <JetDangerButton class="ml-2" @click="deleteKey" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                {{ $t('Delete') }}
-            </JetDangerButton>
-        </template>
-    </JetConfirmationModal>
+      <JetDangerButton
+        class="ms-2"
+        @click="deleteKey"
+        :class="{ 'opacity-25': form.processing }"
+        :disabled="form.processing">
+        {{ $t('Delete') }}
+      </JetDangerButton>
+    </template>
+  </JetConfirmationModal>
 </template>

@@ -1,7 +1,6 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
 import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
 import JetButton from '@/Jetstream/Button.vue';
@@ -28,7 +27,7 @@ const form = useForm({
   password: '',
   remember: false,
 });
-const providerForm = useForm();
+const providerForm = useForm({});
 
 watch(() => props.publicKey, (value) => {
   publicKeyRef.value = value;
@@ -62,7 +61,7 @@ const open = (provider) => {
 const reload = () => {
   publicKeyRef.value = null;
   webauthn.value = true;
-  Inertia.reload({only: ['publicKey']});
+  router.reload({only: ['publicKey']});
 };
 </script>
 
@@ -152,7 +151,7 @@ const reload = () => {
             </div>
 
             <div class="block mt-4">
-                <p v-if="providers.length > 0" class="block font-medium text-sm text-gray-700">
+                <p v-if="providers.length > 0" class="block font-medium text-sm text-gray-700 dark:text-gray-300">
                     {{ $t('Login with:') }}
                 </p>
                 <div class="flex flex-wrap">

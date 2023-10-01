@@ -6,6 +6,7 @@ use App\Exceptions\MissingPrivateKeyException;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+
 use function Safe\base64_decode;
 
 class EncryptionServiceProvider extends ServiceProvider

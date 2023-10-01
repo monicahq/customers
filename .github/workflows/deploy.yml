@@ -11,8 +11,8 @@ on:
   workflow_dispatch:
 
 env:
-  php-version: '8.1'
-  node-version: 16
+  php-version: '8.2'
+  node-version: 18
 
 concurrency:
   group: Deploy ${{ github.ref }}
@@ -35,7 +35,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -58,7 +58,7 @@ jobs:
 
       - name: Get Composer Cache Directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache composer files
         uses: actions/cache@v3
         with:
@@ -77,28 +77,25 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.node-version }}
-      - name: Get yarn cache directory path
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache yarn files
         uses: actions/cache@v3
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: .yarn/cache
+          key: ${{ runner.os }}-yarn-v2-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-yarn-v2-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}-yarn-v2-
 
       - name: Install yarn dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
       - name: Lint files
         run: yarn run lint
 
       - name: Get version
         id: version
         run: |
-          echo "::set-output name=version::$(git describe --abbrev=0 --tags 2>/dev/null || echo '0.0.0' | sed 's/^v//')"
-          echo "::set-output name=release::$(git describe --abbrev=0 --tags --exact-match $GITHUB_SHA 2>/dev/null || git log --pretty="%h" -n1 $GITHUB_SHA)"
+          echo "version=$(git describe --abbrev=0 --tags 2>/dev/null || echo '0.0.0' | sed 's/^v//')" >> $GITHUB_OUTPUT
+          echo "release=$(git describe --abbrev=0 --tags --exact-match $GITHUB_SHA 2>/dev/null || git log --pretty="%h" -n1 $GITHUB_SHA)" >> $GITHUB_OUTPUT
       - name: Prepare environment
         run: |
           { \
@@ -150,7 +147,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -211,7 +208,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download assets
         uses: actions/download-artifact@v3
