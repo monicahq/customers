@@ -17,7 +17,7 @@ class UserProfile
     {
         $providers = collect(config('auth.login_providers'))->filter(fn ($provider) => ! empty($provider));
         $providersName = $providers->mapWithKeys(function ($provider) {
-            return [$provider => config("services.$provider.name") ?? __("auth.login_provider_{$provider}")];
+            return [$provider => config("services.$provider.name") ?? trans_ignore("auth.login_provider_{$provider}")];
         });
 
         $webauthnKeys = $request->user()->webauthnKeys()

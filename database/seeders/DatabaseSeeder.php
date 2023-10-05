@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $monica = app(MonicaController::class)->productName();
-        $this->getOrCreatePlan($monica, 'monthly', trans_key('Monthly plan'), trans_key('A monthly plan'));
-        $this->getOrCreatePlan($monica, 'yearly', trans_key('Yearly plan'), trans_key('A yearly plan'));
+        $this->getOrCreatePlan($monica, 'monthly', trans_key('Monthly plan'), trans_key('Monica with all features'));
+        $this->getOrCreatePlan($monica, 'yearly', trans_key('Yearly plan'), trans_key('Monica with all features'));
     }
 
     private function getOrCreatePlan(string $product, string $name, string $translation_key, string $description_key)
