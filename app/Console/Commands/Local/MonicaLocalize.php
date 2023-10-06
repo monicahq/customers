@@ -37,7 +37,7 @@ class MonicaLocalize extends Command
         array_shift($locales);
         $this->call('localize', ['lang' => implode(',', $locales)]);
 
-        $this->loadTranslations($locales);
+        $this->loadTranslations(['en'] + $locales);
     }
 
     /**
@@ -67,14 +67,16 @@ class MonicaLocalize extends Command
 
     private function translateStrings(string $locale, array $strings)
     {
-        foreach ($strings as $index => $value) {
-            if ($value === '') {
-                $this->googleTranslate->setTarget($locale);
-                $translated = $this->googleTranslate->translate($index);
-                $this->info('translating: `'.$index.'` to `'.$translated.'`');
+        if ($locale !== 'en') {
+            foreach ($strings as $index => $value) {
+                if ($value === '') {
+                    $this->googleTranslate->setTarget($locale);
+                    $translated = $this->googleTranslate->translate($index);
+                    $this->info('translating: `'.$index.'` to `'.$translated.'`');
 
-                // we store the translated string in the array
-                $strings[$index] = $translated;
+                    // we store the translated string in the array
+                    $strings[$index] = $translated;
+                }
             }
         }
 
