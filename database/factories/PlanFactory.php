@@ -23,8 +23,8 @@ class PlanFactory extends Factory
     {
         return [
             'product' => $this->faker->name(),
-            'friendly_name' => $this->faker->name(),
-            'description' => $this->faker->name(),
+            'translation_key' => $this->faker->name(),
+            'description_key' => $this->faker->name(),
             'plan_name' => $this->faker->name(),
             'plan_id_on_paddle' => $this->faker->numberBetween(1, 100),
         ];

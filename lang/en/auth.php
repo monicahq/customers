@@ -1,25 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used during authentication for various
-    | messages that we need to display to the user. You are free to modify
-    | these language lines according to your application's requirements.
-    |
-    */
-
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
-    'login_provider_github' => 'GitHub',
-    'login_provider_monica' => 'Monica',
-    'login_provider_officelife' => 'OfficeLife',
-
-    'lang' => 'English',
+    'failed'                  => 'These credentials do not match our records.',
+    'lang'                    => 'English',
+    'login_provider_azure'    => 'Microsoft',
+    'login_provider_facebook' => 'Facebook',
+    'login_provider_github'   => 'GitHub',
+    'login_provider_google'   => 'Google',
+    'login_provider_linkedin' => 'LinkedIn',
+    'login_provider_saml2'    => 'SAML 2.0 provider',
+    'login_provider_twitter'  => 'Twitter',
+    'password'                => 'The password is incorrect.',
+    'throttle'                => 'Too many login attempts. Please try again in :seconds seconds.',
 ];

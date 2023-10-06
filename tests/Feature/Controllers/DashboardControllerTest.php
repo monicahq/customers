@@ -15,7 +15,7 @@ class DashboardControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $plan = Plan::factory()->monica()->create([
-            'friendly_name' => 'MonicaPlan',
+            'translation_key' => 'MonicaPlan',
             'plan_id_on_paddle' => 1,
         ]);
         $subscription = Subscription::factory()->create([

@@ -18,8 +18,8 @@ class Plan extends Model
     protected $fillable = [
         'id',
         'product',
-        'friendly_name',
-        'description',
+        'translation_key',
+        'description_key',
         'plan_name',
         'plan_id_on_paddle',
     ];

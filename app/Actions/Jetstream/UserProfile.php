@@ -17,7 +17,7 @@ class UserProfile
     {
         $providers = collect(config('auth.login_providers'))->filter(fn ($provider) => ! empty($provider));
         $providersName = $providers->mapWithKeys(function ($provider) {
-            return [$provider => config("services.$provider.name") ?? __("auth.login_provider_{$provider}")];
+            return [$provider => config("services.$provider.name") ?? trans_ignore("auth.login_provider_{$provider}")];
         });
 
         $webauthnKeys = $request->user()->webauthnKeys()
@@ -37,10 +37,10 @@ class UserProfile
         $data['userTokens'] = $request->user()->userTokens()->get();
         $data['webauthnKeys'] = $webauthnKeys;
 
-        $data['locales'] = collect(config('lang-detector.languages'))->map(fn ($locale) => [
+        $data['locales'] = collect(config('localizer.supported_locales'))->map(fn ($locale) => [
             'id' => $locale,
             'name' => __('auth.lang', [], $locale),
-        ]);
+        ])->sortByCollator(fn ($locale) => $locale['name']);
 
         return $data;
     }

@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Helpers\CollectionHelper;
 use App\Http\Controllers\Profile\WebauthnDestroyResponse;
 use App\Http\Controllers\Profile\WebauthnUpdateResponse;
 use App\Models\Receipt;
 use App\Models\Subscription;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -52,6 +54,24 @@ class AppServiceProvider extends ServiceProvider
 
             return $result;
         });
+
+        if (! Collection::hasMacro('sortByCollator')) {
+            Collection::macro('sortByCollator', function (callable|string $callback) {
+                /** @var Collection */
+                $collect = $this;
+
+                return CollectionHelper::sortByCollator($collect, $callback);
+            });
+        }
+
+        if (! Collection::hasMacro('sortByCollatorDesc')) {
+            Collection::macro('sortByCollatorDesc', function (callable|string $callback) {
+                /** @var Collection */
+                $collect = $this;
+
+                return CollectionHelper::sortByCollator($collect, $callback, descending: true);
+            });
+        }
     }
 
     /**

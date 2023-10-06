@@ -25,12 +25,7 @@ return [
      * You could use parse_langs_to_array to use the string syntax
      * or just use the array of languages with its aliases.
      */
-    'languages' => parse_langs_to_array(
-        env('LANG_DETECTOR_LANGUAGES', [
-            'en',
-            'fr',
-        ])
-    ),
+    'languages' => config('localizer.supported_locales'),
 
     /*
      * Indicates if should store detected locale on cookies

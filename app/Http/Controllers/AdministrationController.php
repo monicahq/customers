@@ -46,8 +46,8 @@ class AdministrationController extends Controller
                     'plan' => [
                         'id' => $licence->plan->id,
                         'product' => $licence->plan->product,
-                        'friendly_name' => $licence->plan->friendly_name,
-                        'description' => $licence->plan->description,
+                        'friendly_name' => __($licence->plan->translation_key),
+                        'description' => __($licence->plan->description_key),
                         'plan_name' => $licence->plan->plan_name,
                         'price' => $price['price'],
                         'frequency' => $price['frequency_name'],

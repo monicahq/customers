@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/vue';
-import { BrowserTracing } from '@sentry/tracing';
+import { BrowserTracing } from '@sentry/browser';
 import { createTransport } from '@sentry/core';
 import { router } from '@inertiajs/vue3';
 
@@ -15,7 +15,7 @@ const myTransport = (options) => {
       headers: options.headers,
       ...options.fetchOptions,
     };
-    return await axios(requestOptions).then(response => ({
+    return axios(requestOptions).then((response) => ({
       statusCode: response.status,
       headers: response.headers,
     }));
@@ -26,15 +26,14 @@ const myTransport = (options) => {
 const install = (app, options) => {
   if (options.dsn !== undefined) {
     Sentry.init({
+      app,
       dsn: options.dsn,
       tunnel: '/sentry/tunnel',
       environment: options.environment || null,
       release: options.release || '',
       sendDefaultPii: options.sendDefaultPii || false,
       tracesSampleRate: options.tracesSampleRate || 0.0,
-      integrations: [
-        options.tracesSampleRate > 0 ? new BrowserTracing() : null,
-      ],
+      integrations: options.tracesSampleRate > 0 ? [new BrowserTracing()] : [],
       transport: myTransport,
     });
     app.mixin(Sentry.createTracingMixins({ trackComponents: true }));
@@ -44,15 +43,15 @@ const install = (app, options) => {
 
 const setContext = (vm) => {
   if (activated && typeof vm.$page !== 'undefined') {
-    if (vm.$page.props.user) {
-      Sentry.setUser({ id: vm.$page.props.user.id });
+    if (vm.$page.props.auth.user) {
+      Sentry.setUser({ id: vm.$page.props.auth.user.id });
     }
     Sentry.setTag('page.component', vm.$page.component);
     vm.$once(
       'hook:destroyed',
       router.on('success', (event) => {
         Sentry.setTag('page.component', event.detail.page.component);
-      })
+      }),
     );
   }
 };
