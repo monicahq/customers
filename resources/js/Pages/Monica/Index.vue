@@ -16,7 +16,7 @@ const props = defineProps({
   links: Object,
 });
 
-const refresh = ref(_.debounce(() => doRefresh(), 1000));
+const doRefresh = ref(_.debounce(() => onRefresh(), 1000));
 const updateForm = useForm({
   plan_id: null,
 });
@@ -24,12 +24,12 @@ const subscribeForm = useForm({});
 
 onMounted(() => {
   if (props.refresh) {
-    (refresh.value)();
+    (doRefresh.value)();
   }
 });
 
 onUnmounted(() => {
-  refresh.value.cancel();
+  doRefresh.value.cancel();
 });
 
 const currentPlan = computed(() => props.current_licence === null ? null : plan(props.current_licence.plan_id));
@@ -38,13 +38,13 @@ const licenceCancelled = computed(() => props.current_licence.subscription_state
 
 const plan = (id) => props.plans[props.plans.findIndex((x) => x.id === id)];
 
-const doRefresh = () => {
+const onRefresh = () => {
   if (usePage().component.value === 'Monica/Index') {
     router.reload({
       only: ['current_licence'],
       onFinish: () => {
         if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
-          (refresh.value)();
+          (doRefresh.value)();
         }
       },
     });
