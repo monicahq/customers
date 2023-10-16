@@ -17,7 +17,7 @@ const props = defineProps({
 });
 
 const localPlans = ref([]);
-const refresh = ref(_.debounce(() => doRefresh(), 1000));
+const doRefresh = ref(_.debounce(() => onRefresh(), 1000));
 const updateForm = useForm({
   plan_id: null,
 });
@@ -28,12 +28,12 @@ const subscribeForm = useForm({
 onMounted(() => {
   localPlans.value = props.plans;
   if (props.refresh) {
-    (refresh.value)();
+    (doRefresh.value)();
   }
 });
 
 onUnmounted(() => {
-  refresh.value.cancel();
+  doRefresh.value.cancel();
 });
 
 const currentPlan = computed(() => props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled' ? null : plan(props.current_licence.plan_id));
@@ -42,13 +42,13 @@ const licenceCancelled = computed(() => props.current_licence.subscription_state
 
 const plan = (id) => localPlans.value[localPlans.value.findIndex((x) => x.id === id)];
 
-const doRefresh = () => {
+const onRefresh = () => {
   if (usePage().component.value === 'OfficeLife/Index') {
     router.reload({
       only: ['current_licence'],
       onFinish: () => {
         if (props.current_licence === null || props.current_licence.subscription_state === 'subscription_cancelled') {
-          (refresh.value)();
+          (doRefresh.value)();
         }
       },
     });
