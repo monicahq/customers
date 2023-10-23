@@ -488,11 +488,11 @@ __metadata:
   linkType: hard
 
 "@simplewebauthn/browser@npm:^8.2.1":
-  version: 8.2.1
-  resolution: "@simplewebauthn/browser@npm:8.2.1"
+  version: 8.3.1
+  resolution: "@simplewebauthn/browser@npm:8.3.1"
   dependencies:
     "@simplewebauthn/typescript-types": ^8.0.0
-  checksum: 9454f501a088f7e412e5175e7660c29d2fc967034eacbeba0c6f5cc93a57250d0d21f068261c00864bffc297de1ab44c8e01c26206685d92c3103879c6230c49
+  checksum: 1c3ce9e23b2ec93ee102589ac8a548d417caf15acc17d60c87049a22faccaaf25b689ac8c878c7445096f6a06ff1359d84e3da95b01a5200c240af3d2ea378ca
   languageName: node
   linkType: hard
 
