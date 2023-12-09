@@ -504,13 +504,13 @@ __metadata:
   linkType: hard
 
 "@tailwindcss/forms@npm:^0.5.0":
-  version: 0.5.3
-  resolution: "@tailwindcss/forms@npm:0.5.3"
+  version: 0.5.7
+  resolution: "@tailwindcss/forms@npm:0.5.7"
   dependencies:
     mini-svg-data-uri: ^1.2.3
   peerDependencies:
     tailwindcss: ">=3.0.0 || >= 3.0.0-alpha.1"
-  checksum: 9eddb4dbd06d01b1068138ff52a54ed0e35a28e7bfd3c72e226fc28658ecd92a9c078c4abe9c83db090984672040644d7ae2e035933fb619dd703df1d87aa275
+  checksum: 406fe102a44f89d896c9a945b705a40b926520472ffd8613d9fbfb9e63c23d600629f54096b8ba78316ce1278b79ae6070c166b820328256cf359e80f9d2146f
   languageName: node
   linkType: hard
 
