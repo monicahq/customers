@@ -119,7 +119,7 @@ jobs:
           fi
 
       - name: Store assets
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: assets
           path: |
@@ -127,7 +127,7 @@ jobs:
             !public/build/**/*.map
 
       - name: Store source maps
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: sourcemaps
           path: |
