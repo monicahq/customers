@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   tests:
-    uses: monicahq/workflows/.github/workflows/laravel.yml@init
+    uses: monicahq/workflows/.github/workflows/laravel.yml@main
     with:
       php-version: ${{ matrix.php-version }}
       connection: ${{ matrix.connection }}
@@ -32,7 +32,7 @@ jobs:
         connection: [sqlite, mysql, pgsql]
 
   reporting:
-    uses: monicahq/workflows/.github/workflows/reporting.yml@init
+    uses: monicahq/workflows/.github/workflows/reporting.yml@main
     with:
       project: monicahq_customers
     secrets:
