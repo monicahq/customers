@@ -34,7 +34,7 @@ jobs:
   reporting:
     uses: monicahq/workflows/.github/workflows/reporting.yml@init
     with:
-      project: monicahq_version
+      project: monicahq_customers
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     needs: tests
