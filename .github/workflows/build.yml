@@ -23,6 +23,7 @@ jobs:
       php-version: ${{ matrix.php-version }}
       connection: ${{ matrix.connection }}
       coverage: ${{ matrix.connection == 'sqlite' && matrix.php-version == '8.2' }}
+      database_name: customers
 
     strategy:
       fail-fast: false
