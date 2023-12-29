@@ -3,8 +3,6 @@ name: Deploy
 on:
   push:
     branches: [main]
-  pull_request:
-    types: [opened, synchronize, reopened]
   release:
     types: [created]
 
@@ -12,127 +10,16 @@ on:
 
 env:
   php-version: '8.2'
-  node-version: 18
-
-concurrency:
-  group: Deploy ${{ github.ref }}
-  cancel-in-progress: true
-
 
 jobs:
   #############
   # Build
   #############
   build:
-    runs-on: ubuntu-latest
-    name: Build assets
-    outputs:
-      version: ${{ steps.version.outputs.version }}
-      release: ${{ steps.version.outputs.release }}
-
-    strategy:
-      fail-fast: false
-
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup PHP ${{ env.php-version }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.php-version }}
-          extensions: mbstring, dom, fileinfo
-          coverage: none
-      - name: Check PHP Version
-        run: php -v
-      - name: Check Composer Version
-        run: composer -V
-      - name: Check PHP Extensions
-        run: php -m
-
-    # Composer
-      - name: Validate composer.json and composer.lock
-        run: composer validate
-
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache composer files
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ env.php-version }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-${{ env.php-version }}-${{ hashFiles('**/composer.lock') }}
-            ${{ runner.os }}-composer-${{ env.php-version }}
-            ${{ runner.os }}-composer-
-
-      - name: Install composer dependencies
-        run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
-
-    # Yarn
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.node-version }}
-      - name: Cache yarn files
-        uses: actions/cache@v3
-        with:
-          path: .yarn/cache
-          key: ${{ runner.os }}-yarn-v2-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-v2-${{ hashFiles('**/yarn.lock') }}
-            ${{ runner.os }}-yarn-v2-
-
-      - name: Install yarn dependencies
-        run: yarn install --immutable
-      - name: Lint files
-        run: yarn run lint
-
-      - name: Get version
-        id: version
-        run: |
-          echo "version=$(git describe --abbrev=0 --tags 2>/dev/null || echo '0.0.0' | sed 's/^v//')" >> $GITHUB_OUTPUT
-          echo "release=$(git describe --abbrev=0 --tags --exact-match $GITHUB_SHA 2>/dev/null || git log --pretty="%h" -n1 $GITHUB_SHA)" >> $GITHUB_OUTPUT
-      - name: Prepare environment
-        run: |
-          { \
-            echo "VITE_PROD_SOURCE_MAPS=true"; \
-            echo "VITE_SENTRY_RELEASE=${{ steps.version.outputs.version }}"; \
-          } | tee .env
-
-      - name: Build assets
-        run: yarn run build
-
-      - name: Check if there is any file update needed
-        id: check
-        run: |
-          status=$(git status --porcelain)
-          if [ -z "$status" ]; then
-            echo "Nothing to push, already up to date."
-          else
-            echo -e "Waiting modifications:\n$status"
-            echo "::error::Resources are not up to date. Please fix it with: 'yarn run lint:fix'."
-            exit -1
-          fi
-
-      - name: Store assets
-        uses: actions/upload-artifact@v4
-        with:
-          name: assets
-          path: |
-            public/build/**/*
-            !public/build/**/*.map
-
-      - name: Store source maps
-        uses: actions/upload-artifact@v4
-        with:
-          name: sourcemaps
-          path: |
-            public/build/**/*.map
-
+    uses: monicahq/workflows/.github/workflows/build_assets.yml@main
+    with:
+      node-version: 18
+      store: true
 
   ######################
   # Deploy on fortrabbit
@@ -188,7 +75,8 @@ jobs:
       - name: Deploy
         run: |
           git remote add deploy $REPO_URL
-          git push deploy main:master --force
+          branch=$(git rev-parse --abbrev-ref HEAD)
+          git push deploy $branch:master --force
         env:
           # This avoids a failure when the client does not know the SSH Host already
           GIT_SSH_COMMAND: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
