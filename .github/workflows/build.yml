@@ -18,6 +18,7 @@ concurrency:
 
 jobs:
   tests:
+    name: Run tests
     uses: monicahq/workflows/.github/workflows/laravel.yml@main
     with:
       php-versions: "['8.2']"
