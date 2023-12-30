@@ -18,23 +18,14 @@ concurrency:
 
 jobs:
   tests:
+    name: Run tests
     uses: monicahq/workflows/.github/workflows/laravel.yml@main
     with:
-      php-version: ${{ matrix.php-version }}
-      connection: ${{ matrix.connection }}
-      coverage: ${{ matrix.connection == 'sqlite' && matrix.php-version == '8.2' }}
-      database_name: customers
-
-    strategy:
-      fail-fast: false
-      matrix:
-        php-version: ['8.2']
-        connection: [sqlite, mysql, pgsql]
-
-  reporting:
-    uses: monicahq/workflows/.github/workflows/reporting.yml@main
-    with:
+      php-versions: "['8.2']"
+      connections: "['sqlite', 'mysql', 'pgsql']"
+      default-php-version: '8.2'
+      default-connection: sqlite
       project: monicahq_customers
+      database_name: customers
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    needs: tests
