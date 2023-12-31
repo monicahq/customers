@@ -16,7 +16,7 @@ jobs:
   # Build
   #############
   build:
-    uses: monicahq/workflows/.github/workflows/build_assets.yml@main
+    uses: monicahq/workflows/.github/workflows/build_assets.yml@v1
     with:
       node-version: 18
       store: true
