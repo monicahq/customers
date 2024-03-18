@@ -9,15 +9,10 @@
         "portal"
     ],
     "license": "AGPL-3.0-or-later",
-    "repositories": [
-        {
-          "type": "vcs",
-          "url": "https://github.com/asbiin/laravel-sentry-tunnel"
-        }
-    ],
     "require": {
         "php": "^8.2",
         "ext-fileinfo": "*",
+        "asbiin/laravel-sentry-tunnel": "^2.2",
         "asbiin/laravel-webauthn": "^4.0",
         "codezero/laravel-localizer": "^3.0",
         "doctrine/dbal": "^3.6",
@@ -32,7 +27,6 @@
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.5",
         "monarobase/country-list": "^3.3",
-        "naugrim/laravel-sentry-tunnel": "dev-patch-1",
         "sentry/sentry-laravel": "^4.3",
         "socialiteproviders/facebook": "^4.1",
         "socialiteproviders/github": "^4.1",
